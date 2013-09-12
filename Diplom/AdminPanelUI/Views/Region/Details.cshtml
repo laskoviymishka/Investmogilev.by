@@ -1,0 +1,45 @@
+﻿@model DataAccess.Model.Region
+
+@{
+	ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+	<legend>Region</legend>
+
+	<div class="display-label">
+		@Html.DisplayNameFor(model => model.Name)
+	</div>
+	<div class="display-field">
+		@Html.DisplayFor(model => model.Name)
+	</div>
+
+	<div class="display-label">
+		@Html.DisplayNameFor(model => model.Description)
+	</div>
+	<div class="display-field">
+		@Html.DisplayFor(model => model.Description)
+	</div>
+
+	<div class="display-label">
+		@Html.DisplayNameFor(model => model.StatLink)
+	</div>
+	<div class="display-field">
+		@Html.DisplayFor(model => model.StatLink)
+	</div>
+
+	<div class="display-label">
+		@Html.DisplayNameFor(model => model.WikiLink)
+	</div>
+	<div class="display-field">
+		@Html.DisplayFor(model => model.WikiLink)
+	</div>
+
+
+</fieldset>
+<p>
+	@Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+	@Html.ActionLink("Back to List", "Index")
+</p>

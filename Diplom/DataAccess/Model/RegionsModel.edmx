@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище dbRegionsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AgregateParametrs">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="CurrentData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CurrentValue" Type="float" Nullable="false" />
+          <Property Name="PreviosValue" Type="float" Nullable="false" />
+          <Property Name="ParametrValue" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parametrs">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="AgregateParametr" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParametrValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParametrName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RegionName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rates">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="RegionRates">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RateName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RateValue" Type="float" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Region" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="StatLink" Type="varchar" MaxLength="100" />
+          <Property Name="WikiLink" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="YearData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Value" Type="float" Nullable="false" />
+          <Property Name="ParametrValue" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CurrentData_ParametrValue">
+          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="1" />
+          <End Role="CurrentData" Type="Self.CurrentData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParametrValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CurrentData">
+              <PropertyRef Name="ParametrValue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parametrs_AgregateParametrs">
+          <End Role="AgregateParametrs" Type="Self.AgregateParametrs" Multiplicity="1" />
+          <End Role="Parametrs" Type="Self.Parametrs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgregateParametrs">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Parametrs">
+              <PropertyRef Name="AgregateParametr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParametrValue_Parametrs">
+          <End Role="Parametrs" Type="Self.Parametrs" Multiplicity="1" />
+          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parametrs">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="ParametrValue">
+              <PropertyRef Name="ParametrName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParametrValue_Regions">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="ParametrValue">
+              <PropertyRef Name="RegionName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegionRates_Rates">
+          <End Role="Rates" Type="Self.Rates" Multiplicity="1" />
+          <End Role="RegionRates" Type="Self.RegionRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rates">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="RegionRates">
+              <PropertyRef Name="RateName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegionRates_Regions">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="RegionRates" Type="Self.RegionRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="RegionRates">
+              <PropertyRef Name="Region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_YearData_ParametrValue">
+          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="1" />
+          <End Role="YearData" Type="Self.YearData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParametrValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YearData">
+              <PropertyRef Name="ParametrValue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище dbRegionsModelContainer">
+          <EntitySet Name="AgregateParametrs" EntityType="Self.AgregateParametrs" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="CurrentData" EntityType="Self.CurrentData" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Parametrs" EntityType="Self.Parametrs" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ParametrValue" EntityType="Self.ParametrValue" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Rates" EntityType="Self.Rates" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="RegionRates" EntityType="Self.RegionRates" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="YearData" EntityType="Self.YearData" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_CurrentData_ParametrValue" Association="Self.FK_CurrentData_ParametrValue">
+            <End Role="ParametrValue" EntitySet="ParametrValue" />
+            <End Role="CurrentData" EntitySet="CurrentData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parametrs_AgregateParametrs" Association="Self.FK_Parametrs_AgregateParametrs">
+            <End Role="AgregateParametrs" EntitySet="AgregateParametrs" />
+            <End Role="Parametrs" EntitySet="Parametrs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParametrValue_Parametrs" Association="Self.FK_ParametrValue_Parametrs">
+            <End Role="Parametrs" EntitySet="Parametrs" />
+            <End Role="ParametrValue" EntitySet="ParametrValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParametrValue_Regions" Association="Self.FK_ParametrValue_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="ParametrValue" EntitySet="ParametrValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegionRates_Rates" Association="Self.FK_RegionRates_Rates">
+            <End Role="Rates" EntitySet="Rates" />
+            <End Role="RegionRates" EntitySet="RegionRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegionRates_Regions" Association="Self.FK_RegionRates_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="RegionRates" EntitySet="RegionRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_YearData_ParametrValue" Association="Self.FK_YearData_ParametrValue">
+            <End Role="ParametrValue" EntitySet="ParametrValue" />
+            <End Role="YearData" EntitySet="YearData" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbRegionsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AgregateParametr">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Parametrs" Relationship="Self.FK_Parametrs_AgregateParametrs" FromRole="AgregateParametrs" ToRole="Parametrs" />
+        </EntityType>
+        <EntityType Name="CurrentData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="CurrentValue" Type="Double" Nullable="false" />
+          <Property Name="PreviosValue" Type="Double" Nullable="false" />
+          <Property Name="ParametrValue" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ParametrValue1" Relationship="Self.FK_CurrentData_ParametrValue" FromRole="CurrentData" ToRole="ParametrValue" />
+        </EntityType>
+        <EntityType Name="Parametr">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AgregateParametr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AgregateParametr1" Relationship="Self.FK_Parametrs_AgregateParametrs" FromRole="Parametrs" ToRole="AgregateParametrs" />
+          <NavigationProperty Name="ParametrValues" Relationship="Self.FK_ParametrValue_Parametrs" FromRole="Parametrs" ToRole="ParametrValue" />
+        </EntityType>
+        <EntityType Name="ParametrValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ParametrName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CurrentDatas" Relationship="Self.FK_CurrentData_ParametrValue" FromRole="ParametrValue" ToRole="CurrentData" />
+          <NavigationProperty Name="Parametr" Relationship="Self.FK_ParametrValue_Parametrs" FromRole="ParametrValue" ToRole="Parametrs" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_ParametrValue_Regions" FromRole="ParametrValue" ToRole="Regions" />
+          <NavigationProperty Name="YearDatas" Relationship="Self.FK_YearData_ParametrValue" FromRole="ParametrValue" ToRole="YearData" />
+        </EntityType>
+        <EntityType Name="Rate">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RegionRates" Relationship="Self.FK_RegionRates_Rates" FromRole="Rates" ToRole="RegionRates" />
+        </EntityType>
+        <EntityType Name="RegionRate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="RateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RateValue" Type="Double" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Rate" Relationship="Self.FK_RegionRates_Rates" FromRole="RegionRates" ToRole="Rates" />
+          <NavigationProperty Name="Region1" Relationship="Self.FK_RegionRates_Regions" FromRole="RegionRates" ToRole="Regions" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StatLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="WikiLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ParametrValues" Relationship="Self.FK_ParametrValue_Regions" FromRole="Regions" ToRole="ParametrValue" />
+          <NavigationProperty Name="RegionRates" Relationship="Self.FK_RegionRates_Regions" FromRole="Regions" ToRole="RegionRates" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="principal_id" Nullable="false" Type="Int32" />
+          <Property Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" MaxLength="Max" FixedLength="false" Type="Binary" />
+        </EntityType>
+        <EntityType Name="YearData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Double" Nullable="false" />
+          <Property Name="ParametrValue" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ParametrValue1" Relationship="Self.FK_YearData_ParametrValue" FromRole="YearData" ToRole="ParametrValue" />
+        </EntityType>
+        <Association Name="FK_Parametrs_AgregateParametrs">
+          <End Role="AgregateParametrs" Type="Self.AgregateParametr" Multiplicity="1" />
+          <End Role="Parametrs" Type="Self.Parametr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgregateParametrs">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Parametrs">
+              <PropertyRef Name="AgregateParametr" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CurrentData_ParametrValue">
+          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="1" />
+          <End Role="CurrentData" Type="Self.CurrentData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParametrValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CurrentData">
+              <PropertyRef Name="ParametrValue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParametrValue_Parametrs">
+          <End Role="Parametrs" Type="Self.Parametr" Multiplicity="1" />
+          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parametrs">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="ParametrValue">
+              <PropertyRef Name="ParametrName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParametrValue_Regions">
+          <End Role="Regions" Type="Self.Region" Multiplicity="1" />
+          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="ParametrValue">
+              <PropertyRef Name="RegionName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_YearData_ParametrValue">
+          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="1" />
+          <End Role="YearData" Type="Self.YearData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParametrValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="YearData">
+              <PropertyRef Name="ParametrValue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegionRates_Rates">
+          <End Role="Rates" Type="Self.Rate" Multiplicity="1" />
+          <End Role="RegionRates" Type="Self.RegionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rates">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="RegionRates">
+              <PropertyRef Name="RateName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegionRates_Regions">
+          <End Role="Regions" Type="Self.Region" Multiplicity="1" />
+          <End Role="RegionRates" Type="Self.RegionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="RegionRates">
+              <PropertyRef Name="Region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbRegionsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AgregateParametrs" EntityType="Self.AgregateParametr" />
+          <EntitySet Name="CurrentDatas" EntityType="Self.CurrentData" />
+          <EntitySet Name="Parametrs" EntityType="Self.Parametr" />
+          <EntitySet Name="ParametrValues" EntityType="Self.ParametrValue" />
+          <EntitySet Name="Rates" EntityType="Self.Rate" />
+          <EntitySet Name="RegionRates" EntityType="Self.RegionRate" />
+          <EntitySet Name="Regions" EntityType="Self.Region" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="YearDatas" EntityType="Self.YearData" />
+          <AssociationSet Name="FK_Parametrs_AgregateParametrs" Association="Self.FK_Parametrs_AgregateParametrs">
+            <End Role="AgregateParametrs" EntitySet="AgregateParametrs" />
+            <End Role="Parametrs" EntitySet="Parametrs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CurrentData_ParametrValue" Association="Self.FK_CurrentData_ParametrValue">
+            <End Role="ParametrValue" EntitySet="ParametrValues" />
+            <End Role="CurrentData" EntitySet="CurrentDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParametrValue_Parametrs" Association="Self.FK_ParametrValue_Parametrs">
+            <End Role="Parametrs" EntitySet="Parametrs" />
+            <End Role="ParametrValue" EntitySet="ParametrValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParametrValue_Regions" Association="Self.FK_ParametrValue_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="ParametrValue" EntitySet="ParametrValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_YearData_ParametrValue" Association="Self.FK_YearData_ParametrValue">
+            <End Role="ParametrValue" EntitySet="ParametrValues" />
+            <End Role="YearData" EntitySet="YearDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegionRates_Rates" Association="Self.FK_RegionRates_Rates">
+            <End Role="Rates" EntitySet="Rates" />
+            <End Role="RegionRates" EntitySet="RegionRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegionRates_Regions" Association="Self.FK_RegionRates_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="RegionRates" EntitySet="RegionRates" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище dbRegionsModelContainer" CdmEntityContainer="dbRegionsEntities">
+          <EntitySetMapping Name="AgregateParametrs">
+            <EntityTypeMapping TypeName="dbRegionsModel.AgregateParametr">
+              <MappingFragment StoreEntitySet="AgregateParametrs">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentDatas">
+            <EntityTypeMapping TypeName="dbRegionsModel.CurrentData">
+              <MappingFragment StoreEntitySet="CurrentData">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
+                <ScalarProperty Name="PreviosValue" ColumnName="PreviosValue" />
+                <ScalarProperty Name="ParametrValue" ColumnName="ParametrValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametrs">
+            <EntityTypeMapping TypeName="dbRegionsModel.Parametr">
+              <MappingFragment StoreEntitySet="Parametrs">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AgregateParametr" ColumnName="AgregateParametr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParametrValues">
+            <EntityTypeMapping TypeName="dbRegionsModel.ParametrValue">
+              <MappingFragment StoreEntitySet="ParametrValue">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ParametrName" ColumnName="ParametrName" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rates">
+            <EntityTypeMapping TypeName="dbRegionsModel.Rate">
+              <MappingFragment StoreEntitySet="Rates">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegionRates">
+            <EntityTypeMapping TypeName="dbRegionsModel.RegionRate">
+              <MappingFragment StoreEntitySet="RegionRates">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RateName" ColumnName="RateName" />
+                <ScalarProperty Name="RateValue" ColumnName="RateValue" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="dbRegionsModel.Region">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StatLink" ColumnName="StatLink" />
+                <ScalarProperty Name="WikiLink" ColumnName="WikiLink" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="dbRegionsModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YearDatas">
+            <EntityTypeMapping TypeName="dbRegionsModel.YearData">
+              <MappingFragment StoreEntitySet="YearData">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ParametrValue" ColumnName="ParametrValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
