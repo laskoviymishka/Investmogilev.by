@@ -52,10 +52,16 @@
     <Compile Include="Model\CurrentData.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\InvestCategory.cs">
+      <DependentUpon>RegionsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Parametr.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ParametrValue.cs">
+      <DependentUpon>RegionsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Project.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Rate.cs">

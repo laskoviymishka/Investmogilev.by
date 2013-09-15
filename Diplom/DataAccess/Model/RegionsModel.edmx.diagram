@@ -21,6 +21,10 @@
         <AssociationConnector Association="dbRegionsModel.FK_YearData_ParametrValue" ManuallyRouted="false" />
         <AssociationConnector Association="dbRegionsModel.FK_RegionRates_Rates" ManuallyRouted="false" />
         <AssociationConnector Association="dbRegionsModel.FK_RegionRates_Regions" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbRegionsModel.Project" Width="1.5" PointX="5.75" PointY="9.625" />
+        <AssociationConnector Association="dbRegionsModel.FK_Projects_Regions" />
+        <EntityTypeShape EntityType="dbRegionsModel.InvestCategory" Width="1.5" PointX="9.625" PointY="9.75" />
+        <AssociationConnector Association="dbRegionsModel.FK_Projects_InvestCategory" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

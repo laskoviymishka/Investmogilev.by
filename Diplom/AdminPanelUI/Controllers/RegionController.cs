@@ -129,6 +129,21 @@ namespace AdminPanelUI.Controllers
 			return View(region.ParametrValues);
 		}
 
+		//
+		// GET: /Region/ParametrsForRegion/5
+
+		public ActionResult InvestProjects(string id)
+		{
+			Region region = db.Regions.Find(id);
+			if (region == null)
+			{
+				return HttpNotFound();
+			}
+			ViewData["Parametrs"] = db.Parametrs;
+			ViewData["Region"] = id;
+			return View(region.Projects);
+		}
+
 		protected override void Dispose(bool disposing)
 		{
 			db.Dispose();

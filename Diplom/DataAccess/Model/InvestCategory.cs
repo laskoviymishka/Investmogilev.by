@@ -12,22 +12,16 @@ namespace DataAccess.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Region
+    public partial class InvestCategory
     {
-        public Region()
+        public InvestCategory()
         {
-            this.ParametrValues = new HashSet<ParametrValue>();
-            this.RegionRates = new HashSet<RegionRate>();
             this.Projects = new HashSet<Project>();
         }
     
         public string Name { get; set; }
         public string Description { get; set; }
-        public string StatLink { get; set; }
-        public string WikiLink { get; set; }
     
-        public virtual ICollection<ParametrValue> ParametrValues { get; set; }
-        public virtual ICollection<RegionRate> RegionRates { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
     }
 }

@@ -21,6 +21,13 @@
           <Property Name="PreviosValue" Type="float" Nullable="false" />
           <Property Name="ParametrValue" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
+        <EntityType Name="InvestCategory">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="Parametrs">
           <Key>
             <PropertyRef Name="Name" />
@@ -36,6 +43,19 @@
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ParametrName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RegionName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="CategoryID" Type="varchar" MaxLength="50" />
+          <Property Name="Region" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="Lat" Type="float" />
+          <Property Name="Lng" Type="float" />
         </EntityType>
         <EntityType Name="Rates">
           <Key>
@@ -83,7 +103,9 @@
           <Property Name="ParametrValue" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <Association Name="FK_CurrentData_ParametrValue">
-          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="1" />
+          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="CurrentData" Type="Self.CurrentData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ParametrValue">
@@ -130,6 +152,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Projects_InvestCategory">
+          <End Role="InvestCategory" Type="Self.InvestCategory" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvestCategory">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Projects_Regions">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="Region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RegionRates_Rates">
           <End Role="Rates" Type="Self.Rates" Multiplicity="1" />
           <End Role="RegionRates" Type="Self.RegionRates" Multiplicity="*" />
@@ -155,7 +201,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_YearData_ParametrValue">
-          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="1" />
+          <End Role="ParametrValue" Type="Self.ParametrValue" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="YearData" Type="Self.YearData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ParametrValue">
@@ -169,8 +217,10 @@
         <EntityContainer Name="Хранилище dbRegionsModelContainer">
           <EntitySet Name="AgregateParametrs" EntityType="Self.AgregateParametrs" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="CurrentData" EntityType="Self.CurrentData" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="InvestCategory" EntityType="Self.InvestCategory" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="Parametrs" EntityType="Self.Parametrs" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="ParametrValue" EntityType="Self.ParametrValue" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="Rates" EntityType="Self.Rates" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="RegionRates" EntityType="Self.RegionRates" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" p3:Type="Tables" xmlns:p3="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
@@ -191,6 +241,14 @@
           <AssociationSet Name="FK_ParametrValue_Regions" Association="Self.FK_ParametrValue_Regions">
             <End Role="Regions" EntitySet="Regions" />
             <End Role="ParametrValue" EntitySet="ParametrValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_InvestCategory" Association="Self.FK_Projects_InvestCategory">
+            <End Role="InvestCategory" EntitySet="InvestCategory" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Projects_Regions" Association="Self.FK_Projects_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Projects" EntitySet="Projects" />
           </AssociationSet>
           <AssociationSet Name="FK_RegionRates_Rates" Association="Self.FK_RegionRates_Rates">
             <End Role="Rates" EntitySet="Rates" />
@@ -279,6 +337,7 @@
           <Property Name="WikiLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ParametrValues" Relationship="Self.FK_ParametrValue_Regions" FromRole="Regions" ToRole="ParametrValue" />
           <NavigationProperty Name="RegionRates" Relationship="Self.FK_RegionRates_Regions" FromRole="Regions" ToRole="RegionRates" />
+          <NavigationProperty Name="Projects" Relationship="dbRegionsModel.FK_Projects_Regions" FromRole="Region" ToRole="Project" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -422,7 +481,64 @@
             <End Role="Regions" EntitySet="Regions" />
             <End Role="RegionRates" EntitySet="RegionRates" />
           </AssociationSet>
+          <EntitySet Name="Projects" EntityType="dbRegionsModel.Project" />
+          <AssociationSet Name="FK_Projects_Regions" Association="dbRegionsModel.FK_Projects_Regions">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <EntitySet Name="InvestCategories" EntityType="dbRegionsModel.InvestCategory" />
+          <AssociationSet Name="FK_Projects_InvestCategory" Association="dbRegionsModel.FK_Projects_InvestCategory">
+            <End Role="InvestCategory" EntitySet="InvestCategories" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Type="Int32" Name="ProjectID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CategoryID" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Region" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Address" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="Lat" />
+          <Property Type="Double" Name="Lng" />
+          <NavigationProperty Name="RegionNav" Relationship="dbRegionsModel.FK_Projects_Regions" FromRole="Project" ToRole="Region" />
+          <NavigationProperty Name="InvestCategory" Relationship="dbRegionsModel.FK_Projects_InvestCategory" FromRole="Project" ToRole="InvestCategory" />
+        </EntityType>
+        <Association Name="FK_Projects_Regions">
+          <End Type="dbRegionsModel.Region" Role="Region" Multiplicity="1" />
+          <End Type="dbRegionsModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="Region" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="InvestCategory">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Projects" Relationship="dbRegionsModel.FK_Projects_InvestCategory" FromRole="InvestCategory" ToRole="Project" />
+        </EntityType>
+        <Association Name="FK_Projects_InvestCategory">
+          <End Type="dbRegionsModel.InvestCategory" Role="InvestCategory" Multiplicity="0..1" />
+          <End Type="dbRegionsModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvestCategory">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -512,6 +628,28 @@
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="ParametrValue" ColumnName="ParametrValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="dbRegionsModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="Lng" ColumnName="Lng" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvestCategories">
+            <EntityTypeMapping TypeName="dbRegionsModel.InvestCategory">
+              <MappingFragment StoreEntitySet="InvestCategory">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

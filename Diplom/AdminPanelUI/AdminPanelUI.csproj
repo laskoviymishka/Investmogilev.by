@@ -47,6 +47,10 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -76,9 +80,6 @@
     <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
@@ -122,6 +123,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Map.js" />
+    <Compile Include="Controllers\InvestProjectsController.cs" />
     <Compile Include="Controllers\ParametrController.cs" />
     <Compile Include="Controllers\ParametrRegionController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
@@ -151,8 +154,10 @@
     <None Include="Scripts\jquery-2.0.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\gmaps.js" />
     <Content Include="Scripts\jquery-2.0.2.js" />
     <Content Include="Scripts\jquery-2.0.2.min.js" />
+    <Content Include="Scripts\Maps.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -179,6 +184,10 @@
     <Content Include="Views\Parametr\Create.cshtml" />
     <Content Include="Views\Parametr\Edit.cshtml" />
     <Content Include="Views\Parametr\Delete.cshtml" />
+    <Content Include="Views\InvestProjects\ForRegion.cshtml" />
+    <Content Include="Views\InvestProjects\Index.cshtml" />
+    <Content Include="Views\InvestProjects\Create.cshtml" />
+    <Content Include="Views\InvestProjects\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
