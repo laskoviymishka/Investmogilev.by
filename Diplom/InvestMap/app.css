@@ -1,0 +1,56 @@
+﻿@media (min-width: 980px) {
+  body {
+    padding-top: 20px;
+  }
+}
+.map-container {
+    height: 600px;
+    max-width: none;
+    !important width: auto;
+    !important display:inline;
+    !important;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+img {
+    max-width: none;
+}
+
+#left {
+    height: 600px;
+}
+
+#mid {
+    height: 600px;
+}
+
+#right {
+    height: 600px;
+}
+
+#inner {
+    height: 600px;
+}
+
+#footer {
+    min-height: 100px;
+    background-color: #ffff00;
+}
+
+.project {
+    min-height: 100px;
+    background-color: #808080;
+}
+
+#googft-info-window {
+    visibility: hidden;
+}
+
+#googft-mapCanvas {
+    height: 600px;
+    margin: 0px;
+    padding: 0;
+}

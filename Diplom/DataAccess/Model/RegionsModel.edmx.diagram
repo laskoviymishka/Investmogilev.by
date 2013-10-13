@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6e45adca4d034c918352b08a5633957c" Name="Diagram1">
+      <Diagram DiagramId="6e45adca4d034c918352b08a5633957c" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="dbRegionsModel.AgregateParametr" Width="2.125" PointX="2.5" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="dbRegionsModel.CurrentData" Width="1.5" PointX="3.875" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="dbRegionsModel.Parametr" Width="1.5" PointX="2.5" PointY="4.25" IsExpanded="true" />
@@ -21,10 +21,7 @@
         <AssociationConnector Association="dbRegionsModel.FK_YearData_ParametrValue" ManuallyRouted="false" />
         <AssociationConnector Association="dbRegionsModel.FK_RegionRates_Rates" ManuallyRouted="false" />
         <AssociationConnector Association="dbRegionsModel.FK_RegionRates_Regions" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="dbRegionsModel.Project" Width="1.5" PointX="5.75" PointY="9.625" />
-        <AssociationConnector Association="dbRegionsModel.FK_Projects_Regions" />
-        <EntityTypeShape EntityType="dbRegionsModel.InvestCategory" Width="1.5" PointX="9.625" PointY="9.75" />
-        <AssociationConnector Association="dbRegionsModel.FK_Projects_InvestCategory" />
+        <EntityTypeShape EntityType="dbRegionsModel.GreenFieldView" Width="1.5" PointX="6.8377907270741609" PointY="25.369564098012432" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

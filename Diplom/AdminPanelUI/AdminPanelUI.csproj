@@ -13,13 +13,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AdminPanelUI</RootNamespace>
     <AssemblyName>AdminPanelUI</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,26 +48,32 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -118,6 +125,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.0.0\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -184,10 +192,21 @@
     <Content Include="Views\Parametr\Create.cshtml" />
     <Content Include="Views\Parametr\Edit.cshtml" />
     <Content Include="Views\Parametr\Delete.cshtml" />
-    <Content Include="Views\InvestProjects\ForRegion.cshtml" />
     <Content Include="Views\InvestProjects\Index.cshtml" />
-    <Content Include="Views\InvestProjects\Create.cshtml" />
-    <Content Include="Views\InvestProjects\Edit.cshtml" />
+    <Content Include="Views\InvestProjects\CreateBrownField.cshtml" />
+    <Content Include="Views\InvestProjects\EditBrownField.cshtml" />
+    <Content Include="Views\InvestProjects\DetailsBrownField.cshtml" />
+    <Content Include="Views\InvestProjects\DetailsGreenField.cshtml" />
+    <Content Include="Views\InvestProjects\CreateGreenField.cshtml" />
+    <Content Include="Views\InvestProjects\EditGreenField.cshtml" />
+    <Content Include="Views\InvestProjects\DetailsUnusedBuilding.cshtml" />
+    <Content Include="Views\InvestProjects\CreateUnUsedBuilding.cshtml" />
+    <Content Include="Views\InvestProjects\EditUnUsedBuilding.cshtml" />
+    <Content Include="Views\InvestProjects\ByType.cshtml" />
+    <Content Include="Views\InvestProjects\ListOfProjects.cshtml" />
+    <Content Include="Views\InvestProjects\PopUpDetailsGreenField.cshtml" />
+    <Content Include="Views\InvestProjects\PopUpDetailsBrownField.cshtml" />
+    <Content Include="Views\InvestProjects\PopUpDetailsUnUsedBuilding.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -199,6 +218,10 @@
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{8d5c7a3d-751a-4eb5-a401-030564c2b4ab}</Project>
       <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MongoRepository\MongoRepository.csproj">
+      <Project>{fa93445a-088a-4d35-82a5-19da79b76281}</Project>
+      <Name>MongoRepository</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

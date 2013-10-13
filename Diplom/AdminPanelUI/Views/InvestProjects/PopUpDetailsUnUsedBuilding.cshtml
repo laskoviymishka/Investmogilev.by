@@ -1,0 +1,32 @@
+﻿@model MongoRepository.Model.UnUsedBuilding
+
+<fieldset>
+    <legend>Неиспользуемое здание</legend>
+    <table class="table table-striped table-condensed">
+        <tr>
+            <td>Название проекта</td>
+            <td>@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td>Описание проекта</td>
+            <td>@Html.DisplayFor(model => model.Description)</td>
+        </tr>
+        <tr>
+            <td>Продажа</td>
+            <td>@Html.DisplayFor(model => model.IsSell)</td>
+        </tr>
+        <tr>
+            <td>Коммуникации</td>
+            <td>@Html.DisplayFor(model => model.IsCommunicate)</td>
+        </tr>
+        <tr>
+            <td>Балансовая стоимость</td>
+            <td>@Html.DisplayFor(model => model.BalancePrice) млрд. руб.</td>
+        </tr>
+        <tr>
+            <td>Контакт</td>
+            <td>@Html.DisplayFor(model => model.Contact)</td>
+        </tr>
+    </table>
+</fieldset>
+

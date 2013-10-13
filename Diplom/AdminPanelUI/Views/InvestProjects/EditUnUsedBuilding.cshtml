@@ -1,0 +1,168 @@
+﻿@model MongoRepository.Model.UnUsedBuilding
+
+@{
+    ViewBag.Title = "EditUnUsedBuilding";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>редактировать проект неиспользуемого здания</h2>
+<script type="text/javascript">
+    var map;
+    function CheckAddress(e) {
+        GMaps.geocode({
+            address: $('#AddressName').val().trim(),
+            callback: function (results, status) {
+                if (status == 'OK') {
+                    var latlng = results[0].geometry.location;
+                    map.removeMarkers()
+                    map.setCenter(latlng.lat(), latlng.lng());
+                    map.setZoom(13);
+                    map.addMarker({
+                        lat: latlng.lat(),
+                        lng: latlng.lng()
+                    });
+                    document.getElementById('Address_Lat').value = latlng.lat().toString().replace('.', ',');
+                    document.getElementById('Address_Lng').value = latlng.lng().toString().replace('.', ',');
+                }
+            }
+        });
+    };
+
+    $(document).ready(function () {
+        map = new GMaps({
+            el: '#map',
+            lat: 53.6,
+            lng: 30.623333,
+            zoom: 8
+        });
+
+        GMaps.on('click', map.map, function (event) {
+            var index = map.markers.length;
+            var lat = event.latLng.lat();
+            var lng = event.latLng.lng();
+            document.getElementById('Address_Lat').value = lat.toString().replace('.', ',');
+            document.getElementById('Address_Lng').value = lng.toString().replace('.', ',');
+            map.removeMarkers()
+            map.setCenter(lat, lng);
+            map.addMarker({
+                lat: lat,
+                lng: lng
+            });
+        });
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>UnUsedBuilding</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Area)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Area)
+            @Html.ValidationMessageFor(model => model.Area)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsSell)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsSell)
+            @Html.ValidationMessageFor(model => model.IsSell)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsCommunicate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsCommunicate)
+            @Html.ValidationMessageFor(model => model.IsCommunicate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BalancePrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BalancePrice)
+            @Html.ValidationMessageFor(model => model.BalancePrice)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model._id)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model._id)
+            @Html.ValidationMessageFor(model => model._id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Contact)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Contact)
+            @Html.ValidationMessageFor(model => model.Contact)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Region)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Region)
+            @Html.ValidationMessageFor(model => model.Region)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AddressName)
+            @Html.ValidationMessageFor(model => model.AddressName)
+            <span class="btn" onclick="CheckAddress()">Проверить адресс</span>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Address.Lat)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Address.Lat)
+                @Html.ValidationMessageFor(model => model.Address.Lat)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Address.Lng)
+                @Html.ValidationMessageFor(model => model.Address.Lng)
+            </div>
+        </div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+<div class="row">
+    <div class="span11">
+
+        <div style="height: 550px">
+            <div id="map" style="height: 100%"></div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

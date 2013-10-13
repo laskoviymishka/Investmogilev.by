@@ -49,9 +49,17 @@
     <Compile Include="Model\AgregateParametr.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\BrownFieldDTO.cs">
+      <DependentUpon>RegionsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BrownFieldModel.cs" />
     <Compile Include="Model\CurrentData.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\GreenFieldDTO.cs">
+      <DependentUpon>RegionsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\GreenFieldModel.cs" />
     <Compile Include="Model\InvestCategory.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
@@ -61,9 +69,11 @@
     <Compile Include="Model\ParametrValue.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Project.cs">
+    <Compile Include="Model\ProjectDTO.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ProjectModel.cs" />
+    <Compile Include="Model\ProjectsRepository.cs" />
     <Compile Include="Model\Rate.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
@@ -91,6 +101,9 @@
     <Compile Include="Model\sysdiagram.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\UnusedBuildingDTO.cs">
+      <DependentUpon>RegionsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\YearData.cs">
       <DependentUpon>RegionsModel.tt</DependentUpon>
     </Compile>
@@ -104,7 +117,9 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Model\RegionsModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>RegionsModel.edmx</DependentUpon>

@@ -1,0 +1,176 @@
+﻿@model MongoRepository.Model.BrownField
+
+@{
+    ViewBag.Title = "CreateBrownField";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>новый проект BrownField</h2>
+<script type="text/javascript">
+    var map;
+    function CheckAddress(e) {
+        GMaps.geocode({
+            address: $('#AddressName').val().trim(),
+            callback: function (results, status) {
+                if (status == 'OK') {
+                    var latlng = results[0].geometry.location;
+                    map.removeMarkers()
+                    map.setCenter(latlng.lat(), latlng.lng());
+                    map.setZoom(13);
+                    map.addMarker({
+                        lat: latlng.lat(),
+                        lng: latlng.lng()
+                    });
+                    document.getElementById('Address_Lat').value = latlng.lat().toString().replace('.', ',');
+                    document.getElementById('Address_Lng').value = latlng.lng().toString().replace('.', ',');
+                }
+            }
+        });
+    };
+
+    $(document).ready(function () {
+        map = new GMaps({
+            el: '#map',
+            lat: 53.6,
+            lng: 30.623333,
+            zoom: 8
+        });
+
+        GMaps.on('click', map.map, function (event) {
+            var index = map.markers.length;
+            var lat = event.latLng.lat();
+            var lng = event.latLng.lng();
+            document.getElementById('Address_Lat').value = lat.toString().replace('.', ',');
+            document.getElementById('Address_Lng').value = lng.toString().replace('.', ',');
+            map.removeMarkers()
+            map.setCenter(lat, lng);
+            map.addMarker({
+                lat: lat,
+                lng: lng
+            });
+        });
+    });
+</script>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>BrownField</legend>
+        <div style="visibility: hidden">
+            @Html.EditorFor(model => model._id)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RegistrationDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RegistrationDate)
+            @Html.ValidationMessageFor(model => model.RegistrationDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InvestAmount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InvestAmount)
+            @Html.ValidationMessageFor(model => model.InvestAmount)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WorkPlaces)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.WorkPlaces)
+            @Html.ValidationMessageFor(model => model.WorkPlaces)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EstimateRelease)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EstimateRelease)
+            @Html.ValidationMessageFor(model => model.EstimateRelease)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Appendix)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Appendix)
+            @Html.ValidationMessageFor(model => model.Appendix)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Contact)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Contact)
+            @Html.ValidationMessageFor(model => model.Contact)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Region)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Region", (SelectList)ViewBag.Region)
+            @Html.ValidationMessageFor(model => model.Region)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AddressName)
+            @Html.ValidationMessageFor(model => model.AddressName)
+            <span class="btn" onclick="CheckAddress()">Проверить адресс</span>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Address.Lat)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Address.Lat)
+                @Html.ValidationMessageFor(model => model.Address.Lat)
+            </div>
+
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address.Lng)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address.Lng)
+            @Html.ValidationMessageFor(model => model.Address.Lng)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+<div class="row">
+    <div class="span11">
+
+        <div style="height: 550px">
+            <div id="map" style="height: 100%"></div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

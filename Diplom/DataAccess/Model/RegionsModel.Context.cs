@@ -34,7 +34,7 @@ namespace DataAccess.Model
         public DbSet<Region> Regions { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<YearData> YearDatas { get; set; }
-        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectDTO> Projects { get; set; }
         public DbSet<InvestCategory> InvestCategories { get; set; }
     }
 }
