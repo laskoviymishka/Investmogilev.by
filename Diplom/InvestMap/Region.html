@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Region</title>
+    <script src="Scripts/jquery-1.6.4.min.js"></script>
+</head>
+<body>
+    <ul>
+        <li data-bind="foreach: Parametrs">
+            <p data-bind="text: ParametrName"></p>
+            <p data-bind="text: ParametrName"></p>
+            <ul>
+                <li data-bind="foreach: Values">
+                    <div>
+                        <p data-bind="text: Year">
+                            <p data-bind="text: Value"></p>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <ul>
+                <li data-bind="foreach: ChildParametrs">
+                    <p data-bind="text: ParametrName"></p>
+                    <ul>
+                        <li data-bind="foreach: Values">
+                            <div>
+                                <p data-bind="text: Year">
+                                    <p data-bind="text: Value"></p>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</body>
+<script src="Scripts/knockout-2.3.0.js"></script>
+<script>
+    function RegionViewModel(initialRegion) {
+        var self = this;
+
+        self.RegionName = initialRegion.RegionName
+        self.Parametrs = ko.observableArray()
+
+        self.AddParametr = function (value) {
+            self.Parametrs.push(new ParametrViewModel(value))
+        }
+
+        for (var i = 0; i < initialRegion.Parametrs.length; i++) {
+            self.AddParametr(initialRegion.Parametrs[i])
+        }
+    }
+
+    function ParametrViewModel(initialParametr) {
+        var self = this;
+
+        self.ParametrName = initialParametr.ParametrName
+
+        self.Values = ko.observableArray()
+        self.ChildParametrs = ko.observableArray()
+
+        self.AddValue = function (value) {
+            self.Values.push(new ValuesViewModel(value))
+        }
+        self.AddChild = function (value) {
+            self.ChildParametrs.push(new ParametrViewModel(value))
+        }
+
+        if (initialParametr.ChildParametrs != null) {
+            for (var i = 0; i < initialParametr.ChildParametrs.length; i++) {
+                self.AddChild(initialParametr.ChildParametrs[i])
+            }
+        }
+        for (var i = 0; i < initialParametr.Values.length; i++) {
+            self.AddValue(initialParametr.Values[i])
+        }
+    }
+
+
+    function ValuesViewModel(initialValue) {
+        var self = this;
+
+        self.Year = initialValue.Key
+        self.Value = initialValue.Value
+    }
+
+
+    var test;
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "http://localhost:2205/api/RegionApi/get/525ea3d7e1859b2bc06a5dce",
+        success: function (data) {
+            test = data
+            ko.applyBindings(new RegionViewModel(data));
+        },
+        error: function (error) {
+            jsonValue = jQuery.parseJSON(error.responseText);
+        }
+    });
+</script>
+</html>

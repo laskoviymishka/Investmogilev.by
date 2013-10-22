@@ -15,70 +15,63 @@
 	<![endif]-->
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row-fluid no-space">
-            <div id="inner" class="col-md-12">
-                <div id="left" class="col-md-2">
-                    <br />
-                    <div class="btn-group-vertical">
-                        <button id="integral" type="button" class="btn btn-success" onclick="SetLayer('integral')">
-                            Общая оценка
+    <div>
+        <div class="container-fluid">
+            <div class="row-fluid no-space">
+                <div id="inner" class="col-md-12">
+                    <div id="left" class="col-md-2">
+                        <br />
+                        <div id="LayerView" class="btn-group-vertical">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    Dropdown
+                                <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Dropdown link</a></li>
+                                    <li><a href="#">Dropdown link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div id="ProjectFilterView" class="btn-group-vertical">
+                            <button id="integral" type="button" class="btn btn-success" onclick="SetLayer('integral')">
+                                Новое производство
 							<span id="integralSelected" class="badge">✓</span>
-                        </button>
-                        <button id="demographic" type="button" class="btn btn-info" onclick="SetLayer('demographic')">
-                            Население
+                            </button>
+                            <button id="demographic" type="button" class="btn btn-info" onclick="SetLayer('demographic')">
+                                Модернизация
 							<span id="demographicSelected" class="badge hidden">✓</span>
-                        </button>
-                        <button type="button" class="btn btn-danger" onclick="SetLayer('prom')">
-                            Промышленность
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="SetLayer('prom')">
+                                Реализуемый проект 
 							<span id="promSelected" class="badge hidden">✓</span>
-                        </button>
-                        <button type="button" class="btn btn-primary" onclick="SetLayer('agro')">
-                            Сельское хозяйство
-                            <a></a>
-                            <span id="agroSelected" class="badge hidden">✓</span>
-                        </button>
+                            </button>
+                        </div>
                     </div>
-                    <br />
-                    <br />
-                    <div class="btn-group-vertical">
-                        <button id="integral" type="button" class="btn btn-success" onclick="SetLayer('integral')">
-                            Новое производство
-							<span id="integralSelected" class="badge">✓</span>
-                        </button>
-                        <button id="demographic" type="button" class="btn btn-info" onclick="SetLayer('demographic')">
-                            Модернизация
-							<span id="demographicSelected" class="badge hidden">✓</span>
-                        </button>
-                        <button type="button" class="btn btn-danger" onclick="SetLayer('prom')">
-                            Реализуемый проект 
-							<span id="promSelected" class="badge hidden">✓</span>
-                        </button>
-                    </div>
-                </div>
-                <div id="mid" class="col-md-10">
-                    <div class="map-container">
+                    <div id="mid" class="col-md-10">
+                        <div id="MapView" class="map-container">
 
-                        <div id="googft-mapCanvas"></div>
+                            <div id="googft-mapCanvas"></div>
+                        </div>
+                    </div>
+                    <div id="right" class="hidden">
+                        <div id="RegionInfoView"></div>
                     </div>
                 </div>
-                <div id="right" class="hidden"></div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row-fluid no-space">
-            <div id="moduleProjecs"></div>
-        </div>
+        <div id="moduleProjecs"></div>
     </div>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="js/mapControl.js"></script>
     <script src="js/avgrund.js"></script>
-    <aside id="default-popup" class="avgrund-popup" style="height:600px;overflow-x:auto;width:25%">
+    <aside id="default-popup" class="avgrund-popup" style="height: 600px; overflow-x: auto; width: 25%; min-width: 360px">
         <div id="popupContainer"></div>
-        <button onclick="javascript:closeDialog();" style="background-position-x:bottom">Закрыть</button>
+        <button onclick="javascript:closeDialog();" style="background-position-x: bottom">Закрыть</button>
     </aside>
 </body>
 </html>

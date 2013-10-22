@@ -37,12 +37,16 @@
     <Content Include="js\mapControl.js" />
     <Content Include="js\ModalManager.js" />
     <Content Include="packages.config" />
+    <None Include="PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Region.html" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
-    <Content Include="ViewModels\Project.ts" />
+    <Content Include="Scripts\knockout-2.3.0.debug.js" />
+    <Content Include="Scripts\knockout-2.3.0.js" />
+    <Content Include="ViewModels\LayerViewModel.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

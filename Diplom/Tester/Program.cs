@@ -1,5 +1,4 @@
-﻿using DataAccess.Model;
-using Excel;
+﻿using Excel;
 using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra.Double;
 using MongoRepository.Model;
@@ -18,6 +17,196 @@ namespace Tester
     {
         static void Main(string[] args)
         {
+            
+        }
+
+        private static void GenerateDependendenciesValues()
+        {
+            RegionRepository repo = new RegionRepository();
+            List<Region> regions = repo.AllRegion().ToList();
+            Dictionary<string, Dictionary<int, List<double>>> parRes = new Dictionary<string, Dictionary<int, List<double>>>();
+            Dictionary<string, Dictionary<int, List<double>>> parDependedRes = new Dictionary<string, Dictionary<int, List<double>>>();
+            foreach (Region region in regions)
+            {
+                foreach (var parentParam in region.Parametrs)
+                {
+                    if (!parDependedRes.ContainsKey(parentParam.ParametrName))
+                    {
+                        parDependedRes.Add(parentParam.ParametrName, new Dictionary<int, List<double>>());
+                    }
+
+                    for (int i = 0; i < parentParam.Values.Count; i++)
+                    {
+                        if (!parDependedRes[parentParam.ParametrName].ContainsKey(parentParam.Values[i].Key))
+                        {
+                            parDependedRes[parentParam.ParametrName].Add(parentParam.Values[i].Key, new List<double>());
+                            parDependedRes[parentParam.ParametrName][parentParam.Values[i].Key].Add(parentParam.Values[i].Value);
+                        }
+                        else
+                        {
+                            parDependedRes[parentParam.ParametrName][parentParam.Values[i].Key].Add(parentParam.Values[i].Value);
+                        }
+
+                    }
+                    foreach (var parametr in parentParam.ChildParametrs)
+                    {
+                        if (!parDependedRes.ContainsKey(parametr.ParametrName))
+                        {
+                            parDependedRes.Add(parametr.ParametrName, new Dictionary<int, List<double>>());
+                        }
+                        if (!parRes.ContainsKey(parametr.ParametrName))
+                        {
+                            parRes.Add(parametr.ParametrName, new Dictionary<int, List<double>>());
+                        }
+
+                        for (int i = 0; i < parametr.AbsoluteValues.Count; i++)
+                        {
+                            if (!parDependedRes[parametr.ParametrName].ContainsKey(parametr.AbsoluteValues[i].Key))
+                            {
+                                parDependedRes[parametr.ParametrName].Add(parametr.AbsoluteValues[i].Key, new List<double>());
+                                parDependedRes[parametr.ParametrName][parametr.AbsoluteValues[i].Key].Add(parametr.AbsoluteValues[i].Value);
+                            }
+                            else
+                            {
+                                parDependedRes[parametr.ParametrName][parametr.AbsoluteValues[i].Key].Add(parametr.AbsoluteValues[i].Value);
+                            }
+
+                            if (!parRes[parametr.ParametrName].ContainsKey(parametr.AbsoluteValues[i].Key))
+                            {
+                                parRes[parametr.ParametrName].Add(parametr.Values[i].Key, new List<double>());
+                                parRes[parametr.ParametrName][parametr.Values[i].Key].Add(parametr.Values[i].Value);
+                            }
+                            else
+                            {
+                                parRes[parametr.ParametrName][parametr.Values[i].Key].Add(parametr.Values[i].Value);
+                            }
+                        }
+                    }
+                }
+            }
+
+            Dictionary<string, Dictionary<int, double>> avgValue = new Dictionary<string, Dictionary<int, double>>();
+            Dictionary<string, Dictionary<int, double>> avgDependedValue = new Dictionary<string, Dictionary<int, double>>();
+
+            foreach (var item in parRes.Keys)
+            {
+                avgValue.Add(item, new Dictionary<int, double>());
+                foreach (var dict in parRes[item].Keys)
+                {
+                    if (parRes[item].ContainsKey(dict))
+                    {
+                        avgValue[item].Add(dict, parRes[item][dict].Average());
+                    }
+                }
+            }
+
+            foreach (var item in parDependedRes.Keys)
+            {
+                avgDependedValue.Add(item, new Dictionary<int, double>());
+                foreach (var dict in parDependedRes[item].Keys)
+                {
+                    avgDependedValue[item].Add(dict, parDependedRes[item][dict].Average());
+                }
+            }
+
+            foreach (Region region in regions)
+            {
+                foreach (var parentParam in region.Parametrs)
+                {
+                    List<KeyValuePair<int, double>> dependAbsoluteValues = new List<KeyValuePair<int, double>>();
+                    List<KeyValuePair<int, double>> dependValues = new List<KeyValuePair<int, double>>();
+                    double parIntegral = 0;
+                    int counetr = 0;
+                    for (int i = 0; i < parentParam.Values.Count; i++)
+                    {
+                        try
+                        {
+                            dependAbsoluteValues.Add(new KeyValuePair<int, double>(
+                                parentParam.Values[i].Key,
+                                parentParam.Values[i].Value / avgDependedValue[parentParam.ParametrName][parentParam.Values[i].Key]));
+                            if (avgDependedValue[parentParam.ParametrName][parentParam.Values[i].Key] < 1000000000 && avgDependedValue[parentParam.ParametrName][parentParam.Values[i].Key] > 0)
+                            {
+                                parIntegral += parentParam.Values[i].Value / avgDependedValue[parentParam.ParametrName][parentParam.Values[i].Key];
+                                counetr++;
+                            }
+
+                        }
+                        catch { }
+                    }
+                    parentParam.IntegralValue = parIntegral / counetr;
+                    parentParam.DependAbsoluteValues = dependAbsoluteValues;
+                    parentParam.DependValues = dependValues;
+                    foreach (var parametr in parentParam.ChildParametrs)
+                    {
+                        List<KeyValuePair<int, double>> childDependAbsoluteValues = new List<KeyValuePair<int, double>>();
+                        List<KeyValuePair<int, double>> childDependValues = new List<KeyValuePair<int, double>>();
+                        double childIntegral = 0;
+                        int counetr1 = 0;
+                        for (int i = 0; i < parametr.AbsoluteValues.Count; i++)
+                        {
+                            try
+                            {
+                                childDependAbsoluteValues.Add(new KeyValuePair<int, double>(
+                                    parametr.Values[i].Key,
+                                    parametr.Values[i].Value / avgDependedValue[parametr.ParametrName][parametr.Values[i].Key]));
+                                if (avgDependedValue[parametr.ParametrName][parametr.Values[i].Key] < 1000000000 && avgDependedValue[parametr.ParametrName][parametr.Values[i].Key] > 0)
+                                {
+                                    childIntegral += parametr.AbsoluteValues[i].Value / avgDependedValue[parametr.ParametrName][parametr.Values[i].Key];
+                                    counetr1++;
+                                }
+                            }
+                            catch { }
+                            try
+                            {
+                                childDependValues.Add(new KeyValuePair<int, double>(
+                                    parametr.AbsoluteValues[i].Key,
+                                    parametr.AbsoluteValues[i].Value / avgValue[parametr.ParametrName][parametr.Values[i].Key]));
+
+                            }
+                            catch { }
+
+                        }
+                        parametr.IntegralValue = childIntegral / counetr1;
+                        parametr.DependAbsoluteValues = childDependAbsoluteValues;
+                        parametr.DependValues = childDependValues;
+                    }
+                }
+                Console.WriteLine("update");
+                repo.UpdateOne<Region>(region);
+            }
+        }
+
+        private static void GenerateAbsoluteParametrs()
+        {
+            RegionRepository repo = new RegionRepository();
+            List<Region> regions = repo.AllRegion().ToList();
+
+            foreach (Region region in regions)
+            {
+                foreach (var parentParam in region.Parametrs)
+                {
+                    foreach (var parametr in parentParam.ChildParametrs)
+                    {
+                        List<KeyValuePair<int, double>> absoluteValues = new List<KeyValuePair<int, double>>();
+                        for (int i = 0; i < parametr.Values.Count; i++)
+                        {
+                            KeyValuePair<int, double> newPar;
+                            if (i == 0)
+                            {
+                                newPar = new KeyValuePair<int, double>(parametr.Values[i].Key, 1);
+                            }
+                            else
+                            {
+                                newPar = new KeyValuePair<int, double>(parametr.Values[i].Key, parametr.Values[i].Value / parametr.Values[i - 1].Value);
+                            }
+                            absoluteValues.Add(newPar);
+                        }
+                        parametr.AbsoluteValues = absoluteValues;
+                    }
+                }
+                Console.WriteLine("update");
+                repo.UpdateOne<Region>(region);
+            }
         }
 
         private static void WriteGreenField()
