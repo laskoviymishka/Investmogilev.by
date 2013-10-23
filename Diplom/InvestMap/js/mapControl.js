@@ -2,7 +2,6 @@
 var map
 var projects
 var selectedRegion = ''
-function initialize() {
     $.ajax({
         url: 'http://tserakhau.cloudapp.net//InvestProjects/ListOfProjects?callback=jQuery110205763436721172184_1381677318690&_=1381677318691',
         dataType: 'html',
@@ -46,8 +45,6 @@ function initialize() {
         }
     });
     getProjectGeoData()
-}
-google.maps.event.addDomListener(window, 'load', initialize);
 
 function RegionSelected(regionName) {
     document.getElementById("mid").className = "col-md-7"
@@ -118,30 +115,20 @@ function closeDialog() {
     Avgrund.hide();
 }
 
+function loadStart() {
+    Avgrund.show("#loader-popup");
+}
+function loadEnd() {
+    Avgrund.hide();
+}
+
+
 function getProjectGeoData() {
     $.ajax({
         url: 'http://tserakhau.cloudapp.net//InvestProjects/ProjectGeoJSON',
         type: "GET",
         dataType: "json",
         success: function (data) {
-            addMarkers(data);
         }
     });
-}
-function addMarkers(data){
-    projects = data;
-    for (var i = 0; i < projects.length; i++) {
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(projects[i].Lat, projects[i].Lng),
-            map: map,
-            title: projects[i].Name,
-        });
-        google.maps.event.addListener(marker, 'click', function (e) {
-            for (var i = 0; i < projects.length; i++) {
-                if (new google.maps.LatLng(projects[i].Lat, projects[i].Lng).toString() == e.latLng.toString()) {
-                    openPopUp(projects[i]._id, projects[i].Type)
-                }
-            }
-        });
-    }
 }

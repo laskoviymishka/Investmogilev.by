@@ -4,6 +4,7 @@
     <title>Карта</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
+    <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="app.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap-modal-bs3patch.css" rel="stylesheet" />
@@ -19,39 +20,52 @@
         <div class="container-fluid">
             <div class="row-fluid no-space">
                 <div id="inner" class="col-md-12">
-                    <div id="left" class="col-md-2">
-                        <br />
-                        <div id="LayerView" class="btn-group-vertical">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    Dropdown
-                                <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Dropdown link</a></li>
-                                    <li><a href="#">Dropdown link</a></li>
-                                </ul>
+                    <div id="LayerView" class="col-md-3">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Текущий слой карты</h3>
                             </div>
+                            <div class="panel-body" data-bind='style: { backgroundColor: SelectedLayerCss }, text: SelectedLayerName' style="color: #F0FFFF">
+                            </div>
+                        </div>
+                        <div class="btn-group-vertical"  >
+                            <div data-bind="foreach: Layers" >
+                                <div class="btn-group" style="width : 100%">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width : 3%">
+                                        <span class="caret" style="width : 0%"></span>
+                                        <button type="button" class="btn btn-default" data-bind='text: Name , click: SelectLayer' style="width : 85%">
+                                        </button>
+                                    </button>
+
+                                    <ul class="dropdown-menu">
+                                        <li data-bind="foreach: Childs"><a data-bind='text: Name, click: SelectLayer'></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
                         <br />
                         <br />
                         <div id="ProjectFilterView" class="btn-group-vertical">
-                            <button id="integral" type="button" class="btn btn-success" onclick="SetLayer('integral')">
+                            <button id="integral" type="button" class="btn btn-success">
                                 Новое производство
-							<span id="integralSelected" class="badge">✓</span>
+						
+                                <span id="integralSelected" class="badge">✓</span>
                             </button>
-                            <button id="demographic" type="button" class="btn btn-info" onclick="SetLayer('demographic')">
+                            <button id="demographic" type="button" class="btn btn-info">
                                 Модернизация
-							<span id="demographicSelected" class="badge hidden">✓</span>
+						
+                                <span id="demographicSelected" class="badge hidden">✓</span>
                             </button>
-                            <button type="button" class="btn btn-danger" onclick="SetLayer('prom')">
+                            <button type="button" class="btn btn-danger">
                                 Реализуемый проект 
-							<span id="promSelected" class="badge hidden">✓</span>
+						
+                                <span id="promSelected" class="badge hidden">✓</span>
                             </button>
                         </div>
                     </div>
-                    <div id="mid" class="col-md-10">
-                        <div id="MapView" class="map-container">
+                    <div id="MapView" data-bind="attr: { class: Css }">
+                        <div class="map-container">
 
                             <div id="googft-mapCanvas"></div>
                         </div>
@@ -62,16 +76,31 @@
                 </div>
             </div>
         </div>
-        <div id="moduleProjecs"></div>
+        <div class="loader more">
+        </div>
     </div>
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript" src="js/mapControl.js"></script>
+
+    <script type="text/javascript" src="js/testData.js"></script>
     <script src="js/avgrund.js"></script>
-    <aside id="default-popup" class="avgrund-popup" style="height: 600px; overflow-x: auto; width: 25%; min-width: 360px">
-        <div id="popupContainer"></div>
+    <script type="text/javascript" src="js/mapControl.js"></script>
+
+    <script type="text/javascript" src="js/Infrastructure/ProjectRepository.js"></script>
+
+    <script type="text/javascript" src="js/ViewModels/LayerViewModel.js"></script>
+    <script type="text/javascript" src="js/ViewModels/ProjectViewModel.js"></script>
+    <script type="text/javascript" src="js/ViewModels/MapViewModel.js"></script>
+
+
+    <aside id="project-popup" class="avgrund-popup" style="height: 600px; overflow-x: auto; width: 25%; min-width: 460px">
+        <div id="popupContainer">
+        </div>
         <button onclick="javascript:closeDialog();" style="background-position-x: bottom">Закрыть</button>
+    </aside>
+    <aside id="loader-popup" class="avgrund-popup">
+        <img src="482.GIF" style="display: block; margin-left: auto; margin-right: auto;"></img>
     </aside>
 </body>
 </html>
