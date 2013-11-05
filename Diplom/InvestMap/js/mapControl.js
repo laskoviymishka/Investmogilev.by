@@ -44,7 +44,6 @@ var selectedRegion = ''
             map.setZoom(9)
         }
     });
-    getProjectGeoData()
 
 function RegionSelected(regionName) {
     document.getElementById("mid").className = "col-md-7"

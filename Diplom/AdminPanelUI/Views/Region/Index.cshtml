@@ -1,56 +1,58 @@
-﻿@model IEnumerable<DataAccess.Model.Region>
+﻿@model IEnumerable<MongoRepository.Model.Region>
 
 @{
-	ViewBag.Title = "Index";
+    ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-	@Html.ActionLink("Create New", "Create")
-</p>
 <table class="table table-striped table-condensed">
-	<tr>
-		<th>
-			@Html.DisplayNameFor(model => model.Name)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.Description)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.StatLink)
-		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.WikiLink)
-		</th>
+    <tr>
+        <th>Регион
+        </th>
+        <th>Латинское название
+        </th>
+        <th>Параметры
+        </th>
+        <th>Прочая информация
+        </th>
+    </tr>
 
-		<th></th>
-	</tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnglishName)
+            </td>
 
-	@foreach (var item in Model)
-	{
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.Name)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Description)
-			</td>
-			<td>
-				<a href="@item.StatLink">@item.Name статистика</a>
-			</td>
-			<td>
-				<a href="@item.WikiLink">@item.Name описание</a>
-			</td>
+            <td>
+                <button class="btn" style="width:80%"  onclick="ShowPopUp('@string.Format("/Region/RegionParametrs/{0}", item._id)')">Параметры для "@item.RegionName.ToLower()"</button>
+            </td>
 
-			<td>
-				@Html.ActionLink("Edit", "Edit", new { id = item.Name }) |
-				@Html.ActionLink("Details", "Details", new { id = item.Name }) |
-				@Html.ActionLink("Delete", "Delete", new { id = item.Name })|
-				@Html.ActionLink("Параметры", "ParametrsForRegion", new { id = item.Name })
-				@Html.ActionLink("Инвестиционные проекты", "InvestProjects", new { id = item.Name })
-			</td>
-		</tr>
-	}
+            <td>
+                <button class="btn" style="width:80%" onclick="ShowPopUp('@string.Format("/Region/AdditionalInfo/{0}", item._id)')">Информация для "@item.RegionName.ToLower()"</button>
+            </td>
+        </tr>
+    }
 
 </table>
+<div class="modal" id="myModal" style="height: 85%; width: 750px">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+    </div>
+    <div id="modalContent" style="height: 90%; width: 100%; overflow-y:auto; overflow-x:hidden"></div>
+</div>
+<script>
+    ShowPopUp = function (link) {
+        $('#modalContent').html("загружаются данные");
+        $.get(link, function (data) {
+            $('#modalContent').html(data);
+        })
+
+        $('#myModal').modal()
+    }
+
+    $('#myModal').modal()
+    $('#myModal').modal('hide')
+</script>

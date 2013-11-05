@@ -1,6 +1,5 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
-using Westwind.Web.WebApi;
 
 // ReSharper disable CheckNamespace
 namespace AdminPanelUI
@@ -12,8 +11,6 @@ namespace AdminPanelUI
         {
             filters.Add(new HandleErrorAttribute());
             GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.JsonFormatter);
-
-            GlobalConfiguration.Configuration.Formatters.Add(new JsonNetFormatter());
         }
     }
 }

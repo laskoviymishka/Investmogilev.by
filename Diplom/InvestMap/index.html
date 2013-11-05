@@ -7,7 +7,6 @@
     <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="app.css" rel="stylesheet" media="screen">
-    <link href="css/bootstrap-modal-bs3patch.css" rel="stylesheet" />
     <link href="css/avgrund.css" rel="stylesheet" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -20,48 +19,49 @@
         <div class="container-fluid">
             <div class="row-fluid no-space">
                 <div id="inner" class="col-md-12">
-                    <div id="LayerView" class="col-md-3">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Текущий слой карты</h3>
-                            </div>
-                            <div class="panel-body" data-bind='style: { backgroundColor: SelectedLayerCss }, text: SelectedLayerName' style="color: #F0FFFF">
-                            </div>
-                        </div>
-                        <div class="btn-group-vertical"  >
-                            <div data-bind="foreach: Layers" >
-                                <div class="btn-group" style="width : 100%">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width : 3%">
-                                        <span class="caret" style="width : 0%"></span>
-                                        <button type="button" class="btn btn-default" data-bind='text: Name , click: SelectLayer' style="width : 85%">
-                                        </button>
-                                    </button>
-
-                                    <ul class="dropdown-menu">
-                                        <li data-bind="foreach: Childs"><a data-bind='text: Name, click: SelectLayer'></a></li>
-                                    </ul>
+                    <div  class="col-md-3">
+                        <div id="LayerView">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Текущий слой карты</h3>
+                                </div>
+                                <div class="panel-body" data-bind='style: { backgroundColor: SelectedLayerCss }, text: SelectedLayerName' style="color: #F0FFFF">
                                 </div>
                             </div>
-
+                            <div class="btn-group-vertical"  >
+                                <div data-bind="foreach: Layers" >
+                                    <div class="btn-group" style="width : 115%">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="width : 3%">
+                                            <span class="caret" style="width : 0%"></span>
+                                            <button type="button" class="btn btn-default" data-bind='text: Name , click: SelectLayer' style="width : 80%">
+                                            </button>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li data-bind="foreach: Childs"><a data-bind='text: Name, click: SelectLayer'></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
                         </div>
-                        <br />
-                        <br />
-                        <div id="ProjectFilterView" class="btn-group-vertical">
-                            <button id="integral" type="button" class="btn btn-success">
-                                Новое производство
-						
-                                <span id="integralSelected" class="badge">✓</span>
-                            </button>
-                            <button id="demographic" type="button" class="btn btn-info">
-                                Модернизация
-						
-                                <span id="demographicSelected" class="badge hidden">✓</span>
-                            </button>
-                            <button type="button" class="btn btn-danger">
-                                Реализуемый проект 
-						
-                                <span id="promSelected" class="badge hidden">✓</span>
-                            </button>
+                        <div id="ProjectFilterView" class="btn-group-vertical" style="width : 100%">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Отображаемые типы проектов</h3>
+                                </div>
+                                    <div class="panel-body">
+                                        <div  data-bind="foreach: SelectedTypes">
+                                            <div  style="width : 33%; float:left">
+                                                <img data-bind='attr: { src: Img }'></img>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div data-bind="foreach: AllTypes"  style="width : 115%">
+                                <div type="button" class="btn btn-default" data-bind='text: Name, click: FilterClick' style="width : 87%">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="MapView" data-bind="attr: { class: Css }">

@@ -28,6 +28,11 @@
 
 	// MapViewModel methods
 	self.SetProjects = function (argument) {
+		if (self.Markers().length > 0) {
+			for (var i = 0; i < self.Markers().length; i++) {
+				self.Markers()[i].RemoveMarker()
+			};
+		};
 		for (var i = 0; i < argument.length; i++) {
 			var marker = new MarkerViewModel(argument[i])
 			marker.InitMarker(map)
@@ -143,7 +148,7 @@ function MarkerViewModel (argument) {
 		   case "BrownField":
 		      _icon = "img/factory.png"
 		      break
-		   case "UnusedBuilding":
+		   case "UnUsedBuilding":
 		       _icon = "img/office-building.png"
 		      break
 		   default:
@@ -157,11 +162,17 @@ function MarkerViewModel (argument) {
             icon: _icon
         });
 	}
+
+	self.RemoveMarker = function () {
+		self.gMarker.setMap(null)
+	}
 }
 var pr = new ProjectRepository()
 var mapvm = new MapViewModel(map)
 var plvm  = new ProjectListViewModel(pr,mapvm)
 var layerListViewModel = new LayerListViewModel(dataForLayers, mapvm)
+var pfvm = new ProjectsFilterViewModel(plvm)
 mapvm.Initialize()
-ko.applyBindings(layerListViewModel, document.getElementById("LayerView"));
 ko.applyBindings(mapvm, document.getElementById("MapView"));
+ko.applyBindings(layerListViewModel, document.getElementById("LayerView"));
+ko.applyBindings(pfvm, document.getElementById("ProjectFilterView"));

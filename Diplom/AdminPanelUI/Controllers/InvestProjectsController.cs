@@ -95,7 +95,7 @@ namespace AdminPanelUI.Controllers
         public ActionResult CreateBrownField()
         {
             ViewBag.Region = new SelectList(GetRegionsList());
-            return View();
+            return PartialView();
         }
 
 
@@ -119,7 +119,7 @@ namespace AdminPanelUI.Controllers
                 return HttpNotFound();
             }
             ViewBag.Region = new SelectList(GetRegionsList());
-            return View(project);
+            return PartialView(project);
         }
 
         [HttpPost]
@@ -171,7 +171,7 @@ namespace AdminPanelUI.Controllers
         public ActionResult CreateGreenField()
         {
             ViewBag.Region = new SelectList(GetRegionsList());
-            return View();
+            return PartialView();
         }
 
 
@@ -195,7 +195,7 @@ namespace AdminPanelUI.Controllers
                 return HttpNotFound();
             }
             ViewBag.Region = new SelectList(GetRegionsList());
-            return View(project);
+            return PartialView(project);
         }
 
         [HttpPost]
@@ -212,11 +212,6 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult DeleteGreenField(string id)
         {
-            //ProjectDTO project = db.Projects.Find(id);
-            //if (project == null)
-            //{
-            //    return HttpNotFound();
-            //}
             return View();
         }
 
@@ -224,9 +219,6 @@ namespace AdminPanelUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedGreenField(string id)
         {
-            //ProjectDTO project = db.Projects.Find(id);
-            //db.Projects.Remove(project);
-            //db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -248,7 +240,7 @@ namespace AdminPanelUI.Controllers
         public ActionResult CreateUnUsedBuilding()
         {
             ViewBag.Region = new SelectList(GetRegionsList());
-            return View();
+            return PartialView();
         }
 
 
@@ -272,7 +264,7 @@ namespace AdminPanelUI.Controllers
                 return HttpNotFound();
             }
             ViewBag.Region = new SelectList(GetRegionsList());
-            return View(project);
+            return PartialView(project);
         }
 
         [HttpPost]
@@ -284,7 +276,7 @@ namespace AdminPanelUI.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Region = new SelectList(GetRegionsList());
-            return View(project);
+            return PartialView(project);
         }
 
         public ActionResult DeleteUnUsedBuilding(string id)
@@ -385,9 +377,9 @@ namespace AdminPanelUI.Controllers
         private IList<string> GetRegionsList()
         {
             IList<string> regions = new List<string>();
-            foreach (var item in db.Regions)
+            foreach (var item in new RegionRepository().AllRegionNames())
             {
-                regions.Add(item.Name);
+                regions.Add(item);
             }
             return regions;
         }

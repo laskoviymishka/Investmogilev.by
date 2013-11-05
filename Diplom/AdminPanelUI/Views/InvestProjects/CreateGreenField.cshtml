@@ -1,9 +1,5 @@
 ﻿@model MongoRepository.Model.GreenField
 
-@{
-    ViewBag.Title = "CreateGreenField";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
 <h2>новый проект GreenField</h2>
 <script type="text/javascript">
@@ -51,163 +47,115 @@
         });
     });
 </script>
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>GreenField</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InvestNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InvestNumber)
-            @Html.ValidationMessageFor(model => model.InvestNumber)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EstimateInvestDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EstimateInvestDate)
-            @Html.ValidationMessageFor(model => model.EstimateInvestDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Goal)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Goal)
-            @Html.ValidationMessageFor(model => model.Goal)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Area)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Area)
-            @Html.ValidationMessageFor(model => model.Area)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CadastrValue)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CadastrValue)
-            @Html.ValidationMessageFor(model => model.CadastrValue)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ThirdPartiePretender)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ThirdPartiePretender)
-            @Html.ValidationMessageFor(model => model.ThirdPartiePretender)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Infrastructure)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Infrastructure)
-            @Html.ValidationMessageFor(model => model.Infrastructure)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OwnerCity)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.OwnerCity)
-            @Html.ValidationMessageFor(model => model.OwnerCity)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Owner)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Owner)
-            @Html.ValidationMessageFor(model => model.Owner)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InvestRequest)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InvestRequest)
-            @Html.ValidationMessageFor(model => model.InvestRequest)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Appendix)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Appendix)
-            @Html.ValidationMessageFor(model => model.Appendix)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Contact)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Contact)
-            @Html.ValidationMessageFor(model => model.Contact)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Region)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("Region", (SelectList)ViewBag.Region)
-            @Html.ValidationMessageFor(model => model.Region)
-        </div>
-        
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AddressName)
-            @Html.ValidationMessageFor(model => model.AddressName)
-            <span class="btn" onclick="CheckAddress()">Проверить адресс</span>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Address.Lat)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Address.Lat)
-                @Html.ValidationMessageFor(model => model.Address.Lat)
-            </div>
-
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address.Lng)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Address.Lng)
-            @Html.ValidationMessageFor(model => model.Address.Lng)
-        </div>
+        <legend>Green Field - проект с нуля</legend>
+        <table class="table table-striped table-condensed">
+            <tr>
+                <td>Номер инвестиционного проекта</td>
+                <td>@Html.EditorFor(model => model.InvestNumber)
+                    @Html.ValidationMessageFor(model => model.InvestNumber)</td>
+            </tr>
+            <tr>
+                <td>Ожидаемая дата реализации проекта</td>
+                <td>@Html.EditorFor(model => model.EstimateInvestDate)
+                    @Html.ValidationMessageFor(model => model.EstimateInvestDate)</td>
+            </tr>
+            <tr>
+                <td>Площадь участка</td>
+                <td>@Html.EditorFor(model => model.Area)
+                    @Html.ValidationMessageFor(model => model.Area)</td>
+            </tr>
+            <tr>
+                <td>Название проекта</td>
+                <td>@Html.EditorFor(model => model.Name)
+                    @Html.ValidationMessageFor(model => model.Name)</td>
+            </tr>
+            <tr>
+                <td>Описание проекта</td>
+                <td>@Html.TextAreaFor(model => model.Description)
+                    @Html.ValidationMessageFor(model => model.Description)</td>
+            </tr>
+            <tr>
+                <td>Цели проекта</td>
+                <td>@Html.EditorFor(model => model.Goal)
+                    @Html.ValidationMessageFor(model => model.Goal)</td>
+            </tr>
+            <tr>
+                <td>Объем инвестиций</td>
+                <td>@Html.EditorFor(model => model.CadastrValue)
+                    @Html.ValidationMessageFor(model => model.CadastrValue) млрд. руб.</td>
+            </tr>
+            <tr>
+                <td>Иные заинтересованные лица</td>
+                <td>@Html.EditorFor(model => model.ThirdPartiePretender)
+                    @Html.ValidationMessageFor(model => model.ThirdPartiePretender)</td>
+            </tr>
+            <tr>
+                <td>Инфраструктура</td>
+                <td>@Html.EditorFor(model => model.Infrastructure)
+                    @Html.ValidationMessageFor(model => model.Infrastructure)</td>
+            </tr>
+            <tr>
+                <td>Контакт</td>
+                <td>@Html.EditorFor(model => model.Contact)
+                    @Html.ValidationMessageFor(model => model.Contact)</td>
+            </tr>
+            <tr>
+                <td>Владелец</td>
+                <td>@Html.EditorFor(model => model.Owner)
+                    @Html.ValidationMessageFor(model => model.Owner)</td>
+            </tr>
+            <tr>
+                <td>Владелец (город)</td>
+                <td>@Html.EditorFor(model => model.OwnerCity)
+                    @Html.ValidationMessageFor(model => model.OwnerCity)</td>
+            </tr>
+            <tr>
+                <td>Регион</td>
+                <td>@Html.DropDownList("Region", (SelectList)ViewBag.Region)
+                    @Html.ValidationMessageFor(model => model.Region)</td>
+            </tr>
+            <tr>
+                <td>Количество заявок</td>
+                <td>@Html.EditorFor(model => model.InvestRequest)
+                    @Html.ValidationMessageFor(model => model.InvestRequest)</td>
+            </tr>
+            <tr>
+                <td>Примечания</td>
+                <td>@Html.EditorFor(model => model.Appendix)
+                    @Html.ValidationMessageFor(model => model.Appendix)</td>
+            </tr>
+            <tr>
+                <td>Адресс</td>
+                <td>@Html.EditorFor(model => model.AddressName)
+                    @Html.ValidationMessageFor(model => model.AddressName)
+                    <span class="btn" onclick="CheckAddress()">Проверить адресс</span>
+                    <div class="editor-label">
+                        Координаты
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Address.Lat)
+                        @Html.ValidationMessageFor(model => model.Address.Lat)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Address.Lng)
+                        @Html.ValidationMessageFor(model => model.Address.Lng)
+                    </div>
+                </td>
+            </tr>
+        </table>
         <p>
-            <input type="submit" value="Create" />
+            <input class="btn" type="submit" value="Создать" />
         </p>
     </fieldset>
 }
 <div class="row">
     <div class="span11">
-
-        <div style="height: 550px">
+        <div style="height: 550px; width:750px">
             <div id="map" style="height: 100%"></div>
         </div>
     </div>

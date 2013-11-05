@@ -1,11 +1,6 @@
 ﻿@model MongoRepository.Model.BrownField
 
-@{
-    ViewBag.Title = "CreateBrownField";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>новый проект BrownField</h2>
 <script type="text/javascript">
     var map;
     function CheckAddress(e) {
@@ -56,116 +51,85 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>BrownField</legend>
         <div style="visibility: hidden">
             @Html.EditorFor(model => model._id)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.RegistrationDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.RegistrationDate)
-            @Html.ValidationMessageFor(model => model.RegistrationDate)
-        </div>
+        <legend>BrownField - вложение в существующие производства</legend>
+        <table class="table table-striped table-condensed">
+            <tr>
+                <td>Название проекта</td>
+                <td>@Html.EditorFor(model => model.Name)
+                    @Html.ValidationMessageFor(model => model.Name)</td>
+            </tr>
+            <tr>
+                <td>Описание проекта</td>
+                <td>@Html.TextAreaFor(model => model.Description)
+                    @Html.ValidationMessageFor(model => model.Description)</td>
+            </tr>
+            <tr>
+                <td>Дата регистрации проекта</td>
+                <td>@Html.EditorFor(model => model.RegistrationDate)
+                    @Html.ValidationMessageFor(model => model.RegistrationDate)</td>
+            </tr>
+            <tr>
+                <td>Дата сдачи проекта</td>
+                <td>@Html.EditorFor(model => model.EstimateRelease)
+                    @Html.ValidationMessageFor(model => model.EstimateRelease)</td>
+            </tr>
+            <tr>
+                <td>Объем инвестиций</td>
+                <td>@Html.EditorFor(model => model.InvestAmount)
+                    @Html.ValidationMessageFor(model => model.InvestAmount) млрд. руб.</td>
+            </tr>
+            <tr>
+                <td>Создаваемые рабочие места</td>
+                <td>@Html.EditorFor(model => model.WorkPlaces)
+                    @Html.ValidationMessageFor(model => model.WorkPlaces)</td>
+            </tr>
+            <tr>
+                <td>Контакт</td>
+                <td>@Html.EditorFor(model => model.Contact)
+                    @Html.ValidationMessageFor(model => model.Contact)</td>
+            </tr>
+            <tr>
+                <td>Регион</td>
+                <td>@Html.DropDownList("Region", (SelectList)ViewBag.Region)
+                    @Html.ValidationMessageFor(model => model.Region)</td>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InvestAmount)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InvestAmount)
-            @Html.ValidationMessageFor(model => model.InvestAmount)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.WorkPlaces)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.WorkPlaces)
-            @Html.ValidationMessageFor(model => model.WorkPlaces)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EstimateRelease)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.EstimateRelease)
-            @Html.ValidationMessageFor(model => model.EstimateRelease)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Appendix)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Appendix)
-            @Html.ValidationMessageFor(model => model.Appendix)
-        </div>
-
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Contact)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Contact)
-            @Html.ValidationMessageFor(model => model.Contact)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Region)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("Region", (SelectList)ViewBag.Region)
-            @Html.ValidationMessageFor(model => model.Region)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AddressName)
-            @Html.ValidationMessageFor(model => model.AddressName)
-            <span class="btn" onclick="CheckAddress()">Проверить адресс</span>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Address.Lat)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Address.Lat)
-                @Html.ValidationMessageFor(model => model.Address.Lat)
-            </div>
-
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address.Lng)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Address.Lng)
-            @Html.ValidationMessageFor(model => model.Address.Lng)
-        </div>
+            </tr>
+            <tr>
+                <td>Примечания</td>
+                <td>@Html.EditorFor(model => model.Appendix)
+                    @Html.ValidationMessageFor(model => model.Appendix)</td>
+            </tr>
+            <tr>
+                <td>Аддресс</td>
+                <td>@Html.EditorFor(model => model.AddressName)
+                    @Html.ValidationMessageFor(model => model.AddressName)
+                    <span class="btn" onclick="CheckAddress()">Проверить адресс</span>
+                    <div class="editor-label">
+                        Координаты
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Address.Lat)
+                        @Html.ValidationMessageFor(model => model.Address.Lat)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Address.Lng)
+                        @Html.ValidationMessageFor(model => model.Address.Lng)
+                    </div>
+                </td>
+            </tr>
+        </table>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Сохранить изменения" />
         </p>
     </fieldset>
 }
 <div class="row">
     <div class="span11">
-
-        <div style="height: 550px">
+        <div style="height: 550px; width:750px">
             <div id="map" style="height: 100%"></div>
         </div>
     </div>
