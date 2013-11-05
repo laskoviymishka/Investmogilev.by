@@ -148,7 +148,6 @@
     </Compile>
     <Compile Include="Helpers\LsonNetFormater.cs" />
     <Compile Include="Models\CurrentData.cs" />
-    <Compile Include="Models\EditParametrViewModel.cs" />
     <Compile Include="Models\RegionParametr.cs" />
     <Compile Include="Models\YearData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

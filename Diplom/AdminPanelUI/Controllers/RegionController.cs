@@ -151,7 +151,7 @@ namespace AdminPanelUI.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View(region);
+            return PartialView(region);
         }
 
         //
