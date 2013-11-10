@@ -27,7 +27,7 @@
                     @foreach (var par in item.ChildParametrs)
                     {
                         <div>
-                            <button onclick="ShowEdit('@string.Format("/Region/ChildParametr/{0}/{1}", Model._id, par.ParametrName)',@idIndex)" class="btn" style="margin:3px; width:80%">@par.ParametrName</button>
+                            <button onclick="ShowEdit('@string.Format("/Region/ChildParametr/{0}/{1}", Model._id, par.ParametrName.GetHashCode())',@idIndex)" class="btn" style="margin:3px; width:80%">@par.ParametrName</button>
                         </div>
                         <div id="@idIndex" style="margin:3px; width:80%; display:none">
                         </div>

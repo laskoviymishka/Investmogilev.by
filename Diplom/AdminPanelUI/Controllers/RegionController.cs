@@ -122,7 +122,7 @@ namespace AdminPanelUI.Controllers
             return PartialView(region);
         }
 
-        public ActionResult ChildParametr(string regionId, string parametrName)
+        public ActionResult ChildParametr(string regionId, int parametrName)
         {
             Region region = db.GetRegionByID(regionId);
             if (region == null)
@@ -131,13 +131,16 @@ namespace AdminPanelUI.Controllers
             }
             foreach (var parametr in region.Parametrs)
             {
-                if (parametr.ChildParametrs.Where(p => p.ParametrName == parametrName).Count() > 0)
+                foreach (var item in parametr.ChildParametrs)
                 {
-                    EditParametrViewModel viewModel = new EditParametrViewModel();
-                    viewModel.RegionId = regionId;
-                    viewModel.ParametrName = parametrName;
-                    viewModel.Values = parametr.ChildParametrs.Where(p => p.ParametrName == parametrName).First().Values;
-                    return PartialView(viewModel);
+                    if (item.ParametrName.GetHashCode() == parametrName)
+                    {
+                        EditParametrViewModel viewModel = new EditParametrViewModel();
+                        viewModel.RegionId = regionId;
+                        viewModel.ParametrName = item.ParametrName;
+                        viewModel.Values = parametr.ChildParametrs.Where(p => p.ParametrName == item.ParametrName).First().Values;
+                        return PartialView(viewModel);
+                    }
                 }
             }
             return HttpNotFound();
@@ -145,13 +148,33 @@ namespace AdminPanelUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChildParametr(EditParametrViewModel region)
+        public object ChildParametr(FormCollection collection)
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                Region region = db.GetRegionByID(collection["RegionId"]);
+                foreach (var parametr in region.Parametrs)
+                {
+                    foreach (var item in parametr.ChildParametrs)
+                    {
+                        if (item.ParametrName.GetHashCode().ToString() == collection["ParametrName"])
+                        {
+                            for (int i = 3; i < collection.Count; i++)
+                            {
+                                double res;
+                                if (collection[string.Format("[{0}].Value", i - 3)] != null &&
+                                    double.TryParse(collection[string.Format("[{0}].Value", i - 3)], out res) &&
+                                    item.Values[i - 3].Value != res)
+                                {
+                                    item.Values[i - 3] = new KeyValuePair<int, double>(item.Values[i - 3].Key, res);
+                                }
+                            }
+                        }
+                    }
+                }
+                db.UpdateOne<Region>(region);
             }
-            return PartialView(region);
+            return RedirectToAction("index");
         }
 
         //

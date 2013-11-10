@@ -10,6 +10,6 @@ namespace MongoRepository.Model
     {
         public string RegionId { get; set; }
         public string ParametrName { get; set; }
-        public List<KeyValuePair<int, double>> Values { get; set; }
+        public IEnumerable<KeyValuePair<int, double>> Values { get; set; }
     }
 }
