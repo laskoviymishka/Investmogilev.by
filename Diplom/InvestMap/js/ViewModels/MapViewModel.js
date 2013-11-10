@@ -38,7 +38,7 @@
 			marker.InitMarker(map)
 			google.maps.event.addListener(marker.gMarker, 'click', function (e) {
 	            for (var i = 0; i < argument.length; i++) {
-	                if (argument[i].Lat() == e.latLng.lb && argument[i].Lng() == e.latLng.mb) {
+	                if (argument[i].Lat().toFixed(5) == e.latLng.nb.toFixed(5) && argument[i].Lng().toFixed(5) == e.latLng.ob.toFixed(5)) {
 	                    self.OpenPopUp(argument[i]._id(), argument[i].Type())
 	                }
 	            }
