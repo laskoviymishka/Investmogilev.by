@@ -31,19 +31,19 @@ namespace AdminPanelUI.Controllers
         // GET api/regionapi
         public IEnumerable<Region> Get()
         {
-            return _repo.AllRegion();
+            return _repo.GetAll();
         }
 
         // GET api/regionapi/5
         public Region Get(string id)
         {
-            return _repo.GetRegionByID(id);
+            return _repo.GetById(id);
         }
 
         // POST api/regionapi
         public void Post(Region value)
         {
-            _repo.InsertRegion(value);
+            _repo.Insert(value);
         }
 
         // PUT api/regionapi/5
@@ -51,7 +51,7 @@ namespace AdminPanelUI.Controllers
         {
             if (id == value._id.ToString())
             {
-                _repo.UpdateOne<Region>(value);
+                _repo.Update(value);
             }
             else
             {

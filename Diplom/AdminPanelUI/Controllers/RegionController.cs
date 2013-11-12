@@ -20,7 +20,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult Index()
         {
-            return View(db.AllRegion());
+            return View(db.GetAll());
         }
 
         //
@@ -28,7 +28,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult Details(string id = null)
         {
-            Region region = db.GetRegionByID(id);
+            Region region = db.GetById(id);
             if (region == null)
             {
                 return HttpNotFound();
@@ -64,7 +64,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult Edit(string id = null)
         {
-            Region region = db.GetRegionByID(id);
+            Region region = db.GetById(id);
             if (region == null)
             {
                 return HttpNotFound();
@@ -91,7 +91,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult Delete(string id = null)
         {
-            Region region = db.GetRegionByID(id);
+            Region region = db.GetById(id);
             if (region == null)
             {
                 return HttpNotFound();
@@ -114,7 +114,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult RegionParametrs(string id)
         {
-            Region region = db.GetRegionByID(id);
+            Region region = db.GetById(id);
             if (region == null)
             {
                 return HttpNotFound();
@@ -124,7 +124,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult ChildParametr(string regionId, int parametrName)
         {
-            Region region = db.GetRegionByID(regionId);
+            Region region = db.GetById(regionId);
             if (region == null)
             {
                 return HttpNotFound();
@@ -152,7 +152,7 @@ namespace AdminPanelUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                Region region = db.GetRegionByID(collection["RegionId"]);
+                Region region = db.GetById(collection["RegionId"]);
                 foreach (var parametr in region.Parametrs)
                 {
                     foreach (var item in parametr.ChildParametrs)
@@ -172,7 +172,7 @@ namespace AdminPanelUI.Controllers
                         }
                     }
                 }
-                db.UpdateOne<Region>(region);
+                db.Update(region);
             }
             return RedirectToAction("index");
         }
@@ -182,7 +182,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult InvestProjects(string id)
         {
-            Region region = db.GetRegionByID(id);
+            Region region = db.GetById(id);
             if (region == null)
             {
                 return HttpNotFound();

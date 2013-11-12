@@ -134,19 +134,27 @@
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.0.0\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Терехов\Documents\Visual Studio 2012\Projects\MvcApplication1\MvcApplication1\bin\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Терехов\Documents\Visual Studio 2012\Projects\MvcApplication1\MvcApplication1\bin\WebMatrix.WebData.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\Map.js" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\InvestProjectsController.cs" />
-    <Compile Include="Controllers\ParametrController.cs" />
-    <Compile Include="Controllers\ParametrRegionController.cs" />
     <Compile Include="Controllers\RegionApiController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CurrentData.cs" />
+    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\RegionParametr.cs" />
     <Compile Include="Models\YearData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -540,11 +548,6 @@
     <Content Include="Views\Region\Edit.cshtml" />
     <Content Include="Views\Region\Delete.cshtml" />
     <Content Include="Views\Region\ParametrsForRegion.cshtml" />
-    <Content Include="Views\Parametr\Index.cshtml" />
-    <Content Include="Views\Parametr\Details.cshtml" />
-    <Content Include="Views\Parametr\Create.cshtml" />
-    <Content Include="Views\Parametr\Edit.cshtml" />
-    <Content Include="Views\Parametr\Delete.cshtml" />
     <Content Include="Views\InvestProjects\Index.cshtml" />
     <Content Include="Views\InvestProjects\CreateBrownField.cshtml" />
     <Content Include="Views\InvestProjects\EditBrownField.cshtml" />
@@ -562,6 +565,14 @@
     <Content Include="Views\InvestProjects\PopUpDetailsUnUsedBuilding.cshtml" />
     <Content Include="Views\Region\RegionParametrs.cshtml" />
     <Content Include="Views\Region\ChildParametr.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -570,10 +581,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{8d5c7a3d-751a-4eb5-a401-030564c2b4ab}</Project>
-      <Name>DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MongoRepository\MongoRepository.csproj">
       <Project>{fa93445a-088a-4d35-82a5-19da79b76281}</Project>
       <Name>MongoRepository</Name>

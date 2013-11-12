@@ -8,7 +8,6 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using MongoRepository.Repository;
 using MongoRepository.Model;
-using DataAccess.Model;
 
 namespace AdminPanelUI.Controllers
 {
@@ -30,8 +29,6 @@ namespace AdminPanelUI.Controllers
         #region Fields
 
         private ProjectRepository _repository = new ProjectRepository();
-
-        private dbRegionsEntities db = new dbRegionsEntities();
 
         #endregion
 
