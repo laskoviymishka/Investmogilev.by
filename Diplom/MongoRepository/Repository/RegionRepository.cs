@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MongoRepository.Repository
 {
-    public class RegionRepository
+    public class RegionRepository : IRepository<Region>
     {
         #region Fields
 
@@ -35,7 +35,7 @@ namespace MongoRepository.Repository
 
         #region Selectors
 
-        public IList<Region> AllRegion()
+        public IList<Region> GetAll()
         {
             return _db.GetCollection("Region").FindAllAs<Region>().ToList();
         }
@@ -43,14 +43,14 @@ namespace MongoRepository.Repository
         public IList<string> AllRegionNames()
         {
             List<string> result = new List<string>();
-            foreach (var item in this.AllRegion())
+            foreach (var item in this.GetAll())
             {
                 result.Add(item.RegionName);
             }
             return result;
         }
 
-        public Region GetRegionByID(string id)
+        public Region GetById(string id)
         {
             ObjectId _id = new ObjectId(id);
             return _db.GetCollection(typeof(Region).Name).FindOneAs<Region>(Query.EQ("_id", _id));
@@ -65,7 +65,7 @@ namespace MongoRepository.Repository
 
         #region Insert
 
-        public void InsertRegion(Region region)
+        public void Insert(Region region)
         {
             _db.GetCollection("Region").Insert<Region>(region);
         }
@@ -74,13 +74,22 @@ namespace MongoRepository.Repository
 
         #region Update
 
-        public void UpdateOne<T>(T value) where T : Region
+        public void Update(Region value) 
         {
-            if (this.GetRegionByID(value._id) != null)
+            if (this.GetById(value._id) != null)
             {
-                _db.GetCollection(typeof(T).Name).Save<T>(value);
+                _db.GetCollection(typeof(Region).Name).Save<Region>(value);
             }
-            _db.GetCollection(typeof(T).Name).Save<T>(value);
+            _db.GetCollection(typeof(Region).Name).Save<Region>(value);
+        }
+
+        #endregion
+
+        #region Delete
+
+        public void Delete(Region value)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

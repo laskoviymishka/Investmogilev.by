@@ -23,7 +23,7 @@ namespace Tester
         private static void GenerateDependendenciesValues()
         {
             RegionRepository repo = new RegionRepository();
-            List<Region> regions = repo.AllRegion().ToList();
+            List<Region> regions = repo.GetAll().ToList();
             Dictionary<string, Dictionary<int, List<double>>> parRes = new Dictionary<string, Dictionary<int, List<double>>>();
             Dictionary<string, Dictionary<int, List<double>>> parDependedRes = new Dictionary<string, Dictionary<int, List<double>>>();
             foreach (Region region in regions)
@@ -172,14 +172,14 @@ namespace Tester
                     }
                 }
                 Console.WriteLine("update");
-                repo.UpdateOne<Region>(region);
+                //repo.Update<Region>(region);
             }
         }
 
         private static void GenerateAbsoluteParametrs()
         {
             RegionRepository repo = new RegionRepository();
-            List<Region> regions = repo.AllRegion().ToList();
+            List<Region> regions = repo.GetAll().ToList();
 
             foreach (Region region in regions)
             {
@@ -205,7 +205,7 @@ namespace Tester
                     }
                 }
                 Console.WriteLine("update");
-                repo.UpdateOne<Region>(region);
+                //repo.Update<Region>(region);
             }
         }
 

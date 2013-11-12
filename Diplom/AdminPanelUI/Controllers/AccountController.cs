@@ -14,6 +14,8 @@ namespace AdminPanelUI.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            var mb = new MongoDB.Web.Providers.MongoDBMembershipProvider();
+            
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -24,11 +26,11 @@ namespace AdminPanelUI.Controllers
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return Redirect(returnUrl);
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
@@ -38,8 +40,6 @@ namespace AdminPanelUI.Controllers
         //
         // POST: /Account/LogOff
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             WebSecurity.Logout();

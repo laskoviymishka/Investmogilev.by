@@ -1,0 +1,716 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BusinessLogic.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:BusinessLogic.Providers.Fakes.ShimMongoMembership">
+            <summary>Shim type of BusinessLogic.Providers.MongoMembership</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.ShimMongoMembership.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.ShimMongoMembership.#ctor(BusinessLogic.Providers.MongoMembership)">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.ShimMongoMembership.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.ShimMongoMembership.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.ApplicationNameGet">
+            <summary>Sets the shim of MongoMembership.get_ApplicationName()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.ApplicationNameSetString">
+            <summary>Sets the shim of MongoMembership.set_ApplicationName(String value)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.ChangePasswordQuestionAndAnswerStringStringStringString">
+            <summary>Sets the shim of MongoMembership.ChangePasswordQuestionAndAnswer(String username, String password, String newPasswordQuestion, String newPasswordAnswer)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.ChangePasswordStringStringString">
+            <summary>Sets the shim of MongoMembership.ChangePassword(String username, String oldPassword, String newPassword)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.ConfirmAccountString">
+            <summary>Sets the shim of MongoMembership.ConfirmAccount(String accountConfirmationToken)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.ConfirmAccountStringString">
+            <summary>Sets the shim of MongoMembership.ConfirmAccount(String userName, String accountConfirmationToken)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.Constructor">
+            <summary>Sets the shim of MongoMembership.MongoMembership()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.CreateAccountStringStringBoolean">
+            <summary>Sets the shim of MongoMembership.CreateAccount(String userName, String password, Boolean requireConfirmationToken)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.CreateUserAndAccountStringStringBooleanIDictionaryOfStringObject">
+            <summary>Sets the shim of MongoMembership.CreateUserAndAccount(String userName, String password, Boolean requireConfirmation, IDictionary`2&lt;String,Object&gt; values)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.CreateUserStringStringStringStringStringBooleanObjectMembershipCreateStatusOut">
+            <summary>Sets the shim of MongoMembership.CreateUser(String username, String password, String email, String passwordQuestion, String passwordAnswer, Boolean isApproved, Object providerUserKey, MembershipCreateStatus&amp; status)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.DecodePasswordStringMembershipPasswordFormat">
+            <summary>Sets the shim of MongoMembership.DecodePassword(String password, MembershipPasswordFormat membershipPasswordFormat)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.DeleteAccountString">
+            <summary>Sets the shim of MongoMembership.DeleteAccount(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.DeleteUserStringBoolean">
+            <summary>Sets the shim of MongoMembership.DeleteUser(String username, Boolean deleteAllRelatedData)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.EnablePasswordResetGet">
+            <summary>Sets the shim of MongoMembership.get_EnablePasswordReset()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.EnablePasswordRetrievalGet">
+            <summary>Sets the shim of MongoMembership.get_EnablePasswordRetrieval()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.EncodePasswordStringMembershipPasswordFormatString">
+            <summary>Sets the shim of MongoMembership.EncodePassword(String password, MembershipPasswordFormat membershipPasswordFormat, String salt)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.FindUsersByEmailStringInt32Int32Int32Out">
+            <summary>Sets the shim of MongoMembership.FindUsersByEmail(String emailToMatch, Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.FindUsersByNameStringInt32Int32Int32Out">
+            <summary>Sets the shim of MongoMembership.FindUsersByName(String usernameToMatch, Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GeneratePasswordResetTokenStringInt32">
+            <summary>Sets the shim of MongoMembership.GeneratePasswordResetToken(String userName, Int32 tokenExpirationInMinutesFromNow)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetAccountsForUserString">
+            <summary>Sets the shim of MongoMembership.GetAccountsForUser(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetAllUsersInt32Int32Int32Out">
+            <summary>Sets the shim of MongoMembership.GetAllUsers(Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetCreateDateString">
+            <summary>Sets the shim of MongoMembership.GetCreateDate(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetLastPasswordFailureDateString">
+            <summary>Sets the shim of MongoMembership.GetLastPasswordFailureDate(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetNumberOfUsersOnline">
+            <summary>Sets the shim of MongoMembership.GetNumberOfUsersOnline()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetPasswordChangedDateString">
+            <summary>Sets the shim of MongoMembership.GetPasswordChangedDate(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetPasswordFailuresSinceLastSuccessString">
+            <summary>Sets the shim of MongoMembership.GetPasswordFailuresSinceLastSuccess(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetPasswordStringString">
+            <summary>Sets the shim of MongoMembership.GetPassword(String username, String answer)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetUserIdFromPasswordResetTokenString">
+            <summary>Sets the shim of MongoMembership.GetUserIdFromPasswordResetToken(String token)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetUserNameByEmailString">
+            <summary>Sets the shim of MongoMembership.GetUserNameByEmail(String email)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetUserObjectBoolean">
+            <summary>Sets the shim of MongoMembership.GetUser(Object providerUserKey, Boolean userIsOnline)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.GetUserStringBoolean">
+            <summary>Sets the shim of MongoMembership.GetUser(String username, Boolean userIsOnline)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.InitializeStringNameValueCollection">
+            <summary>Sets the shim of MongoMembership.Initialize(String name, NameValueCollection config)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.IsConfirmedString">
+            <summary>Sets the shim of MongoMembership.IsConfirmed(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.MaxInvalidPasswordAttemptsGet">
+            <summary>Sets the shim of MongoMembership.get_MaxInvalidPasswordAttempts()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.MinRequiredNonAlphanumericCharactersGet">
+            <summary>Sets the shim of MongoMembership.get_MinRequiredNonAlphanumericCharacters()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.MinRequiredPasswordLengthGet">
+            <summary>Sets the shim of MongoMembership.get_MinRequiredPasswordLength()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.PasswordAttemptWindowGet">
+            <summary>Sets the shim of MongoMembership.get_PasswordAttemptWindow()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.PasswordFormatGet">
+            <summary>Sets the shim of MongoMembership.get_PasswordFormat()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.PasswordStrengthRegularExpressionGet">
+            <summary>Sets the shim of MongoMembership.get_PasswordStrengthRegularExpression()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.RequiresQuestionAndAnswerGet">
+            <summary>Sets the shim of MongoMembership.get_RequiresQuestionAndAnswer()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.RequiresUniqueEmailGet">
+            <summary>Sets the shim of MongoMembership.get_RequiresUniqueEmail()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.ResetPasswordStringString">
+            <summary>Sets the shim of MongoMembership.ResetPassword(String username, String answer)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.ResetPasswordWithTokenStringString">
+            <summary>Sets the shim of MongoMembership.ResetPasswordWithToken(String token, String newPassword)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.ToMembershipUserBsonDocument">
+            <summary>Sets the shim of MongoMembership.ToMembershipUser(BsonDocument bsonDocument)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.UnlockUserString">
+            <summary>Sets the shim of MongoMembership.UnlockUser(String username)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.UpdateUserMembershipUser">
+            <summary>Sets the shim of MongoMembership.UpdateUser(MembershipUser user)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.ValidateUserStringString">
+            <summary>Sets the shim of MongoMembership.ValidateUser(String username, String password)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.VerifyPasswordAnswerBsonDocumentString">
+            <summary>Sets the shim of MongoMembership.VerifyPasswordAnswer(BsonDocument user, String passwordAnswer)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.VerifyPasswordBsonDocumentString">
+            <summary>Sets the shim of MongoMembership.VerifyPassword(BsonDocument user, String password)</summary>
+        </member>
+        <member name="T:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.ApplicationNameGet">
+            <summary>Sets the shim of MongoMembership.get_ApplicationName()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.ApplicationNameSetString">
+            <summary>Sets the shim of MongoMembership.set_ApplicationName(String value)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.ChangePasswordQuestionAndAnswerStringStringStringString">
+            <summary>Sets the shim of MongoMembership.ChangePasswordQuestionAndAnswer(String username, String password, String newPasswordQuestion, String newPasswordAnswer)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.ChangePasswordStringStringString">
+            <summary>Sets the shim of MongoMembership.ChangePassword(String username, String oldPassword, String newPassword)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.ConfirmAccountString">
+            <summary>Sets the shim of MongoMembership.ConfirmAccount(String accountConfirmationToken)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.ConfirmAccountStringString">
+            <summary>Sets the shim of MongoMembership.ConfirmAccount(String userName, String accountConfirmationToken)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.CreateAccountStringStringBoolean">
+            <summary>Sets the shim of MongoMembership.CreateAccount(String userName, String password, Boolean requireConfirmationToken)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.CreateUserAndAccountStringStringBooleanIDictionaryOfStringObject">
+            <summary>Sets the shim of MongoMembership.CreateUserAndAccount(String userName, String password, Boolean requireConfirmation, IDictionary`2&lt;String,Object&gt; values)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.CreateUserStringStringStringStringStringBooleanObjectMembershipCreateStatusOut">
+            <summary>Sets the shim of MongoMembership.CreateUser(String username, String password, String email, String passwordQuestion, String passwordAnswer, Boolean isApproved, Object providerUserKey, MembershipCreateStatus&amp; status)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.DecodePasswordStringMembershipPasswordFormat">
+            <summary>Sets the shim of MongoMembership.DecodePassword(String password, MembershipPasswordFormat membershipPasswordFormat)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.DeleteAccountString">
+            <summary>Sets the shim of MongoMembership.DeleteAccount(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.DeleteUserStringBoolean">
+            <summary>Sets the shim of MongoMembership.DeleteUser(String username, Boolean deleteAllRelatedData)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.EnablePasswordResetGet">
+            <summary>Sets the shim of MongoMembership.get_EnablePasswordReset()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.EnablePasswordRetrievalGet">
+            <summary>Sets the shim of MongoMembership.get_EnablePasswordRetrieval()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.EncodePasswordStringMembershipPasswordFormatString">
+            <summary>Sets the shim of MongoMembership.EncodePassword(String password, MembershipPasswordFormat membershipPasswordFormat, String salt)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.FindUsersByEmailStringInt32Int32Int32Out">
+            <summary>Sets the shim of MongoMembership.FindUsersByEmail(String emailToMatch, Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.FindUsersByNameStringInt32Int32Int32Out">
+            <summary>Sets the shim of MongoMembership.FindUsersByName(String usernameToMatch, Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GeneratePasswordResetTokenStringInt32">
+            <summary>Sets the shim of MongoMembership.GeneratePasswordResetToken(String userName, Int32 tokenExpirationInMinutesFromNow)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetAccountsForUserString">
+            <summary>Sets the shim of MongoMembership.GetAccountsForUser(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetAllUsersInt32Int32Int32Out">
+            <summary>Sets the shim of MongoMembership.GetAllUsers(Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetCreateDateString">
+            <summary>Sets the shim of MongoMembership.GetCreateDate(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetLastPasswordFailureDateString">
+            <summary>Sets the shim of MongoMembership.GetLastPasswordFailureDate(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetNumberOfUsersOnline">
+            <summary>Sets the shim of MongoMembership.GetNumberOfUsersOnline()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetPasswordChangedDateString">
+            <summary>Sets the shim of MongoMembership.GetPasswordChangedDate(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetPasswordFailuresSinceLastSuccessString">
+            <summary>Sets the shim of MongoMembership.GetPasswordFailuresSinceLastSuccess(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetPasswordStringString">
+            <summary>Sets the shim of MongoMembership.GetPassword(String username, String answer)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetUserIdFromPasswordResetTokenString">
+            <summary>Sets the shim of MongoMembership.GetUserIdFromPasswordResetToken(String token)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetUserNameByEmailString">
+            <summary>Sets the shim of MongoMembership.GetUserNameByEmail(String email)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetUserObjectBoolean">
+            <summary>Sets the shim of MongoMembership.GetUser(Object providerUserKey, Boolean userIsOnline)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.GetUserStringBoolean">
+            <summary>Sets the shim of MongoMembership.GetUser(String username, Boolean userIsOnline)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.InitializeStringNameValueCollection">
+            <summary>Sets the shim of MongoMembership.Initialize(String name, NameValueCollection config)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.IsConfirmedString">
+            <summary>Sets the shim of MongoMembership.IsConfirmed(String userName)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.MaxInvalidPasswordAttemptsGet">
+            <summary>Sets the shim of MongoMembership.get_MaxInvalidPasswordAttempts()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.MinRequiredNonAlphanumericCharactersGet">
+            <summary>Sets the shim of MongoMembership.get_MinRequiredNonAlphanumericCharacters()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.MinRequiredPasswordLengthGet">
+            <summary>Sets the shim of MongoMembership.get_MinRequiredPasswordLength()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.PasswordAttemptWindowGet">
+            <summary>Sets the shim of MongoMembership.get_PasswordAttemptWindow()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.PasswordFormatGet">
+            <summary>Sets the shim of MongoMembership.get_PasswordFormat()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.PasswordStrengthRegularExpressionGet">
+            <summary>Sets the shim of MongoMembership.get_PasswordStrengthRegularExpression()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.RequiresQuestionAndAnswerGet">
+            <summary>Sets the shim of MongoMembership.get_RequiresQuestionAndAnswer()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.RequiresUniqueEmailGet">
+            <summary>Sets the shim of MongoMembership.get_RequiresUniqueEmail()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.ResetPasswordStringString">
+            <summary>Sets the shim of MongoMembership.ResetPassword(String username, String answer)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.ResetPasswordWithTokenStringString">
+            <summary>Sets the shim of MongoMembership.ResetPasswordWithToken(String token, String newPassword)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.ToMembershipUserBsonDocument">
+            <summary>Sets the shim of MongoMembership.ToMembershipUser(BsonDocument bsonDocument)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.UnlockUserString">
+            <summary>Sets the shim of MongoMembership.UnlockUser(String username)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.UpdateUserMembershipUser">
+            <summary>Sets the shim of MongoMembership.UpdateUser(MembershipUser user)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.ValidateUserStringString">
+            <summary>Sets the shim of MongoMembership.ValidateUser(String username, String password)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.VerifyPasswordAnswerBsonDocumentString">
+            <summary>Sets the shim of MongoMembership.VerifyPasswordAnswer(BsonDocument user, String passwordAnswer)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.ShimMongoMembership.AllInstances.VerifyPasswordBsonDocumentString">
+            <summary>Sets the shim of MongoMembership.VerifyPassword(BsonDocument user, String password)</summary>
+        </member>
+        <member name="T:BusinessLogic.Providers.Fakes.StubMongoMembership">
+            <summary>Stub type of BusinessLogic.Providers.MongoMembership</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.#ctor">
+            <summary>Initializes a new instance</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.ApplicationNameGet">
+            <summary>Sets the stub of MongoMembership.get_ApplicationName()</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.ApplicationNameSetString">
+            <summary>Sets the stub of MongoMembership.set_ApplicationName(String value)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.AttachBackingFieldToApplicationName">
+            <summary>Attaches delegates to emulate StubMongoMembership.ApplicationName as a property with a backing field.</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.ChangePassword(System.String,System.String,System.String)">
+            <summary>Sets the stub of MongoMembership.ChangePassword(String username, String oldPassword, String newPassword)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.ChangePasswordQuestionAndAnswer(System.String,System.String,System.String,System.String)">
+            <summary>Sets the stub of MongoMembership.ChangePasswordQuestionAndAnswer(String username, String password, String newPasswordQuestion, String newPasswordAnswer)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.ChangePasswordQuestionAndAnswerStringStringStringString">
+            <summary>Sets the stub of MongoMembership.ChangePasswordQuestionAndAnswer(String username, String password, String newPasswordQuestion, String newPasswordAnswer)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.ChangePasswordStringStringString">
+            <summary>Sets the stub of MongoMembership.ChangePassword(String username, String oldPassword, String newPassword)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.ConfirmAccount(System.String)">
+            <summary>Sets the stub of MongoMembership.ConfirmAccount(String accountConfirmationToken)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.ConfirmAccount(System.String,System.String)">
+            <summary>Sets the stub of MongoMembership.ConfirmAccount(String userName, String accountConfirmationToken)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.ConfirmAccountString">
+            <summary>Sets the stub of MongoMembership.ConfirmAccount(String accountConfirmationToken)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.ConfirmAccountStringString">
+            <summary>Sets the stub of MongoMembership.ConfirmAccount(String userName, String accountConfirmationToken)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateAccount(System.String,System.String)">
+            <summary>Sets the stub of ExtendedMembershipProvider.CreateAccount(String userName, String password)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateAccount(System.String,System.String,System.Boolean)">
+            <summary>Sets the stub of MongoMembership.CreateAccount(String userName, String password, Boolean requireConfirmationToken)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateAccountStringString">
+            <summary>Sets the stub of ExtendedMembershipProvider.CreateAccount(String userName, String password)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateAccountStringStringBoolean">
+            <summary>Sets the stub of MongoMembership.CreateAccount(String userName, String password, Boolean requireConfirmationToken)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateOrUpdateOAuthAccount(System.String,System.String,System.String)">
+            <summary>Sets the stub of ExtendedMembershipProvider.CreateOrUpdateOAuthAccount(String provider, String providerUserId, String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateOrUpdateOAuthAccountStringStringString">
+            <summary>Sets the stub of ExtendedMembershipProvider.CreateOrUpdateOAuthAccount(String provider, String providerUserId, String userName)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateUser(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Object,System.Web.Security.MembershipCreateStatus@)">
+            <summary>Sets the stub of MongoMembership.CreateUser(String username, String password, String email, String passwordQuestion, String passwordAnswer, Boolean isApproved, Object providerUserKey, MembershipCreateStatus&amp; status)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateUserAndAccount(System.String,System.String)">
+            <summary>Sets the stub of ExtendedMembershipProvider.CreateUserAndAccount(String userName, String password)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateUserAndAccount(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>Sets the stub of ExtendedMembershipProvider.CreateUserAndAccount(String userName, String password, IDictionary`2&lt;String,Object&gt; values)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateUserAndAccount(System.String,System.String,System.Boolean)">
+            <summary>Sets the stub of ExtendedMembershipProvider.CreateUserAndAccount(String userName, String password, Boolean requireConfirmation)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateUserAndAccount(System.String,System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>Sets the stub of MongoMembership.CreateUserAndAccount(String userName, String password, Boolean requireConfirmation, IDictionary`2&lt;String,Object&gt; values)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateUserAndAccountStringString">
+            <summary>Sets the stub of ExtendedMembershipProvider.CreateUserAndAccount(String userName, String password)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateUserAndAccountStringStringBoolean">
+            <summary>Sets the stub of ExtendedMembershipProvider.CreateUserAndAccount(String userName, String password, Boolean requireConfirmation)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateUserAndAccountStringStringBooleanIDictionaryOfStringObject">
+            <summary>Sets the stub of MongoMembership.CreateUserAndAccount(String userName, String password, Boolean requireConfirmation, IDictionary`2&lt;String,Object&gt; values)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateUserAndAccountStringStringIDictionaryOfStringObject">
+            <summary>Sets the stub of ExtendedMembershipProvider.CreateUserAndAccount(String userName, String password, IDictionary`2&lt;String,Object&gt; values)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.CreateUserStringStringStringStringStringBooleanObjectMembershipCreateStatusOut">
+            <summary>Sets the stub of MongoMembership.CreateUser(String username, String password, String email, String passwordQuestion, String passwordAnswer, Boolean isApproved, Object providerUserKey, MembershipCreateStatus&amp; status)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.DecryptPassword(System.Byte[])">
+            <summary>Sets the stub of MembershipProvider.DecryptPassword(Byte[] encodedPassword)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.DecryptPasswordByteArray">
+            <summary>Sets the stub of MembershipProvider.DecryptPassword(Byte[] encodedPassword)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.DeleteAccount(System.String)">
+            <summary>Sets the stub of MongoMembership.DeleteAccount(String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.DeleteAccountString">
+            <summary>Sets the stub of MongoMembership.DeleteAccount(String userName)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.DeleteOAuthAccount(System.String,System.String)">
+            <summary>Sets the stub of ExtendedMembershipProvider.DeleteOAuthAccount(String provider, String providerUserId)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.DeleteOAuthAccountStringString">
+            <summary>Sets the stub of ExtendedMembershipProvider.DeleteOAuthAccount(String provider, String providerUserId)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.DeleteOAuthToken(System.String)">
+            <summary>Sets the stub of ExtendedMembershipProvider.DeleteOAuthToken(String token)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.DeleteOAuthTokenString">
+            <summary>Sets the stub of ExtendedMembershipProvider.DeleteOAuthToken(String token)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.DeleteUser(System.String,System.Boolean)">
+            <summary>Sets the stub of MongoMembership.DeleteUser(String username, Boolean deleteAllRelatedData)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.DeleteUserStringBoolean">
+            <summary>Sets the stub of MongoMembership.DeleteUser(String username, Boolean deleteAllRelatedData)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.DescriptionGet">
+            <summary>Sets the stub of ProviderBase.get_Description()</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.EnablePasswordResetGet">
+            <summary>Sets the stub of MongoMembership.get_EnablePasswordReset()</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.EnablePasswordRetrievalGet">
+            <summary>Sets the stub of MongoMembership.get_EnablePasswordRetrieval()</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.EncryptPassword(System.Byte[])">
+            <summary>Sets the stub of MembershipProvider.EncryptPassword(Byte[] password)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.EncryptPassword(System.Byte[],System.Web.Configuration.MembershipPasswordCompatibilityMode)">
+            <summary>Sets the stub of MembershipProvider.EncryptPassword(Byte[] password, MembershipPasswordCompatibilityMode legacyPasswordCompatibilityMode)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.EncryptPasswordByteArray">
+            <summary>Sets the stub of MembershipProvider.EncryptPassword(Byte[] password)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.EncryptPasswordByteArrayMembershipPasswordCompatibilityMode">
+            <summary>Sets the stub of MembershipProvider.EncryptPassword(Byte[] password, MembershipPasswordCompatibilityMode legacyPasswordCompatibilityMode)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.FindUsersByEmail(System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>Sets the stub of MongoMembership.FindUsersByEmail(String emailToMatch, Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.FindUsersByEmailStringInt32Int32Int32Out">
+            <summary>Sets the stub of MongoMembership.FindUsersByEmail(String emailToMatch, Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.FindUsersByName(System.String,System.Int32,System.Int32,System.Int32@)">
+            <summary>Sets the stub of MongoMembership.FindUsersByName(String usernameToMatch, Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.FindUsersByNameStringInt32Int32Int32Out">
+            <summary>Sets the stub of MongoMembership.FindUsersByName(String usernameToMatch, Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GeneratePasswordResetToken(System.String)">
+            <summary>Sets the stub of ExtendedMembershipProvider.GeneratePasswordResetToken(String userName)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GeneratePasswordResetToken(System.String,System.Int32)">
+            <summary>Sets the stub of MongoMembership.GeneratePasswordResetToken(String userName, Int32 tokenExpirationInMinutesFromNow)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GeneratePasswordResetTokenString">
+            <summary>Sets the stub of ExtendedMembershipProvider.GeneratePasswordResetToken(String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GeneratePasswordResetTokenStringInt32">
+            <summary>Sets the stub of MongoMembership.GeneratePasswordResetToken(String userName, Int32 tokenExpirationInMinutesFromNow)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetAccountsForUser(System.String)">
+            <summary>Sets the stub of MongoMembership.GetAccountsForUser(String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetAccountsForUserString">
+            <summary>Sets the stub of MongoMembership.GetAccountsForUser(String userName)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetAllUsers(System.Int32,System.Int32,System.Int32@)">
+            <summary>Sets the stub of MongoMembership.GetAllUsers(Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetAllUsersInt32Int32Int32Out">
+            <summary>Sets the stub of MongoMembership.GetAllUsers(Int32 pageIndex, Int32 pageSize, Int32&amp; totalRecords)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetCreateDate(System.String)">
+            <summary>Sets the stub of MongoMembership.GetCreateDate(String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetCreateDateString">
+            <summary>Sets the stub of MongoMembership.GetCreateDate(String userName)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetLastPasswordFailureDate(System.String)">
+            <summary>Sets the stub of MongoMembership.GetLastPasswordFailureDate(String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetLastPasswordFailureDateString">
+            <summary>Sets the stub of MongoMembership.GetLastPasswordFailureDate(String userName)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetNumberOfUsersOnline">
+            <summary>Sets the stub of MongoMembership.GetNumberOfUsersOnline()</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetNumberOfUsersOnline01">
+            <summary>Sets the stub of MongoMembership.GetNumberOfUsersOnline()</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetOAuthTokenSecret(System.String)">
+            <summary>Sets the stub of ExtendedMembershipProvider.GetOAuthTokenSecret(String token)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetOAuthTokenSecretString">
+            <summary>Sets the stub of ExtendedMembershipProvider.GetOAuthTokenSecret(String token)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetPassword(System.String,System.String)">
+            <summary>Sets the stub of MongoMembership.GetPassword(String username, String answer)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetPasswordChangedDate(System.String)">
+            <summary>Sets the stub of MongoMembership.GetPasswordChangedDate(String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetPasswordChangedDateString">
+            <summary>Sets the stub of MongoMembership.GetPasswordChangedDate(String userName)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetPasswordFailuresSinceLastSuccess(System.String)">
+            <summary>Sets the stub of MongoMembership.GetPasswordFailuresSinceLastSuccess(String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetPasswordFailuresSinceLastSuccessString">
+            <summary>Sets the stub of MongoMembership.GetPasswordFailuresSinceLastSuccess(String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetPasswordStringString">
+            <summary>Sets the stub of MongoMembership.GetPassword(String username, String answer)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUser(System.Object,System.Boolean)">
+            <summary>Sets the stub of MongoMembership.GetUser(Object providerUserKey, Boolean userIsOnline)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUser(System.String,System.Boolean)">
+            <summary>Sets the stub of MongoMembership.GetUser(String username, Boolean userIsOnline)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUserIdFromOAuth(System.String,System.String)">
+            <summary>Sets the stub of ExtendedMembershipProvider.GetUserIdFromOAuth(String provider, String providerUserId)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUserIdFromOAuthStringString">
+            <summary>Sets the stub of ExtendedMembershipProvider.GetUserIdFromOAuth(String provider, String providerUserId)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUserIdFromPasswordResetToken(System.String)">
+            <summary>Sets the stub of MongoMembership.GetUserIdFromPasswordResetToken(String token)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUserIdFromPasswordResetTokenString">
+            <summary>Sets the stub of MongoMembership.GetUserIdFromPasswordResetToken(String token)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUserNameByEmail(System.String)">
+            <summary>Sets the stub of MongoMembership.GetUserNameByEmail(String email)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUserNameByEmailString">
+            <summary>Sets the stub of MongoMembership.GetUserNameByEmail(String email)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUserNameFromId(System.Int32)">
+            <summary>Sets the stub of ExtendedMembershipProvider.GetUserNameFromId(Int32 userId)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUserNameFromIdInt32">
+            <summary>Sets the stub of ExtendedMembershipProvider.GetUserNameFromId(Int32 userId)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUserObjectBoolean">
+            <summary>Sets the stub of MongoMembership.GetUser(Object providerUserKey, Boolean userIsOnline)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.GetUserStringBoolean">
+            <summary>Sets the stub of MongoMembership.GetUser(String username, Boolean userIsOnline)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.HasLocalAccount(System.Int32)">
+            <summary>Sets the stub of ExtendedMembershipProvider.HasLocalAccount(Int32 userId)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.HasLocalAccountInt32">
+            <summary>Sets the stub of ExtendedMembershipProvider.HasLocalAccount(Int32 userId)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.Initialize(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>Sets the stub of MongoMembership.Initialize(String name, NameValueCollection config)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.InitializeStringNameValueCollection">
+            <summary>Sets the stub of MongoMembership.Initialize(String name, NameValueCollection config)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.InitializeStub">
+            <summary>Initializes a new instance of type StubMongoMembership</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.IsConfirmed(System.String)">
+            <summary>Sets the stub of MongoMembership.IsConfirmed(String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.IsConfirmedString">
+            <summary>Sets the stub of MongoMembership.IsConfirmed(String userName)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.MaxInvalidPasswordAttemptsGet">
+            <summary>Sets the stub of MongoMembership.get_MaxInvalidPasswordAttempts()</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.MinRequiredNonAlphanumericCharactersGet">
+            <summary>Sets the stub of MongoMembership.get_MinRequiredNonAlphanumericCharacters()</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.MinRequiredPasswordLengthGet">
+            <summary>Sets the stub of MongoMembership.get_MinRequiredPasswordLength()</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.NameGet">
+            <summary>Sets the stub of ProviderBase.get_Name()</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.OnValidatingPassword(System.Web.Security.ValidatePasswordEventArgs)">
+            <summary>Sets the stub of MembershipProvider.OnValidatingPassword(ValidatePasswordEventArgs e)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.OnValidatingPasswordValidatePasswordEventArgs">
+            <summary>Sets the stub of MembershipProvider.OnValidatingPassword(ValidatePasswordEventArgs e)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.PasswordAttemptWindowGet">
+            <summary>Sets the stub of MongoMembership.get_PasswordAttemptWindow()</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.PasswordFormatGet">
+            <summary>Sets the stub of MongoMembership.get_PasswordFormat()</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.PasswordStrengthRegularExpressionGet">
+            <summary>Sets the stub of MongoMembership.get_PasswordStrengthRegularExpression()</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.ReplaceOAuthRequestTokenWithAccessToken(System.String,System.String,System.String)">
+            <summary>Sets the stub of ExtendedMembershipProvider.ReplaceOAuthRequestTokenWithAccessToken(String requestToken, String accessToken, String accessTokenSecret)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.ReplaceOAuthRequestTokenWithAccessTokenStringStringString">
+            <summary>Sets the stub of ExtendedMembershipProvider.ReplaceOAuthRequestTokenWithAccessToken(String requestToken, String accessToken, String accessTokenSecret)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.RequiresQuestionAndAnswerGet">
+            <summary>Sets the stub of MongoMembership.get_RequiresQuestionAndAnswer()</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.RequiresUniqueEmailGet">
+            <summary>Sets the stub of MongoMembership.get_RequiresUniqueEmail()</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.ResetPassword(System.String,System.String)">
+            <summary>Sets the stub of MongoMembership.ResetPassword(String username, String answer)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.ResetPasswordStringString">
+            <summary>Sets the stub of MongoMembership.ResetPassword(String username, String answer)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.ResetPasswordWithToken(System.String,System.String)">
+            <summary>Sets the stub of MongoMembership.ResetPasswordWithToken(String token, String newPassword)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.ResetPasswordWithTokenStringString">
+            <summary>Sets the stub of MongoMembership.ResetPasswordWithToken(String token, String newPassword)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.StoreOAuthRequestToken(System.String,System.String)">
+            <summary>Sets the stub of ExtendedMembershipProvider.StoreOAuthRequestToken(String requestToken, String requestTokenSecret)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.StoreOAuthRequestTokenStringString">
+            <summary>Sets the stub of ExtendedMembershipProvider.StoreOAuthRequestToken(String requestToken, String requestTokenSecret)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.UnlockUser(System.String)">
+            <summary>Sets the stub of MongoMembership.UnlockUser(String username)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.UnlockUserString">
+            <summary>Sets the stub of MongoMembership.UnlockUser(String username)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.UpdateUser(System.Web.Security.MembershipUser)">
+            <summary>Sets the stub of MongoMembership.UpdateUser(MembershipUser user)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.UpdateUserMembershipUser">
+            <summary>Sets the stub of MongoMembership.UpdateUser(MembershipUser user)</summary>
+        </member>
+        <member name="M:BusinessLogic.Providers.Fakes.StubMongoMembership.ValidateUser(System.String,System.String)">
+            <summary>Sets the stub of MongoMembership.ValidateUser(String username, String password)</summary>
+        </member>
+        <member name="F:BusinessLogic.Providers.Fakes.StubMongoMembership.ValidateUserStringString">
+            <summary>Sets the stub of MongoMembership.ValidateUser(String username, String password)</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.ApplicationName">
+            <summary>Sets the stub of MongoMembership.get_ApplicationName()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.CallBase">
+            <summary>Gets or sets a value that indicates if the base method should be called instead of the fallback behavior</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.Description">
+            <summary>Sets the stub of ProviderBase.get_Description()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.EnablePasswordReset">
+            <summary>Sets the stub of MongoMembership.get_EnablePasswordReset()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.EnablePasswordRetrieval">
+            <summary>Sets the stub of MongoMembership.get_EnablePasswordRetrieval()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.InstanceBehavior">
+            <summary>Gets or sets the instance behavior.</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.InstanceObserver">
+            <summary>Gets or sets the instance observer.</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.MaxInvalidPasswordAttempts">
+            <summary>Sets the stub of MongoMembership.get_MaxInvalidPasswordAttempts()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.MinRequiredNonAlphanumericCharacters">
+            <summary>Sets the stub of MongoMembership.get_MinRequiredNonAlphanumericCharacters()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.MinRequiredPasswordLength">
+            <summary>Sets the stub of MongoMembership.get_MinRequiredPasswordLength()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.Name">
+            <summary>Sets the stub of ProviderBase.get_Name()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.PasswordAttemptWindow">
+            <summary>Sets the stub of MongoMembership.get_PasswordAttemptWindow()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.PasswordFormat">
+            <summary>Sets the stub of MongoMembership.get_PasswordFormat()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.PasswordStrengthRegularExpression">
+            <summary>Sets the stub of MongoMembership.get_PasswordStrengthRegularExpression()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.RequiresQuestionAndAnswer">
+            <summary>Sets the stub of MongoMembership.get_RequiresQuestionAndAnswer()</summary>
+        </member>
+        <member name="P:BusinessLogic.Providers.Fakes.StubMongoMembership.RequiresUniqueEmail">
+            <summary>Sets the stub of MongoMembership.get_RequiresUniqueEmail()</summary>
+        </member>
+    </members>
+</doc>

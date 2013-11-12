@@ -11,6 +11,7 @@ using AdminPanelUI.Models;
 
 namespace AdminPanelUI.Controllers
 {
+    [Authorize]
     public class RegionController : Controller
     {
         private RegionRepository db = new RegionRepository();

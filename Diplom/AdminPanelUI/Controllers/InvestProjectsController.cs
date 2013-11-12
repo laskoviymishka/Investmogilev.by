@@ -5,12 +5,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using MongoRepository.Repository;
 using MongoRepository.Model;
+using Newtonsoft.Json;
 
 namespace AdminPanelUI.Controllers
 {
+    [Authorize]
     public class InvestProjectsController : Controller
     {
         #region Nested class
