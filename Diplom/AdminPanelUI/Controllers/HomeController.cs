@@ -11,6 +11,5 @@ namespace AdminPanelUI.Controllers
         {
             return View();
         }
-
     }
 }

@@ -92,7 +92,9 @@
             <tr>
                 <td>Контакт</td>
                 <td>@Html.EditorFor(model => model.Contact)
-                    @Html.ValidationMessageFor(model => model.Contact)</td>
+                    @Html.ValidationMessageFor(model => model.Contact)
+                    @Html.DropDownList("Ответственный", (SelectList)ViewBag.Users)
+                    @Html.ValidationMessageFor(model => model.Region)</td>
             </tr>
             <tr>
                 <td>Адресс</td>

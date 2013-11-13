@@ -16,6 +16,8 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="app.css" />
+    <Content Include="app.js" />
     <Content Include="css\avgrund.css" />
     <Content Include="css\bootstrap-modal-bs3patch.css" />
     <Content Include="css\bootstrap-theme.css" />
@@ -24,21 +26,16 @@
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\bootstrap.min1.css" />
     <Content Include="css\styles.css" />
+    <Content Include="default.htm" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="index.htm" />
+    <Content Include="index.html" />
     <Content Include="js\avgrund.js" />
     <Content Include="js\bootstrap-modal.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\bootstrapdefault.min.js" />
-    <Content Include="js\Infrastructure\DependencyContainer.js" />
-    <Content Include="js\Infrastructure\ProjectRepository.js" />
     <Content Include="js\mapControl.js" />
     <Content Include="js\ModalManager.js" />
-    <Content Include="js\testData.js" />
-    <Content Include="js\ViewModels\LayerViewModel.js" />
-    <Content Include="js\ViewModels\MapViewModel.js" />
-    <Content Include="js\ViewModels\ProjectViewModel.js" />
     <Content Include="packages.config" />
     <None Include="PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
@@ -49,12 +46,17 @@
     <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
+    <Content Include="ViewModels\LayerViewModel.js" />
     <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="app.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="app.js.map" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -69,7 +71,9 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

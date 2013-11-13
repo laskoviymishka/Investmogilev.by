@@ -97,6 +97,7 @@ function HideCheckedLayers() {
     document.getElementById("demographicSelected").className = "badge hidden"
     document.getElementById("integralSelected").className = "badge hidden"
 }
+
 function openPopUp(e, type) {
     $('#popupContainer').html('');
     Avgrund.show("#default-popup");

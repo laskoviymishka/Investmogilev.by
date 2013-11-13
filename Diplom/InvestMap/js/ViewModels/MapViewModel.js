@@ -38,7 +38,7 @@
 			marker.InitMarker(map)
 			google.maps.event.addListener(marker.gMarker, 'click', function (e) {
 	            for (var i = 0; i < argument.length; i++) {
-	                if (argument[i].Lat().toFixed(5) == e.latLng.nb.toFixed(5) && argument[i].Lng().toFixed(5) == e.latLng.ob.toFixed(5)) {
+	                if (argument[i].Lat().toPrecision(8) == e.latLng.lb.toPrecision(8)  && argument[i].Lng().toPrecision(8)  == e.latLng.mb.toPrecision(8) ) {
 	                    self.OpenPopUp(argument[i]._id(), argument[i].Type())
 	                }
 	            }
@@ -172,7 +172,10 @@ var mapvm = new MapViewModel(map)
 var plvm  = new ProjectListViewModel(pr,mapvm)
 var layerListViewModel = new LayerListViewModel(dataForLayers, mapvm)
 var pfvm = new ProjectsFilterViewModel(plvm)
+var rvm = new RegionViewModel(regionRepository)
 mapvm.Initialize()
+rvm.Set(dataForRegions[5])
 ko.applyBindings(mapvm, document.getElementById("MapView"));
 ko.applyBindings(layerListViewModel, document.getElementById("LayerView"));
 ko.applyBindings(pfvm, document.getElementById("ProjectFilterView"));
+ko.applyBindings(rvm, document.getElementById("RegionInfoView"));

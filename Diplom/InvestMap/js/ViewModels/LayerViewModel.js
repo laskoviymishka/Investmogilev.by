@@ -1,4 +1,10 @@
 ﻿var test
+var emptyLayer = {
+	    "Name": " ",
+        "StyleId": 32,
+        "TemplateId": 0, 
+        "Css": "white", 
+}
 function LayerListViewModel (container, mapViewModel) {
 	var _container = container
 	var self = this;
@@ -26,6 +32,10 @@ function LayerListViewModel (container, mapViewModel) {
 		self.SelectedLayerCss(value.Css())
 		self.SelectedLayer = value
 		mapViewModel.SetLayer(self.SelectedLayer)
+	}
+
+	self.LayerRemove = function () {
+       	self.SelectLayer(new LayerViewModel(emptyLayer))
 	}
 }
 

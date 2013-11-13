@@ -18,5 +18,6 @@ namespace MongoRepository.Model
         public string AddressName { get; set; }
         public string Contact { get; set; }
         public string Region { get; set; }
+        public string[] Mentors { get; set; }
     }
 }

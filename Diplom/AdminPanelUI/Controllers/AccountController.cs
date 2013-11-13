@@ -14,8 +14,6 @@ namespace AdminPanelUI.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            var mb = new MongoDB.Web.Providers.MongoDBMembershipProvider();
-            
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -38,7 +36,7 @@ namespace AdminPanelUI.Controllers
         }
 
         //
-        // POST: /Account/LogOff
+        // POST: /Account/LogOff`
 
         public ActionResult LogOff()
         {

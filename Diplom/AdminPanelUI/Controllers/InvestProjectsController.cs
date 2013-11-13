@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using MongoRepository.Repository;
 using MongoRepository.Model;
 using Newtonsoft.Json;
@@ -17,19 +18,19 @@ namespace AdminPanelUI.Controllers
         #region Nested class
         class LatLng
         {
-            public Nullable<double> Lat = 0;
-            public Nullable<double> Lng = 0;
-            public string Name = "";
-            public string _id = "";
-            public string Description = "";
-            public string Type = "";
+            public Nullable<double> Lat;
+            public Nullable<double> Lng;
+            public string Name;
+            public string _id;
+            public string Description;
+            public string Type;
         }
 
         #endregion
 
         #region Fields
 
-        private ProjectRepository _repository = new ProjectRepository();
+        private readonly ProjectRepository _repository = new ProjectRepository();
 
         #endregion
 
@@ -82,7 +83,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult DetailsBrownField(string id)
         {
-            Project project = _repository.GetProjectByID<BrownField>(id);
+            BrownField project = _repository.GetProjectByID<BrownField>(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -93,6 +94,8 @@ namespace AdminPanelUI.Controllers
         public ActionResult CreateBrownField()
         {
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+
             return PartialView();
         }
 
@@ -105,7 +108,9 @@ namespace AdminPanelUI.Controllers
                 _repository.InsertProject(project);
                 return RedirectToAction("Index");
             }
+
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
             return View(project);
         }
 
@@ -117,6 +122,8 @@ namespace AdminPanelUI.Controllers
                 return HttpNotFound();
             }
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+
             return PartialView(project);
         }
 
@@ -129,6 +136,8 @@ namespace AdminPanelUI.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+
             return View(project);
         }
 
@@ -169,6 +178,7 @@ namespace AdminPanelUI.Controllers
         public ActionResult CreateGreenField()
         {
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
             return PartialView();
         }
 
@@ -181,7 +191,9 @@ namespace AdminPanelUI.Controllers
                 _repository.InsertProject(project);
                 return RedirectToAction("Index");
             }
+
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
             return View(project);
         }
 
@@ -192,7 +204,9 @@ namespace AdminPanelUI.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
             return PartialView(project);
         }
 
@@ -204,7 +218,9 @@ namespace AdminPanelUI.Controllers
                 _repository.UpdateOne<GreenField>(project);
                 return RedirectToAction("Index");
             }
+
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
             return View(project);
         }
 
@@ -238,6 +254,7 @@ namespace AdminPanelUI.Controllers
         public ActionResult CreateUnUsedBuilding()
         {
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
             return PartialView();
         }
 
@@ -250,7 +267,9 @@ namespace AdminPanelUI.Controllers
                 _repository.InsertProject(project);
                 return RedirectToAction("Index");
             }
+
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
             return View(project);
         }
 
@@ -261,7 +280,9 @@ namespace AdminPanelUI.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
             return PartialView(project);
         }
 
@@ -273,7 +294,9 @@ namespace AdminPanelUI.Controllers
                 _repository.UpdateOne<UnUsedBuilding>(project);
                 return RedirectToAction("Index");
             }
+
             ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
             return PartialView(project);
         }
 
