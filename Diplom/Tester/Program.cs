@@ -17,7 +17,27 @@ namespace Tester
     {
         static void Main(string[] args)
         {
-            
+            RegionRepository repo = new RegionRepository();
+            List<Region> regions = repo.GetAll().ToList();
+
+            foreach (Region region in regions)
+            {
+                foreach (var parametr in region.Parametrs)
+                {
+                    foreach (var child in parametr.ChildParametrs)
+                    {
+                        var temp = child.Values.Where(val => val.Value == 366839).ToList();
+                        foreach (var val in temp)
+                        {
+                            child.Values.Remove(val);
+                        }
+                    }
+                }
+
+                repo.Update(region);
+            }
+
+            Console.Read();
         }
 
         private static void GenerateDependendenciesValues()

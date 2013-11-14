@@ -149,6 +149,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\demo_page.css" />
+    <Content Include="Content\demo_table.css" />
+    <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\jquery.dataTables.min.js" />
     <Content Include="Content\Map.js" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\InvestProjectsController.cs" />
@@ -176,6 +180,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\oneSimpleTablePaging-1.0.js" />
     <Content Include="Content\popup.css" />
     <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
@@ -547,11 +552,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-2.0.2.min.map" />
     <Content Include="Views\Region\Index.cshtml" />
-    <Content Include="Views\Region\Details.cshtml" />
-    <Content Include="Views\Region\Create.cshtml" />
-    <Content Include="Views\Region\Edit.cshtml" />
-    <Content Include="Views\Region\Delete.cshtml" />
-    <Content Include="Views\Region\ParametrsForRegion.cshtml" />
     <Content Include="Views\InvestProjects\Index.cshtml" />
     <Content Include="Views\InvestProjects\CreateBrownField.cshtml" />
     <Content Include="Views\InvestProjects\EditBrownField.cshtml" />
@@ -567,7 +567,6 @@
     <Content Include="Views\InvestProjects\PopUpDetailsGreenField.cshtml" />
     <Content Include="Views\InvestProjects\PopUpDetailsBrownField.cshtml" />
     <Content Include="Views\InvestProjects\PopUpDetailsUnUsedBuilding.cshtml" />
-    <Content Include="Views\Region\RegionParametrs.cshtml" />
     <Content Include="Views\Region\ChildParametr.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
