@@ -23,6 +23,10 @@
                 <ul class="nav">
                     @Html.MenuLink("Проекты", "Index", "InvestProjects")
                     @Html.MenuLink("Регионы", "Index", "Region")
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.MenuLink("Пользователи", "Index", "Admin")
+                    }
                 </ul>
             </div>
         </div>

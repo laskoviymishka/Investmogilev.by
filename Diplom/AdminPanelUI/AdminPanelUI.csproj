@@ -155,12 +155,14 @@
     <Content Include="Content\jquery.dataTables.min.js" />
     <Content Include="Content\Map.js" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\InvestProjectsController.cs" />
     <Compile Include="Controllers\RegionApiController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\CurrentData.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\RegionParametr.cs" />
@@ -577,6 +579,7 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\LogOff.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
