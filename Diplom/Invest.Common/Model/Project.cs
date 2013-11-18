@@ -3,10 +3,14 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Invest.Common.Model
 {
-    public class Project
+    public class Project : MongoEntity
     {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string _id { get; set; }
+
+        public string _id
+        {
+            get;
+            set;
+        }
         public string Name { get; set; }
         public string Description { get; set; }
         public Address Address { get; set; }

@@ -47,9 +47,9 @@
     <Compile Include="StateManagment\BaseTransition.cs" />
     <Compile Include="StateManagment\BaseWorkflow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StateManagment\History.cs" />
     <Compile Include="StateManagment\IWorkflow.cs" />
     <Compile Include="StateManagment\ITransition.cs" />
+    <Compile Include="StateManagment\IWorkflowContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Invest.Common\Invest.Common.csproj">

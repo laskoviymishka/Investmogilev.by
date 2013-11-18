@@ -4,7 +4,7 @@ using System.Web.Security;
 
 namespace Invest.Common.Model
 {
-    public class User : MembershipUser
+    public class MongoUser : MembershipUser, MongoEntity
     {
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; }

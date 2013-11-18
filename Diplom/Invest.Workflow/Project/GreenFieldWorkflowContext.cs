@@ -7,21 +7,40 @@ using System.Text;
 using Invest.Common.Model;
 using Invest.Workflow.StateManagment;
 using MongoRepository.Repository;
+using History = Invest.Common.Model.History;
 
 namespace Invest.Workflow.Project
 {
-    public class GreenFieldWorkflowContext : GreenFieldStates
+    public class GreenFieldWorkflowContext : GreenFieldStates, IWorkflowContext
     {
-        private readonly IRepository<IWorkflow> _repository;
+        private readonly IRepository<WorkflowEntity> _repository;
 
-        public GreenFieldWorkflowContext(IRepository<IWorkflow> repository)
+        public GreenFieldWorkflowContext(IRepository<WorkflowEntity> repository)
         {
             _repository = repository;
         }
 
         public IWorkflow GetWorkflow(string id)
         {
-            var workflow = _repository.GetById(id);
+            var workflowEntity = _repository.GetById(id);
+            IWorkflow workflow = new BaseWorkflow<GreenField>(workflowEntity.CurrenState);
+            var conditions =
+                new Dictionary<string, Func<object, bool>>();
+            conditions["Role"] = (o) => o is string && o.ToString() == "Admin";
+
+            workflow.Transitions = new List<ITransition>()
+                {
+                    new BaseTransition(Open,UnVerifyDone, conditions, () =>
+                        { return UnVerifyDone; }),
+                    new BaseTransition(UnVerifyDone,Progress, conditions, () =>
+                        { return Progress; }),
+                    new BaseTransition(Progress,PendingPlanChanged, conditions, () =>
+                        { return PendingPlanChanged; }),
+                    new BaseTransition(PendingPlanChanged,Close, conditions, () =>
+                        { return Close; })
+                };
+            workflow.CurrentCondiotions = new Dictionary<string, object>();
+            workflow.Workflow = workflowEntity;
             workflow.SetContext(this);
             return workflow;
         }
@@ -44,15 +63,19 @@ namespace Invest.Workflow.Project
                     new BaseTransition(PendingPlanChanged,Close, conditions, () =>
                         { return Close; })
                 };
+            workflow.Workflow = new WorkflowEntity();
             workflow.CurrentCondiotions = new Dictionary<string, object>();
             workflow.CurrentCondiotions["Role"] = "Admin";
-            _repository.Insert(workflow);
+            workflow.Workflow.ChangeHistory = new List<History>();
+            workflow.Workflow.CurrenState = Open;
+            _repository.Insert(workflow.Workflow);
+            workflow.SetContext(this);
             return workflow;
         }
 
         public void SaveState(IWorkflow workflow)
         {
-            _repository.Update(workflow);
+            _repository.Update(workflow.Workflow);
         }
     }
 }

@@ -52,12 +52,15 @@
     <Compile Include="Model\BrownField.cs" />
     <Compile Include="Model\EditParametrViewModel.cs" />
     <Compile Include="Model\GreenField.cs" />
+    <Compile Include="Model\History.cs" />
     <Compile Include="Model\InfoType.cs" />
+    <Compile Include="Model\MongoEntity.cs" />
     <Compile Include="Model\Parametrs.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Model\Region.cs" />
     <Compile Include="Model\UnUsedBuilding.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Model\WorkflowEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

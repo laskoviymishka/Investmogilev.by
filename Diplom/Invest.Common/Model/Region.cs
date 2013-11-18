@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Invest.Common.Model
 {
-    public class Region
+    public class Region : MongoEntity
     {
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string _id

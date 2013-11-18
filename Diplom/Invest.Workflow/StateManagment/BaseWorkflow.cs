@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Invest.Common.Model;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -9,9 +10,8 @@ namespace Invest.Workflow.StateManagment
     {
         #region Private Fields
 
-        private string _currentState;
         private IList<History> _changeHistory;
-        private object _context;
+        private IWorkflowContext _context;
 
         #endregion
 
@@ -22,12 +22,14 @@ namespace Invest.Workflow.StateManagment
 
         public string CurrenState
         {
-            get { return _currentState; }
+            get { return Workflow.CurrenState; }
             set
             {
-                this.Move(_currentState, value, "", CurrentCondiotions);
+                Move(Workflow.CurrenState, value, "", CurrentCondiotions);
             }
         }
+
+        public WorkflowEntity Workflow { get; set; }
 
         public Dictionary<string, object> CurrentCondiotions { get; set; }
 
@@ -45,14 +47,18 @@ namespace Invest.Workflow.StateManagment
 
         public BaseWorkflow(string initialState)
         {
-            _currentState = initialState;
+            if (Workflow == null)
+            {
+                Workflow = new WorkflowEntity();
+            }
+            Workflow.CurrenState = initialState;
         }
 
         #endregion
 
         #region Methods
 
-        public void SetContext(object context)
+        public void SetContext(IWorkflowContext context)
         {
             _context = context;
         }
@@ -75,14 +81,16 @@ namespace Invest.Workflow.StateManagment
                 }
             }
 
-            _changeHistory.Add(new History()
+            Workflow.ChangeHistory.Add(new History()
             {
                 EditingTime = DateTime.Now,
                 FromState = from,
                 ToState = to,
                 Editor = editor
             });
-            _currentState = transition.MoveAction.Invoke();
+
+           Workflow.CurrenState = transition.MoveAction.Invoke();
+            _context.SaveState(this);
         }
 
         #endregion
