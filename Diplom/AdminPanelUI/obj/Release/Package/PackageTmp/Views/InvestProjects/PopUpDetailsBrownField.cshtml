@@ -1,0 +1,40 @@
+﻿@model MongoRepository.Model.BrownField
+
+<fieldset>
+    <legend>Brown Field - инвестиция в существущее производство</legend>
+    <table class="table table-striped table-condensed">
+        <tr>
+            <td>Название проекта</td>
+            <td>@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td>Описание проекта</td>
+            <td>@Html.DisplayFor(model => model.Description)</td>
+        </tr>
+        <tr>
+            <td>Дата регистрации проекта</td>
+            <td>@Html.DisplayFor(model => model.RegistrationDate)</td>
+        </tr>
+        <tr>
+            <td>Дата сдачи проекта</td>
+            <td>@Html.DisplayFor(model => model.EstimateRelease)</td>
+        </tr>
+        <tr>
+            <td>Объем инвестиций</td>
+            <td>@Html.DisplayFor(model => model.InvestAmount) млрд. руб.</td>
+        </tr>
+        <tr>
+            <td>Создаваемые рабочие места</td>
+            <td>@Html.DisplayFor(model => model.WorkPlaces)</td>
+        </tr>
+        <tr>
+            <td>Контакт</td>
+            <td>@Html.DisplayFor(model => model.Contact)</td>
+        </tr>
+        <tr>
+            <td>Примечания</td>
+            <td>@Html.DisplayFor(model => model.Appendix)</td>
+        </tr>
+    </table>
+</fieldset>
+

@@ -1,0 +1,63 @@
+﻿@using System.Web.Optimization
+@using AdminPanelUI.Helpers
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Инвестиционная карта могилевщины &bull; @ViewBag.Title</title>
+    <script src="~/Scripts/jquery-2.0.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/popup.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="~/Scripts/gmaps.js"></script>
+    @Styles.Render("~/css")
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="@Url.Action("Index", "InvestProjects")">Инвестиционная карта</a>
+                <ul class="nav">
+                    @Html.MenuLink("Home", "Index", "InvestProjects")
+                    @Html.MenuLink("Параметры", "Index", "Parametr")
+                    @Html.MenuLink("Регионы", "Index", "Region")
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="height: 100%">
+        <noscript>
+            <div class="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Warning!</strong> Please enable JavaScript in your browser!
+            </div>
+        </noscript>
+
+        <div class="row">
+            @if (IsSectionDefined("sidebar"))
+            {
+                <div class="span2">
+                    @RenderSection("sidebar", required: false)
+                </div>
+            }
+
+            <div id="content">
+                <div>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+
+                <footer id="footer">
+                    &copy; 2013 Andrei Tserakhau.
+                </footer>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

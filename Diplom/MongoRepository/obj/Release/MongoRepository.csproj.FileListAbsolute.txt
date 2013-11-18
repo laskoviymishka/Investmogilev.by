@@ -1,0 +1,16 @@
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\MongoRepository.dll
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\MongoRepository.pdb
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\DataAccess.dll
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\MongoDB.Bson.dll
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\MongoDB.Driver.dll
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\Newtonsoft.Json.dll
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\EntityFramework.dll
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\DataAccess.pdb
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\MongoDB.Bson.xml
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\MongoDB.Driver.xml
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\Newtonsoft.Json.xml
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\EntityFramework.xml
+D:\Develop\DiplomMap\Diplom\MongoRepository\bin\Release\ru\EntityFramework.resources.dll
+D:\Develop\DiplomMap\Diplom\MongoRepository\obj\Release\MongoRepository.csprojResolveAssemblyReference.cache
+D:\Develop\DiplomMap\Diplom\MongoRepository\obj\Release\MongoRepository.dll
+D:\Develop\DiplomMap\Diplom\MongoRepository\obj\Release\MongoRepository.pdb

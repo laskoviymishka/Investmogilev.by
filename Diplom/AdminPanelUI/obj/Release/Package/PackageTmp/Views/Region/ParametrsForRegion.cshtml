@@ -1,0 +1,155 @@
+﻿@model IEnumerable<DataAccess.Model.ParametrValue>
+
+@{
+	ViewBag.Title = "ParametrsForRegion";
+	IEnumerable<DataAccess.Model.Parametr> allParams = ViewData["Parametrs"] as IEnumerable<DataAccess.Model.Parametr>;
+	Guid modelGUID;
+	string currentRegion = ViewData["Region"] as string;
+	IEnumerable<DataAccess.Model.YearData> yearsData = new List<DataAccess.Model.YearData>();
+	DataAccess.Model.CurrentData current = new DataAccess.Model.CurrentData();
+}
+
+<h2>Параметры для региона : @currentRegion</h2>
+
+<p>
+	@Html.ActionLink("Новый параметр", "Create","Parametr")
+</p>
+<table class="table table-striped table-condensed">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.ParametrName)
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in allParams)
+	{
+		<tr>
+			<td>
+				@if (Model.Where(t => t.Parametr == item).Count() > 0)
+				{
+					{
+						modelGUID = Model.Where(t => t.Parametr == item).First().ID;
+						current = Model.Where(t => t.Parametr == item).First().CurrentDatas.First();
+						yearsData = Model.Where(t => t.Parametr == item).First().YearDatas;
+					}
+				}
+				else
+				{
+					{
+						modelGUID = Guid.NewGuid();
+						current = new DataAccess.Model.CurrentData();
+						yearsData = new List<DataAccess.Model.YearData>();
+					}
+				}
+				<div class="label label-info"
+					 id="collapse-@modelGUID"
+					 onclick="Collapse('@modelGUID')"
+					 style="display:none">
+					@item.Name , @currentRegion
+				</div>
+				<div class="label" id="show-@modelGUID"
+					 onclick="Show('@modelGUID ')">
+					@item.Name , @currentRegion
+				</div>
+
+				<div class="hero-unit"
+					 id="content-@modelGUID"
+					 style="display:none">
+					<h3 id="parName-@modelGUID">@item.Name</h3>
+					<p id="regName-@modelGUID">@currentRegion</p>
+					<ul>
+						<li>
+							<ul>
+								<li>
+									текущее значение:
+									<input id="curValue-@modelGUID"
+										   type="text"
+										   value="@current.CurrentValue" />
+								</li>
+								<li>
+									предыдущее значение:
+									<input id="prevValue-@modelGUID"
+										   type="text"
+										   value="@current.PreviosValue" />
+								</li>
+							</ul>
+						</li>
+						<li>
+							<ul id="Years-@modelGUID">
+								@foreach (var year in yearsData)
+								{
+									<li>
+										<input id="year-@modelGUID" type="text" value="@year.Year " />
+										год :
+										<input id="value-@modelGUID" type="text" value="@year.Value" />
+									</li>
+								}
+							</ul>
+							<button class="btn btn-mini" onclick="AddYaerTo('@modelGUID')">
+								Добавить данные к параметру @item.Name
+							</button>
+						</li>
+					</ul>
+					<button class="btn btn-mini" onclick="SaveParametrValue('@modelGUID')">
+						Сохранить изменения
+					</button>
+				</div>
+			</td>
+			<td></td>
+		</tr>
+	}
+
+</table>
+@Html.ActionLink("К списку регионов", "Index")
+<script type="text/javascript">
+
+	function Collapse(e) {
+		$("#content-" + e).hide();
+		$("#collapse-" + e).hide();
+		$("#show-" + e).show();
+	}
+	function Show(e) {
+		$("#content-" + e).show();
+		$("#collapse-" + e).show();
+		$("#show-" + e).hide();
+	}
+	function AddYaerTo(e) {
+		$("#Years-" + e).append("<li><input id='year-" + e + "' type='text' value='год' />год :<input id='value-" + e + "' type='text' value='значение' /></li>");
+	}
+	var test;
+	function SaveParametrValue(e) {
+		var ParametrValue = {
+			ParametrName: $("#parName-" + e).text(),
+			RegionName: $("#regName-" + e).text(),
+			CurrentData: {
+				Current: $("#curValue-" + e).val(),
+				Previos: $("#prevValue-" + e).val()
+			},
+			YearDatas: []
+		};
+		test = ParametrValue;
+		var YearData;
+		for (var i = 0, len = $('#Years-' + e + ' > li').length; i < len; i++) {
+			YearData = {
+				Year: $('#Years-' + e + ' > li > #year-' + e)[i].value,
+				Value: $('#Years-' + e + ' > li > #value-' + e)[i].value
+			};
+			ParametrValue.YearDatas[i] = YearData;
+		}
+
+		$.ajax({
+			url: 'http://localhost:2205/api/ParametrRegion',
+			type: 'POST',
+			data: JSON.stringify(ParametrValue),
+			contentType: "application/json;charset=utf-8",
+			success: function (data) {
+				alert('успешно обновлены данные');
+				WriteResponse(data);
+			},
+			error: function (x, y, z) {
+				alert('Ошибка! /n' + x + '\n' + y + '\n' + z);
+			}
+		});
+	}
+</script>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MongoRepository.Model.Project>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="thumbnails">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-2">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>@item.Name</h3>
+                    <p>@item.Description</p>
+                    @switch (item.GetType().Name)
+                    {
+                        case "GreenField":
+                            {
+                                <p class="label label-success">GreenField</p>
+                            }
+                            break;
+                        case "BrownField":
+                            {
+                                <p class="label">Brown Field</p>
+                            }
+                            break;
+                        case "UnUsedBuilding":
+                            {
+                                <p class="label label-info">Неиспользуемые здания</p>
+                            }
+                            break;
+                    }
+
+                    <p>@item.Region</p>
+                    @if (item.Description != item.AddressName)
+                    {
+                    <p>@item.AddressName</p>
+                    }else
+                    {
+                    <p>Адресс не указан</p>
+                    }
+                    <div class="btn btn-primary btn-block" onclick="openPopUp('@item._id','@item.GetType().Name')">Детали</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

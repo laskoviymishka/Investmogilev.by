@@ -1,0 +1,4 @@
+D:\Develop\DiplomMap\Diplom\InvestMap\bin\InvestMap.dll
+D:\Develop\DiplomMap\Diplom\InvestMap\bin\InvestMap.pdb
+D:\Develop\DiplomMap\Diplom\InvestMap\obj\Debug\InvestMap.dll
+D:\Develop\DiplomMap\Diplom\InvestMap\obj\Debug\InvestMap.pdb
