@@ -18,5 +18,6 @@ namespace Invest.Common.Model
         public string Contact { get; set; }
         public string Region { get; set; }
         public string[] Mentors { get; set; }
+        public string WorkflowId { get; set; }
     }
 }
