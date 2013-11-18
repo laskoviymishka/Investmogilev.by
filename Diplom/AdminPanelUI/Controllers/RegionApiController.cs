@@ -1,4 +1,4 @@
-﻿using MongoRepository.Model;
+﻿using Invest.Common.Model;
 using MongoRepository.Repository;
 using System;
 using System.Collections.Generic;

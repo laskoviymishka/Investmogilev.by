@@ -1,7 +1,7 @@
-﻿using MongoDB.Bson;
+﻿using Invest.Common.Model;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-using MongoRepository.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

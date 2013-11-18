@@ -6,8 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Invest.Common.Model;
 using MongoRepository.Repository;
-using MongoRepository.Model;
 using Newtonsoft.Json;
 
 namespace AdminPanelUI.Controllers
