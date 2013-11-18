@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Configuration.Provider;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Hosting;
@@ -185,7 +186,7 @@ namespace BusinessLogic.Providers
 
             var bsonDocument = new BsonDocument
             {
-                { "_id", (Guid)providerUserKey },
+                { "_id", new ObjectId() },
                 { "ApplicationName", this.ApplicationName },
                 { "CreationDate", creationDate },
                 { "Email", email },
@@ -317,7 +318,7 @@ namespace BusinessLogic.Providers
 
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
         {
-            var query = Query.EQ("_id", (Guid)providerUserKey);
+            var query = Query.EQ("_id", GenerateObjectId(providerUserKey));
             var bsonDocument = this.mongoCollection.FindOneAs<BsonDocument>(query);
 
             if (bsonDocument == null)
@@ -332,6 +333,13 @@ namespace BusinessLogic.Providers
             }
 
             return this.ToMembershipUser(bsonDocument);
+        }
+
+        private static ObjectId GenerateObjectId(object providerUserKey)
+        {
+            var bytes = ((Guid) providerUserKey).ToByteArray().Take(12).ToArray();
+            var oid = new ObjectId(bytes);
+            return oid;
         }
 
         public override string GetUserNameByEmail(string email)
@@ -404,7 +412,7 @@ namespace BusinessLogic.Providers
 
         public override void UpdateUser(MembershipUser user)
         {
-            var query = Query.EQ("_id", (Guid)user.ProviderUserKey);
+            var query = Query.EQ("_id", GenerateObjectId(user.ProviderUserKey));
             var bsonDocument = this.mongoCollection.FindOneAs<BsonDocument>(query);
 
             if (bsonDocument == null)
@@ -500,7 +508,7 @@ namespace BusinessLogic.Providers
             var email = bsonDocument.Contains("Email") ? bsonDocument["Email"].AsString : null;
             var passwordQuestion = bsonDocument.Contains("PasswordQuestion") ? bsonDocument["PasswordQuestion"].AsString : null;
 
-            return new MembershipUser(this.Name, bsonDocument["Username"].AsString, bsonDocument["_id"].AsGuid, email, passwordQuestion, comment, bsonDocument["IsApproved"].AsBoolean, bsonDocument["IsLockedOut"].AsBoolean, bsonDocument["CreationDate"].ToUniversalTime(), bsonDocument["LastLoginDate"].ToUniversalTime(), bsonDocument["LastActivityDate"].ToUniversalTime(), bsonDocument["LastPasswordChangedDate"].ToUniversalTime(), bsonDocument["LastLockoutDate"].ToUniversalTime());
+            return new MembershipUser(this.Name, bsonDocument["Username"].AsString, bsonDocument["_id"].AsObjectId, email, passwordQuestion, comment, bsonDocument["IsApproved"].AsBoolean, bsonDocument["IsLockedOut"].AsBoolean, bsonDocument["CreationDate"].ToUniversalTime(), bsonDocument["LastLoginDate"].ToUniversalTime(), bsonDocument["LastActivityDate"].ToUniversalTime(), bsonDocument["LastPasswordChangedDate"].ToUniversalTime(), bsonDocument["LastLockoutDate"].ToUniversalTime());
         }
 
         private bool VerifyPassword(BsonDocument user, string password)

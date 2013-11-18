@@ -1,0 +1,31 @@
+﻿@model IEnumerable<InvestPortal.Models.UserManagerViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@Html.Telerik().Grid(Model).Name("Grid1").DataKeys(keys =>
+    {
+        keys.Add(p => p._id);
+    }).ToolBar(commands => commands.Insert().ButtonType(GridButtonType.Text).ImageHtmlAttributes(new { style = "margin-left:0" })).DataBinding(dataBinding => dataBinding.Ajax()
+                                                     .Select("_SelectAjaxEditing", "UserManager")
+                                                     .Insert("_InsertAjaxEditing", "UserManager")
+                                                     .Update("_SaveAjaxEditing", "UserManager")
+                                                     .Delete("_DeleteAjaxEditing", "UserManager")).Columns(columns =>
+                {
+                    columns.Bound(p => p.Username);
+                    columns.Bound(p => p.LoweredEmail);
+                    columns.Bound(p => p.Roles);
+                    columns.Bound(p => p.IsApproved);
+                    columns.Bound(p => p.IsLockedOut);
+                    columns.Bound(p => p.PasswordQuestion);
+                    columns.Bound(p => p.PasswordAnswer);
+                    columns.Command(commands =>
+                        {
+                            commands.Edit().ButtonType(GridButtonType.Text);
+                            commands.Delete().ButtonType(GridButtonType.Text);
+                        }).Title("Commands");
+                }).Editable(editing => editing.InsertRowPosition(GridInsertRowPosition.Top).Mode(GridEditMode.InLine)).Pageable().Scrollable().Sortable()
