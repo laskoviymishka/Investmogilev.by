@@ -1,0 +1,12 @@
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Invest.Workflow.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Invest.Workflow.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Invest.Common.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Invest.Common.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MongoDB.Bson.xml
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MongoRepository.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MongoDB.Driver.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MongoRepository.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MongoDB.Driver.xml
