@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    @(Html.Telerik().StyleSheetRegistrar().DefaultGroup(group => group.Add("telerik.common.css").Add("telerik.metro.css").Combined(true).Compress(true).UseTelerikContentDeliveryNetwork(false)))</head>
+<body>
+    <div class="page">
+        <header>
+			<div id="title">
+				<h1>Инвестиционный портал могилева</h1>
+			</div>
+
+			@(Html.Telerik().Menu()
+                    .Name("menu")
+                    .Items(menu =>
+                    {
+                        menu.Add().Text("Home").Action("Index", "Home");
+                        menu.Add().Text("About").Action("About", "Home");
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            menu.Add().Text("Logoff").Action("Logoff", "Account");
+                        }
+                        else
+                        {
+                            menu.Add().Text("Login").Action("Login", "Account");
+                        }
+                    }))
+		</header>
+        <section id="main">
+			@RenderBody()
+		</section>
+        <footer>
+		</footer>
+    </div>
+    @(Html.Telerik().ScriptRegistrar().Globalization(true).DefaultGroup(group => group.Combined(true).Compress(true).UseTelerikContentDeliveryNetwork(false)))</body>
+</html>

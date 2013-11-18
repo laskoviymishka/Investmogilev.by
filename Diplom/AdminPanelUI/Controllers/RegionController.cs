@@ -21,6 +21,8 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.StartYear = 2005;
+            ViewBag.EndYear = 2012;
             return View(db.GetAll());
         }
 
@@ -46,6 +48,14 @@ namespace AdminPanelUI.Controllers
                 }
             }
             return HttpNotFound();
+        }
+
+        public ActionResult RegionParametr(string id)
+        {
+            ViewBag.StartYear = 2005;
+            ViewBag.EndYear = 2012;
+            Region region = db.GetById(id);
+            return View(region);
         }
 
         [HttpPost]
