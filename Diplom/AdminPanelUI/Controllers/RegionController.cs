@@ -8,13 +8,14 @@ using System.Web.Mvc;
 using Invest.Common.Model;
 using MongoRepository.Repository;
 using AdminPanelUI.Models;
+using MongoRepository;
 
 namespace AdminPanelUI.Controllers
 {
     [Authorize]
     public class RegionController : Controller
     {
-        private RegionRepository db = new RegionRepository();
+        private IRepository db = RepositoryContext.Current;
 
         //
         // GET: /Region/
@@ -23,12 +24,12 @@ namespace AdminPanelUI.Controllers
         {
             ViewBag.StartYear = 2005;
             ViewBag.EndYear = 2012;
-            return View(db.GetAll());
+            return View(db.All<Region>());
         }
 
         public ActionResult ChildParametr(string regionId, int parametrName)
         {
-            Region region = db.GetById(regionId);
+            Region region = db.GetById<Region>(r => r._id == regionId);
             if (region == null)
             {
                 return HttpNotFound();
@@ -54,7 +55,7 @@ namespace AdminPanelUI.Controllers
         {
             ViewBag.StartYear = 2005;
             ViewBag.EndYear = 2012;
-            Region region = db.GetById(id);
+            Region region = db.GetById<Region>(r => r._id == id);
             return View(region);
         }
 
@@ -64,7 +65,7 @@ namespace AdminPanelUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                Region region = db.GetById(collection["RegionId"]);
+                Region region = db.GetById<Region>(r => r._id == collection["RegionId"]);
                 foreach (var parametr in region.Parametrs)
                 {
                     foreach (var item in parametr.ChildParametrs)

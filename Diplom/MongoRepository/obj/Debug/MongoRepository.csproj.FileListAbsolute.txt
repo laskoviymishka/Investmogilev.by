@@ -11,12 +11,12 @@ D:\develop\DiplomMap-master\Diplom\MongoRepository\obj\Debug\MongoRepository.dll
 D:\develop\DiplomMap-master\Diplom\MongoRepository\obj\Debug\MongoRepository.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\bin\Debug\MongoRepository.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\bin\Debug\MongoRepository.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\bin\Debug\Invest.Common.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\bin\Debug\MongoDB.Bson.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\bin\Debug\MongoDB.Driver.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\bin\Debug\Invest.Common.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\bin\Debug\MongoDB.Bson.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\bin\Debug\MongoDB.Driver.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\obj\Debug\MongoRepository.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\obj\Debug\MongoRepository.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\bin\Debug\Invest.Common.dll
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\MongoRepository\bin\Debug\Invest.Common.pdb

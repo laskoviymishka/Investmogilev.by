@@ -59,7 +59,7 @@
     <Compile Include="Model\Project.cs" />
     <Compile Include="Model\Region.cs" />
     <Compile Include="Model\UnUsedBuilding.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\Users.cs" />
     <Compile Include="Model\WorkflowEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

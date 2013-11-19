@@ -1,11 +1,9 @@
 ﻿using Invest.Common.Model;
-using MongoRepository.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using MongoRepository;
+using MongoRepository.Repository;
 
 namespace AdminPanelUI.Controllers
 {
@@ -13,7 +11,7 @@ namespace AdminPanelUI.Controllers
     {
         #region Fields
 
-        private readonly RegionRepository _repo;
+        private IRepository _repo;
 
         #endregion
 
@@ -21,7 +19,7 @@ namespace AdminPanelUI.Controllers
 
         public RegionApiController()
         {
-            _repo = new RegionRepository();
+            _repo = RepositoryContext.Current;
         }
 
         #endregion
@@ -31,19 +29,19 @@ namespace AdminPanelUI.Controllers
         // GET api/regionapi
         public IEnumerable<Region> Get()
         {
-            return _repo.GetAll();
+            return _repo.All<Region>();
         }
 
         // GET api/regionapi/5
         public Region Get(string id)
         {
-            return _repo.GetById(id);
+            return _repo.GetById<Region>(r => r._id == id);
         }
 
         // POST api/regionapi
         public void Post(Region value)
         {
-            _repo.Insert(value);
+            _repo.Add(value);
         }
 
         // PUT api/regionapi/5

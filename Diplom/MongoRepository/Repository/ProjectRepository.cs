@@ -103,5 +103,33 @@ namespace MongoRepository.Repository
         }
 
         #endregion
+
+        #region Delete
+
+        public void Delete(BrownField project)
+        {
+            if (this.GetProjectByID<BrownField>(project._id) != null)
+            {
+                _db.GetCollection("BrownField").Remove(Query.EQ("_id", project._id));
+            }
+        }
+
+        public void Delete(GreenField project)
+        {
+            if (this.GetProjectByID<GreenField>(project._id) != null)
+            {
+                _db.GetCollection("GreenField").Remove(Query.EQ("_id", project._id));
+            }
+        }
+
+        public void Delete(UnUsedBuilding project)
+        {
+            if (this.GetProjectByID<UnUsedBuilding>(project._id) != null)
+            {
+                _db.GetCollection("UnUsedBuilding").Remove(Query.EQ("_id", project._id));
+            }
+        }
+
+        #endregion
     }
 }

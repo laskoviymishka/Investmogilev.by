@@ -12,12 +12,14 @@ namespace Tester
     {
         static void Main(string[] args)
         {
-            GreenFieldWorkflowContext context = new GreenFieldWorkflowContext(new BaseRepository<WorkflowEntity>("mongodb://tserakhau.cloudapp.net", "Projects", "Workflow"));
-            var temp2 = context.GetWorkflow("528a0d3be1859b21642b24af");
-            temp2.CurrentCondiotions["Role"] = "Admin";
-            temp2.Move(GreenFieldStates.Open, GreenFieldStates.UnVerifyDone, "Andrey", temp2.CurrentCondiotions);
-            Console.WriteLine(temp2.Workflow.CurrenState);
-            Console.Read();
+            //var context =
+            //    new GreenFieldWorkflowContext(new BaseRepository<WorkflowEntity>("mongodb://tserakhau.cloudapp.net",
+            //                                                                     "Projects", "Workflow"));
+            //IWorkflow temp2 = context.GetWorkflow("528a0d3be1859b21642b24af");
+            //temp2.CurrentCondiotions["Role"] = "Admin";
+            //temp2.Move(BaseProjectStates.Open, GreenFieldStates.UnVerifyDone, "Andrey", temp2.CurrentCondiotions);
+            //Console.WriteLine(temp2.Workflow.CurrenState);
+            //Console.Read();
         }
         //private static void GenerateDependendenciesValues()
         //{

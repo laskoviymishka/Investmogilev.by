@@ -5,7 +5,7 @@ using System.Web.Security;
 
 namespace Invest.Common.Model
 {
-    public class MongoUser : MembershipUser, MongoEntity
+    public class Users : MembershipUser, MongoEntity
     {
         private ObjectId _objectId;
 

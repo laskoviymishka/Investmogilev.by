@@ -23,9 +23,13 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Tes
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Tester.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Excel.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\ImageResizer.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Common.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Workflow.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoDB.Bson.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoDB.Driver.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoRepository.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Common.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Workflow.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoRepository.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\ImageResizer.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoDB.Bson.xml
@@ -33,7 +37,3 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Mon
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.exe
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Common.dll
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Common.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Workflow.dll
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Workflow.pdb

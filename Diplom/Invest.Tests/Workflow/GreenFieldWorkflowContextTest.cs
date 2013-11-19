@@ -73,7 +73,7 @@ namespace Invest.Tests
         [TestMethod()]
         public void GreenFieldWorkflowContextConstructorTest()
         {
-            IRepository<WorkflowEntity> repository = null; // TODO: Initialize to an appropriate value
+            IRepository repository = null; // TODO: Initialize to an appropriate value
             GreenFieldWorkflowContext target = new GreenFieldWorkflowContext(repository);
             Assert.Inconclusive("TODO: Implement code to verify target");
         }
@@ -84,7 +84,7 @@ namespace Invest.Tests
         [TestMethod()]
         public void CreateWorkflowTest()
         {
-            IRepository<WorkflowEntity> repository = null; // TODO: Initialize to an appropriate value
+            IRepository repository = null; // TODO: Initialize to an appropriate value
             GreenFieldWorkflowContext target = new GreenFieldWorkflowContext(repository); // TODO: Initialize to an appropriate value
             IWorkflow expected = null; // TODO: Initialize to an appropriate value
             IWorkflow actual;
@@ -99,7 +99,7 @@ namespace Invest.Tests
         [TestMethod()]
         public void GetWorkflowTest()
         {
-            IRepository<WorkflowEntity> repository = null; // TODO: Initialize to an appropriate value
+            IRepository repository = null; // TODO: Initialize to an appropriate value
             GreenFieldWorkflowContext target = new GreenFieldWorkflowContext(repository); // TODO: Initialize to an appropriate value
             string id = string.Empty; // TODO: Initialize to an appropriate value
             IWorkflow expected = null; // TODO: Initialize to an appropriate value
@@ -115,7 +115,7 @@ namespace Invest.Tests
         [TestMethod()]
         public void SaveStateTest()
         {
-            IRepository<WorkflowEntity> repository = null; // TODO: Initialize to an appropriate value
+            IRepository repository = null; // TODO: Initialize to an appropriate value
             GreenFieldWorkflowContext target = new GreenFieldWorkflowContext(repository); // TODO: Initialize to an appropriate value
             IWorkflow workflow = null; // TODO: Initialize to an appropriate value
             target.SaveState(workflow);

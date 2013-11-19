@@ -1,0 +1,26 @@
+﻿@using InvestPortal.Controllers
+@model IEnumerable<Invest.Common.Model.Project>
+@{
+    ViewBag.Title = "Управление проектами";
+}
+@Html.Telerik().Grid(Model).Name("Projects").DataKeys(keys =>
+    {
+        keys.Add(p => p._id);
+    }).ToolBar(commands => commands.Insert().ButtonType(GridButtonType.Text).ImageHtmlAttributes(new { style = "margin-left:0" })).DataBinding(dataBinding => dataBinding.Ajax()
+                                                     .Select("_SelectAjaxEditing", "BaseProject")
+                                                         .Insert("_InsertAjaxEditing", "BaseProject")
+                                                         .Update("_SaveAjaxEditing", "BaseProject")
+                                                         .Delete("_DeleteAjaxEditing", "BaseProject")).Columns(columns =>
+                {
+                    columns.Bound(p => p.Name).Title("Имя проекта");
+                    columns.Bound(p => p.Description).Title("Описание проекта");
+                    columns.ForeignKey(p => p.Region, (IEnumerable<BaseProjectController.NestedRegionViewModel>)ViewBag.Regions, "RegionName", "RegionName").Title("Регион");
+                    columns.Bound(p => p.AddressName).Title("Адресс");
+                    columns.ForeignKey(p => p.AssignUser, (IEnumerable<BaseProjectController.NestedUserViewModel>)ViewBag.Users, "Name", "Name").Title("Ответвственный");
+                    columns.Bound(p => p.ProjectType).Title("Тип проекта");
+                    columns.Command(commands =>
+                        {
+                            commands.Edit().ButtonType(GridButtonType.Text);
+                            commands.Delete().ButtonType(GridButtonType.Text);
+                        }).Title("Команды");
+                }).Editable(editing => editing.InsertRowPosition(GridInsertRowPosition.Top).Mode(GridEditMode.InLine)).Pageable().Scrollable(c => c.Height(600)).Sortable().Selectable().Localizable("ru-RU")

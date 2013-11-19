@@ -50,6 +50,7 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Adm
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\AdminPanelUI.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\BusinessLogic.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\EntityFramework.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Invest.Common.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoDB.Bson.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoRepository.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Newtonsoft.Json.dll
@@ -64,6 +65,7 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Sys
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Telerik.Web.Mvc.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoDB.Driver.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\BusinessLogic.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Invest.Common.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoRepository.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\EntityFramework.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoDB.Bson.xml
@@ -80,5 +82,3 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\ru\
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\AdminPanelUI.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\AdminPanelUI.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Invest.Common.dll
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Invest.Common.pdb

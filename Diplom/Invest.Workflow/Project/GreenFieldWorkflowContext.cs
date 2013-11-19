@@ -13,16 +13,16 @@ namespace Invest.Workflow.Project
 {
     public class GreenFieldWorkflowContext : GreenFieldStates, IWorkflowContext
     {
-        private readonly IRepository<WorkflowEntity> _repository;
+        private readonly IRepository _repository;
 
-        public GreenFieldWorkflowContext(IRepository<WorkflowEntity> repository)
+        public GreenFieldWorkflowContext(IRepository repository)
         {
             _repository = repository;
         }
 
         public IWorkflow GetWorkflow(string id)
         {
-            var workflowEntity = _repository.GetById(id);
+            var workflowEntity = _repository.GetById<WorkflowEntity>(w => w._id == id);
             IWorkflow workflow = new BaseWorkflow<GreenField>(workflowEntity.CurrenState);
             var conditions =
                 new Dictionary<string, Func<object, bool>>();
@@ -68,7 +68,7 @@ namespace Invest.Workflow.Project
             workflow.CurrentCondiotions["Role"] = "Admin";
             workflow.Workflow.ChangeHistory = new List<History>();
             workflow.Workflow.CurrenState = Open;
-            _repository.Insert(workflow.Workflow);
+            _repository.Add(workflow.Workflow);
             workflow.SetContext(this);
             return workflow;
         }

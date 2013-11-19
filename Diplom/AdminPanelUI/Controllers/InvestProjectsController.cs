@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Invest.Common.Model;
+using MongoRepository;
 using MongoRepository.Repository;
 using Newtonsoft.Json;
 
@@ -94,7 +95,7 @@ namespace AdminPanelUI.Controllers
         public ActionResult CreateBrownField()
         {
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
 
             return PartialView();
         }
@@ -110,7 +111,7 @@ namespace AdminPanelUI.Controllers
             }
 
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return View(project);
         }
 
@@ -122,7 +123,7 @@ namespace AdminPanelUI.Controllers
                 return HttpNotFound();
             }
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
 
             return PartialView(project);
         }
@@ -136,7 +137,7 @@ namespace AdminPanelUI.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
 
             return View(project);
         }
@@ -178,7 +179,7 @@ namespace AdminPanelUI.Controllers
         public ActionResult CreateGreenField()
         {
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return PartialView();
         }
 
@@ -193,7 +194,7 @@ namespace AdminPanelUI.Controllers
             }
 
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return View(project);
         }
 
@@ -206,7 +207,7 @@ namespace AdminPanelUI.Controllers
             }
 
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return PartialView(project);
         }
 
@@ -220,7 +221,7 @@ namespace AdminPanelUI.Controllers
             }
 
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return View(project);
         }
 
@@ -254,7 +255,7 @@ namespace AdminPanelUI.Controllers
         public ActionResult CreateUnUsedBuilding()
         {
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return PartialView();
         }
 
@@ -269,7 +270,7 @@ namespace AdminPanelUI.Controllers
             }
 
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return View(project);
         }
 
@@ -282,7 +283,7 @@ namespace AdminPanelUI.Controllers
             }
 
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return PartialView(project);
         }
 
@@ -296,7 +297,7 @@ namespace AdminPanelUI.Controllers
             }
 
             ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("User"));
+            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return PartialView(project);
         }
 
@@ -398,9 +399,9 @@ namespace AdminPanelUI.Controllers
         private IList<string> GetRegionsList()
         {
             IList<string> regions = new List<string>();
-            foreach (var item in new RegionRepository().AllRegionNames())
+            foreach (var item in RepositoryContext.Current.All<Region>())
             {
-                regions.Add(item);
+                regions.Add(item.RegionName);
             }
             return regions;
         }

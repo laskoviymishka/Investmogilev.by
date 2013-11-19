@@ -8,6 +8,7 @@ using Invest.Common.Model;
 using InvestPortal.Models;
 using MongoRepository.Repository;
 using Telerik.Web.Mvc;
+using MongoRepository;
 
 namespace InvestPortal.Controllers
 {
@@ -15,18 +16,18 @@ namespace InvestPortal.Controllers
     public class UserManagerController : Controller
     {
 
-        private readonly IRepository<MongoUser> _repository;
+        private readonly IRepository _repository;
 
         public UserManagerController()
         {
-            _repository = new BaseRepository<MongoUser>("mongodb://tserakhau.cloudapp.net", "Projects", "Users");
+            _repository = RepositoryContext.Current;
         }
 
         public ActionResult Index()
         {
-            IList<MongoUser> users = _repository.GetAll();
+            IList<Users> users = _repository.All<Users>().ToList();
             IList<UserManagerViewModel> model = new List<UserManagerViewModel>();
-            foreach (MongoUser mongoUser in users)
+            foreach (Users mongoUser in users)
             {
                 var vm = new UserManagerViewModel()
                     {
@@ -52,28 +53,29 @@ namespace InvestPortal.Controllers
             }
             return View(model);
         }
+
         [GridAction]
         public ActionResult _SelectAjaxEditing()
         {
-            return View(new GridModel(_repository.GetAll()));
+            return View(new GridModel(_repository.All<Users>()));
         }
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _SaveAjaxEditing(string id)
         {
-            MongoUser product = _repository.GetById(id);
+            Users product = _repository.GetById<Users>(u => u._id == id);
             UserManagerViewModel model = new UserManagerViewModel();
             UpdateUserModel(model, product);
 
             _repository.Update(product);
 
-            return View(new GridModel(_repository.GetAll()));
+            return View(new GridModel(_repository.All<Users>()));
         }
 
-        private void UpdateUserModel(UserManagerViewModel model, MongoUser product)
+        private void UpdateUserModel(UserManagerViewModel model, Users product)
         {
             UpdateModel(model);
-            //TryUpdateModel(product);
             product.Username = model.Username;
             product.Email = model.LoweredEmail;
             product.CreationDate = model.CreationDate;
@@ -87,26 +89,24 @@ namespace InvestPortal.Controllers
         [GridAction]
         public ActionResult _InsertAjaxEditing()
         {
-            MongoUser product = new MongoUser();
+            Users product = new Users();
             if (TryUpdateModel(product))
             {
-                _repository.Insert(product);
+                _repository.Add(product);
             }
-            return View(new GridModel(_repository.GetAll()));
+            return View(new GridModel(_repository.All<Users>()));
         }
+
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _DeleteAjaxEditing(string id)
         {
-            //Find a customer with ProductID equal to the id action parameter
-            if (_repository.GetById(id) != null)
+            if (_repository.GetById<Users>(u => u._id == id) != null)
             {
-                //Delete the record
-                _repository.Delete(_repository.GetById(id));
+                _repository.Delete(_repository.GetById<Users>(u => u._id == id));
             }
 
-            //Rebind the grid
-            return View(new GridModel(_repository.GetAll()));
+            return View(new GridModel(_repository.All<Users>()));
         }
     }
 }

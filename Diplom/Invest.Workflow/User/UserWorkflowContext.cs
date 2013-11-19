@@ -8,13 +8,13 @@ namespace Invest.Workflow.User
     {
         #region Private Fields
 
-        private readonly IRepository<MongoUser> _repository; 
+        private readonly IRepository _repository; 
 
         #endregion
 
         #region Constructor
 
-        public UserWorkflowContext(IRepository<MongoUser> repository)
+        public UserWorkflowContext(IRepository repository)
         {
             _repository = repository;
         }
@@ -25,7 +25,6 @@ namespace Invest.Workflow.User
 
         public IWorkflow GetWorkflow(string id)
         {
-            _repository.GetById(id);
             return null;
         }
 

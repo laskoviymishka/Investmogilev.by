@@ -29,7 +29,7 @@ namespace AdminPanelUI.Models
     public class LoginModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Users name")]
         public string UserName { get; set; }
 
         [Required]
@@ -44,7 +44,7 @@ namespace AdminPanelUI.Models
     public class RegisterModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Users name")]
         public string UserName { get; set; }
 
         [Required]

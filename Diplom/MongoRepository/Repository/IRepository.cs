@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
+using Invest.Common.Model;
 
 namespace MongoRepository.Repository
 {
-    public interface IRepository<T>
+    public interface IRepository
     {
-        IList<T> GetAll();
-
-        T GetById(string id);
-
-        void Insert(T value);
-
-        void Update(T value);
-
-        void Delete(T value);
+        void Delete<T>(Expression<Func<T, bool>> expression) where T : MongoEntity;
+        void Delete<T>(T item) where T : MongoEntity;
+        void DeleteAll<T>() where T : MongoEntity;
+        T GetById<T>(Expression<Func<T, bool>> expression) where T : MongoEntity;
+        IQueryable<T> All<T>() where T : MongoEntity;
+        void Add<T>(T item) where T : MongoEntity;
+        void Add<T>(IEnumerable<T> items) where T : MongoEntity;
+        void Update<T>(T item) where T : MongoEntity;
     }
 }
