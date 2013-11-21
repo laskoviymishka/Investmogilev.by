@@ -32,14 +32,14 @@
             @Html.LabelFor(model => model.Password)
         </div>
         <div class="editor-field">
-            @Html.DisplayFor(model => model.Password)
+            @Html.EditorFor(model => model.Password)
             @Html.ValidationMessageFor(model => model.Password)
         </div>
 
         <div class="editor-label">
         </div>
         <div class="editor-field">
-            @Html.HiddenFor(model => model.ResponseId)
+            @Html.EditorFor(model => model.ResponseId)
         </div>
 
         <p>

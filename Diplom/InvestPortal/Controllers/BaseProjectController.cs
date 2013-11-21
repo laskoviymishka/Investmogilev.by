@@ -67,6 +67,7 @@ namespace InvestPortal.Controllers
             var response = RepositoryContext.Current.GetOne<InvestorResponse>(r => r._id == id);
             InvestorRegisterModel model = new InvestorRegisterModel();
             model.Email = response.InvestorEmail;
+            model.ResponseId = id;
             model.Password = ObjectId.GenerateNewId().ToString();
             return View(model);
         }
@@ -76,7 +77,8 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                Membership.CreateUser(model.UserName, model.Password, model.Password);
+                Membership.CreateUser(model.UserName, "Pass1234", model.Password);
+                Roles.AddUserToRole(model.UserName, "Investor");
                 var response = RepositoryContext.Current.GetOne<InvestorResponse>(r => r._id == model.ResponseId);
                 response.IsVerified = true;
                 Project project = _repository.GetProjectByID<GreenField>(response.ResponsedProjectId);
@@ -89,7 +91,8 @@ namespace InvestPortal.Controllers
                     }
                 }
                 string fromState = project.WorkflowState.CurrenState;
-                project.WorkflowState.CurrenState = GreenFieldStates.VerifyResponse;
+                var workflow = project.WorkflowState;
+                workflow.CurrenState = GreenFieldStates.VerifyResponse;
                 project.WorkflowState.ChangeHistory.Add(
                     new History()
                         {
@@ -98,10 +101,12 @@ namespace InvestPortal.Controllers
                             FromState = fromState,
                             ToState = GreenFieldStates.VerifyResponse
                         });
-                RepositoryContext.Current.Update(project.WorkflowState);
 
+
+                RepositoryContext.Current.Update(workflow);
                 RepositoryContext.Current.Update(response);
-                RedirectToAction("VerifyResponse");
+
+                return RedirectToAction("VerifyResponse");
             }
             return View(model);
         }
