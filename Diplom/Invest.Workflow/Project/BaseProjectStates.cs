@@ -1,6 +1,6 @@
 ﻿namespace Invest.Workflow.Project
 {
-    public class BaseProjectStates
+    public static class BaseProjectStates
     {
         public const string Open = "Open";
         public const string Progress = "Progress";

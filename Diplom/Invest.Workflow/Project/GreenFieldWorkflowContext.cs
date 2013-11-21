@@ -11,120 +11,77 @@ using History = Invest.Common.Model.History;
 
 namespace Invest.Workflow.Project
 {
-    public class GreenFieldWorkflowContext : GreenFieldStates, IWorkflowContext
+    public class GreenFieldWorkflowContext : IWorkflowContext
     {
         private readonly IRepository _repository;
+        private IWorkflow _workflow;
 
         public GreenFieldWorkflowContext(IRepository repository)
         {
             _repository = repository;
         }
 
-        public IWorkflow GetWorkflow(string id)
+        public IWorkflow GetWorkflow(string projectId)
         {
-            var workflowEntity = _repository.GetOne<WorkflowEntity>(w => w._id == id);
-            IWorkflow workflow = new BaseWorkflow<GreenField>(workflowEntity.CurrenState);
-            var conditions =
-                new Dictionary<string, Func<object, bool>>();
-            conditions["Role"] = (o) => o is string && o.ToString() == "Admin";
+            var workflowEntity = _repository.GetOne<WorkflowEntity>(w => w.ProjectId == projectId);
+            if (workflowEntity == null)
+            {
+                return CreateWorkflow(projectId);
+            }
+            _workflow = new BaseWorkflow<GreenField>(workflowEntity.CurrenState);
 
-            workflow.Transitions = new List<ITransition>()
-                {
-                    new BaseTransition(
-                        Open,
-                        UnVerifyDone,
-                        conditions,
-                        new List<Func<bool>>()
-                            {
-                                TestTransition
-                            }),
-                    new BaseTransition(
-                        UnVerifyDone,
-                        Progress,
-                        conditions,
-                        new List<Func<bool>>()
-                            {
-                                TestTransition
-                            }),
-                    new BaseTransition(
-                        Progress,
-                        PendingPlanChanged,
-                        conditions,
-                        new List<Func<bool>>()
-                            {
-                                TestTransition
-                            }),
-                    new BaseTransition(
-                        PendingPlanChanged,
-                        Close,
-                        conditions,
-                        new List<Func<bool>>()
-                            {
-                                TestTransition
-                            })
-                };
-            workflow.CurrentCondiotions = new Dictionary<string, object>();
-            workflow.Workflow = workflowEntity;
-            workflow.SetContext(this);
-            return workflow;
+
+            _workflow.Transitions = GetTransitions();
+            _workflow.CurrentCondiotions = new Dictionary<string, object>();
+            _workflow.Workflow = workflowEntity;
+            _workflow.SetContext(this);
+
+            return _workflow;
         }
 
-        private bool TestTransition()
+        private List<ITransition> GetTransitions()
+        {
+            List<ITransition> transition = new List<ITransition>();
+
+            transition.Add(FromOpenToWaitForApproveResponse);
+            return transition;
+        }
+
+        private static ITransition FromOpenToWaitForApproveResponse
+        {
+            get
+            {
+                var fromOpenToWaitForApproveResponseConditions = new Dictionary<string, Func<object, bool>>();
+
+                var actions = new List<Func<bool>>();
+
+                ITransition fromOpenToWaitForApproveResponse =
+                    new BaseTransition(
+                        GreenFieldStates.Open,
+                        GreenFieldStates.WaitForVerifyResponse,
+                        fromOpenToWaitForApproveResponseConditions,
+                        actions);
+                return fromOpenToWaitForApproveResponse;
+            }
+        }
+
+        private bool CheckCurrentState()
         {
             return true;
         }
 
         public IWorkflow CreateWorkflow(string projectId)
         {
-            IWorkflow workflow = new BaseWorkflow<GreenField>(Open);
-            var conditions =
-                new Dictionary<string, Func<object, bool>>();
-            conditions["Role"] = (o) => o is string && o.ToString() == "Admin";
+            _workflow = new BaseWorkflow<GreenField>(GreenFieldStates.Open);
 
-            workflow.Transitions = new List<ITransition>()
-                {
-                    new BaseTransition(
-                        Open,
-                        UnVerifyDone,
-                        conditions,
-                        new List<Func<bool>>()
-                            {
-                                TestTransition
-                            }),
-                    new BaseTransition(
-                        UnVerifyDone,
-                        Progress,
-                        conditions,
-                        new List<Func<bool>>()
-                            {
-                                TestTransition
-                            }),
-                    new BaseTransition(
-                        Progress,
-                        PendingPlanChanged,
-                        conditions,
-                        new List<Func<bool>>()
-                            {
-                                TestTransition
-                            }),
-                    new BaseTransition(
-                        PendingPlanChanged,
-                        Close,
-                        conditions,
-                        new List<Func<bool>>()
-                            {
-                                TestTransition
-                            })
-                };
-            workflow.Workflow = new WorkflowEntity();
-            workflow.CurrentCondiotions = new Dictionary<string, object>();
-            workflow.CurrentCondiotions["Role"] = "Admin";
-            workflow.Workflow.ChangeHistory = new List<History>();
-            workflow.Workflow.CurrenState = Open;
-            workflow.Workflow.ProjectId = projectId;
-            _repository.Add(workflow.Workflow);
-            workflow.SetContext(this);
-            return workflow;
+            _workflow.Transitions = GetTransitions();
+            _workflow.Workflow = new WorkflowEntity();
+            _workflow.Workflow.ChangeHistory = new List<History>();
+            _workflow.Workflow.CurrenState = GreenFieldStates.Open;
+            _workflow.Workflow.ProjectId = projectId;
+            _repository.Add(_workflow.Workflow);
+            _workflow.SetContext(this);
+            return _workflow;
         }
 
         public void SaveState(IWorkflow workflow)

@@ -5,12 +5,22 @@ using System.Text;
 
 namespace Invest.Workflow.Project
 {
-    public class GreenFieldStates : BaseProjectStates
+    public static class GreenFieldStates
     {
+        public const string Open = "Open";
+
+        public const string Progress = "Progress";
+
+        public const string Close = "Close";
+
         public const string VerifyResponse = "VerifyResponse";
 
         public const string PendingPlanChanged = "PendingPlanChanged";
 
-        public const string UnVerifyDone = "UnVerifyDone";
+        public const string WaitForVerifyResponse = "WaitForVerifyResponse";
+
+        public const string WaitForAssignee = "WaitForAssignee";
+
+        public const string WaitForPlan = "WaitForPlan";
     }
 }

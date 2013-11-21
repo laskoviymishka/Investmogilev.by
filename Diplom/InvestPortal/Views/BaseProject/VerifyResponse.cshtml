@@ -1,0 +1,22 @@
+﻿@using InvestPortal.Controllers
+@model List<Invest.Common.Model.InvestorResponse>
+
+@{
+    ViewBag.Title = "Обработка откликов";
+}
+
+<h2>Обработка откликов</h2>
+
+@Html.Telerik().Grid(Model).Name("GreenField").DataKeys(keys => keys.Add(p => p._id)).ToolBar(commands => commands.Insert().ButtonType(GridButtonType.Text).ImageHtmlAttributes(new { style = "margin-left:0" })).DataBinding(dataBinding => dataBinding.Ajax()
+            .Select("_SelectAjaxEditing", "GreenField").Insert("InsertGreenField", "GreenField")).Columns(columns =>
+            {
+                columns.Bound(p => p.ResponseDate);
+                columns.Bound(p => p.InvestorFirstName);
+                columns.Bound(p => p.InvestorLastName);
+                columns.Bound(p => p.InvestorEmail);
+                columns.Bound(p => p.AdditionalInfo);
+                columns.Command(commands =>
+                    {
+                        commands.Custom("Обработать заявку").Action("ProcessVerifyResponse", "BaseProject").ButtonType(GridButtonType.Text).Text("Обработать заявку");
+                    }).Title("управление");
+            }).Pageable().Scrollable(c => c.Height(600)).Sortable().Selectable().Localizable("ru-RU").Groupable().Filterable()

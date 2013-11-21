@@ -5,7 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using Invest.Common.Repository;
 using Invest.Common.Model;
+using Invest.Workflow.Project;
+using MongoRepository;
 using MongoRepository = Invest.Common.Repository.MongoRepository;
+using Invest.Workflow.StateManagment;
 
 namespace InvestPortal.Controllers
 {
@@ -16,6 +19,8 @@ namespace InvestPortal.Controllers
 
         private readonly ProjectRepository _projectRepository;
         private readonly IRepository _responseRepository;
+        private readonly IWorkflowContext _greenFieldWorkflowContext;
+        private readonly Dictionary<string, object> _conditions;
 
         #endregion
 
@@ -25,6 +30,8 @@ namespace InvestPortal.Controllers
         {
             _projectRepository = new ProjectRepository();
             _responseRepository = new Invest.Common.Repository.MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
+            _greenFieldWorkflowContext = new GreenFieldWorkflowContext(_responseRepository);
+            _conditions = new Dictionary<string, object>();
         }
 
         #endregion
@@ -77,6 +84,23 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
+                WorkflowEntity workflow =
+                    RepositoryContext.Current.GetOne<WorkflowEntity>(w => w.ProjectId == response.ResponsedProjectId);
+                workflow.CurrenState = GreenFieldStates.WaitForVerifyResponse;
+                workflow.ProjectId = response.ResponsedProjectId;
+                if (workflow.ChangeHistory == null)
+                {
+                    workflow.ChangeHistory = new List<History>();
+                }
+                workflow.ChangeHistory.Add(
+                    new History()
+                        {
+                            EditingTime = DateTime.Now,
+                            Editor = User.Identity.Name,
+                            FromState = GreenFieldStates.Open,
+                            ToState = GreenFieldStates.WaitForVerifyResponse
+                        });
+                _responseRepository.Update(workflow);
                 _responseRepository.Add(response);
                 return RedirectToAction("Index");
             }

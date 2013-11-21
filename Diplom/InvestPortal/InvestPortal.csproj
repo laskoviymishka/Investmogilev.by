@@ -899,6 +899,10 @@
       <Project>{8F5582F4-1EAD-4FE3-990D-36D18FA234D8}</Project>
       <Name>Invest.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Invest.Workflow\Invest.Workflow.csproj">
+      <Project>{EB8FCFF7-5F8E-4A8A-AD1D-76814FF13111}</Project>
+      <Name>Invest.Workflow</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\UserManager\Index.cshtml" />
@@ -920,6 +924,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\InvestorEntry\ResponseToProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\BaseProject\VerifyResponse.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\BaseProject\ProcessVerifyResponse.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

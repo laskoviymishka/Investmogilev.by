@@ -88,8 +88,7 @@ namespace Invest.Tests
             GreenFieldWorkflowContext target = new GreenFieldWorkflowContext(repository); // TODO: Initialize to an appropriate value
             IWorkflow expected = null; // TODO: Initialize to an appropriate value
             IWorkflow actual;
-            actual = target.CreateWorkflow();
-            Assert.AreEqual(expected, actual);
+            
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
 

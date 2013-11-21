@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Invest.Common.Model;
 using MongoDB.Bson;
@@ -20,6 +21,8 @@ namespace Invest.Common.Repository
 
         private MongoCollection<BsonDocument> _collection;
 
+        private readonly IRepository _mongorepository;
+
         #endregion
 
         #region Constructor
@@ -29,6 +32,7 @@ namespace Invest.Common.Repository
             _client = new MongoClient(new MongoUrl("mongodb://tserakhau.cloudapp.net"));
             _server = _client.GetServer();
             _db = _server.GetDatabase("Projects");
+            _mongorepository = new MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
         }
 
         #endregion
@@ -44,25 +48,24 @@ namespace Invest.Common.Repository
             return result;
         }
 
-        public IList<BrownField> GetBrownFieldsProject() 
+        public IQueryable<BrownField> GetBrownFieldsProject() 
         {
-            return _db.GetCollection("BrownField").AsQueryable<BrownField>().ToList();
+            return _mongorepository.All<BrownField>();
         }
 
-        public IList<UnUsedBuilding> GetUnUsedBuildingProject()
+        public IQueryable<UnUsedBuilding> GetUnUsedBuildingProject()
         {
-            return _db.GetCollection("UnUsedBuilding").AsQueryable<UnUsedBuilding>().ToList();
+            return _mongorepository.All<UnUsedBuilding>();
         }
 
-        public IList<GreenField> GetGreenFieldProject()
+        public IQueryable<GreenField> GetGreenFieldProject()
         {
-            return _db.GetCollection("GreenField").AsQueryable<GreenField>().ToList();
+            return _mongorepository.All<GreenField>();
         }
 
         public T GetProjectByID<T>(string id) where T : Project
         {
-            ObjectId _id = new ObjectId(id);
-            return _db.GetCollection(typeof(T).Name).FindOneAs<T>(Query.EQ("_id", _id));
+            return _mongorepository.GetOne<T>(t => t._id == id);
         }
 
         public T GetProjectByID<T>(ObjectId id) where T : Project
@@ -76,17 +79,17 @@ namespace Invest.Common.Repository
 
         public void InsertProject(BrownField project)
         {
-            _db.GetCollection("BrownField").Insert<BrownField>(project);
+            _mongorepository.Add(project);
         }
 
         public void InsertProject(GreenField project) 
         {
-            _db.GetCollection("GreenField").Insert<GreenField>(project);
+            _mongorepository.Add(project);
         }
 
         public void InsertProject(UnUsedBuilding project)
         {
-            _db.GetCollection("UnUsedBuilding").Insert<UnUsedBuilding>(project);
+            _mongorepository.Add(project);
         }
 
         #endregion
@@ -97,7 +100,7 @@ namespace Invest.Common.Repository
         {
             if (this.GetProjectByID<T>(value._id) != null) 
             {
-                _db.GetCollection(typeof(T).Name).Save<T>(value);
+               _mongorepository.Update(value);
             }
         }
 

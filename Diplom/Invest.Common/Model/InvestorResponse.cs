@@ -55,27 +55,6 @@ namespace Invest.Common.Model
 
         public string ResponsedProjectId { get; set; }
 
-        [BsonIgnore]
-        public Project ResponsedProject {
-            get
-            {
-                if (_projectRepository.GetProjectByID<BrownField>(ResponsedProjectId) != null)
-                {
-                    return _projectRepository.GetProjectByID<BrownField>(ResponsedProjectId);
-                }
-
-                if (_projectRepository.GetProjectByID<UnUsedBuilding>(ResponsedProjectId) != null)
-                {
-                    return _projectRepository.GetProjectByID<UnUsedBuilding>(ResponsedProjectId);
-                }
-
-                if (_projectRepository.GetProjectByID<GreenField>(ResponsedProjectId) != null)
-                {
-                    return _projectRepository.GetProjectByID<GreenField>(ResponsedProjectId);
-                }
-
-                return null;
-            }
-        }
+        public bool IsVerified { get; set; }
     }
 }
