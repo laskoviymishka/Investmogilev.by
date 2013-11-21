@@ -27,10 +27,8 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Inv
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Workflow.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoDB.Bson.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoDB.Driver.dll
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoRepository.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Common.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Invest.Workflow.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoRepository.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\ImageResizer.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoDB.Bson.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\MongoDB.Driver.xml

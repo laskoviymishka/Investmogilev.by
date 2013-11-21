@@ -1,0 +1,175 @@
+﻿@model Invest.Common.Model.GreenField
+
+@{
+    ViewBag.Title = "InsertGreenField";
+}
+
+<h2>InsertGreenField</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>GreenField</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InvestNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InvestNumber)
+            @Html.ValidationMessageFor(model => model.InvestNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EstimateInvestDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EstimateInvestDate)
+            @Html.ValidationMessageFor(model => model.EstimateInvestDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Goal)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Goal)
+            @Html.ValidationMessageFor(model => model.Goal)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Area)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Area)
+            @Html.ValidationMessageFor(model => model.Area)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CadastrValue)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CadastrValue)
+            @Html.ValidationMessageFor(model => model.CadastrValue)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ThirdPartiePretender)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ThirdPartiePretender)
+            @Html.ValidationMessageFor(model => model.ThirdPartiePretender)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Infrastructure)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Infrastructure)
+            @Html.ValidationMessageFor(model => model.Infrastructure)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OwnerCity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OwnerCity)
+            @Html.ValidationMessageFor(model => model.OwnerCity)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Owner)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Owner)
+            @Html.ValidationMessageFor(model => model.Owner)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InvestRequest)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InvestRequest)
+            @Html.ValidationMessageFor(model => model.InvestRequest)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Appendix)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Appendix)
+            @Html.ValidationMessageFor(model => model.Appendix)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model._id)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model._id)
+            @Html.ValidationMessageFor(model => model._id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AddressName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AddressName)
+            @Html.ValidationMessageFor(model => model.AddressName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Contact)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Contact)
+            @Html.ValidationMessageFor(model => model.Contact)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Region)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Region)
+            @Html.ValidationMessageFor(model => model.Region)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AssignUser)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AssignUser)
+            @Html.ValidationMessageFor(model => model.AssignUser)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WorkflowId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.WorkflowId)
+            @Html.ValidationMessageFor(model => model.WorkflowId)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

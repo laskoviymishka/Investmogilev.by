@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Threading;
 using System.Web;
-using MongoRepository.Repository;
+using Invest.Common.Repository;
 
 namespace MongoRepository
 {
@@ -41,7 +41,7 @@ namespace MongoRepository
             IRepository session = GetSession();
             if (session == null)
             {
-                session = new Repository.MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
+                session = new Invest.Common.Repository.MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
 
                 SaveSession(session);
             }

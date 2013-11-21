@@ -1,0 +1,96 @@
+﻿@model Invest.Common.Model.InvestorResponse
+
+@{
+    ViewBag.Title = "ResponseToProject";
+}
+
+<h2>ResponseToProject</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>InvestorResponse</legend>
+
+        <div class="editor-label">
+            @Html.HiddenFor(model => model._id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ResponseDate)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.ResponseDate)
+            @Html.ValidationMessageFor(model => model.ResponseDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InvestorFirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InvestorFirstName)
+            @Html.ValidationMessageFor(model => model.InvestorFirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InvestorMiddleName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InvestorMiddleName)
+            @Html.ValidationMessageFor(model => model.InvestorMiddleName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InvestorLastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InvestorLastName)
+            @Html.ValidationMessageFor(model => model.InvestorLastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InvestorOrganizationName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InvestorOrganizationName)
+            @Html.ValidationMessageFor(model => model.InvestorOrganizationName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InvestorEmail)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InvestorEmail)
+            @Html.ValidationMessageFor(model => model.InvestorEmail)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InvestorPhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InvestorPhone)
+            @Html.ValidationMessageFor(model => model.InvestorPhone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalInfo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AdditionalInfo)
+            @Html.ValidationMessageFor(model => model.AdditionalInfo)
+        </div>
+
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.ResponsedProjectId)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

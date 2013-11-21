@@ -1,5 +1,23 @@
-﻿@model Invest.Common.Model.UnUsedBuilding
-
+﻿@using AdminPanelUI.Models
+@model Invest.Common.Model.UnUsedBuilding
+@{
+    IList<SelectListItem> temp = new List<SelectListItem>();
+    SelectListItem selected = new SelectListItem();
+    foreach (RegionDropDownViewModel items in ViewBag.Region)
+    {
+        SelectListItem item = new SelectListItem();
+        item.Text = items.Name;
+        item.Value = items.Name;
+        if (Model.Region == items.Name)
+        {
+            item.Selected = true;
+        }
+        selected = item;
+        temp.Add(item);
+    }
+    SelectList selectedList = new SelectList(temp,"Text", "Value",selected);
+    var test = selectedList.SelectedValue;
+}
 <script type="text/javascript">
     var map;
     function CheckAddress(e) {
@@ -15,8 +33,8 @@
                         lat: latlng.lat(),
                         lng: latlng.lng()
                     });
-                    document.getElementById('Address_Lat').value = latlng.lat().toString().replace('.', ',');
-                    document.getElementById('Address_Lng').value = latlng.lng().toString().replace('.', ',');
+                    document.getElementById('Address_Lat').value = latlng.lat().toString();
+                    document.getElementById('Address_Lng').value = latlng.lng().toString();
                 }
             }
         });
@@ -34,8 +52,8 @@
             var index = map.markers.length;
             var lat = event.latLng.lat();
             var lng = event.latLng.lng();
-            document.getElementById('Address_Lat').value = lat.toString().replace('.', ',');
-            document.getElementById('Address_Lng').value = lng.toString().replace('.', ',');
+            document.getElementById('Address_Lat').value = lat.toString();
+            document.getElementById('Address_Lng').value = lng.toString();
             map.removeMarkers()
             map.setCenter(lat, lng);
             map.addMarker({
@@ -88,14 +106,13 @@
             </tr>
             <tr>
                 <td>Регион</td>
-                <td>@Html.DropDownList("Region", (SelectList)ViewBag.Region)
+                <td> @Html.DropDownListFor(d => d.Region, selectedList, Model.Region,new object{})
                     @Html.ValidationMessageFor(model => model.Region)</td>
             </tr>
             <tr>
                 <td>Контакт</td>
                 <td>@Html.EditorFor(model => model.Contact)
                     @Html.ValidationMessageFor(model => model.Contact)
-                    @Html.DropDownList("Ответственный", (SelectList)ViewBag.Users)
                     @Html.ValidationMessageFor(model => model.Region)</td>
             </tr>
             <tr>

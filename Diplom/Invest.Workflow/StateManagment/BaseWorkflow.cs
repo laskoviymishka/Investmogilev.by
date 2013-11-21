@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Invest.Workflow.StateManagment
 {
-    public class BaseWorkflow<T> : IWorkflow where T : Invest.Common.Model.Project
+    public class BaseWorkflow<T> : IWorkflow
     {
         #region Private Fields
 
@@ -89,7 +89,16 @@ namespace Invest.Workflow.StateManagment
                 Editor = editor
             });
 
-           Workflow.CurrenState = transition.MoveAction.Invoke();
+            Workflow.CurrenState = to;
+
+            foreach (Func<bool> action in transition.MoveActionFuncs)
+            {
+                if (!action.Invoke())
+                {
+                    Workflow.CurrenState = from;
+                }
+            }
+
             _context.SaveState(this);
         }
 

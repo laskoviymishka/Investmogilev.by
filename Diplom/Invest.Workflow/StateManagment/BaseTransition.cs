@@ -5,12 +5,12 @@ namespace Invest.Workflow.StateManagment
 {
     public class BaseTransition : ITransition
     {
-        public BaseTransition(string from, string to, Dictionary<string, Func<object, bool>> conditions, Func<string> moveAction)
+        public BaseTransition(string from, string to, Dictionary<string, Func<object, bool>> conditions, IList<Func<bool>> moveAction)
         {
             FromState = from;
             ToState = to;
             Conditions = conditions;
-            MoveAction = moveAction;
+            MoveActionFuncs = moveAction;
         }
 
         public string FromState
@@ -31,7 +31,7 @@ namespace Invest.Workflow.StateManagment
             set;
         }
 
-        public Func<string> MoveAction
+        public IList<Func<bool>> MoveActionFuncs
         {
             get;
             set;

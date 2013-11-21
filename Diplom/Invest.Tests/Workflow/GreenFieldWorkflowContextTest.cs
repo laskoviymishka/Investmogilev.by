@@ -1,8 +1,8 @@
-﻿using Invest.Workflow.Project;
+﻿using Invest.Common.Repository;
+using Invest.Workflow.Project;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Invest.Common.Model;
-using MongoRepository.Repository;
 using Invest.Workflow.StateManagment;
 
 namespace Invest.Tests

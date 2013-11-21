@@ -52,7 +52,6 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Bus
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\EntityFramework.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Invest.Common.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoDB.Bson.dll
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoRepository.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Newtonsoft.Json.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\System.Net.Http.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\System.Net.Http.Formatting.dll
@@ -66,7 +65,6 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Tel
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoDB.Driver.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\BusinessLogic.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Invest.Common.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoRepository.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\EntityFramework.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoDB.Bson.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Newtonsoft.Json.xml

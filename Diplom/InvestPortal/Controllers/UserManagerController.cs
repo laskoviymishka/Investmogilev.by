@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Invest.Common.Model;
+using Invest.Common.Repository;
 using InvestPortal.Models;
-using MongoRepository.Repository;
 using Telerik.Web.Mvc;
 using MongoRepository;
 
@@ -64,7 +64,7 @@ namespace InvestPortal.Controllers
         [GridAction]
         public ActionResult _SaveAjaxEditing(string id)
         {
-            Users product = _repository.GetById<Users>(u => u._id == id);
+            Users product = _repository.GetOne<Users>(u => u._id == id);
             UserManagerViewModel model = new UserManagerViewModel();
             UpdateUserModel(model, product);
 
@@ -101,9 +101,9 @@ namespace InvestPortal.Controllers
         [GridAction]
         public ActionResult _DeleteAjaxEditing(string id)
         {
-            if (_repository.GetById<Users>(u => u._id == id) != null)
+            if (_repository.GetOne<Users>(u => u._id == id) != null)
             {
-                _repository.Delete(_repository.GetById<Users>(u => u._id == id));
+                _repository.Delete(_repository.GetOne<Users>(u => u._id == id));
             }
 
             return View(new GridModel(_repository.All<Users>()));

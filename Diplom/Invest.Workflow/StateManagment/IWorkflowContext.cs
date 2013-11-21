@@ -3,7 +3,7 @@
     public interface IWorkflowContext
     {
         IWorkflow GetWorkflow(string id);
-        IWorkflow CreateWorkflow();
+        IWorkflow CreateWorkflow(string workflowForLink);
         void SaveState(IWorkflow workflow); 
     }
 }

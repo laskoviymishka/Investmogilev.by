@@ -1,5 +1,5 @@
-﻿using Invest.Workflow.StateManagment;
-using MongoRepository.Repository;
+﻿using Invest.Common.Repository;
+using Invest.Workflow.StateManagment;
 using Invest.Common.Model;
 
 namespace Invest.Workflow.User
@@ -39,5 +39,11 @@ namespace Invest.Workflow.User
         }
 
         #endregion
+
+
+        public IWorkflow CreateWorkflow(string workflowForLink)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

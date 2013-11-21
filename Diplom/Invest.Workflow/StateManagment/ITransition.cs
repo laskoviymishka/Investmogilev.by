@@ -12,6 +12,6 @@ namespace Invest.Workflow.StateManagment
 
         Dictionary<string, Func<object, bool>> Conditions { get; set; }
 
-        Func<string> MoveAction { get; set; }
+        IList<Func<bool>> MoveActionFuncs { get; set; }
     }
 }

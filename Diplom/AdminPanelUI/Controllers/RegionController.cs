@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Invest.Common.Model;
-using MongoRepository.Repository;
+using Invest.Common.Repository;
 using AdminPanelUI.Models;
 using MongoRepository;
 
@@ -29,7 +29,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult ChildParametr(string regionId, int parametrName)
         {
-            Region region = db.GetById<Region>(r => r._id == regionId);
+            Region region = db.GetOne<Region>(r => r._id == regionId);
             if (region == null)
             {
                 return HttpNotFound();
@@ -44,6 +44,8 @@ namespace AdminPanelUI.Controllers
                         viewModel.RegionId = regionId;
                         viewModel.ParametrName = item.ParametrName;
                         viewModel.Values = parametr.ChildParametrs.Where(p => p.ParametrName == item.ParametrName).First().Values;
+
+
                         return PartialView(viewModel);
                     }
                 }
@@ -51,11 +53,19 @@ namespace AdminPanelUI.Controllers
             return HttpNotFound();
         }
 
-        public ActionResult RegionParametr(string id)
+        [AllowAnonymous]
+        public ActionResult PartialTable()
         {
             ViewBag.StartYear = 2005;
             ViewBag.EndYear = 2012;
-            Region region = db.GetById<Region>(r => r._id == id);
+            return PartialView(db.All<Region>());
+        }
+
+        public ActionResult RegionParametr(string id)
+        {
+            ViewBag.StartYear = 2005;
+            ViewBag.EndYear = 2013;
+            Region region = db.GetOne<Region>(r => r._id == id);
             return View(region);
         }
 
@@ -65,7 +75,7 @@ namespace AdminPanelUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                Region region = db.GetById<Region>(r => r._id == collection["RegionId"]);
+                Region region = db.GetOne<Region>(r => r._id == collection["RegionId"]);
                 foreach (var parametr in region.Parametrs)
                 {
                     foreach (var item in parametr.ChildParametrs)

@@ -8,7 +8,14 @@ namespace Invest.Common.Model
     {
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; }
+        public string ProjectId { get; set; }
         public string CurrenState { get; set; }
         public IList<History> ChangeHistory { get; set; }
+
+
+        public override string ToString()
+        {
+            return CurrenState;
+        }
     }
 }

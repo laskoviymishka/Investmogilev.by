@@ -67,10 +67,6 @@
       <Project>{EB8FCFF7-5F8E-4A8A-AD1D-76814FF13111}</Project>
       <Name>Invest.Workflow</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MongoRepository\MongoRepository.csproj">
-      <Project>{FA93445A-088A-4D35-82A5-19DA79B76281}</Project>
-      <Name>MongoRepository</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

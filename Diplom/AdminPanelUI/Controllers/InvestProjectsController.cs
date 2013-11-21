@@ -6,9 +6,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using AdminPanelUI.Models;
 using Invest.Common.Model;
+using Invest.Common.Repository;
 using MongoRepository;
-using MongoRepository.Repository;
 using Newtonsoft.Json;
 
 namespace AdminPanelUI.Controllers
@@ -94,8 +95,8 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult CreateBrownField()
         {
-            ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
+            ViewBag.Region = (GetRegionsList());
+            ViewBag.Users = new List<string>(Roles.GetUsersInRole("Users"));
 
             return PartialView();
         }
@@ -110,8 +111,8 @@ namespace AdminPanelUI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
+            ViewBag.Region = (GetRegionsList());
+            ViewBag.Users = new  List<string>(Roles.GetUsersInRole("Users"));
             return View(project);
         }
 
@@ -122,8 +123,8 @@ namespace AdminPanelUI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Region = new SelectList(GetRegionsList());
-            ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
+            ViewBag.Region = (GetRegionsList());
+            ViewBag.Users = new List<string>(Roles.GetUsersInRole("Users"));
 
             return PartialView(project);
         }
@@ -178,7 +179,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult CreateGreenField()
         {
-            ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Region = (GetRegionsList());
             ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return PartialView();
         }
@@ -193,7 +194,7 @@ namespace AdminPanelUI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Region = (GetRegionsList());
             ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return View(project);
         }
@@ -206,7 +207,7 @@ namespace AdminPanelUI.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Region = (GetRegionsList());
             ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return PartialView(project);
         }
@@ -220,7 +221,7 @@ namespace AdminPanelUI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Region = (GetRegionsList());
             ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return View(project);
         }
@@ -254,7 +255,7 @@ namespace AdminPanelUI.Controllers
 
         public ActionResult CreateUnUsedBuilding()
         {
-            ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Region = (GetRegionsList());
             ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return PartialView();
         }
@@ -269,7 +270,7 @@ namespace AdminPanelUI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Region = (GetRegionsList());
             ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return View(project);
         }
@@ -282,7 +283,7 @@ namespace AdminPanelUI.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Region = (GetRegionsList());
             ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return PartialView(project);
         }
@@ -296,7 +297,7 @@ namespace AdminPanelUI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Region = new SelectList(GetRegionsList());
+            ViewBag.Region = (GetRegionsList());
             ViewBag.Users = new SelectList(Roles.GetUsersInRole("Users"));
             return PartialView(project);
         }
@@ -328,6 +329,7 @@ namespace AdminPanelUI.Controllers
 
         #region External method
 
+        [AllowAnonymous]
         public ActionResult ListOfProjects()
         {
             List<Project> result = new List<Project>();
@@ -337,9 +339,10 @@ namespace AdminPanelUI.Controllers
             return PartialView(result);
         }
 
+        [AllowAnonymous]
         public ActionResult PopUpDetailsGreenField(string id)
         {
-            Project project = _repository.GetProjectByID<GreenField>(id);
+            GreenField project = _repository.GetProjectByID<GreenField>(id);
 
             if (project == null)
             {
@@ -351,9 +354,10 @@ namespace AdminPanelUI.Controllers
             }
         }
 
+        [AllowAnonymous]
         public ActionResult PopUpDetailsBrownField(string id)
         {
-            Project project = _repository.GetProjectByID<BrownField>(id);
+            BrownField project = _repository.GetProjectByID<BrownField>(id);
             if (project == null)
             {
                 return null;
@@ -364,9 +368,10 @@ namespace AdminPanelUI.Controllers
             }
         }
 
+        [AllowAnonymous]
         public ActionResult PopUpDetailsUnUsedBuilding(string id)
         {
-            Project project = project = _repository.GetProjectByID<UnUsedBuilding>(id);
+            UnUsedBuilding project = project = _repository.GetProjectByID<UnUsedBuilding>(id);
             if (project == null)
             {
                 return null;
@@ -376,7 +381,7 @@ namespace AdminPanelUI.Controllers
                 return PartialView(project);
             }
         }
-
+        [AllowAnonymous]
         public string ProjectGeoJSON()
         {
             return JsonConvert.SerializeObject(GenerateGeoJsonData(_repository.AllProjects()));
@@ -396,12 +401,13 @@ namespace AdminPanelUI.Controllers
 
         #region Private Helpers
 
-        private IList<string> GetRegionsList()
+        private IList<RegionDropDownViewModel> GetRegionsList()
         {
-            IList<string> regions = new List<string>();
+            int counter = 0;
+            IList<RegionDropDownViewModel> regions = new List<RegionDropDownViewModel>();
             foreach (var item in RepositoryContext.Current.All<Region>())
             {
-                regions.Add(item.RegionName);
+                regions.Add(new RegionDropDownViewModel() { Id = counter++, Name = item.RegionName });
             }
             return regions;
         }

@@ -3,11 +3,9 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Deb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Common.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Workflow.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoDB.Bson.dll
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoRepository.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoDB.Driver.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Common.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Workflow.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoRepository.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoDB.Driver.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.dll

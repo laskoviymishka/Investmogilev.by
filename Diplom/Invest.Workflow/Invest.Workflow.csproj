@@ -58,10 +58,6 @@
       <Project>{8F5582F4-1EAD-4FE3-990D-36D18FA234D8}</Project>
       <Name>Invest.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MongoRepository\MongoRepository.csproj">
-      <Project>{FA93445A-088A-4D35-82A5-19DA79B76281}</Project>
-      <Name>MongoRepository</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.Web.Security;
+using MongoRepository;
 
 namespace Invest.Common.Model
 {
@@ -47,5 +49,17 @@ namespace Invest.Common.Model
         public string PasswordAnswer { get; set; }
 
         public string Salt { get; set; }
+
+        [BsonIgnore]
+        public IEnumerable<Project> MetoringProject {
+            get
+            {
+                List<Project> model = new List<Project>();
+                model.AddRange(RepositoryContext.Current.All<GreenField>(gr => gr.AssignUser == Username));
+                model.AddRange(RepositoryContext.Current.All<BrownField>(gr => gr.AssignUser == Username));
+                model.AddRange(RepositoryContext.Current.All<UnUsedBuilding>(gr => gr.AssignUser == Username));
+                return model;
+            }
+        }
     }
 }
