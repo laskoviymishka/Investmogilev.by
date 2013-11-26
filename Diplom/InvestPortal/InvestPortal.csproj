@@ -354,6 +354,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvestorEntryController.cs" />
     <Compile Include="Controllers\UserManagerController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -363,6 +364,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\SiteMap.xml" />
     <Content Include="Content\2013.2.611\Black\editor.png" />
     <Content Include="Content\2013.2.611\Black\imagebrowser.png" />
     <Content Include="Content\2013.2.611\Black\loading.gif" />
@@ -621,7 +623,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Content Include="Views\BaseProject\All.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -930,6 +932,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\BaseProject\ProcessVerifyResponse.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UserManager\UnUsignedProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\UserManager\AssignUser.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\BaseProject\WorkFlowForProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Profile\ProfilePartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\BaseProject\ToProject.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

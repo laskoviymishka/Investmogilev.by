@@ -10,26 +10,46 @@
 			<div id="title">
 				<h1>Инвестиционный портал могилева</h1>
 			</div>
-
-			@(Html.Telerik().Menu()
-                    .Name("menu")
-                    .Items(menu =>
-                    {
-                        menu.Add().Text("Home").Action("Index", "Home");
-                        menu.Add().Text("About").Action("About", "Home");
-                        if (User.Identity.IsAuthenticated)
-                        {
-                            menu.Add().Text("Logoff").Action("Logoff", "Account");
-                        }
-                        else
-                        {
-                            menu.Add().Text("Login").Action("Login", "Account");
-                        }
-                    }))
 		</header>
-        <section id="main">
-			@RenderBody()
-		</section>
+        <section style="height: 85%">
+            @Html.Telerik().Splitter().Name("Splitter0").HtmlAttributes(new { style = "height: 100%;" }).Orientation(SplitterOrientation.Vertical).Panes(vPanes =>
+                {
+                    vPanes.Add()
+                          .Size("40px")
+                          .Collapsible(false)
+                          .Resizable(false)
+                          .Content(Html.Telerik().Menu()
+                                             .Name("menu")
+                                             .Items(menu =>
+                                                 {
+                                                     menu.Add().Text("Главная").Action("Index", "Home");
+                                                     menu.Add().Text("О проекте").Action("About", "Home");
+                                                     menu.Add().Text("Мои проекты GreenField").Action("Index", "GreenField");
+                                                     if (User.Identity.IsAuthenticated)
+                                                     {
+                                                         menu.Add().Text("Logoff").Action("Logoff", "Account");
+                                                     }
+                                                     else
+                                                     {
+                                                         menu.Add().Text("Login").Action("Login", "Account");
+                                                     }
+                                                 }).HtmlAttributes(new { @style = "height: 35px; overflow: hidden" }).ToHtmlString());
+                    vPanes.Add()
+                                              .Size("95%")
+                                              .Collapsible(false)
+                                              .Content(Html.Telerik().Splitter().Name("Splitter1").Panes(panes =>
+                                                  {
+                                                      panes.Add()
+                                                           .Size("250px")
+                                                           .MinSize("250px")
+                                                           .MaxSize("300px")
+                                                           .Collapsible(true)
+                                                           .LoadContentFrom("ProfilePartial", "Profile");
+                                                      panes.Add()
+                                                           .Content(RenderBody().ToHtmlString());
+                                                  }).HtmlAttributes(new { @style = "height:99%" }).ToHtmlString());
+                })
+        </section>
         <footer>
 		</footer>
     </div>

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Invest.Common.Model;
 using Invest.Common.Repository;
 using InvestPortal.Models;
+using MongoDB.Driver.Builders;
 using MongoRepository;
 using Telerik.Web.Mvc;
 
@@ -13,19 +14,10 @@ namespace InvestPortal.Controllers
 {
     public class GreenFieldController : Controller
     {
-        #region Private Fields
-
-        private readonly ProjectRepository _repository;
-        private readonly IRepository _mongoRepository;
-
-        #endregion
-
         #region Constructor
 
         public GreenFieldController()
         {
-            _repository = new ProjectRepository();
-            _mongoRepository = RepositoryContext.Current;
         }
 
         #endregion
@@ -36,21 +28,42 @@ namespace InvestPortal.Controllers
         {
             ViewBag.Users = new List<BaseProjectController.NestedUserViewModel>();
             ViewBag.Regions = new List<BaseProjectController.NestedRegionViewModel>();
-            foreach (Users mongoUser in _mongoRepository.All<Users>())
+            foreach (Users mongoUser in RepositoryContext.Current.All<Users>())
             {
                 ViewBag.Users.Add(new BaseProjectController.NestedUserViewModel() { Name = mongoUser.Username });
             }
 
-            foreach (Region region in _mongoRepository.All<Region>())
+            foreach (Region region in RepositoryContext.Current.All<Region>())
             {
                 ViewBag.Regions.Add(new BaseProjectController.NestedRegionViewModel() { RegionName = region.RegionName });
             }
-            return View(_repository.GetGreenFieldProject());
+            return View(GreenFields);
+        }
+
+        private List<GreenField> GreenFields
+        {
+            get
+            {
+                List<GreenField> model = new List<GreenField>();
+                var project = RepositoryContext.Current.All<Project>().ToArray();
+                foreach (Project greenField in project)
+                {
+                    if (greenField is GreenField)
+                    {
+                        model.Add(greenField as GreenField);
+                    }
+                }
+                return model;
+            }
         }
 
         public ActionResult MoreInfo(string id)
         {
-            GreenField model = _repository.GetProjectByID<GreenField>(id);
+            GreenField model = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as GreenField;
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
 
             return View(model);
         }
@@ -69,36 +82,33 @@ namespace InvestPortal.Controllers
         [GridAction]
         public ActionResult _SelectAjaxEditing()
         {
-            return View(new GridModel(_repository.GetGreenFieldProject()));
+            return View(new GridModel(GreenFields));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _SaveAjaxEditing(string id)
         {
-            if (_repository.GetProjectByID<GreenField>(id) != null)
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id);
+            if (project != null)
             {
-                GreenField gr = _repository.GetProjectByID<GreenField>(id);
-                UpdateModel(gr);
-                _repository.UpdateOne(gr);
+                UpdateModel(project);
+                RepositoryContext.Current.Update(project);
             }
 
-            return View(new GridModel(_repository.GetGreenFieldProject()));
+            return View(new GridModel(GreenFields));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _DeleteAjaxEditing(string id)
         {
-            if (_repository.GetProjectByID<GreenField>(id) != null)
+            if (RepositoryContext.Current.GetOne<Project>(p => p._id == id) != null)
             {
-                GreenField gr = _repository.GetProjectByID<GreenField>(id);
-                UpdateModel(gr);
-                _repository.Delete(gr);
+                RepositoryContext.Current.Delete<Project>(p => p._id == id);
             }
-
             //Rebind the grid
-            return View(new GridModel(_repository.GetGreenFieldProject()));
+            return View(new GridModel(GreenFields));
         }
 
         #endregion

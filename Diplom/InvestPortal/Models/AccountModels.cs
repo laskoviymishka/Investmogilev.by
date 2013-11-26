@@ -73,5 +73,7 @@ namespace InvestPortal.Models
         public string Password { get; set; }
 
         public string ResponseId { get; set; }
+
+        public string ResponseProjectId { get; set; }
     }
 }

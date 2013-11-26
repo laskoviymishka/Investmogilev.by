@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Hosting;
 using System.Web.Security;
+using Invest.Common.Model;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -507,8 +508,20 @@ namespace BusinessLogic.Providers
             var comment = bsonDocument.Contains("Comment") ? bsonDocument["Comment"].AsString : null;
             var email = bsonDocument.Contains("Email") ? bsonDocument["Email"].AsString : null;
             var passwordQuestion = bsonDocument.Contains("PasswordQuestion") ? bsonDocument["PasswordQuestion"].AsString : null;
-
-            return new MembershipUser(this.Name, bsonDocument["Username"].AsString, bsonDocument["_id"].AsObjectId, email, passwordQuestion, comment, bsonDocument["IsApproved"].AsBoolean, bsonDocument["IsLockedOut"].AsBoolean, bsonDocument["CreationDate"].ToUniversalTime(), bsonDocument["LastLoginDate"].ToUniversalTime(), bsonDocument["LastActivityDate"].ToUniversalTime(), bsonDocument["LastPasswordChangedDate"].ToUniversalTime(), bsonDocument["LastLockoutDate"].ToUniversalTime());
+            var user = new Users();
+            return new MembershipUser(this.Name,
+                bsonDocument["Username"].AsString,
+                bsonDocument["_id"].AsObjectId,
+                email,
+                passwordQuestion,
+                comment,
+                bsonDocument["IsApproved"].AsBoolean,
+                bsonDocument["IsLockedOut"].AsBoolean,
+                bsonDocument["CreationDate"].ToUniversalTime(),
+                bsonDocument["LastLoginDate"].ToUniversalTime(),
+                bsonDocument["LastActivityDate"].ToUniversalTime(),
+                bsonDocument["LastPasswordChangedDate"].ToUniversalTime(),
+                bsonDocument["LastLockoutDate"].ToUniversalTime());
         }
 
         private bool VerifyPassword(BsonDocument user, string password)

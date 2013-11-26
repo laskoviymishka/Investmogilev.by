@@ -16,6 +16,7 @@
                 columns.Bound(p => p.EstimateInvestDate).Title("Дата ввода");
                 columns.Bound(p => p.Infrastructure).Title("Инфраструктура");
                 columns.Bound(p => p.ThirdPartiePretender).Title("Заинтерисованные");
+                columns.Bound(p => p.InvestorUser).Title("Логин инвестора");
                 columns.ForeignKey(p => p.Region, (IEnumerable<BaseProjectController.NestedRegionViewModel>)ViewBag.Regions, "RegionName", "RegionName").Title("Регион");
                 columns.Bound(p => p.AddressName).Title("Адресс");
                 columns.ForeignKey(p => p.AssignUser, (IEnumerable<BaseProjectController.NestedUserViewModel>)ViewBag.Users, "Name", "Name").Title("Ответвственный");

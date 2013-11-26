@@ -1,0 +1,86 @@
+﻿@model InvestPortal.Models.LoginModel
+<div>@User.Identity.Name</div>
+<script src="../../Scripts/2013.2.611/telerik.panelbar.min.js" type="text/javascript"></script>
+@if (User.Identity.IsAuthenticated)
+{
+    Html.Telerik().PanelBar().Name("PanelBar").HtmlAttributes(new { style = "width: 99%; float: left; margin-bottom: 30px;" }).ExpandMode(PanelBarExpandMode.Multiple).SelectedIndex(0).Items(item =>
+        {
+            item.Add()
+                .Text("Мои проекты")
+                .Items(subItem =>
+                    {
+                        subItem.Add().Text("Мои на проекты").Url("/BaseProject/");
+                        if (User.IsInRole("Admin"))
+                        {
+                            subItem.Add().Text("Отклики на проекты").Url("/BaseProject/VerifyResponse");
+                            subItem.Add().Text("Назначение ответственных").Url("/UserManager/UnUsignedProject");
+                        }
+                        subItem.Add().Text("Greenfield проекты").Url("/GreenField/");
+                        subItem.Add().Text("Все проекты").Url("/BaseProject/All");
+                    }
+                );
+            item.Add()
+                .Text("Уведомление")
+                .Items(subItem =>
+                    {
+                        subItem.Add()
+                               .Text("Все уведомления");
+                        subItem.Add()
+                               .Text("Непрочитанные уведомления");
+                        subItem.Add()
+                               .Text("Отправленные уведомления");
+                        subItem.Add()
+                               .Text("Прочитанные уведомления");
+                    }
+                );
+            item.Add()
+                .Text("Контакты")
+                .Items((subItem) =>
+                    {
+                        subItem.Add()
+                               .Text("Мои контакты");
+                        subItem.Add()
+                               .Text("Адресса");
+                        subItem.Add()
+                               .Text("Телефоны");
+                        subItem.Add()
+                               .Text("Общие контакты");
+                    });
+            item.Add()
+                .Text("Задачи")
+                .Items((subItem) =>
+                    {
+                        subItem.Add()
+                               .Text("Мои задачи");
+                        subItem.Add()
+                               .Text("Общие задачи");
+                        subItem.Add()
+                               .Text("Активные задачи");
+                        subItem.Add()
+                               .Text("Выполненные задачи");
+                    });
+            item.Add()
+                .Text("Пометки")
+                .Items((subItem) =>
+                    {
+                        subItem.Add()
+                               .Text("Мои пометки");
+                        subItem.Add()
+                               .Text("Список пометок");
+                        subItem.Add()
+                               .Text("Общие пометки");
+                        subItem.Add()
+                               .Text("Архив");
+                    });
+        }).Render();
+        //Html.Telerik().PanelBar()
+        //   .Name("PanelBar1")
+        //   .HtmlAttributes(new { style = "width: 99%;" })
+        //   .BindTo("Invest")
+        //   .Render();
+}
+else
+{
+
+    Html.RenderAction("Login", "Account");
+}

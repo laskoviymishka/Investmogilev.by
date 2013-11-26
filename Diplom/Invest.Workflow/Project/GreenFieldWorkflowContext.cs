@@ -23,20 +23,21 @@ namespace Invest.Workflow.Project
 
         public IWorkflow GetWorkflow(string projectId)
         {
-            var workflowEntity = _repository.GetOne<WorkflowEntity>(w => w.ProjectId == projectId);
-            if (workflowEntity == null)
-            {
-                return CreateWorkflow(projectId);
-            }
-            _workflow = new BaseWorkflow<GreenField>(workflowEntity.CurrenState);
+            //var workflowEntity = _repository.GetOne<Invest.Common.Model.Project>(w => w._id == projectId).WorkflowState;
+            //if (workflowEntity == null)
+            //{
+            //    return CreateWorkflow(projectId);
+            //}
+            //_workflow = new BaseWorkflow<GreenField>(workflowEntity.CurrenState);
 
 
-            _workflow.Transitions = GetTransitions();
-            _workflow.CurrentCondiotions = new Dictionary<string, object>();
-            _workflow.Workflow = workflowEntity;
-            _workflow.SetContext(this);
+            //_workflow.Transitions = GetTransitions();
+            //_workflow.CurrentCondiotions = new Dictionary<string, object>();
+            //_workflow.Workflow = workflowEntity;
+            //_workflow.SetContext(this);
 
-            return _workflow;
+            //return _workflow;
+            return null;
         }
 
         private List<ITransition> GetTransitions()
@@ -78,15 +79,12 @@ namespace Invest.Workflow.Project
             _workflow.Workflow = new WorkflowEntity();
             _workflow.Workflow.ChangeHistory = new List<History>();
             _workflow.Workflow.CurrenState = GreenFieldStates.Open;
-            _workflow.Workflow.ProjectId = projectId;
-            _repository.Add(_workflow.Workflow);
             _workflow.SetContext(this);
             return _workflow;
         }
 
         public void SaveState(IWorkflow workflow)
         {
-            _repository.Update(workflow.Workflow);
         }
     }
 }

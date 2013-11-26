@@ -4,11 +4,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Invest.Common.Model
 {
-    public class WorkflowEntity : MongoEntity
+    public class WorkflowEntity 
     {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string _id { get; set; }
-        public string ProjectId { get; set; }
         public string CurrenState { get; set; }
         public IList<History> ChangeHistory { get; set; }
 

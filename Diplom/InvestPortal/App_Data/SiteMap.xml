@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap>
+  <siteMapNode title="Инвестиционный портал" controller="Home" action="Index">
+    <siteMapNode title="Проекты">
+      <siteMapNode controller="BaseProject" action="Index" title="Мои проекты" />
+      <siteMapNode title="Управление проектами">
+        <siteMapNode controller="BaseProject" action="VerifyResponse" title="Заявки" />
+        <siteMapNode controller="UserManager" action="UnUsignedProject" title="Ответственные" />
+        <siteMapNode controller="GreenField" action="Index" title="Все проекты GreenField" />
+      </siteMapNode>
+    </siteMapNode>
+    <siteMapNode title="Уведомления">
+    </siteMapNode>
+    <siteMapNode title="Контакты">
+    </siteMapNode>
+    <siteMapNode title="Задания">
+    </siteMapNode>
+    <siteMapNode title="Заметки">
+    </siteMapNode>
+    <siteMapNode title="Документы">
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

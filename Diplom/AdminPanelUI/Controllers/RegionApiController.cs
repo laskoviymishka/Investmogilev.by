@@ -75,7 +75,7 @@ namespace AdminPanelUI.Controllers
         // GET api/regionapi/5
         public Region Get(string id)
         {
-            return _repo.GetOne<Region>(r => r._id == id);
+            return RepositoryContext.Current.GetOne<Region>(r => r._id == id);
         }
 
         // POST api/regionapi

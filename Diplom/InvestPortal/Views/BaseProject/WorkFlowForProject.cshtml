@@ -1,0 +1,57 @@
+﻿@using Invest.Workflow.Project
+@model Invest.Common.Model.Project
+@{
+    ViewBag.Title = "WorkFlowForProject";
+}
+<h2>
+    Прогресс по проекту</h2>
+<ul>
+    <li>
+        @if (Model.WorkflowState.CurrenState == "Empty")
+        {
+            <p>
+                Заполнен - нет</p>
+        }
+        else
+        {
+            <p>
+                Заполнен -да</p>
+        }
+    </li>
+    <li>
+        @if (string.IsNullOrEmpty(Model.AssignUser))
+        {
+            <div>
+                Назначен ответственный - нет @Html.ActionLink("Назначить отвественного", "AssignUser", "UserManager", new { id = Model._id }, null)</div>
+        }
+        else
+        {
+            <div>
+                Назначен ответственный - @Model.AssignUser</div>
+        }
+    </li>
+    <li>
+        @if (Model.Responses != null && Model.Responses.Count > 0)
+        {
+            <p>
+                Получен отклик - да</p>
+            if (Model.WorkflowState.CurrenState == GreenFieldStates.WaitForVerifyResponse)
+            {
+                foreach (var response in Model.Responses)
+                {
+            <p>
+                Отклик от @response.InvestorFirstName @response.InvestorMiddleName @response.InvestorLastName @Html.ActionLink("Обработать отклик", "ProcessVerifyResponse", "BaseProject", new { id = response.ResponseId }, null)</p>
+                }
+            }
+        }
+        else
+        {
+            <p>
+                Получен отклик - нет</p>
+        }
+    </li>
+    <li>Разработан план - нет</li>
+    <li>Проверен план - нет</li>
+    <li>Выполнен план - нет</li>
+    <li>Проект закончен - нет</li>
+</ul>

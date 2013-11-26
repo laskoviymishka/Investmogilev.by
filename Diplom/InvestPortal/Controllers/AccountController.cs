@@ -27,7 +27,6 @@ namespace InvestPortal.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
@@ -36,7 +35,7 @@ namespace InvestPortal.Controllers
             }
 
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
-            return View(model);
+            return PartialView(model);
         }
 
         //

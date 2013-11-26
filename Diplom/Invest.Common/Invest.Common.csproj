@@ -57,11 +57,15 @@
     <Compile Include="Model\History.cs" />
     <Compile Include="Model\InfoType.cs" />
     <Compile Include="Model\InvestorResponse.cs" />
+    <Compile Include="Model\MessageBody.cs" />
+    <Compile Include="Model\MessageQueue.cs" />
     <Compile Include="Model\MongoEntity.cs" />
     <Compile Include="Model\Parametrs.cs" />
     <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\Recepient.cs" />
     <Compile Include="Model\Region.cs" />
     <Compile Include="Model\UnUsedBuilding.cs" />
+    <Compile Include="Model\UserProfile.cs" />
     <Compile Include="Model\Users.cs" />
     <Compile Include="Model\WorkflowEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Notification\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

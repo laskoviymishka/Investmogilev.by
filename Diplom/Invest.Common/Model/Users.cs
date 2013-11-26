@@ -7,7 +7,7 @@ using MongoRepository;
 
 namespace Invest.Common.Model
 {
-    public class Users : MembershipUser, MongoEntity
+    public class Users : MongoEntity
     {
         private ObjectId _objectId;
 
@@ -38,6 +38,10 @@ namespace Invest.Common.Model
 
         public DateTime LastPasswordChangedDate { get; set; }
 
+        public DateTime LastLoginDate { get; set; }
+
+        public DateTime LastActivityDate { get; set; }
+
         public string LoweredEmail { get; set; }
 
         public string LoweredUsername { get; set; }
@@ -50,8 +54,16 @@ namespace Invest.Common.Model
 
         public string Salt { get; set; }
 
+        public string Email { get; set; }
+
+        public bool IsApproved { get; set; }
+
+        public string Comment { get; set; }
+
+        public UserProfile Profile { get; set; }
+
         [BsonIgnore]
-        public IEnumerable<Project> MetoringProject {
+        public IEnumerable<Project> AssignProjects {
             get
             {
                 List<Project> model = new List<Project>();

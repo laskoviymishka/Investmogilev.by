@@ -7,6 +7,8 @@ namespace Invest.Workflow.Project
 {
     public static class GreenFieldStates
     {
+        public const string Empty = "Empty";
+
         public const string Open = "Open";
 
         public const string Progress = "Progress";

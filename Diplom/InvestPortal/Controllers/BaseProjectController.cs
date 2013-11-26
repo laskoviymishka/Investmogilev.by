@@ -33,43 +33,91 @@ namespace InvestPortal.Controllers
 
         #endregion
 
+        #region Base project workflow for user
+
         public ActionResult Index()
         {
-            ViewBag.Users = new List<NestedUserViewModel>();
-            ViewBag.Regions = new List<NestedRegionViewModel>();
-            foreach (Users mongoUser in _mongoRepository.All<Users>())
-            {
-                ViewBag.Users.Add(new NestedUserViewModel() { Name = mongoUser.Username });
-            }
-
-            foreach (Region region in _mongoRepository.All<Region>())
-            {
-                ViewBag.Regions.Add(new NestedRegionViewModel() { RegionName = region.RegionName });
-            }
-            return View(_repository.AllProjects());
+            return View(AllProjectForUser);
         }
 
+        public ActionResult WorkFlowForProject(string id)
+        {
+            return View(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));
+        }
+
+        #region Grid Methods project workflow
+
+        [GridAction]
+        public ActionResult _SelectAjaxEditingIndex()
+        {
+            return View(new GridModel(AllProjectForUser));
+        }
+
+        #endregion
+
+
+        #endregion
+
+        #region All project
+
+        public ActionResult All()
+        {
+            BindUsersAndRegions();
+            return View(RepositoryContext.Current.All<Project>());
+        }
+
+        #region Grid Methods project workflow
+
+        [GridAction]
+        public ActionResult _SelectAjaxEditingAll()
+        {
+            BindUsersAndRegions();
+            return View(new GridModel(RepositoryContext.Current.All<Project>()));
+        }
+
+        #endregion
+        #endregion
+
+        #region VerigyResponse
+
+        #region Main Actions
 
         public ActionResult VerifyResponse()
         {
-            var responsedProject = _repository.AllProjects().Where(p => p.WorkflowState.CurrenState == GreenFieldStates.WaitForVerifyResponse).ToList();
-            var model = new List<InvestorResponse>();
-            foreach (var project in responsedProject)
-            {
-                model.AddRange(RepositoryContext.Current.All<InvestorResponse>(r => project != null && r.ResponsedProjectId == project._id));
-            }
+            return View(InvestorResponses);
+        }
 
-            return View(model);
+        public ActionResult ToProject(string id)
+        {
+            var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null && p.WorkflowState.CurrenState == GreenFieldStates.WaitForVerifyResponse);
+            foreach (Project project in responsedProject)
+            {
+                var investorResponse = project.Responses.FirstOrDefault(p => p.ResponseId == id);
+                if (investorResponse != null)
+                {
+                    return RedirectToAction("WorkFlowForProject", "BaseProject", new {@id = project._id});
+                }
+            }
+            return HttpNotFound();
         }
 
         public ActionResult ProcessVerifyResponse(string id)
         {
-            var response = RepositoryContext.Current.GetOne<InvestorResponse>(r => r._id == id);
-            InvestorRegisterModel model = new InvestorRegisterModel();
-            model.Email = response.InvestorEmail;
-            model.ResponseId = id;
-            model.Password = ObjectId.GenerateNewId().ToString();
-            return View(model);
+            var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null && p.WorkflowState.CurrenState == GreenFieldStates.WaitForVerifyResponse);
+            foreach (Project project in responsedProject)
+            {
+                var investorResponse = project.Responses.FirstOrDefault(p => p.ResponseId == id);
+                if (investorResponse != null && investorResponse.IsVerified == false)
+                {
+                    var model = new InvestorRegisterModel();
+                    model.Email = investorResponse.InvestorEmail;
+                    model.ResponseId = id;
+                    model.ResponseProjectId = project._id;
+                    model.Password = ObjectId.GenerateNewId().ToString().Substring(0, 5);
+                    return View(model);
+                }
+            }
+            return HttpNotFound();
         }
 
         [HttpPost]
@@ -77,19 +125,17 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                Membership.CreateUser(model.UserName, "Pass1234", model.Password);
-                Roles.AddUserToRole(model.UserName, "Investor");
-                var response = RepositoryContext.Current.GetOne<InvestorResponse>(r => r._id == model.ResponseId);
-                response.IsVerified = true;
-                Project project = _repository.GetProjectByID<GreenField>(response.ResponsedProjectId);
+                var project = RepositoryContext.Current.GetOne<Project>(r => r._id == model.ResponseProjectId);
                 if (project == null)
                 {
-                    project = _repository.GetProjectByID<BrownField>(response.ResponsedProjectId);
-                    if (project == null)
-                    {
-                        project = _repository.GetProjectByID<UnUsedBuilding>(response.ResponsedProjectId);
-                    }
+                    return HttpNotFound();
                 }
+                var response = project.Responses.FirstOrDefault(r => r.ResponseId == model.ResponseId);
+
+                if (response != null) response.IsVerified = true;
+
+                project.Responses = new List<InvestorResponse>() { response };
+
                 string fromState = project.WorkflowState.CurrenState;
                 var workflow = project.WorkflowState;
                 workflow.CurrenState = GreenFieldStates.VerifyResponse;
@@ -101,100 +147,56 @@ namespace InvestPortal.Controllers
                             FromState = fromState,
                             ToState = GreenFieldStates.VerifyResponse
                         });
-
-
-                RepositoryContext.Current.Update(workflow);
-                RepositoryContext.Current.Update(response);
+                project.InvestorUser = model.UserName;
+                Membership.CreateUser(model.UserName, model.Password, model.Email);
+                Roles.AddUserToRole(model.UserName, "Investor");
+                RepositoryContext.Current.Update(project);
 
                 return RedirectToAction("VerifyResponse");
             }
             return View(model);
         }
 
+        #endregion
+
         #region Grid Methods
 
         [GridAction]
         public ActionResult _SelectAjaxEditing()
         {
-            return View(new GridModel(_repository.AllProjects()));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _SaveAjaxEditing(string id)
-        {
-            if (_repository.GetProjectByID<GreenField>(id) == null)
-            {
-                if (_repository.GetProjectByID<BrownField>(id) == null)
-                {
-                    if (_repository.GetProjectByID<UnUsedBuilding>(id) == null)
-                    {
-                        UnUsedBuilding un = _repository.GetProjectByID<UnUsedBuilding>(id);
-                        UpdateModel(un);
-                        _repository.UpdateOne(un);
-                    }
-                }
-                else
-                {
-                    BrownField br = _repository.GetProjectByID<BrownField>(id);
-                    UpdateModel(br);
-                    _repository.UpdateOne(br);
-                }
-            }
-            else
-            {
-                GreenField gr = _repository.GetProjectByID<GreenField>(id);
-                UpdateModel(gr);
-                _repository.UpdateOne(gr);
-            }
-
-            return View(new GridModel(_repository.AllProjects()));
-        }
-
-        private void UpdateUserModel(UserManagerViewModel model, Users product)
-        {
-            UpdateModel(model);
-            //TryUpdateModel(product);
-            product.Username = model.Username;
-            product.Email = model.LoweredEmail;
-            product.CreationDate = model.CreationDate;
-            product.IsLockedOut = model.IsLockedOut;
-            product.PasswordQuestion = model.PasswordQuestion;
-            product.PasswordAnswer = model.PasswordAnswer;
-            product.IsApproved = model.IsApproved;
+            return View(new GridModel(InvestorResponses));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         [GridAction]
         public ActionResult _DeleteAjaxEditing(string id)
         {
-            if (_repository.GetProjectByID<GreenField>(id) == null)
+            var investorResponse = InvestorResponses.FirstOrDefault(p => p.ResponseId == id);
+            if (investorResponse != null)
             {
-                if (_repository.GetProjectByID<BrownField>(id) == null)
-                {
-                    if (_repository.GetProjectByID<UnUsedBuilding>(id) != null)
-                    {
-                        UnUsedBuilding un = _repository.GetProjectByID<UnUsedBuilding>(id);
-                        UpdateModel(un);
-                        _repository.Delete(un);
-                    }
-                }
-                else
-                {
-                    BrownField br = _repository.GetProjectByID<BrownField>(id);
-                    UpdateModel(br);
-                    _repository.Delete(br);
-                }
-            }
-            else
-            {
-                GreenField gr = _repository.GetProjectByID<GreenField>(id);
-                UpdateModel(gr);
-                _repository.Delete(gr);
-            }
+                var projectId = investorResponse.ResponsedProjectId;
 
-            //Rebind the grid
-            return View(new GridModel(_repository.AllProjects()));
+                var project = RepositoryContext.Current.GetOne<Project>(r => r._id == projectId);
+                if (project == null)
+                {
+                    return HttpNotFound();
+                }
+                string fromState = project.WorkflowState.CurrenState;
+                var workflow = project.WorkflowState;
+                project.Responses.Remove(investorResponse);
+                workflow.CurrenState = GreenFieldStates.Open;
+                project.WorkflowState.ChangeHistory.Add(
+                    new History()
+                        {
+                            EditingTime = DateTime.Now,
+                            Editor = User.Identity.Name,
+                            FromState = fromState,
+                            ToState = GreenFieldStates.Open
+                        });
+
+                RepositoryContext.Current.Update(project);
+            }
+            return View(new GridModel(InvestorResponses));
         }
 
         #endregion
@@ -209,6 +211,55 @@ namespace InvestPortal.Controllers
         public class NestedRegionViewModel
         {
             public string RegionName { get; set; }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Private Helpers
+
+        private IEnumerable<Project> AllProjectForUser
+        {
+            get
+            {
+                BindUsersAndRegions();
+
+                var responsedProject =
+                    RepositoryContext.Current.All<Project>(r => r.AssignUser == User.Identity.Name);
+                return responsedProject.ToList();
+            }
+        }
+
+        private List<InvestorResponse> InvestorResponses
+        {
+            get
+            {
+                var responsedProject =
+                    RepositoryContext.Current.All<Project>(
+                        r => r.Responses != null && r.WorkflowState.CurrenState == GreenFieldStates.WaitForVerifyResponse);
+                var model = new List<InvestorResponse>();
+                foreach (var project in responsedProject)
+                {
+                    model.AddRange(project.Responses);
+                }
+                return model;
+            }
+        }
+
+        private void BindUsersAndRegions()
+        {
+            ViewBag.Users = new List<NestedUserViewModel>();
+            ViewBag.Regions = new List<NestedRegionViewModel>();
+            foreach (Users mongoUser in _mongoRepository.All<Users>())
+            {
+                ViewBag.Users.Add(new NestedUserViewModel() { Name = mongoUser.Username });
+            }
+
+            foreach (Region region in _mongoRepository.All<Region>())
+            {
+                ViewBag.Regions.Add(new NestedRegionViewModel() { RegionName = region.RegionName });
+            }
         }
 
         #endregion

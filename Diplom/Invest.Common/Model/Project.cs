@@ -5,14 +5,17 @@ using MongoRepository;
 
 namespace Invest.Common.Model
 {
+    [BsonKnownTypes(typeof(GreenField), typeof(BrownField), typeof(UnUsedBuilding))]
     public class Project : MongoEntity
     {
+        private string _investuser;
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id
         {
             get;
             set;
         }
+
         public string Name { get; set; }
         public string Description { get; set; }
         public Address Address { get; set; }
@@ -22,7 +25,18 @@ namespace Invest.Common.Model
         public string[] Mentors { get; set; }
         public string AssignUser { get; set; }
         public string WorkflowId { get; set; }
-
+        public string InvestorUser
+        {
+            get
+            {
+                if (_investuser == null)
+                {
+                    return string.Empty;
+                }
+                return _investuser;
+            }
+            set { _investuser = value; }
+        }
         [BsonIgnore]
         public string ProjectType
         {
@@ -30,27 +44,13 @@ namespace Invest.Common.Model
         }
 
         [BsonIgnore]
-        public IEnumerable<InvestorResponse> Responses
+        public string CurrenState
         {
-            get { return RepositoryContext.Current.All<InvestorResponse>(r => r.ResponsedProjectId == _id); }
+            get { return "test"; }
         }
 
-        [BsonIgnore]
-        public WorkflowEntity WorkflowState
-        {
-            get
-            {
-                if (RepositoryContext.Current.GetOne<WorkflowEntity>(w => w.ProjectId == _id) == null)
-                {
-                    WorkflowEntity we = new WorkflowEntity();
-                    we.CurrenState = "Open";
-                    we.ProjectId = _id;
-                    we.ChangeHistory = new List<History>();
-                    RepositoryContext.Current.Add(we);
-                }
+        public IList<InvestorResponse> Responses { get; set; }
 
-                return RepositoryContext.Current.GetOne<WorkflowEntity>(w => w.ProjectId == _id);
-            }
-        }
+        public WorkflowEntity WorkflowState { get; set; }
     }
 }

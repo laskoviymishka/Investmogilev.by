@@ -4,7 +4,7 @@
     ViewBag.Title = "ProcessVerifyResponse";
 }
 
-<h2>ProcessVerifyResponse</h2>
+<h2>Обработка отклика</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -39,11 +39,12 @@
         <div class="editor-label">
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ResponseId)
+            @Html.HiddenFor(model => model.ResponseId)
+            @Html.HiddenFor(model => model.ResponseProjectId)
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Сохранить" />
         </p>
     </fieldset>
 }

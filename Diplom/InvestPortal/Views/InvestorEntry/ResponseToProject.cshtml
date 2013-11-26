@@ -1,19 +1,19 @@
 ﻿@model Invest.Common.Model.InvestorResponse
 
 @{
-    ViewBag.Title = "ResponseToProject";
+    ViewBag.Title = "Отклик на проект";
 }
 
-<h2>ResponseToProject</h2>
+<h2>Ваш отклик на проект</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>InvestorResponse</legend>
+        <legend>Отклик</legend>
 
         <div class="editor-label">
-            @Html.HiddenFor(model => model._id)
+            @Html.HiddenFor(model => model.ResponseId)
         </div>
 
         <div class="editor-label">
@@ -85,12 +85,8 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Отправить" />
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 

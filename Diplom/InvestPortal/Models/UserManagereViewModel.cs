@@ -5,6 +5,8 @@ namespace InvestPortal.Models
 {
     public class UserManagerViewModel
     {
+        private IList<UserRoles> _roles;
+
         public string _id { get; set; }
 
         public string Username { get; set; }
@@ -23,7 +25,19 @@ namespace InvestPortal.Models
 
         public string PasswordAnswer { get; set; }
 
-        public IList<UserRoles> Roles { get; set; }
+        public IList<UserRoles> Roles
+        {
+            get
+            {
+                if (_roles == null)
+                {
+                    return new List<UserRoles>(){ UserRoles.User};
+                }
+
+                return _roles;
+            }
+            set { _roles = value; }
+        }
     }
 
     public enum UserRoles

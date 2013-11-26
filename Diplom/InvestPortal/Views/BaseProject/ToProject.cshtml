@@ -1,0 +1,92 @@
+﻿@model Invest.Common.Model.Project
+
+@{
+    ViewBag.Title = "ToProject";
+}
+
+<h2>Информация о проекте</h2>
+
+<fieldset>
+    <legend>Project</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model._id)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._id)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AddressName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddressName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Contact)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Contact)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Region)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Region)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AssignUser)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AssignUser)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.WorkflowId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WorkflowId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InvestorUser)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InvestorUser)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ProjectType)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProjectType)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CurrenState)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CurrenState)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

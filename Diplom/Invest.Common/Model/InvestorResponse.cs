@@ -6,21 +6,11 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Invest.Common.Model
 {
-    public class InvestorResponse : MongoEntity
+    public class InvestorResponse
     {
+        [Display(Name = "Дата отклика")]
+        public string ResponseId { get; set; }
 
-        #region Private Field
-
-        private readonly ProjectRepository _projectRepository = new ProjectRepository();
-
-        #endregion
-
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string _id
-        {
-            get;
-            set;
-        }
 
         [Display(Name = "Дата отклика")]
         public DateTime ResponseDate { get; set; }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Invest.Common.Repository;
 using Invest.Common.Model;
 using Invest.Workflow.Project;
+using MongoDB.Bson;
 using MongoRepository;
 using MongoRepository = Invest.Common.Repository.MongoRepository;
 using Invest.Workflow.StateManagment;
@@ -47,27 +48,12 @@ namespace InvestPortal.Controllers
         [AllowAnonymous]
         public ActionResult ResponseToProject(string id)
         {
-            Project project = null;
-
-            if (_projectRepository.GetProjectByID<BrownField>(id) != null)
-            {
-                project = _projectRepository.GetProjectByID<BrownField>(id);
-            }
-
-            if (_projectRepository.GetProjectByID<UnUsedBuilding>(id) != null)
-            {
-                project = _projectRepository.GetProjectByID<UnUsedBuilding>(id);
-            }
-
-            if (_projectRepository.GetProjectByID<GreenField>(id) != null)
-            {
-                project = _projectRepository.GetProjectByID<GreenField>(id);
-            }
-
+            Project project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == id);
             if (project != null)
             {
                 InvestorResponse response = new InvestorResponse();
                 response.ResponsedProjectId = id;
+                response.ResponseId = ObjectId.GenerateNewId().ToString();
                 response.ResponseDate = DateTime.Now;
                 return View(response);
             }
@@ -84,15 +70,14 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                WorkflowEntity workflow =
-                    RepositoryContext.Current.GetOne<WorkflowEntity>(w => w.ProjectId == response.ResponsedProjectId);
-                workflow.CurrenState = GreenFieldStates.WaitForVerifyResponse;
-                workflow.ProjectId = response.ResponsedProjectId;
-                if (workflow.ChangeHistory == null)
+                var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == response.ResponsedProjectId);
+               
+                project.WorkflowState.CurrenState = GreenFieldStates.WaitForVerifyResponse;
+                if (project.WorkflowState.ChangeHistory == null)
                 {
-                    workflow.ChangeHistory = new List<History>();
+                    project.WorkflowState.ChangeHistory = new List<History>();
                 }
-                workflow.ChangeHistory.Add(
+                project.WorkflowState.ChangeHistory.Add(
                     new History()
                         {
                             EditingTime = DateTime.Now,
@@ -100,8 +85,13 @@ namespace InvestPortal.Controllers
                             FromState = GreenFieldStates.Open,
                             ToState = GreenFieldStates.WaitForVerifyResponse
                         });
-                _responseRepository.Update(workflow);
-                _responseRepository.Add(response);
+                if (project.Responses == null)
+                {
+                    project.Responses = new List<InvestorResponse>();
+                }
+                project.Responses.Add(response);
+
+                RepositoryContext.Current.Update(project);
                 return RedirectToAction("Index");
             }
             return View(response);
