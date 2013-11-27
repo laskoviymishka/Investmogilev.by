@@ -1,9 +1,9 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 
-namespace Invest.Common.Model
+namespace Invest.Common.Model.Common
 {
-    public class Region : MongoEntity
+    public class Region : IMongoEntity
     {
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string _id
@@ -24,7 +24,7 @@ namespace Invest.Common.Model
             set;
         }
 
-        public IList<AdditionalRegionInfo> MoreInfo
+        public IList<AdditionalInfo> MoreInfo
         {
             get;
             set;

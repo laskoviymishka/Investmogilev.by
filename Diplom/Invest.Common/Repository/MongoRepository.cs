@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Invest.Common.Model;
+using Invest.Common.Model.Common;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
@@ -34,7 +35,7 @@ namespace Invest.Common.Repository
 
         #region Delete
 
-        public void Delete<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
+        public void Delete<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
         {
             var items = All<T>().Where(expression);
             foreach (T item in items)
@@ -43,12 +44,12 @@ namespace Invest.Common.Repository
             }
         }
 
-        public void Delete<T>(T item) where T : MongoEntity
+        public void Delete<T>(T item) where T : IMongoEntity
         {
             _db.GetCollection(typeof(T).Name).Remove(Query.EQ("_id", item._id));
         }
 
-        public void DeleteAll<T>() where T : MongoEntity
+        public void DeleteAll<T>() where T : IMongoEntity
         {
             throw new NotImplementedException();
         }
@@ -57,17 +58,17 @@ namespace Invest.Common.Repository
 
         #region Selector
 
-        public T GetOne<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
+        public T GetOne<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
         {
             return All<T>().Where(expression).SingleOrDefault();
         }
 
-        public IQueryable<T> All<T>() where T : MongoEntity
+        public IQueryable<T> All<T>() where T : IMongoEntity
         {
             return _db.GetCollection(typeof(T).Name).AsQueryable<T>();
         }
 
-        public IQueryable<T> All<T>(Expression<Func<T, bool>> expression) where T : MongoEntity
+        public IQueryable<T> All<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
         {
             return _db.GetCollection(typeof (T).Name).AsQueryable<T>().Where(expression);
         }
@@ -76,12 +77,12 @@ namespace Invest.Common.Repository
 
         #region Inster
 
-        public void Add<T>(T item) where T : MongoEntity
+        public void Add<T>(T item) where T : IMongoEntity
         {
             _db.GetCollection(typeof(T).Name).Save(item);
         }
 
-        public void Add<T>(IEnumerable<T> items) where T : MongoEntity
+        public void Add<T>(IEnumerable<T> items) where T : IMongoEntity
         {
             foreach (T item in items)
             {
@@ -93,7 +94,7 @@ namespace Invest.Common.Repository
 
         #region Update
 
-        public void Update<T>(T item) where T : MongoEntity
+        public void Update<T>(T item) where T : IMongoEntity
         {
             if (this.GetOne<T>(t=> t._id == item._id) != null)
             {

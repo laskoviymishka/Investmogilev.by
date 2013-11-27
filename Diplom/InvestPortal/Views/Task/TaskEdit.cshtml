@@ -1,0 +1,77 @@
+﻿@model InvestPortal.Models.EditTaskViewModel
+@{
+    ViewBag.Title = "Редактировать инфомацию о задаче";
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Редактировать инфомацию о задаче</legend>
+        @Html.HiddenFor(model => model.TaskId)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.Telerik().EditorFor(model => model.Description).Localizable("ru-RU")
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Milestone)
+        </div>
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.CompletedOn)
+        </div>
+        @if (Model.SubTask == null || !Model.SubTask.Any())
+        {
+            <div class="editor-field">
+                @Html.Telerik().DatePickerFor(model => model.Milestone)
+                @Html.ValidationMessageFor(model => model.Milestone)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.IsComplete)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.IsComplete)
+                @Html.ValidationMessageFor(model => model.IsComplete)
+            </div>
+        }
+        else
+        {
+            <div class="editor-field">
+                @Html.DisplayFor(model => model.Milestone)
+                @Html.ValidationMessageFor(model => model.Milestone)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.IsComplete)
+            </div>
+            <div class="editor-field">
+                @Html.DisplayFor(model => model.IsComplete)
+                @Html.ValidationMessageFor(model => model.IsComplete)
+            </div>
+        }
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsVerifiedComplete)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsVerifiedComplete)
+            @Html.ValidationMessageFor(model => model.IsVerifiedComplete)
+        </div>
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Информация о задаче", "TaskDetails", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId })
+    |
+    @Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId })
+    |
+    @Html.ActionLink("К моим задачам", "MyTask")
+</div>

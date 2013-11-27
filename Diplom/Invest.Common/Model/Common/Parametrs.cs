@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Invest.Common.Model
+namespace Invest.Common.Model.Common
 {
     public class Parametrs
     {

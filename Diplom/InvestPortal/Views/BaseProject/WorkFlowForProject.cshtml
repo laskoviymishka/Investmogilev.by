@@ -1,5 +1,5 @@
-﻿@using Invest.Workflow.Project
-@model Invest.Common.Model.Project
+﻿@using BusinessLogic.Manager
+@model Invest.Common.Model.ProjectModels.Project
 @{
     ViewBag.Title = "WorkFlowForProject";
 }
@@ -50,8 +50,10 @@
                 Получен отклик - нет</p>
         }
     </li>
-    <li>Разработан план - нет</li>
-    <li>Проверен план - нет</li>
-    <li>Выполнен план - нет</li>
+    <li>
+        @Html.ActionLink("Дорожная карта проекта", "PlanForProject", "Task", new { id = Model._id  }, null)
+    </li>
+    <li>Дорожная карта утверждена - нет</li>
+    <li>Дорожная карта пройдена - нет</li>
     <li>Проект закончен - нет</li>
 </ul>

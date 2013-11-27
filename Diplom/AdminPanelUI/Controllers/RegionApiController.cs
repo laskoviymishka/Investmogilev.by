@@ -3,6 +3,7 @@ using Invest.Common.Model;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Invest.Common.Model.Common;
 using Invest.Common.Repository;
 using MongoRepository;
 

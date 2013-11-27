@@ -1,4 +1,5 @@
 ﻿using Invest.Common.Model;
+using Invest.Common.Model.ProjectModels;
 
 namespace BusinessLogic.Manager
 {

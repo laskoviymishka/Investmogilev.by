@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoRepository;
 
-namespace Invest.Common.Model
+namespace Invest.Common.Model.ProjectModels
 {
     public class GreenField : Project
     {

@@ -23,6 +23,12 @@ namespace InvestPortal
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute(
+                    "TaskOther",
+                    "Task/{action}/{taskId}/{projectId}",
+                    new { controller = "Task" }
+            );
+
             routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

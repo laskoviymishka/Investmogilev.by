@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLogic.Manager;
+using Invest.Common.Model.ProjectModels;
 using Invest.Common.Repository;
 using Invest.Common.Model;
 using Invest.Workflow.Project;
 using MongoDB.Bson;
 using MongoRepository;
-using MongoRepository = Invest.Common.Repository.MongoRepository;
 using Invest.Workflow.StateManagment;
 
 namespace InvestPortal.Controllers
 {
     public class InvestorEntryController : Controller
     {
-
         #region Private Field
 
         private readonly ProjectRepository _projectRepository;
         private readonly IRepository _responseRepository;
         private readonly IWorkflowContext _greenFieldWorkflowContext;
         private readonly Dictionary<string, object> _conditions;
+        private readonly ProjectStateManager _stateManager;
 
         #endregion
 
@@ -33,6 +34,7 @@ namespace InvestPortal.Controllers
             _responseRepository = new Invest.Common.Repository.MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
             _greenFieldWorkflowContext = new GreenFieldWorkflowContext(_responseRepository);
             _conditions = new Dictionary<string, object>();
+            _stateManager = new ProjectStateManager();
         }
 
         #endregion
@@ -60,9 +62,7 @@ namespace InvestPortal.Controllers
             else
             {
                 return HttpNotFound("Проект не найден, свяжитесь с администратором");
-
             }
-
         }
 
         [HttpPost]
@@ -70,28 +70,8 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == response.ResponsedProjectId);
-               
-                project.WorkflowState.CurrenState = GreenFieldStates.WaitForVerifyResponse;
-                if (project.WorkflowState.ChangeHistory == null)
-                {
-                    project.WorkflowState.ChangeHistory = new List<History>();
-                }
-                project.WorkflowState.ChangeHistory.Add(
-                    new History()
-                        {
-                            EditingTime = DateTime.Now,
-                            Editor = User.Identity.Name,
-                            FromState = GreenFieldStates.Open,
-                            ToState = GreenFieldStates.WaitForVerifyResponse
-                        });
-                if (project.Responses == null)
-                {
-                    project.Responses = new List<InvestorResponse>();
-                }
-                project.Responses.Add(response);
+                _stateManager.ResponseToProject(response, User.Identity.Name);
 
-                RepositoryContext.Current.Update(project);
                 return RedirectToAction("Index");
             }
             return View(response);

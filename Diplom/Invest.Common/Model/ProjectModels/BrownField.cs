@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Invest.Common.Model
+namespace Invest.Common.Model.ProjectModels
 {
     public class BrownField : Project
     {

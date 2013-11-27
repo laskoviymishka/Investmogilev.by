@@ -1,0 +1,29 @@
+﻿@using Invest.Common.Model.ProjectModels
+@model IEnumerable<Project>
+@{
+    ViewBag.Title = "Мои задачи";
+}
+<h2>
+    Мои задачи</h2>
+@foreach (var project in Model)
+{
+    if (project.Tasks != null && project.Tasks.Any())
+    {
+    <div>
+        @Html.ActionLink("Дорожная карта проекта" + @project.Name + "-" + @project.Description, "PlanForProject", "Task", new { id = project._id }, null)</div>
+    @Html.Telerik().TreeView().Name("TreeView" + project._id).BindTo(project.Tasks, mapping => mapping.For<Task>(binding => binding.ItemDataBound((item, task) =>
+        {
+            item.Text = task.Title;
+            item.Value = task.TaskId;
+            item.Url("/Task/TaskDetails/" + task.TaskId + "/" + project._id);
+        }).Children(t => t.SubTask))).ExpandAll(false);
+    }
+    else
+    {
+    <div>
+        @Html.ActionLink("Дорожная карта проекта" + @project.Name + "-" + @project.Description, "PlanForProject", "Task", new { id = project._id }, null)
+        <div>
+            Ключевых этапов для этого проекте еще нет</div>
+    </div>
+    }
+}

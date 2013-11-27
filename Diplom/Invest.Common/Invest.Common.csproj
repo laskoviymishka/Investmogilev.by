@@ -49,25 +49,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\AdditionalRegionInfo.cs" />
-    <Compile Include="Model\Address.cs" />
-    <Compile Include="Model\BrownField.cs" />
-    <Compile Include="Model\EditParametrViewModel.cs" />
-    <Compile Include="Model\GreenField.cs" />
-    <Compile Include="Model\History.cs" />
-    <Compile Include="Model\InfoType.cs" />
-    <Compile Include="Model\InvestorResponse.cs" />
-    <Compile Include="Model\MessageBody.cs" />
-    <Compile Include="Model\MessageQueue.cs" />
-    <Compile Include="Model\MongoEntity.cs" />
-    <Compile Include="Model\Parametrs.cs" />
-    <Compile Include="Model\Project.cs" />
-    <Compile Include="Model\Recepient.cs" />
-    <Compile Include="Model\Region.cs" />
-    <Compile Include="Model\UnUsedBuilding.cs" />
-    <Compile Include="Model\UserProfile.cs" />
-    <Compile Include="Model\Users.cs" />
-    <Compile Include="Model\WorkflowEntity.cs" />
+    <Compile Include="Model\Common\AdditionalInfo.cs" />
+    <Compile Include="Model\Common\EditParametrViewModel.cs" />
+    <Compile Include="Model\ProjectModels\Address.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\ProjectModels\BrownField.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\ProjectModels\GreenField.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\ProjectModels\History.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\ProjectModels\InfoType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\ProjectModels\InvestorResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\ProjectModels\Project.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\ProjectModels\Task.cs" />
+    <Compile Include="Model\ProjectModels\UnUsedBuilding.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\ProjectModels\WorkflowEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\User\MessageBody.cs" />
+    <Compile Include="Model\User\MessageQueue.cs" />
+    <Compile Include="Model\Common\MongoEntity.cs" />
+    <Compile Include="Model\Common\Parametrs.cs" />
+    <Compile Include="Model\User\Recepient.cs" />
+    <Compile Include="Model\Common\Region.cs" />
+    <Compile Include="Model\User\UserProfile.cs" />
+    <Compile Include="Model\User\Users.cs" />
+    <Compile Include="Notification\INotification.cs" />
+    <Compile Include="Notification\MailNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryContext.cs" />
     <Compile Include="Repository\IRepository.cs" />
@@ -77,9 +98,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Notification\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

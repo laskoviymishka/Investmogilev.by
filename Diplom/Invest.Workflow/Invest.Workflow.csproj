@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Project\BaseProjectStates.cs" />
-    <Compile Include="Project\GreenFieldStates.cs" />
     <Compile Include="Project\GreenFieldWorkflowContext.cs" />
     <Compile Include="StateManagment\BaseTransition.cs" />
     <Compile Include="StateManagment\BaseWorkflow.cs" />

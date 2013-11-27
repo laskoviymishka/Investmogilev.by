@@ -353,6 +353,7 @@
     <Compile Include="Controllers\GreenFieldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvestorEntryController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserManagerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
@@ -360,6 +361,8 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BaseProjectViewModel.cs" />
+    <Compile Include="Models\EditTaskViewModel.cs" />
+    <Compile Include="Models\SubTaskViewModel.cs" />
     <Compile Include="Models\UserManagereViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -947,6 +950,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\BaseProject\ToProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\MyTask.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\PlanForProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\CreateSubTask.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\_TaskTree.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\TaskDetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\TaskEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\ActiveTask.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\CompleteTask.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

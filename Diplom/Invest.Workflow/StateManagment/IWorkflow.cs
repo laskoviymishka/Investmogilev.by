@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Invest.Common.Model.ProjectModels;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Invest.Common.Model;

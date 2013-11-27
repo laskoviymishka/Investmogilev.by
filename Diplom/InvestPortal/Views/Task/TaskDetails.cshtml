@@ -1,0 +1,56 @@
+﻿@model InvestPortal.Models.EditTaskViewModel
+@{
+    ViewBag.Title = "Информация о задаче";
+}
+<fieldset>
+    <legend>Информация о задаче</legend>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+    <div class="display-label">
+        @Html.Raw(HttpUtility.HtmlDecode(Model.Description))
+    </div>
+    <div class="display-field">
+        @Html.DisplayText(Model.Description)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Milestone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Milestone)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.CompletedOn)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CompletedOn)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsVerifiedComplete)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsVerifiedComplete)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsComplete)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsComplete)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsLate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsLate)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Редакировать", "TaskEdit", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId })
+    |
+    @Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId })
+    |
+    @Html.ActionLink("К моим задачам", "MyTask")
+</p>

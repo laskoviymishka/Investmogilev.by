@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using Invest.Common.Model.Common;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoRepository;
 
-namespace Invest.Common.Model
+namespace Invest.Common.Model.ProjectModels
 {
     [BsonKnownTypes(typeof(GreenField), typeof(BrownField), typeof(UnUsedBuilding))]
-    public class Project : MongoEntity
+    public class Project : IMongoEntity
     {
         private string _investuser;
         [BsonRepresentation(BsonType.ObjectId)]
@@ -37,6 +37,11 @@ namespace Invest.Common.Model
             }
             set { _investuser = value; }
         }
+
+        public IList<Task> Tasks { get; set; } 
+
+        public WorkflowEntity WorkflowState { get; set; }
+
         [BsonIgnore]
         public string ProjectType
         {
@@ -51,6 +56,5 @@ namespace Invest.Common.Model
 
         public IList<InvestorResponse> Responses { get; set; }
 
-        public WorkflowEntity WorkflowState { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Web.Hosting;
 using System.Web.Security;
 using Invest.Common.Model;
+using Invest.Common.Model.User;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;

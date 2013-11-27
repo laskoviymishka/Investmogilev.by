@@ -4,7 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using BusinessLogic.Manager;
 using Invest.Common.Model;
+using Invest.Common.Model.Common;
+using Invest.Common.Model.ProjectModels;
+using Invest.Common.Model.User;
 using Invest.Common.Repository;
 using Invest.Workflow.Project;
 using InvestPortal.Models;
@@ -20,6 +24,7 @@ namespace InvestPortal.Controllers
 
         private readonly ProjectRepository _repository;
         private readonly IRepository _mongoRepository;
+        private readonly ProjectStateManager _stateManager;
 
         #endregion
 
@@ -29,6 +34,7 @@ namespace InvestPortal.Controllers
         {
             _repository = new ProjectRepository();
             _mongoRepository = RepositoryContext.Current;
+            _stateManager = new ProjectStateManager();
         }
 
         #endregion
@@ -95,7 +101,7 @@ namespace InvestPortal.Controllers
                 var investorResponse = project.Responses.FirstOrDefault(p => p.ResponseId == id);
                 if (investorResponse != null)
                 {
-                    return RedirectToAction("WorkFlowForProject", "BaseProject", new {@id = project._id});
+                    return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = project._id });
                 }
             }
             return HttpNotFound();
@@ -125,34 +131,17 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var project = RepositoryContext.Current.GetOne<Project>(r => r._id == model.ResponseProjectId);
-                if (project == null)
+                if (_stateManager.ProcessVerifyResponse(model.ResponseProjectId,
+                    model.ResponseId,
+                    User.Identity.Name,
+                    model.UserName,
+                    model.Password,
+                    model.Email))
                 {
-                    return HttpNotFound();
+                    return RedirectToAction("VerifyResponse");
                 }
-                var response = project.Responses.FirstOrDefault(r => r.ResponseId == model.ResponseId);
 
-                if (response != null) response.IsVerified = true;
-
-                project.Responses = new List<InvestorResponse>() { response };
-
-                string fromState = project.WorkflowState.CurrenState;
-                var workflow = project.WorkflowState;
-                workflow.CurrenState = GreenFieldStates.VerifyResponse;
-                project.WorkflowState.ChangeHistory.Add(
-                    new History()
-                        {
-                            EditingTime = DateTime.Now,
-                            Editor = User.Identity.Name,
-                            FromState = fromState,
-                            ToState = GreenFieldStates.VerifyResponse
-                        });
-                project.InvestorUser = model.UserName;
-                Membership.CreateUser(model.UserName, model.Password, model.Email);
-                Roles.AddUserToRole(model.UserName, "Investor");
-                RepositoryContext.Current.Update(project);
-
-                return RedirectToAction("VerifyResponse");
+                return HttpNotFound();
             }
             return View(model);
         }
@@ -171,32 +160,12 @@ namespace InvestPortal.Controllers
         [GridAction]
         public ActionResult _DeleteAjaxEditing(string id)
         {
-            var investorResponse = InvestorResponses.FirstOrDefault(p => p.ResponseId == id);
-            if (investorResponse != null)
+            if (_stateManager.DeleteResponse(id, User.Identity.Name))
             {
-                var projectId = investorResponse.ResponsedProjectId;
-
-                var project = RepositoryContext.Current.GetOne<Project>(r => r._id == projectId);
-                if (project == null)
-                {
-                    return HttpNotFound();
-                }
-                string fromState = project.WorkflowState.CurrenState;
-                var workflow = project.WorkflowState;
-                project.Responses.Remove(investorResponse);
-                workflow.CurrenState = GreenFieldStates.Open;
-                project.WorkflowState.ChangeHistory.Add(
-                    new History()
-                        {
-                            EditingTime = DateTime.Now,
-                            Editor = User.Identity.Name,
-                            FromState = fromState,
-                            ToState = GreenFieldStates.Open
-                        });
-
-                RepositoryContext.Current.Update(project);
+                return View(new GridModel(InvestorResponses));
             }
-            return View(new GridModel(InvestorResponses));
+
+            return HttpNotFound();
         }
 
         #endregion

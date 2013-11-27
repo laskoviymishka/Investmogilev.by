@@ -1,0 +1,36 @@
+﻿@model InvestPortal.Models.SubTaskViewModel
+@{
+    ViewBag.Title = "Добавить подзадачу";
+}
+@using (Ajax.BeginForm(new AjaxOptions() { HttpMethod = "POST" }))
+{
+    <fieldset>
+        <legend>Добавить подзадачу к @Model.ParentId</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.Telerik().EditorFor(model => model.Description).Localizable("ru-RU")
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Milestone)
+        </div>
+        <div class="editor-field">
+            @Html.Telerik().DatePickerFor(model => model.Milestone)
+            @Html.ValidationMessageFor(model => model.Milestone)
+        </div>
+        @Html.HiddenFor(model => model.ParentId)
+        @Html.HiddenFor(model => model.ProjectId)
+        <p>
+            <input type="submit" value="Добавить" />
+        </p>
+    </fieldset>
+}

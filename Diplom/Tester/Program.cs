@@ -1,9 +1,12 @@
-﻿using Invest.Workflow.Project;
+﻿using Invest.Common.Model.User;
+using Invest.Common.Notification;
+using Invest.Workflow.Project;
 using Invest.Workflow.StateManagment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Invest.Common.Model;
+using MongoRepository;
 
 namespace Tester
 {
@@ -11,14 +14,13 @@ namespace Tester
     {
         static void Main(string[] args)
         {
-            //var context =
-            //    new GreenFieldWorkflowContext(new BaseRepository<WorkflowEntity>("mongodb://tserakhau.cloudapp.net",
-            //                                                                     "Projects", "Workflow"));
-            //IWorkflow temp2 = context.GetWorkflow("528a0d3be1859b21642b24af");
-            //temp2.CurrentCondiotions["Role"] = "Admin";
-            //temp2.Move(BaseProjectStates.Open, GreenFieldStates.UnVerifyDone, "Andrey", temp2.CurrentCondiotions);
-            //Console.WriteLine(temp2.Workflow.CurrenState);
-            //Console.Read();
+            MailNotification not = new MailNotification();
+            string userIdForm = "528f2f54e1859b3bec10aed3";
+            string userIdTo = "528a3243e1859b15a00ea527";
+            var userFrom = RepositoryContext.Current.GetOne<Users>(u => u._id == userIdForm);
+            var userTo = RepositoryContext.Current.GetOne<Users>(u => u._id == userIdTo);
+            //not.NotificateUser(userTo, userFrom, "test", "hi from test");
+            Console.Read();
         }
         //private static void GenerateDependendenciesValues()
         //{

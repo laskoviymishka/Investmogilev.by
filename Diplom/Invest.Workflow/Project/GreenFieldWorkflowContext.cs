@@ -5,9 +5,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Invest.Common.Model;
+using Invest.Common.Model.ProjectModels;
 using Invest.Common.Repository;
 using Invest.Workflow.StateManagment;
-using History = Invest.Common.Model.History;
+using History = Invest.Common.Model.ProjectModels.History;
 
 namespace Invest.Workflow.Project
 {
@@ -58,8 +59,8 @@ namespace Invest.Workflow.Project
 
                 ITransition fromOpenToWaitForApproveResponse =
                     new BaseTransition(
-                        GreenFieldStates.Open,
-                        GreenFieldStates.WaitForVerifyResponse,
+                        "Open",
+                        "WaitForVerifyResponse",
                         fromOpenToWaitForApproveResponseConditions,
                         actions);
                 return fromOpenToWaitForApproveResponse;
@@ -73,12 +74,12 @@ namespace Invest.Workflow.Project
 
         public IWorkflow CreateWorkflow(string projectId)
         {
-            _workflow = new BaseWorkflow<GreenField>(GreenFieldStates.Open);
+            _workflow = new BaseWorkflow<GreenField>("Open");
 
             _workflow.Transitions = GetTransitions();
             _workflow.Workflow = new WorkflowEntity();
             _workflow.Workflow.ChangeHistory = new List<History>();
-            _workflow.Workflow.CurrenState = GreenFieldStates.Open;
+            _workflow.Workflow.CurrenState = "Open";
             _workflow.SetContext(this);
             return _workflow;
         }

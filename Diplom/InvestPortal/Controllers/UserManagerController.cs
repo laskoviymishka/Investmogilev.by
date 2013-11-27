@@ -4,7 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using BusinessLogic.Manager;
 using Invest.Common.Model;
+using Invest.Common.Model.Common;
+using Invest.Common.Model.ProjectModels;
+using Invest.Common.Model.User;
 using Invest.Common.Repository;
 using Invest.Workflow.Project;
 using InvestPortal.Models;
@@ -16,12 +20,17 @@ namespace InvestPortal.Controllers
     [Authorize(Roles = "Admin")]
     public class UserManagerController : Controller
     {
+        #region Private Fields
 
         private readonly IRepository _repository;
+        private readonly ProjectStateManager _stateManager;
+
+        #endregion
 
         public UserManagerController()
         {
             _repository = RepositoryContext.Current;
+            _stateManager = new ProjectStateManager();
         }
 
         #region Assignee User
@@ -72,9 +81,7 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model._id);
-                project.AssignUser = model.AssignUser;
-                RepositoryContext.Current.Update(project);
+                _stateManager.AssignProjectToUser(model._id, model.AssignUser);
                 return RedirectToAction("UnUsignedProject");
             }
             else
@@ -154,32 +161,7 @@ namespace InvestPortal.Controllers
             var user = _repository.GetOne<Users>(u => u._id == id);
             if (user != null)
             {
-                var project = RepositoryContext.Current.GetOne<Project>(p => p.InvestorUser == user.Username);
-                if (project != null)
-                {
-                    project.InvestorUser = "";
-
-                    var response = project.Responses.FirstOrDefault(r => r.InvestorEmail.ToLower() == user.LoweredEmail);
-
-                    if (response != null)
-                    {
-                        project.Responses.Remove(response);
-                    }
-
-                    string fromState = project.WorkflowState.CurrenState;
-                    var workflow = project.WorkflowState;
-                    workflow.CurrenState = GreenFieldStates.Open;
-                    project.WorkflowState.ChangeHistory.Add(
-                        new History()
-                        {
-                            EditingTime = DateTime.Now,
-                            Editor = User.Identity.Name,
-                            FromState = fromState,
-                            ToState = GreenFieldStates.Open
-                        });
-
-                    RepositoryContext.Current.Update(project);
-                }
+                _stateManager.RemoveAssignee(user.Username, user.Email, User.Identity.Name);
                 Membership.DeleteUser(user.Username);
                 Roles.RemoveUserFromRoles(user.Username, Roles.GetRolesForUser(user.Username));
             }
@@ -229,7 +211,7 @@ namespace InvestPortal.Controllers
                         }
                         else
                         {
-                            Roles.AddUserToRole(mongoUser.Username,UserRoles.User.ToString());
+                            Roles.AddUserToRole(mongoUser.Username, UserRoles.User.ToString());
                             vm.Roles.Add(UserRoles.User);
                         }
 

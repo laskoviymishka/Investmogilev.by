@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Invest.Workflow.Project
+﻿namespace BusinessLogic.Manager
 {
     public static class GreenFieldStates
     {

@@ -1,10 +1,11 @@
 ﻿using System;
+using Invest.Common.Model.Common;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model
+namespace Invest.Common.Model.User
 {
-    public class MessageQueue : MongoEntity
+    public class MessageQueue : IMongoEntity
     {
         private ObjectId _objectId;
 

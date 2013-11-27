@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Invest.Common.Model;
+using Invest.Common.Model.Common;
 using Invest.Common.Repository;
 using AdminPanelUI.Models;
 using MongoRepository;

@@ -1,6 +1,8 @@
-﻿namespace Invest.Common.Model
+﻿using Invest.Common.Model.ProjectModels;
+
+namespace Invest.Common.Model.Common
 {
-    public class AdditionalRegionInfo
+    public class AdditionalInfo
     {
         public string InfoName
         {

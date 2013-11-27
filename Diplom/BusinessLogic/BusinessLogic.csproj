@@ -50,7 +50,8 @@
   <ItemGroup>
     <Compile Include="Manager\BrownFieldManager.cs" />
     <Compile Include="Manager\GreenFieldManager.cs" />
-    <Compile Include="Manager\ProjectManager.cs" />
+    <Compile Include="Manager\GreenFieldStates.cs" />
+    <Compile Include="Manager\ProjectStateManager.cs" />
     <Compile Include="Manager\UnUsedBuildingManager.cs" />
     <Compile Include="Manager\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

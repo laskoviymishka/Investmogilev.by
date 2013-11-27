@@ -1,10 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Invest.Common.Repository;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model
+namespace Invest.Common.Model.ProjectModels
 {
     public class InvestorResponse
     {

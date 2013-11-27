@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Invest.Common.Model.Common;
+using Invest.Common.Model.ProjectModels;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System.Web.Security;
 using MongoRepository;
 
-namespace Invest.Common.Model
+namespace Invest.Common.Model.User
 {
-    public class Users : MongoEntity
+    public class Users : IMongoEntity
     {
         private ObjectId _objectId;
 
