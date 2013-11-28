@@ -1,105 +1,96 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLogic.Managers;
+using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
-using MongoRepository;
 using InvestPortal.Models;
 using MongoDB.Bson;
-using Telerik.Web.Mvc.UI.Fluent;
+using MongoRepository;
 
 namespace InvestPortal.Controllers
 {
     public class TaskController : Controller
     {
+        #region Private Fields
+
+        private readonly TaskManager _taskManager;
+
+        #endregion
+
+        #region Constructor
+
+        public TaskController()
+        {
+            _taskManager = new TaskManager();
+        }
+
+        #endregion
+
+        #region Task Crud
+
         [Authorize]
         public ActionResult MyTask()
         {
-            List<Project> myProjects;
-            if (User.IsInRole("Admin") || User.IsInRole("Emploee"))
+            if (User.IsInRole("Admin") || User.IsInRole("User"))
             {
-                myProjects = RepositoryContext.Current.All<Project>(p => p.AssignUser == User.Identity.Name).ToList();
-            }
-            else
-            {
-                if (User.IsInRole("Investor"))
-                {
-                    myProjects =
-                        RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name).ToList();
-                }
-                else
-                {
-                    return HttpNotFound("Роль пользователя не определена свяжитесь с администрацией");
-                }
+                return View(_taskManager.UserProjects(User.Identity.Name));
             }
 
-            return View(myProjects);
+            if (User.IsInRole("Investor"))
+            {
+                return View(_taskManager.InvestorProjects(User.Identity.Name));
+            }
+
+            return HttpNotFound("Роль пользователя не определена свяжитесь с администрацией");
         }
 
         [Authorize]
         public ActionResult ActiveTask()
         {
-            List<Project> myProjects;
-            if (User.IsInRole("Admin") || User.IsInRole("Emploee"))
+            if (User.IsInRole("Admin") || User.IsInRole("User"))
             {
-                myProjects = RepositoryContext.Current.All<Project>(p => p.AssignUser == User.Identity.Name).ToList();
-            }
-            else
-            {
-                if (User.IsInRole("Investor"))
-                {
-                    myProjects =
-                        RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name).ToList();
-                }
-                else
-                {
-                    return HttpNotFound("Роль пользователя не определена свяжитесь с администрацией");
-                }
+                return View(_taskManager.UserProjects(User.Identity.Name));
             }
 
-            return View(myProjects);
+            if (User.IsInRole("Investor"))
+            {
+                return View(_taskManager.InvestorProjects(User.Identity.Name));
+            }
+
+            return HttpNotFound("Роль пользователя не определена свяжитесь с администрацией");
         }
 
 
         [Authorize]
         public ActionResult CompleteTask()
         {
-            List<Project> myProjects;
-            if (User.IsInRole("Admin") || User.IsInRole("Emploee"))
+            if (User.IsInRole("Admin") || User.IsInRole("User"))
             {
-                myProjects = RepositoryContext.Current.All<Project>(p => p.AssignUser == User.Identity.Name).ToList();
-            }
-            else
-            {
-                if (User.IsInRole("Investor"))
-                {
-                    myProjects =
-                        RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name).ToList();
-                }
-                else
-                {
-                    return HttpNotFound("Роль пользователя не определена свяжитесь с администрацией");
-                }
+                return View(_taskManager.UserProjects(User.Identity.Name));
             }
 
-            return View(myProjects);
+            if (User.IsInRole("Investor"))
+            {
+                return View(_taskManager.InvestorProjects(User.Identity.Name));
+            }
+
+            return HttpNotFound("Роль пользователя не определена свяжитесь с администрацией");
         }
 
         [Authorize(Roles = "User")]
         public ActionResult PlanForProject(string id)
         {
-            Project project = RepositoryContext.Current.GetOne<Project>(p => p._id == id);
-            return View(project);
+            return View(_taskManager.GetProject(id));
         }
 
         [Authorize(Roles = "User")]
         public ActionResult TaskDetails(string taskId, string projectId)
         {
             ViewBag.ProjectId = projectId;
-            Project project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
-            Task task = HandleTreeItems(project.Tasks, taskId);
-            var model = new EditTaskViewModel(task);
+            var model = new EditTaskViewModel(_taskManager.GetTask(taskId, projectId));
             model.ProjectId = projectId;
             return View(model);
         }
@@ -108,9 +99,7 @@ namespace InvestPortal.Controllers
         public ActionResult TaskEdit(string taskId, string projectId)
         {
             ViewBag.ProjectId = projectId;
-            Project project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
-            Task task = HandleTreeItems(project.Tasks, taskId);
-            var model = new EditTaskViewModel(task);
+            var model = new EditTaskViewModel(_taskManager.GetTask(taskId, projectId));
             model.ProjectId = projectId;
             return View(model);
         }
@@ -119,17 +108,11 @@ namespace InvestPortal.Controllers
         [HttpPost]
         public ActionResult TaskEdit(EditTaskViewModel task)
         {
-            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == task.ProjectId);
-            var initialTask = HandleTreeItems(project.Tasks, task.TaskId);
-            initialTask.CompletedOn = task.CompletedOn;
-            initialTask.Description = task.Description;
-            initialTask.Title = task.Title;
-            initialTask.IsComplete = task.IsComplete;
-            initialTask.IsVerifiedComplete = task.IsVerifiedComplete;
-            initialTask.Milestone = task.Milestone;
-            RepositoryContext.Current.Update(project);
-            return View(task);
+            _taskManager.UpdateTask(task, task.ProjectId);
+            return RedirectToAction("TaskDetails", new { taskId = task.TaskId, projectId = task.ProjectId });
         }
+
+        #endregion
 
         #region Create task
 
@@ -148,81 +131,83 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                Project project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.ProjectId);
-                if (model.ProjectId == model.ParentId)
-                {
-                    if (project.Tasks == null)
+                var task = new Task
                     {
-                        project.Tasks = new List<Task>();
-                    }
-                    Task task = new Task();
-                    task.Title = model.Name;
-                    task.Description = model.Description;
-                    task.Milestone = model.Milestone;
-                    task.TaskId = ObjectId.GenerateNewId().ToString();
-                    project.Tasks.Add(task);
-                    RepositoryContext.Current.Update(project);
-                }
-                else
-                {
-                    Task parentTask = null;
-                    Task task = new Task();
-                    task.Title = model.Name;
-                    task.Description = model.Description;
-                    task.Milestone = model.Milestone;
-                    task.TaskId = ObjectId.GenerateNewId().ToString();
-                    parentTask = HandleTreeItems(project.Tasks, model.ParentId);
-                    if (parentTask != null)
-                    {
-                        if (parentTask.SubTask == null)
-                        {
-                            parentTask.SubTask = new List<Task>();
-                        }
-                        parentTask.SubTask.Add(task);
-                    }
-                    else
-                    {
-                        return View(model);
-                    }
+                        Title = model.Name,
+                        Description = model.Description,
+                        Milestone = model.Milestone,
+                        TaskId = ObjectId.GenerateNewId().ToString()
+                    };
 
-                    RepositoryContext.Current.Update(project);
+                if (_taskManager.CreateTask(task, model.ProjectId, model.ParentId))
+                {
+                    return RedirectToAction("PlanForProject", "Task", new { @id = model.ProjectId });
+
                 }
 
-                return RedirectToAction("PlanForProject", "Task", new { @id = model.ProjectId });
+                return HttpNotFound("Возникла ошибка, свяжитесь с администратором");
+
             }
-            else
-            {
-                return View(model);
-            }
+
+            return View(model);
         }
 
         #endregion
 
-        #region Private Helper
+        #region Additional info for Tasks
 
-        private Task HandleTreeItems(IEnumerable<Task> nodes, string id)
+        public ActionResult AdditionalInfo(string taskId, string projectId)
         {
-            Task parentNode = null;
-
-            foreach (Task node in nodes)
-            {
-                if (node.TaskId == id)
-                {
-                    parentNode = node;
-                    return parentNode;
-                }
-                if (node.SubTask != null && node.SubTask.Count > 0)
-                {
-                    parentNode = HandleTreeItems(node.SubTask, id);
-                    if (parentNode != null)
-                    {
-                        return parentNode;
-                    }
-                }
-            }
-
-            return null;
+            ViewBag.ProjectId = projectId;
+            return View(_taskManager.GetTask(taskId, projectId));
         }
+
+        public ActionResult AddDocumentToTask(string taskId, string projectId)
+        {
+            return View(new DocumentForTaskViewModel() { ProjectId = projectId, TaskId = taskId, _id = ObjectId.GenerateNewId().ToString() });
+        }
+
+        public ActionResult EditDocumentInfo(string taskId, string projectId, string infoId)
+        {
+            return View(new DocumentForTaskViewModel(_taskManager.DocumentForTaks(projectId, taskId, infoId)));
+        }
+
+        [HttpPost]
+        public ActionResult EditDocumentInfo(DocumentForTaskViewModel model)
+        {
+            _taskManager.UpdateDocument(model.ProjectId,model.TaskId,model._id,model);
+            return RedirectToAction("AdditionalInfo", "Task", new { @taskId = model.TaskId, @projectId = model.ProjectId });
+        }
+
+        public ActionResult Save(string taskId, string projectId, string infoId, IEnumerable<HttpPostedFileBase> attachments)
+        {
+            string physicalPath = "";
+            string fileName = "";
+            foreach (var file in attachments)
+            {
+                fileName = Path.GetFileName(file.FileName);
+                physicalPath = Path.Combine(
+                    Server.MapPath(string.Format("~/App_Data/", projectId, taskId)),
+                    fileName);
+                file.SaveAs(physicalPath);
+            }
+            _taskManager.DocumentUplaod(projectId, taskId, infoId, fileName, physicalPath);
+            return Content("");
+        }
+        public ActionResult Remove(string taskId, string projectId, string infoId)
+        {
+            _taskManager.DocumentRemove(projectId, taskId, infoId);
+            return RedirectToAction("AdditionalInfo", "Task", new { @taskId = taskId, @projectId = projectId });
+        }
+
+
+        [Authorize(Roles = "User")]
+        public FileResult Download(string taskId, string projectId, string infoId)
+        {
+            var doc = _taskManager.DocumentForTaks(projectId, taskId, infoId);
+            return File(doc.FilePath, "application/doc", doc.InfoName);
+        }
+
         #endregion
     }
 }

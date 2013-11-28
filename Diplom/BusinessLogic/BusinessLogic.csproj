@@ -48,12 +48,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Manager\BrownFieldManager.cs" />
-    <Compile Include="Manager\GreenFieldManager.cs" />
-    <Compile Include="Manager\GreenFieldStates.cs" />
-    <Compile Include="Manager\ProjectStateManager.cs" />
-    <Compile Include="Manager\UnUsedBuildingManager.cs" />
-    <Compile Include="Manager\UserManager.cs" />
+    <Compile Include="Managers\BrownFieldManager.cs" />
+    <Compile Include="Managers\GreenFieldManager.cs" />
+    <Compile Include="Managers\GreenFieldStates.cs" />
+    <Compile Include="Managers\ProjectStateManager.cs" />
+    <Compile Include="Managers\TaskManager.cs" />
+    <Compile Include="Managers\UnUsedBuildingManager.cs" />
+    <Compile Include="Managers\UserManager.cs" />
+    <Compile Include="PortalNotificationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\MongoMembership.cs" />
     <Compile Include="Providers\MongoProfileProvider.cs" />

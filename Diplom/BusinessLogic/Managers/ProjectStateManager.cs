@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Security;
-using Invest.Common.Model;
 using Invest.Common.Model.ProjectModels;
 using Invest.Common.Notification;
 using MongoRepository;
 
-namespace BusinessLogic.Manager
+namespace BusinessLogic.Managers
 {
     public class ProjectStateManager
     {
@@ -19,7 +18,7 @@ namespace BusinessLogic.Manager
 
         public bool RemoveAssignee(string unassigneUsername, string unassigneeUserMail, string editorUsername)
         {
-            var project = RepositoryContext.Current.GetOne<Project>(p => p.InvestorUser == unassigneUsername);
+            var project = RepositoryContext.Current.GetOne<Project>(p => p.InvestorUser.ToLower() == unassigneUsername.ToLower());
             if (project != null)
             {
                 project.InvestorUser = "";
@@ -48,7 +47,7 @@ namespace BusinessLogic.Manager
             }
             else
             {
-                project = RepositoryContext.Current.GetOne<Project>(p => p.AssignUser == unassigneUsername);
+                project = RepositoryContext.Current.GetOne<Project>(p => p.AssignUser.ToLower() == unassigneUsername.ToLower());
                 if (project != null)
                 {
                     project.AssignUser = "";
@@ -128,7 +127,7 @@ namespace BusinessLogic.Manager
             _mailNotification.NotificateUser("system",
                 investorMail,
                 "Вы откликнулись на проект",
-                string.Format("Ваш логин -{0}  ваш пароль -{1} .", investorUserName, investorPass));
+                string.Format("Для вас создан аккаунт в системе. Ваш логин - {0}  ваш пароль - {1} .", investorUserName, investorPass));
             Membership.CreateUser(investorUserName, investorPass, investorMail);
             Roles.AddUserToRole(investorUserName, "Investor");
             RepositoryContext.Current.Update(project);
@@ -166,7 +165,7 @@ namespace BusinessLogic.Manager
             return true;
         }
 
-        private List<InvestorResponse> InvestorResponses
+        private IEnumerable<InvestorResponse> InvestorResponses
         {
             get
             {

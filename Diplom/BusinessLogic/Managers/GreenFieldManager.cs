@@ -1,7 +1,6 @@
-﻿using Invest.Common.Model;
-using Invest.Common.Model.ProjectModels;
+﻿using Invest.Common.Model.ProjectModels;
 
-namespace BusinessLogic.Manager
+namespace BusinessLogic.Managers
 {
     public class GreenFieldManager
     {

@@ -1,0 +1,65 @@
+﻿@using Invest.Common.Model.Common
+@model Invest.Common.Model.User.MessageQueue
+@{
+    ViewBag.Title = "Message";
+}
+<h2>
+    Message</h2>
+<fieldset>
+    <legend>MessageQueue</legend>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model._id)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._id)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.SendedDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SendedDate)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.ReciveTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ReciveTime)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsSended)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsSended)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsReaded)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsReaded)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.To)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.To)
+    </div>
+    @if (Model.Body != null & Model.Body.Appendix != null)
+    {
+        foreach (var item in Model.Body.Appendix)
+        {
+            <li>@Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
+                                              "Download",
+                                               new { messageId = Model._id, appendixId = item._id })</li>
+        }
+    }
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "EditMessage", new { id = Model._id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

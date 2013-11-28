@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Manager
+﻿namespace BusinessLogic.Managers
 {
     public class UnUsedBuildingManager
     {

@@ -24,13 +24,15 @@
                 .Items(subItem =>
                     {
                         subItem.Add()
-                               .Text("Все уведомления");
+                               .Text("Все сообщения").Url("/Message/");
                         subItem.Add()
-                               .Text("Непрочитанные уведомления");
+                               .Text("Непрочитанные сообщения").Url("/Message/Unreaded");
                         subItem.Add()
-                               .Text("Отправленные уведомления");
+                                .Text("Отправленные сообщения").Url("/Message/Sent");
                         subItem.Add()
-                               .Text("Прочитанные уведомления");
+                               .Text("Не отправленные сообщения").Url("/Message/Draft");
+                        subItem.Add()
+                                .Text("Отправленные непрочитанные сообщения").Url("/Message/UnreadedSent");
                     }
                 );
             item.Add()
@@ -73,11 +75,11 @@
                                .Text("Архив");
                     });
         }).ExpandAll(true).Render();
-        //Html.Telerik().PanelBar()
-        //   .Name("PanelBar1")
-        //   .HtmlAttributes(new { style = "width: 99%;" })
-        //   .BindTo("Invest")
-        //   .Render();
+    //Html.Telerik().PanelBar()
+    //   .Name("PanelBar1")
+    //   .HtmlAttributes(new { style = "width: 99%;" })
+    //   .BindTo("Invest")
+    //   .Render();
 }
 else
 {

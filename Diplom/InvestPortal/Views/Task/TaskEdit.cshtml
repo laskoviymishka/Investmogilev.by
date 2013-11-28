@@ -19,8 +19,10 @@
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
-            @Html.Telerik().EditorFor(model => model.Description).Localizable("ru-RU")
-            @Html.ValidationMessageFor(model => model.Description)
+            @{
+              Model.Description = Server.HtmlDecode(Model.Description);
+              Html.Telerik().EditorFor(model => model.Description).Encode(true).Localizable("ru-RU").Render();
+             }
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Milestone)
@@ -69,9 +71,16 @@
     </fieldset>
 }
 <div>
-    @Html.ActionLink("Информация о задаче", "TaskDetails", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId })
-    |
-    @Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId })
-    |
-    @Html.ActionLink("К моим задачам", "MyTask")
+    @if (Model.SubTask != null && Model.SubTask.Any())
+    {
+        Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId });
+        Html.ActionLink("К моим задачам", "MyTask");
+    }
+    else
+    {
+        Html.ActionLink("Дополнительная информация о задаче", "AdditionalInfo", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId });
+        Html.ActionLink("Редакировать", "TaskEdit", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId });
+        Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId });
+        Html.ActionLink("К моим задачам", "MyTask");
+    }
 </div>

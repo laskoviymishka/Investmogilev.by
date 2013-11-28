@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Invest.Common.Model.User.MessageQueue>
+
+@{
+    ViewBag.Title = "Отправленные непрочитанные сообщения";
+}
+
+<h2>Отправленные непрочитанные сообщения</h2>
+
+<p>
+    @Html.ActionLink("Новое Сообщение", "NewMessage")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.From)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSended)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsReaded)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.To)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.From)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSended)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsReaded)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.To)
+        </td>
+        <td>
+            @Html.ActionLink("Просматреть сообщение", "Message", new { id = item._id }) |
+        </td>
+    </tr>
+}
+
+</table>

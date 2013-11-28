@@ -57,6 +57,11 @@ namespace InvestPortal.Models
         [Display(Name = "Повторите пароль")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email пользователя")]
+        public string Email { get; set; }
     }
 
     public class InvestorRegisterModel
@@ -75,5 +80,12 @@ namespace InvestPortal.Models
         public string ResponseId { get; set; }
 
         public string ResponseProjectId { get; set; }
+    }
+
+    public class UserViewModel
+    {
+        [Required]
+        [Display(Name = "Имя пользователя (Login)")]
+        public string UserName { get; set; }
     }
 }

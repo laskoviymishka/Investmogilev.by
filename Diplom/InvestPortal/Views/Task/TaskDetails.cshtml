@@ -48,9 +48,20 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Редакировать", "TaskEdit", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId })
-    |
-    @Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId })
-    |
-    @Html.ActionLink("К моим задачам", "MyTask")
+    @if (Model.SubTask != null && Model.SubTask.Any())
+    {
+        <div>
+        @Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId })|
+        @Html.ActionLink("К моим задачам", "MyTask")|
+        </div>
+    }
+    else
+    {
+        <div>
+        @Html.ActionLink("Дополнительная информация о задаче", "AdditionalInfo", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId })|
+        @Html.ActionLink("Редакировать", "TaskEdit", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId })|
+        @Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId })|
+        @Html.ActionLink("К моим задачам", "MyTask")|
+        </div>
+    }
 </p>

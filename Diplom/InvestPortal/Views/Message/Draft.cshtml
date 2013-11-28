@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Invest.Common.Model.User.MessageQueue>
+
+@{
+    ViewBag.Title = "Не отправленные сообщения";
+}
+
+<h2>Не отправленные сообщения</h2>
+
+<p>
+    @Html.ActionLink("Новое Сообщение", "NewMessage")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.To)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.To)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "EditMessage", new { id = item._id }) |
+        </td>
+    </tr>
+}
+
+</table>

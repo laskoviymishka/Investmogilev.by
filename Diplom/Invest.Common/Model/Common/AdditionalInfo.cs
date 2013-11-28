@@ -1,25 +1,33 @@
-﻿using Invest.Common.Model.ProjectModels;
+﻿using System.ComponentModel.DataAnnotations;
+using Invest.Common.Model.ProjectModels;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Invest.Common.Model.Common
 {
-    public class AdditionalInfo
+    [BsonKnownTypes(typeof(VideoAdditionalInfo),
+        typeof(ImageAdditionalInfo),
+        typeof(DocumentAdditionalInfo),
+        typeof(LinkAdditionalInfo))]
+    public class AdditionalInfo : IMongoEntity
     {
+        [Required]
+        [Display(Name = "Имя")]
         public string InfoName
         {
             get;
             set;
         }
 
-        public InfoType InfoType
-        {
-            get;
-            set;
-        }
 
+        [Required]
+        [Display(Name = "Описание")]
         public string InfoValue
         {
             get;
             set;
         }
+
+        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+        public string _id { get; set; }
     }
 }

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using BusinessLogic.Manager;
-using Invest.Common.Model;
+using BusinessLogic.Managers;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
 using Invest.Common.Model.User;
 using Invest.Common.Repository;
-using Invest.Workflow.Project;
 using InvestPortal.Models;
 using MongoDB.Bson;
 using MongoRepository;
@@ -22,9 +17,8 @@ namespace InvestPortal.Controllers
     {
         #region Private Fields
 
-        private readonly ProjectRepository _repository;
         private readonly IRepository _mongoRepository;
-        private readonly ProjectStateManager _stateManager;
+        private readonly ProjectStateManager _projectStateManager;
 
         #endregion
 
@@ -32,9 +26,8 @@ namespace InvestPortal.Controllers
 
         public BaseProjectController()
         {
-            _repository = new ProjectRepository();
             _mongoRepository = RepositoryContext.Current;
-            _stateManager = new ProjectStateManager();
+            _projectStateManager = new ProjectStateManager();
         }
 
         #endregion
@@ -131,7 +124,7 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_stateManager.ProcessVerifyResponse(model.ResponseProjectId,
+                if (_projectStateManager.ProcessVerifyResponse(model.ResponseProjectId,
                     model.ResponseId,
                     User.Identity.Name,
                     model.UserName,
@@ -160,7 +153,7 @@ namespace InvestPortal.Controllers
         [GridAction]
         public ActionResult _DeleteAjaxEditing(string id)
         {
-            if (_stateManager.DeleteResponse(id, User.Identity.Name))
+            if (_projectStateManager.DeleteResponse(id, User.Identity.Name))
             {
                 return View(new GridModel(InvestorResponses));
             }

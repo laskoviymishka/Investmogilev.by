@@ -353,6 +353,7 @@
     <Compile Include="Controllers\GreenFieldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvestorEntryController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserManagerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -361,6 +362,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BaseProjectViewModel.cs" />
+    <Compile Include="Models\DocumentForTaskViewModel.cs" />
     <Compile Include="Models\EditTaskViewModel.cs" />
     <Compile Include="Models\SubTaskViewModel.cs" />
     <Compile Include="Models\UserManagereViewModel.cs" />
@@ -408,6 +410,12 @@
     <Content Include="Content\2013.2.611\Hay\treeview-line.png" />
     <Content Include="Content\2013.2.611\Hay\treeview-nodes-rtl.png" />
     <Content Include="Content\2013.2.611\Hay\treeview-nodes.png" />
+    <Content Include="Content\2013.2.611\MetroGreen\editor.png" />
+    <Content Include="Content\2013.2.611\MetroGreen\imagebrowser.png" />
+    <Content Include="Content\2013.2.611\MetroGreen\loading.gif" />
+    <Content Include="Content\2013.2.611\MetroGreen\slider-h.gif" />
+    <Content Include="Content\2013.2.611\MetroGreen\slider-v.gif" />
+    <Content Include="Content\2013.2.611\MetroGreen\sprite.png" />
     <Content Include="Content\2013.2.611\Metro\editor.png" />
     <Content Include="Content\2013.2.611\Metro\imagebrowser.png" />
     <Content Include="Content\2013.2.611\Metro\loading.gif" />
@@ -495,6 +503,8 @@
     <Content Include="Content\2013.2.611\telerik.forest.min.css" />
     <Content Include="Content\2013.2.611\telerik.hay.min.css" />
     <Content Include="Content\2013.2.611\telerik.metro.min.css" />
+    <Content Include="Content\2013.2.611\telerik.metrogreen.css" />
+    <Content Include="Content\2013.2.611\telerik.metrogreen.min.css" />
     <Content Include="Content\2013.2.611\telerik.office2007.min.css" />
     <Content Include="Content\2013.2.611\telerik.office2010black.min.css" />
     <Content Include="Content\2013.2.611\telerik.office2010blue.min.css" />
@@ -974,6 +984,29 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Task\CompleteTask.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\AdditionalInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\AddDocumentToTask.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Task\EditDocumentInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\investmogilev - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\investmogilev - Web Deploy.pubxml" />
+    <Content Include="Views\UserManager\CreateUser.cshtml" />
+    <Content Include="Views\Message\Index.cshtml" />
+    <Content Include="Views\Message\Message.cshtml" />
+    <Content Include="Views\Message\NewMessage.cshtml" />
+    <Content Include="Views\Message\EditMessage.cshtml" />
+    <Content Include="Views\Message\Draft.cshtml" />
+    <Content Include="Views\Message\ReadMessage.cshtml" />
+    <Content Include="Views\Message\Unreaded.cshtml" />
+    <Content Include="Views\Message\Sent.cshtml" />
+    <Content Include="Views\Message\UnreadedSent.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

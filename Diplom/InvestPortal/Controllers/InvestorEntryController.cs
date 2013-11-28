@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BusinessLogic.Manager;
+using BusinessLogic.Managers;
 using Invest.Common.Model.ProjectModels;
 using Invest.Common.Repository;
-using Invest.Common.Model;
 using Invest.Workflow.Project;
+using Invest.Workflow.StateManagment;
 using MongoDB.Bson;
 using MongoRepository;
-using Invest.Workflow.StateManagment;
 
 namespace InvestPortal.Controllers
 {

@@ -24,6 +24,12 @@ namespace InvestPortal
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                    "TaskInfo",
+                    "Task/{action}/{taskId}/{projectId}/{infoId}",
+                    new { controller = "Task" }
+            );
+
+            routes.MapRoute(
                     "TaskOther",
                     "Task/{action}/{taskId}/{projectId}",
                     new { controller = "Task" }

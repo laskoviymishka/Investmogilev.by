@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using BusinessLogic.Manager;
-using Invest.Common.Model;
+using BusinessLogic.Managers;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
 using Invest.Common.Model.User;
 using Invest.Common.Repository;
-using Invest.Workflow.Project;
 using InvestPortal.Models;
-using Telerik.Web.Mvc;
 using MongoRepository;
+using Telerik.Web.Mvc;
 
 namespace InvestPortal.Controllers
 {
@@ -88,6 +85,26 @@ namespace InvestPortal.Controllers
             {
                 return View(model);
             }
+        }
+
+        #endregion
+
+        #region Create User
+
+        public ActionResult CreateUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateUser(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Membership.CreateUser(model.UserName, model.Password, model.Email);
+                return RedirectToAction("Index", "Home");
+            }
+            return View(model);
         }
 
         #endregion
