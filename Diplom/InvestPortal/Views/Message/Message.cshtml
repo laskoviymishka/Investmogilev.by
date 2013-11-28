@@ -20,6 +20,9 @@
         @Html.DisplayFor(model => model.Title)
     </div>
     <div class="display-label">
+        @Html.Raw(HttpUtility.HtmlDecode(Model.Body.Text))
+    </div>
+    <div class="display-label">
         @Html.DisplayNameFor(model => model.SendedDate)
     </div>
     <div class="display-field">
@@ -53,7 +56,7 @@
     {
         foreach (var item in Model.Body.Appendix)
         {
-            <li>@Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
+        <li>@Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
                                               "Download",
                                                new { messageId = Model._id, appendixId = item._id })</li>
         }
