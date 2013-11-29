@@ -1,4 +1,4 @@
-﻿@model InvestPortal.Models.LoginModel
+﻿@model Invest.Common.Model.Common.PortalNotification
 <div>@User.Identity.Name</div>
 <script src="../../Scripts/2013.2.611/telerik.panelbar.min.js" type="text/javascript"></script>
 @if (User.Identity.IsAuthenticated)
@@ -26,7 +26,7 @@
                         subItem.Add()
                                .Text("Все сообщения").Url("/Message/");
                         subItem.Add()
-                               .Text("Непрочитанные сообщения").Url("/Message/Unreaded");
+                               .Text("Непрочитанные сообщения " + Model.UnreadMessages).Url("/Message/Unreaded");
                         subItem.Add()
                                 .Text("Отправленные сообщения").Url("/Message/Sent");
                         subItem.Add()
@@ -57,9 +57,9 @@
                         subItem.Add()
                                .Text("Общие задачи");
                         subItem.Add()
-                               .Text("Активные задачи").Url("/Task/ActiveTask");
+                               .Text(string.Format("Активно {0}, просроченно {1}", Model.ActiveTask, Model.PendingTask)).Url("/Task/ActiveTask");
                         subItem.Add()
-                               .Text("Выполненные задачи").Url("/Task/CompleteTask");
+                               .Text(string.Format("Выполнено {0}, просроченно {1}", Model.CompleteTask, Model.PendingCompleteTask)).Url("/Task/CompleteTask");
                     });
             item.Add()
                 .Text("Пометки")

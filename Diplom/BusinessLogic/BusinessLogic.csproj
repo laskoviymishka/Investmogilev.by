@@ -55,7 +55,8 @@
     <Compile Include="Managers\TaskManager.cs" />
     <Compile Include="Managers\UnUsedBuildingManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
-    <Compile Include="PortalNotificationHandler.cs" />
+    <Compile Include="Notification\PortalMessageHandler.cs" />
+    <Compile Include="Notification\PortalNotificationHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\MongoMembership.cs" />
     <Compile Include="Providers\MongoProfileProvider.cs" />

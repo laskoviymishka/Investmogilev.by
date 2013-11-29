@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic;
+using BusinessLogic.Notification;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.User;
 using InvestPortal.Models;
@@ -19,7 +20,7 @@ namespace InvestPortal.Controllers
     {
         #region Private Fields
 
-        private readonly PortalNotificationHandler _portalNotification;
+        private readonly PortalMessageHandler _portalMessage;
 
         #endregion
 
@@ -27,44 +28,44 @@ namespace InvestPortal.Controllers
 
         public MessageController()
         {
-            _portalNotification = new PortalNotificationHandler();
+            _portalMessage = new PortalMessageHandler();
         }
 
         #endregion
 
         public ActionResult Index()
         {
-            return View(_portalNotification.Inbox(User.Identity.Name));
+            return View(_portalMessage.Inbox(User.Identity.Name));
         }
 
         public ActionResult Draft()
         {
-            return View(_portalNotification.Draft(User.Identity.Name));
+            return View(_portalMessage.Draft(User.Identity.Name));
         }
 
         public ActionResult Unreaded()
         {
-            return View(_portalNotification.Unread(User.Identity.Name));
+            return View(_portalMessage.Unread(User.Identity.Name));
         }
 
         public ActionResult Sent()
         {
-            return View(_portalNotification.Sended(User.Identity.Name));
+            return View(_portalMessage.Sended(User.Identity.Name));
         }
 
         public ActionResult UnreadedSent()
         {
-            return View(_portalNotification.SendedUnread(User.Identity.Name));
+            return View(_portalMessage.SendedUnread(User.Identity.Name));
         }
 
         public ActionResult Message(string id)
         {
-            return View(_portalNotification.Message(User.Identity.Name, id));
+            return View(_portalMessage.Message(User.Identity.Name, id));
         }
 
         public ActionResult ReadMessage(string id)
         {
-            var message = _portalNotification.ReadMessage(User.Identity.Name, id);
+            var message = _portalMessage.ReadMessage(User.Identity.Name, id);
             if (message != null)
             {
                 return View(message);
@@ -75,7 +76,7 @@ namespace InvestPortal.Controllers
 
         public ActionResult EditMessage(string id)
         {
-            var message = _portalNotification.Message(User.Identity.Name, id);
+            var message = _portalMessage.Message(User.Identity.Name, id);
             if (message != null)
             {
                 if (!message.IsSended)
@@ -94,7 +95,7 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                _portalNotification.PushMessage(model);
+                _portalMessage.PushMessage(model);
                 return RedirectToAction("Draft");
             }
 
@@ -115,7 +116,7 @@ namespace InvestPortal.Controllers
             {
                 if (RepositoryContext.Current.GetOne<Users>(u => u.LoweredUsername == model.To.ToLower()) != null)
                 {
-                    _portalNotification.PushMessage(model);
+                    _portalMessage.PushMessage(model);
                     return RedirectToAction("Draft");
                 }
 
@@ -149,14 +150,14 @@ namespace InvestPortal.Controllers
                 document.FilePath = physicalPath;
                 document.InfoName = fileName;
                 document._id = ObjectId.GenerateNewId().ToString();
-                _portalNotification.AddAppendix(User.Identity.Name, id, document);
+                _portalMessage.AddAppendix(User.Identity.Name, id, document);
             }
             return Content("");
         }
 
         public FileResult Download(string messageId, string appendixId)
         {
-            var doc = _portalNotification.Appendix(User.Identity.Name, messageId, appendixId) as DocumentAdditionalInfo;
+            var doc = _portalMessage.Appendix(User.Identity.Name, messageId, appendixId) as DocumentAdditionalInfo;
             return File(doc.FilePath, "application/doc", doc.InfoName);
         }
 

@@ -4,10 +4,17 @@ using Invest.Common.Model.Common;
 using Invest.Common.Model.User;
 using MongoRepository;
 
-namespace BusinessLogic
+namespace BusinessLogic.Notification
 {
-    public class PortalNotificationHandler
+    public class PortalMessageHandler
     {
+        private readonly PortalNotificationHub _notification;
+
+        public PortalMessageHandler()
+        {
+            _notification = new PortalNotificationHub();
+        }
+
         public void PushMessage(MessageQueue message)
         {
             if (RepositoryContext.Current.GetOne<MessageQueue>(m => m._id == message._id) != null)
@@ -29,10 +36,12 @@ namespace BusinessLogic
                 }
 
                 RepositoryContext.Current.Update(message);
+                _notification.UpdateNotficationForUser(message.To);
             }
             else
             {
                 RepositoryContext.Current.Add(message);
+                _notification.UpdateNotficationForUser(message.To);
             }
         }
 

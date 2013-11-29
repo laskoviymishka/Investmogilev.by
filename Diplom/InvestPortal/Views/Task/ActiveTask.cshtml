@@ -11,7 +11,14 @@
     {
     @Html.Telerik().TreeView().Name("TreeView" + project._id).BindTo(project.Tasks.Where(t => !t.IsComplete), mapping => mapping.For<Task>(binding => binding.ItemDataBound((item, task) =>
         {
-            item.Text = task.Title;
+            if (task.Milestone < DateTime.Now)
+            {
+                item.Text = task.Title + " просрочена на " + (DateTime.Now - task.Milestone).TotalDays.ToString("0.0") + " дней";
+            }
+            else
+            {
+                item.Text = task.Title + " осталось " + (task.Milestone - DateTime.Now).TotalDays.ToString("0.0") + " дней";
+            }
             item.Value = task.TaskId;
             item.Url("/Task/TaskDetails/" + task.TaskId + "/" + project._id);
         }).Children(t =>
@@ -22,6 +29,6 @@
                             }
 
                             return null;
-                        }))).ExpandAll(false)
+                        }))).ExpandAll(true)
     }
 }

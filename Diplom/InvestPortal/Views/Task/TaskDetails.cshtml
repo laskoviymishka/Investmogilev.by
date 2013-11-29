@@ -10,12 +10,13 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Title)
     </div>
+        <div class="display-field">
+        @Html.LabelFor(model => model.Description)
+    </div>
     <div class="display-label">
         @Html.Raw(HttpUtility.HtmlDecode(Model.Description))
     </div>
-    <div class="display-field">
-        @Html.DisplayText(Model.Description)
-    </div>
+
     <div class="display-label">
         @Html.DisplayNameFor(model => model.Milestone)
     </div>
