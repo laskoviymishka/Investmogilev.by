@@ -3,16 +3,29 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Invest.Common.Model.Common;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoRepository;
 
 namespace Invest.Common.Model.ProjectModels
 {
-    public class Task
+    public class Task : IMongoEntity
     {
         private DateTime _milestoneDate;
         private bool _isComplete;
+        private bool _isVerified;
+        private IEnumerable<Task> _subTask;
 
-        public string TaskId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string _id { get; set; }
+
+        public string ParentId { get; set; }
+
+        public string AssignUser { get; set; }
+
+        public IList<string> Tags { get; set; }
+
+        public string ProjectId { get; set; }
 
         [Required]
         [Display(Name = "Название проекта")]
@@ -22,7 +35,28 @@ namespace Invest.Common.Model.ProjectModels
         [Display(Name = "Описание проекта")]
         public string Description { get; set; }
 
-        public IList<Task> SubTask { get; set; }
+        [BsonIgnore]
+        public IEnumerable<Task> SubTask
+        {
+            get
+            {
+                _subTask = RepositoryContext.Current.All<Task>(t => t.ParentId == _id);
+
+                if (_subTask != null)
+                {
+                    foreach (Task task in _subTask)
+                    {
+                        if (string.IsNullOrEmpty(task.ProjectId))
+                        {
+                            task.ProjectId = ProjectId;
+                        }
+                    }
+                }
+                return _subTask;
+            }
+        }
+
+        public IEnumerable<TaskReport> Reports { get; set; }
 
         [Required]
         [Display(Name = "Приблизительная дата прохождения контрольной точки")]
@@ -30,7 +64,7 @@ namespace Invest.Common.Model.ProjectModels
         {
             get
             {
-                if (SubTask != null && SubTask.Count > 0)
+                if (SubTask != null && SubTask.Count() > 0)
                 {
                     foreach (var task in SubTask.Where(task => _milestoneDate < task.Milestone))
                     {
@@ -46,19 +80,13 @@ namespace Invest.Common.Model.ProjectModels
 
         [Required]
         [Display(Name = "Выполнен?")]
-        public bool IsComplete {
+        public bool IsComplete
+        {
             get
             {
-                if (SubTask != null && SubTask.Count > 0)
+                if (SubTask != null && SubTask.Any())
                 {
-                    if (SubTask.Any(task => task.IsComplete == false))
-                    {
-                        _isComplete = false;
-                    }
-                    else
-                    {
-                        _isComplete = true;
-                    }
+                    _isComplete = SubTask.All(task => task.IsComplete);
                 }
 
                 return _isComplete;
@@ -68,7 +96,18 @@ namespace Invest.Common.Model.ProjectModels
 
         [Required]
         [Display(Name = "Проверен администратором?")]
-        public bool IsVerifiedComplete { get; set; }
+        public bool IsVerifiedComplete {
+            get
+            {
+                if (SubTask != null && SubTask.Any())
+                {
+                    _isVerified = SubTask.All(task => task.IsVerifiedComplete);
+                }
+
+                return _isVerified;
+            }
+            set { _isVerified = value; }
+        }
 
         public IList<AdditionalInfo> MoreInfo
         {
@@ -78,7 +117,8 @@ namespace Invest.Common.Model.ProjectModels
 
         [BsonIgnore]
         [Display(Name = "Опаздывает выполенение?")]
-        public bool IsLate {
+        public bool IsLate
+        {
             get { return (DateTime.Now > _milestoneDate) | (_milestoneDate < CompletedOn); }
         }
     }

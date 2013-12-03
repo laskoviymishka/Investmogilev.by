@@ -1,0 +1,117 @@
+﻿@using Invest.Common.Model.Common
+@model Invest.Common.Model.ProjectModels.Task
+@{
+    ViewBag.Title = "Details";
+}
+<h2>
+    Details</h2>
+<fieldset>
+    <legend>Задание</legend>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.Raw(HttpUtility.HtmlDecode(Model.Description))
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Milestone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Milestone)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.CompletedOn)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CompletedOn)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsComplete)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsComplete)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsVerifiedComplete)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsVerifiedComplete)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.IsLate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsLate)
+    </div>
+    <fieldset>
+        <legend>Отчеты</legend>
+        @if (Model.Reports != null)
+        {
+            foreach (var item in Model.Reports)
+            {
+            <fieldset>
+                <legend>Отчет от @item.ReportTime.ToShortDateString()</legend>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => item.Body)
+                </div>
+                <div class="display-field">
+                    @Html.Raw(HttpUtility.HtmlDecode(item.Body))
+                </div>
+                <div class="display-label">
+                    Приложения
+                </div>
+                <ul>
+                    @if (item.Appendix != null)
+                    {
+                        foreach (var appendix in item.Appendix)
+                        {
+                        <li>@Html.ActionLink("Скачать " + (appendix as DocumentAdditionalInfo).InfoName,
+                                                 "Download",
+                                                 new { taskId = Model._id, reportId = item._id, appendixId = appendix._id })</li>
+                        }
+                    }
+                </ul>
+                <fieldset>
+                    <legend>Ответ на отчет</legend>
+                    @if (item.Response != null)
+                    {
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => item.Response.ResponseUser)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => item.Response.ResponseUser)
+                        </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => item.Response.ResponseBody)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => item.Response.ResponseBody)
+                        </div>
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => item.Response.IsApproved)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => item.Response.IsApproved)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="display-field">
+                            <strong>Отчет еще не проверен</strong>
+                        </div>
+                    }
+                </fieldset>
+            </fieldset>
+            }
+        }
+    </fieldset>
+</fieldset>
+<p>
+    @Html.ActionLink("К списку отчетов", "Index")
+</p>

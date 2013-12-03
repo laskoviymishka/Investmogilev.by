@@ -78,6 +78,7 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
+                _stateManager.SetContext(User.Identity.Name,Roles.GetRolesForUser(User.Identity.Name));
                 _stateManager.AssignProjectToUser(model._id, model.AssignUser);
                 return RedirectToAction("UnUsignedProject");
             }
@@ -178,7 +179,8 @@ namespace InvestPortal.Controllers
             var user = _repository.GetOne<Users>(u => u._id == id);
             if (user != null)
             {
-                _stateManager.RemoveAssignee(user.Username, user.Email, User.Identity.Name);
+                //_stateManager.SetContext(User.Identity.Name,Roles.GetRolesForUser(User.Identity.Name));
+                //_stateManager.RemoveAssignee(user.Username, user.Email, User.Identity.Name);
                 Membership.DeleteUser(user.Username);
                 Roles.RemoveUserFromRoles(user.Username, Roles.GetRolesForUser(user.Username));
             }

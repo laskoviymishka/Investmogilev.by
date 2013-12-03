@@ -76,7 +76,7 @@ namespace BusinessLogic.Providers
                 return settingsPropertyValueCollection;
             }
 
-            var username = (string)context["UserName"];
+            var username = (string)context["_userName"];
 
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -126,7 +126,7 @@ namespace BusinessLogic.Providers
 
         public override void SetPropertyValues(SettingsContext context, SettingsPropertyValueCollection collection)
         {
-            var username = (string)context["UserName"];
+            var username = (string)context["_userName"];
             var isAuthenticated = (bool)context["IsAuthenticated"];
 
             if (string.IsNullOrWhiteSpace(username) || collection.Count < 1)

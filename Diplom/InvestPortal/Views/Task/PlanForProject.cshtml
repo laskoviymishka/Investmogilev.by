@@ -1,4 +1,5 @@
 ﻿@using Invest.Common.Model.ProjectModels
+@using Invest.Common.State
 @using InvestPortal.Models
 @model Project
 @{
@@ -11,41 +12,52 @@
     @Html.Telerik().TreeView().Name("TreeView").BindTo(Model.Tasks, mapping => mapping.For<Task>(binding => binding.ItemDataBound((item, task) =>
         {
             item.Text = task.Title;
-            item.Value = task.TaskId;
+            item.Value = task._id;
         }).Children(t => t.SubTask))).ExpandAll(true)
 }
 @Html.Telerik().Window().Name("Window").Title("Добавить подзадачу").Buttons(buttons => buttons.Refresh().Maximize().Close()).Content("<div id='Content'></div>").Width(450).Height(450).Draggable(true).Modal(true).Visible(false)
-<input type="button" value="Добавить ключевую точку" onclick="addCoreTask()"/>
-<script type="text/javascript">
-    var selectedNodeValue;
-    $(document).ready(function () {
-        $('#test').hide();
-        $('#TreeView').bind('select', function (e) {
-            selectedNodeValue = $(e.item).closest('.t-item').find(':input[name*="Value"]').val();
-            openWindow(selectedNodeValue);
+@if (Model.WorkflowState.CurrenState == ProjectStates.WaitForPlan)
+{
+    <input type="button" value="Добавить ключевую точку" onclick=" addCoreTask() "/>
+    <script type="text/javascript">
+        var selectedNodeValue;
+        $(document).ready(function() {
+            $('#test').hide();
+            $('#TreeView').bind('select', function(e) {
+                selectedNodeValue = $(e.item).closest('.t-item').find(':input[name*="Value"]').val();
+                openWindow(selectedNodeValue);
+            });
         });
-    });
-    function getTreeView() {
-        //"TreeView" is the value specified by the Name() method.
-        var treeview = $("#TreeView").data("tTreeView");
-        return treeview;
-    }
-    function openWindow() {
-        var link = '/Task/CreateSubTask/' + selectedNodeValue + '/@Model._id';
-        $.get(link, function (data) {
-            $('#test').html(data);
-            $('#test').show();
-        });
-    }
 
-    function addCoreTask() {
-        var link = '/Task/CreateSubTask/@Model._id/@Model._id';
-        $.get(link, function (data) {
-            $('#test').html(data);
-            $('#test').show();
-        });
-    }
-</script>
-<div id="test">
-    @Html.Partial("CreateSubTask", new SubTaskViewModel(){ProjectId = Model._id,ParentId = Model._id})
-</div>
+        function getTreeView() {
+            //"TreeView" is the value specified by the Name() method.
+            var treeview = $("#TreeView").data("tTreeView");
+            return treeview;
+        }
+
+        function openWindow() {
+            var link = '/Task/CreateSubTask/' + selectedNodeValue + '/@Model._id';
+            $.get(link, function(data) {
+                $('#test').html(data);
+                $('#test').show();
+            });
+        }
+
+        function addCoreTask() {
+            var link = '/Task/CreateSubTask/@Model._id/@Model._id';
+            $.get(link, function(data) {
+                $('#test').html(data);
+                $('#test').show();
+            });
+        }
+    </script>
+    <div id="test">
+        @Html.Partial("CreateSubTask", new SubTaskViewModel() { ProjectId = Model._id, ParentId = Model._id })
+    </div>
+    @Html.ActionLink("Потвердить созданный план", "CompleteFill", new { projectId = Model._id })
+}
+else
+{
+    <strong>Невозможно создать план (проверьте статус проекта)</strong>
+}
+

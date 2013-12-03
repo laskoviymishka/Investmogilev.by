@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Security;
 using BusinessLogic.Managers;
 using Invest.Common.Model.ProjectModels;
 using Invest.Common.Repository;
@@ -36,8 +37,6 @@ namespace InvestPortal.Controllers
 
         #endregion
 
-        //
-        // GET: /InvestorEntry/
         [AllowAnonymous]
         public ActionResult Index()
         {
@@ -67,11 +66,28 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
+                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
                 _stateManager.ResponseToProject(response, User.Identity.Name);
 
                 return RedirectToAction("Index");
             }
             return View(response);
+        }
+
+        [Authorize(Roles = "Investor")]
+        public ActionResult ApproveResponse(string id)
+        {
+            _stateManager.SetContext(User.Identity.Name,Roles.GetRolesForUser(User.Identity.Name));
+            _stateManager.ApproveResponseByInvestor(id);
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Investor")]
+        public ActionResult ApprovePlan(string id)
+        {
+            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+            _stateManager.ApprovePlanByInvestor(id);
+            return RedirectToAction("Index");
         }
     }
 }

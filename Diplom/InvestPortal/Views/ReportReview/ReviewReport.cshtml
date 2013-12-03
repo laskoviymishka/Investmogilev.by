@@ -1,0 +1,44 @@
+﻿@model Invest.Common.Model.ProjectModels.ReportResponse
+@{
+    ViewBag.Title = "ReviewReport";
+}
+<h2>
+    ReviewReport</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ReportResponse</legend>
+        @Html.HiddenFor(model => model.ResponseTime)
+        @Html.HiddenFor(model => model._id)
+        @Html.HiddenFor(model => model.TaskId)
+        @Html.HiddenFor(model => model.ReportId)
+        @Html.HiddenFor(model => model.ResponseUser)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ResponseBody)
+        </div>
+        <div class="editor-field">
+            @Html.Telerik().EditorFor(model => model.ResponseBody).Localizable("ru-RU")
+            @Html.ValidationMessageFor(model => model.ResponseBody)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsApproved)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsApproved)
+            @Html.ValidationMessageFor(model => model.IsApproved)
+        </div>
+        @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
+                .Save("Save", "ReportReview", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
+                .Remove("Remove", "ReportReview", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
+            .AutoUpload(false)
+        ).Localizable("ru-RU")
+        <p>
+            <input type="submit" value="Отправить" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Назад к списку всех отчетов", "Index")
+</div>

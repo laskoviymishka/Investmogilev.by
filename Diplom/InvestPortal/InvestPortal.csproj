@@ -354,6 +354,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvestorEntryController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportReviewController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserManagerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -1007,7 +1011,22 @@
     <Content Include="Views\Message\Unreaded.cshtml" />
     <Content Include="Views\Message\Sent.cshtml" />
     <Content Include="Views\Message\UnreadedSent.cshtml" />
+    <Content Include="Views\Notes\Index.cshtml" />
+    <Content Include="Views\Notes\Create.cshtml" />
+    <Content Include="Views\Notes\Details.cshtml" />
+    <Content Include="Views\Notes\Edit.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\CreateReport.cshtml" />
+    <Content Include="Views\Report\Details.cshtml" />
+    <Content Include="Views\ReportReview\Index.cshtml" />
+    <Content Include="Views\ReportReview\ReviewReport.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
+    <Content Include="Views\Notification\All.cshtml" />
+    <Content Include="Views\BaseProject\FillProject.cshtml" />
+    <Content Include="Views\Notes\All.cshtml" />
+    <Content Include="Views\ReportReview\Details.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

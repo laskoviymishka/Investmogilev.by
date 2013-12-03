@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web.Security;
 using Invest.Common.Model.ProjectModels;
 using Invest.Common.Notification;
+using Invest.Common.State;
 using MongoRepository;
+using BusinessLogic.Notification;
 
 namespace BusinessLogic.Managers
 {
@@ -13,46 +15,77 @@ namespace BusinessLogic.Managers
         #region Private field
 
         private readonly INotification _mailNotification = new MailNotification();
+        private readonly PortalNotificationHub _portalNotification = new PortalNotificationHub();
+        private ProjectStateMachine _projectStateMachine;
+        private string _userName;
+        private string[] _userRoles;
 
         #endregion
 
+        #region Constructor
+
+        public ProjectStateManager()
+        {
+        }
+
+        public ProjectStateManager(string userName, string[] userRoles)
+        {
+            _userName = userName;
+            _userRoles = userRoles;
+        }
+
+        #endregion
+
+
+        private ProjectStateMachine StateManager(string projectId)
+        {
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
+            _projectStateMachine = new ProjectStateMachine(project, _userName, _userRoles);
+            return _projectStateMachine;
+        }
+
+        public void SetContext(string userName, string[] userRoles)
+        {
+            _userName = userName;
+            _userRoles = userRoles;
+        }
+
+        #region Assignee
+
         public bool RemoveAssignee(string unassigneUsername, string unassigneeUserMail, string editorUsername)
         {
-            var project = RepositoryContext.Current.GetOne<Project>(p => p.InvestorUser.ToLower() == unassigneUsername.ToLower());
-            if (project != null)
+            var projects = RepositoryContext.Current.All<Project>(p => p.InvestorUser.ToLower() == unassigneUsername.ToLower());
+            if (projects != null && projects.Any())
             {
-                project.InvestorUser = "";
-
-                var response = project.Responses.FirstOrDefault(r => r.InvestorEmail.ToLower() == unassigneeUserMail);
-
-                if (response != null)
+                foreach (Project project in projects)
                 {
-                    project.Responses.Remove(response);
+                    project.InvestorUser = "";
+
+                    var response = project.Responses.FirstOrDefault(r => r.InvestorEmail.ToLower() == unassigneeUserMail);
+
+                    if (response != null)
+                    {
+                        project.Responses.Remove(response);
+                    }
+
+                    RepositoryContext.Current.Update(project);
+                    StateManager(project._id).Fire(ProjectTriggers.RejectInvestorByAdmin);
                 }
 
-                string fromState = project.WorkflowState.CurrenState;
-                var workflow = project.WorkflowState;
-                workflow.CurrenState = GreenFieldStates.Open;
-                project.WorkflowState.ChangeHistory.Add(
-                    new History()
-                    {
-                        EditingTime = DateTime.Now,
-                        Editor = editorUsername,
-                        FromState = fromState,
-                        ToState = GreenFieldStates.Open
-                    });
-
-                RepositoryContext.Current.Update(project);
                 return true;
             }
             else
             {
-                project = RepositoryContext.Current.GetOne<Project>(p => p.AssignUser.ToLower() == unassigneUsername.ToLower());
-                if (project != null)
+                projects = RepositoryContext.Current.All<Project>(p => p.AssignUser.ToLower() == unassigneUsername.ToLower());
+                if (projects != null)
                 {
-                    project.AssignUser = "";
+                    foreach (Project project in projects)
+                    {
+                        project.AssignUser = "";
 
-                    RepositoryContext.Current.Update(project);
+                        RepositoryContext.Current.Update(project);
+                        StateManager(project._id).Fire(ProjectTriggers.RejectAssignUser);
+                    }
                     return true;
                 }
             }
@@ -64,26 +97,18 @@ namespace BusinessLogic.Managers
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
             project.AssignUser = assignedUser;
             RepositoryContext.Current.Update(project);
+            StateManager(projectId).Fire(ProjectTriggers.AssigneeUser);
             return true;
         }
+
+        #endregion
+
+        #region Responses
 
         public bool ResponseToProject(InvestorResponse response, string editorUserName)
         {
             var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == response.ResponsedProjectId);
 
-            project.WorkflowState.CurrenState = GreenFieldStates.WaitForVerifyResponse;
-            if (project.WorkflowState.ChangeHistory == null)
-            {
-                project.WorkflowState.ChangeHistory = new List<History>();
-            }
-            project.WorkflowState.ChangeHistory.Add(
-                new History()
-                {
-                    EditingTime = DateTime.Now,
-                    Editor = editorUserName,
-                    FromState = GreenFieldStates.Open,
-                    ToState = GreenFieldStates.WaitForVerifyResponse
-                });
             if (project.Responses == null)
             {
                 project.Responses = new List<InvestorResponse>();
@@ -91,6 +116,7 @@ namespace BusinessLogic.Managers
 
             project.Responses.Add(response);
             RepositoryContext.Current.Update(project);
+            StateManager(response.ResponsedProjectId).Fire(ProjectTriggers.ResponseFromInvest);
             return true;
         }
 
@@ -111,26 +137,11 @@ namespace BusinessLogic.Managers
             if (response != null) response.IsVerified = true;
 
             project.Responses = new List<InvestorResponse>() { response };
-
-            string fromState = project.WorkflowState.CurrenState;
-            var workflow = project.WorkflowState;
-            workflow.CurrenState = GreenFieldStates.VerifyResponse;
-            project.WorkflowState.ChangeHistory.Add(
-                new History()
-                {
-                    EditingTime = DateTime.Now,
-                    Editor = editorUserName,
-                    FromState = fromState,
-                    ToState = GreenFieldStates.VerifyResponse
-                });
             project.InvestorUser = investorUserName;
-            _mailNotification.NotificateUser("system",
-                investorMail,
-                "Вы откликнулись на проект",
-                string.Format("Для вас создан аккаунт в системе. Ваш логин - {0}  ваш пароль - {1} .", investorUserName, investorPass));
             Membership.CreateUser(investorUserName, investorPass, investorMail);
             Roles.AddUserToRole(investorUserName, "Investor");
             RepositoryContext.Current.Update(project);
+            StateManager(responseProjectId).Fire(ProjectTriggers.ApproveInvestorByAdmin);
             return true;
         }
 
@@ -146,19 +157,8 @@ namespace BusinessLogic.Managers
                 {
                     return false;
                 }
-                string fromState = project.WorkflowState.CurrenState;
-                var workflow = project.WorkflowState;
                 project.Responses.Remove(investorResponse);
-                workflow.CurrenState = GreenFieldStates.Open;
-                project.WorkflowState.ChangeHistory.Add(
-                    new History()
-                    {
-                        EditingTime = DateTime.Now,
-                        Editor = editorUser,
-                        FromState = fromState,
-                        ToState = GreenFieldStates.Open
-                    });
-
+                StateManager(projectId).Fire(ProjectTriggers.RejectInvestorByAdmin);
                 RepositoryContext.Current.Update(project);
             }
 
@@ -171,7 +171,7 @@ namespace BusinessLogic.Managers
             {
                 var responsedProject =
                     RepositoryContext.Current.All<Project>(
-                        r => r.Responses != null && r.WorkflowState.CurrenState == GreenFieldStates.WaitForVerifyResponse);
+                        r => r.Responses != null && r.WorkflowState.CurrenState == Invest.Common.State.ProjectStates.WaitForAdminInvestorApprove);
                 var model = new List<InvestorResponse>();
                 foreach (var project in responsedProject)
                 {
@@ -179,6 +179,48 @@ namespace BusinessLogic.Managers
                 }
                 return model;
             }
+        }
+
+        #endregion
+
+        public void CompletePlan(string userName, string projectId)
+        {
+            StateManager(projectId).Fire(ProjectTriggers.CompletePlanRealization);
+        }
+
+        public void CompleteFillPlan(string projectId)
+        {
+            StateManager(projectId).Fire(ProjectTriggers.CompleteFillPlan);
+        }
+
+        public void ApprovePlanByAdmin(string projectId)
+        {
+            StateManager(projectId).Fire(ProjectTriggers.ApprovePlanByAdmin);
+        }
+
+        public void FillProject(string projectId)
+        {
+            StateManager(projectId).Fire(ProjectTriggers.FillProject);
+        }
+
+        public void ApproveResponseByInvestor(string projectId)
+        {
+            StateManager(projectId).Fire(ProjectTriggers.ApproveResponseByInvestor);
+        }
+
+        public void ApprovePlanByInvestor(string projectId)
+        {
+            StateManager(projectId).Fire(ProjectTriggers.ApprovePlanByInvestor);
+        }
+
+        public void UserApproveCompletion(string projectId)
+        {
+            StateManager(projectId).Fire(ProjectTriggers.ApprovePlanCompleteByUser);
+        }
+
+        public void AdminApproveCompletion(string projectId)
+        {
+            StateManager(projectId).Fire(ProjectTriggers.ApprovePlanCompleteByAdmin);
         }
     }
 }

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Invest.Common.Model.ProjectModels.TaskReport>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Index</h2>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Body)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReportTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReporterName)
+        </th>
+        <th>
+            Управление
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Body)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsApproved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReportTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReporterName)
+            </td>
+            @if (item.Response == null || (!item.Response.IsReject && !item.Response.IsApproved))
+            {
+                <td>
+                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item.TaskId, reportId = item._id })
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink("Информация об отчете", "Details", new { taskId = item.TaskId})
+                </td>
+            }
+        </tr>
+    }
+</table>

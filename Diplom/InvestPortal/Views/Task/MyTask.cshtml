@@ -14,8 +14,8 @@
     @Html.Telerik().TreeView().Name("TreeView" + project._id).BindTo(project.Tasks, mapping => mapping.For<Task>(binding => binding.ItemDataBound((item, task) =>
         {
             item.Text = task.Title;
-            item.Value = task.TaskId;
-            item.Url("/Task/TaskDetails/" + task.TaskId + "/" + project._id);
+            item.Value = task._id;
+            item.Url("/Task/TaskDetails/" + task._id + "/" + project._id);
         }).Children(t => t.SubTask))).ExpandAll(false);
     }
     else

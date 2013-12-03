@@ -79,7 +79,6 @@ namespace Invest.Workflow.Project
             _workflow.Transitions = GetTransitions();
             _workflow.Workflow = new WorkflowEntity();
             _workflow.Workflow.ChangeHistory = new List<History>();
-            _workflow.Workflow.CurrenState = "Open";
             _workflow.SetContext(this);
             return _workflow;
         }

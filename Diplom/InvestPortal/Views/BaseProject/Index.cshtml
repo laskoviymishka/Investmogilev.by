@@ -1,24 +1,137 @@
-﻿@using InvestPortal.Controllers
+﻿@using Invest.Common.State
 @model IEnumerable<Invest.Common.Model.ProjectModels.Project>
 @{
     ViewBag.Title = "Мои проекты";
 }
-<h2>Мои проекты</h2>
-
-@Html.Telerik().Grid(Model).Name("Projects").DataKeys(keys =>
-    {
-        keys.Add(p => p._id);
-    }).ToolBar(commands => commands.Insert().ButtonType(GridButtonType.Text).ImageHtmlAttributes(new { style = "margin-left:0" })).DataBinding(dataBinding => dataBinding.Ajax()
-                                                             .Select("_SelectAjaxEditingIndex", "BaseProject")
-                                                                 .Insert("_InsertAjaxEditing", "BaseProject")
-                                                                 .Update("_SaveAjaxEditing", "BaseProject")
-                                                                 .Delete("_DeleteAjaxEditing", "BaseProject")).Columns(columns =>
-                {
-                    columns.Bound(p => p.Name).Title("Имя проекта");
-                    columns.Bound(p => p.Description).Title("Описание проекта");
-                    columns.ForeignKey(p => p.Region, (IEnumerable<BaseProjectController.NestedRegionViewModel>)ViewBag.Regions, "RegionName", "RegionName").Title("Регион");
-                    columns.Bound(p => p.AddressName).Title("Адресс");
-                    columns.Bound(p => p.WorkflowState.CurrenState).Title("Текущее состояние");
-                    columns.Command(commands => commands.Custom("Статус проекта").Action("WorkFlowForProject", "BaseProject").ButtonType(GridButtonType.Text).Text("Статус проекта"))
-                        .Title("Команды");
-                }).Editable(editing => editing.InsertRowPosition(GridInsertRowPosition.Top).Mode(GridEditMode.InLine)).Pageable().Scrollable(c => c.Height("100%")).Sortable().Selectable().Localizable("ru-RU").Groupable().Filterable()
+<h2>
+    Мои проекты</h2>
+@foreach (var project in Model.OrderBy(t => (int)(t.WorkflowState.CurrenState)).Reverse())
+{
+    <div style="margin: 10px">
+        @{
+            Html.Telerik().Menu()
+                .Name("Menu" + project._id)
+                .Items(menu =>
+                    {
+                        menu.Add()
+                            .Text("Подготовка проекта >")
+                            .Items(item =>
+                                {
+                                    if (project.WorkflowState.CurrenState == ProjectStates.Open)
+                                    {
+                                        item.Add().Text("Заполнить проект").Url("~/BaseProject/FillProject/" + project._id);
+                                    }
+                                    else
+                                    {
+                                        if (project.WorkflowState.CurrenState == ProjectStates.WaitForAssignee && User.IsInRole("Admin"))
+                                        {
+                                            item.Add().Text("Назначить ответственного проект").Url("~/UserManager/AssignUser/" + project._id);
+                                        }
+                                        else
+                                        {
+                                            item.Add().Text("Ответственный за проект - " + project.AssignUser);
+                                        }
+                                        if (project.WorkflowState.CurrenState == ProjectStates.WaitForInvestor)
+                                        {
+                                            item.Add().Text("В ожидании инвестора");
+                                        }
+                                        if (project.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove && User.IsInRole("Admin"))
+                                        {
+                                            item.Add().Text("Обработать заявку").Items(subitem =>
+                                                {
+                                                    foreach (var response in project.Responses)
+                                                    {
+                                                        subitem.Add().Text(string.Format(
+                                                            "Одобрить отклик от {0} {1} {2}",
+                                                            response.InvestorLastName,
+                                                            response.InvestorFirstName,
+                                                            response.InvestorMiddleName))
+                                                               .Url("~/BaseProject/ProcessVerifyResponse/" + project._id);
+                                                    }
+                                                });
+                                        }
+                                        else
+                                        {
+                                            if (project.WorkflowState.CurrenState == ProjectStates.WaitForInvestorResponseApprove && User.IsInRole("Investor"))
+                                            {
+                                                item.Add().Text("Потвердить намерeния по проекту").Url("~/InvestorEntry/ApproveResponse/" + project._id);
+                                            }
+                                            else
+                                            {
+                                                item.Add().Text(string.Format(
+                                                    "Инвестор {0} {1} {2} login - {3}",
+                                                    project.Responses[0].InvestorLastName,
+                                                    project.Responses[0].InvestorFirstName,
+                                                    project.Responses[0].InvestorMiddleName,
+                                                    project.InvestorUser));
+                                            }
+                                        }
+                                    }
+                                    item.Add().Text("Пометки по проекту").Url("~/Notes/Index/" + project._id);
+                                    item.Add().Text("Добавить пометку для проекта").Url("~/Notes/Create/" + project._id);
+                                });
+                        if ((int) project.WorkflowState.CurrenState > 5)
+                        {
+                            menu.Add()
+                                .Text("Реализация проекта >")
+                                .Items(item =>
+                                    {
+                                        item.Add().Text("План проекта").Url("~/Task/PlanForProject/" + project._id);
+                                        if (project.WorkflowState.CurrenState == ProjectStates.WaitForAdminPlanApprove && User.IsInRole("Admin"))
+                                        {
+                                            item.Add().Text("Одобрить план проекта").Url("~/Task/ApproveByAdmin/" + project._id);
+                                        }
+                                        else
+                                        {
+                                            if (project.WorkflowState.CurrenState == ProjectStates.WaitForInvestorPlanApprove)
+                                            {
+                                                if (User.Identity.Name == project.InvestorUser)
+                                                {
+                                                    item.Add().Text("Одобрить план проекта").Url("~/InvestorEntry/ApprovePlan/" + project._id);
+                                                }
+                                                else
+                                                {
+                                                    item.Add().Text("Ожидаем одобрения плана проекта от инвестора");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (project.WorkflowState.CurrenState == ProjectStates.PlanRealiztion
+                                                    || project.WorkflowState.CurrenState == ProjectStates.DefectPlanRealization)
+                                                {
+                                                    item.Add().Text("Дорожная карта одобрена план начался");
+                                                }
+                                                else
+                                                {
+                                                    item.Add().Text("Дорожная карта одобрена");
+                                                }
+                                            }
+                                            if (project.WorkflowState.CurrenState == ProjectStates.WaitForUserApproveCompletion)
+                                            {
+                                                item.Add().Text("Потвердить реализацию проекта").Url("~/InvestorEntry/ApprovePlan/" + project._id);
+                                            }
+                                            if (project.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveDefectPlanComplete || project.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveCompletion)
+                                            {
+                                                item.Add().Text("Закончить проект").Url("~/InvestorEntry/ApprovePlan/" + project._id);
+                                            }
+                                        }
+                                    });
+                        }
+                        if ((int) project.WorkflowState.CurrenState > 12)
+                        {
+                            menu.Add()
+                                .Text("Устранение ошибок >")
+                                .Items(item =>
+                                    {
+                                        item.Add().Text("План реализован без ошибок");
+                                    });
+                        }
+                        if (project.WorkflowState.CurrenState == ProjectStates.CloseProject)
+                        {
+                            menu.Add().Text("Проект завершен |");
+                        }
+                    })
+                .Render();
+        }
+    </div>
+}

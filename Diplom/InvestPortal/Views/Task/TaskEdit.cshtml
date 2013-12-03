@@ -1,4 +1,4 @@
-﻿@model InvestPortal.Models.EditTaskViewModel
+﻿@model Invest.Common.Model.ProjectModels.Task
 @{
     ViewBag.Title = "Редактировать инфомацию о задаче";
 }
@@ -7,7 +7,7 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Редактировать инфомацию о задаче</legend>
-        @Html.HiddenFor(model => model.TaskId)
+        @Html.HiddenFor(model => model._id)
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
         </div>
@@ -78,8 +78,8 @@
     }
     else
     {
-        Html.ActionLink("Дополнительная информация о задаче", "AdditionalInfo", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId });
-        Html.ActionLink("Редакировать", "TaskEdit", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId });
+        Html.ActionLink("Дополнительная информация о задаче", "AdditionalInfo", new { taskId = Model._id, projectId = ViewBag.ProjectId });
+        Html.ActionLink("Редакировать", "TaskEdit", new { taskId = Model._id, projectId = ViewBag.ProjectId });
         Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId });
         Html.ActionLink("К моим задачам", "MyTask");
     }

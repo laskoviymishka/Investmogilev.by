@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using BusinessLogic.Managers;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
@@ -17,6 +18,7 @@ namespace InvestPortal.Controllers
         #region Private Fields
 
         private readonly TaskManager _taskManager;
+        private readonly ProjectStateManager _stateManager;
 
         #endregion
 
@@ -25,6 +27,7 @@ namespace InvestPortal.Controllers
         public TaskController()
         {
             _taskManager = new TaskManager();
+            _stateManager = new ProjectStateManager();
         }
 
         #endregion
@@ -83,6 +86,7 @@ namespace InvestPortal.Controllers
         [Authorize(Roles = "User")]
         public ActionResult PlanForProject(string id)
         {
+            Project pr = _taskManager.GetProject(id);
             return View(_taskManager.GetProject(id));
         }
 
@@ -90,26 +94,36 @@ namespace InvestPortal.Controllers
         public ActionResult TaskDetails(string taskId, string projectId)
         {
             ViewBag.ProjectId = projectId;
-            var model = new EditTaskViewModel(_taskManager.GetTask(taskId, projectId));
-            model.ProjectId = projectId;
-            return View(model);
+            return View(_taskManager.GetTask(taskId, projectId));
         }
 
         [Authorize(Roles = "User")]
         public ActionResult TaskEdit(string taskId, string projectId)
         {
             ViewBag.ProjectId = projectId;
-            var model = new EditTaskViewModel(_taskManager.GetTask(taskId, projectId));
-            model.ProjectId = projectId;
-            return View(model);
+            return View(_taskManager.GetTask(taskId, projectId));
         }
 
         [Authorize(Roles = "User")]
         [HttpPost]
-        public ActionResult TaskEdit(EditTaskViewModel task)
+        public ActionResult TaskEdit(Task task)
         {
             _taskManager.UpdateTask(task, task.ProjectId);
-            return RedirectToAction("TaskDetails", new { taskId = task.TaskId, projectId = task.ProjectId });
+            return RedirectToAction("TaskDetails", new { taskId = task._id, projectId = task.ProjectId });
+        }
+
+        public ActionResult CompleteFill(string projectId)
+        {
+            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+            _stateManager.CompleteFillPlan(projectId);
+            return RedirectToAction("ActiveTask", "Task");
+        }
+
+        public ActionResult ApproveByAdmin(string projectId)
+        {
+            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+            _stateManager.ApprovePlanByAdmin(projectId);
+            return RedirectToAction("ActiveTask", "Task");
         }
 
         #endregion
@@ -136,7 +150,7 @@ namespace InvestPortal.Controllers
                         Title = model.Name,
                         Description = model.Description,
                         Milestone = model.Milestone,
-                        TaskId = ObjectId.GenerateNewId().ToString()
+                        _id = ObjectId.GenerateNewId().ToString()
                     };
 
                 if (_taskManager.CreateTask(task, model.ProjectId, model.ParentId))
@@ -175,7 +189,7 @@ namespace InvestPortal.Controllers
         [HttpPost]
         public ActionResult EditDocumentInfo(DocumentForTaskViewModel model)
         {
-            _taskManager.UpdateDocument(model.ProjectId,model.TaskId,model._id,model);
+            _taskManager.UpdateDocument(model.ProjectId, model.TaskId, model._id, model);
             return RedirectToAction("AdditionalInfo", "Task", new { @taskId = model.TaskId, @projectId = model.ProjectId });
         }
 

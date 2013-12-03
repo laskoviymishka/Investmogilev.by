@@ -7,3 +7,6 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Stateless.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Stateless.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Stateless.xml

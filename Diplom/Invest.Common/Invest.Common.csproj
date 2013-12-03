@@ -37,6 +37,9 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
+    <Reference Include="Stateless">
+      <HintPath>..\packages\stateless-4.0.2.3.1.1\lib\net40\Stateless.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -54,6 +57,7 @@
     <Compile Include="Model\Common\EditParametrViewModel.cs" />
     <Compile Include="Model\Common\ImageAdditionalInfo.cs" />
     <Compile Include="Model\Common\LinkAdditionalInfo.cs" />
+    <Compile Include="Model\User\NotificationQueue.cs" />
     <Compile Include="Model\Common\PortalNotification.cs" />
     <Compile Include="Model\Common\VideoAdditionalInfo.cs" />
     <Compile Include="Model\ProjectModels\Address.cs">
@@ -77,7 +81,10 @@
     <Compile Include="Model\ProjectModels\Project.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\ProjectModels\ProjectNotes.cs" />
+    <Compile Include="Model\ProjectModels\ReportResponse.cs" />
     <Compile Include="Model\ProjectModels\Task.cs" />
+    <Compile Include="Model\ProjectModels\TaskReport.cs" />
     <Compile Include="Model\ProjectModels\UnUsedBuilding.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,6 +106,7 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\MongoRepository.cs" />
     <Compile Include="Repository\ProjectRepository.cs" />
+    <Compile Include="State\ProjectStateMachine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

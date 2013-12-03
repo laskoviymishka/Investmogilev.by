@@ -7,5 +7,6 @@
         public int PendingTask { get; set; }
         public int CompleteTask { get; set; }
         public int PendingCompleteTask { get; set; }
+        public int UnReadNotification { get; set; }
     }
 }

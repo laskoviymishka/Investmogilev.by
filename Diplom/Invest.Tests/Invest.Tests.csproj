@@ -56,6 +56,7 @@
     <Compile Include="Workflow\BaseWorkflowTest.cs" />
     <Compile Include="Workflow\GreenFieldWorkflowContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Workflow\StateMachineTest.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

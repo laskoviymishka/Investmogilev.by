@@ -17,13 +17,8 @@ namespace InvestPortal.Controllers
             _notificationHub = new PortalNotificationHub();
         }
 
-        [PopulateSiteMap(SiteMapName = "Invest", ViewDataKey = "Invest")]
         public ActionResult ProfilePartial()
         {
-            if (!SiteMapManager.SiteMaps.ContainsKey("Invest"))
-            {
-                SiteMapManager.SiteMaps.Register<XmlSiteMap>("Invest", sitmap => sitmap.LoadFrom("~/App_Data/SiteMap.xml"));
-            }
             if (User.Identity.IsAuthenticated)
             {
                 var model = _notificationHub.Notification(User.Identity.Name);

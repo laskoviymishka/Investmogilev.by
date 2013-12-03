@@ -1,59 +1,132 @@
 ﻿@using BusinessLogic.Managers
+@using Invest.Common.State
 @model Invest.Common.Model.ProjectModels.Project
 @{
     ViewBag.Title = "WorkFlowForProject";
 }
 <h2>
     Прогресс по проекту</h2>
-<ul>
-    <li>
-        @if (Model.WorkflowState.CurrenState == "Empty")
+@{ Html.Telerik().Menu()
+        .Name("Menu")
+        .Items(menu =>
         {
-            <p>
-                Заполнен - нет</p>
-        }
-        else
-        {
-            <p>
-                Заполнен -да</p>
-        }
-    </li>
-    <li>
-        @if (string.IsNullOrEmpty(Model.AssignUser))
-        {
-            <div>
-                Назначен ответственный - нет @Html.ActionLink("Назначить отвественного", "AssignUser", "UserManager", new { id = Model._id }, null)</div>
-        }
-        else
-        {
-            <div>
-                Назначен ответственный - @Model.AssignUser</div>
-        }
-    </li>
-    <li>
-        @if (Model.Responses != null && Model.Responses.Count > 0)
-        {
-            <p>
-                Получен отклик - да</p>
-            if (Model.WorkflowState.CurrenState == GreenFieldStates.WaitForVerifyResponse)
-            {
-                foreach (var response in Model.Responses)
+            menu.Add()
+                .Text("Подготовка проекта >")
+                .Items(item =>
                 {
-            <p>
-                Отклик от @response.InvestorFirstName @response.InvestorMiddleName @response.InvestorLastName @Html.ActionLink("Обработать отклик", "ProcessVerifyResponse", "BaseProject", new { id = response.ResponseId }, null)</p>
-                }
+                    if (Model.WorkflowState.CurrenState == ProjectStates.Open)
+                    {
+                        item.Add().Text("Заполнить проект").Url("~/BaseProject/FillProject/" + Model._id);
+                    }
+                    else
+                    {
+                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAssignee && User.IsInRole("Admin"))
+                        {
+                            item.Add().Text("Назначить ответственного проект").Url("~/UserManager/AssignUser/" + Model._id);
+                        }
+                        else
+                        {
+                            item.Add().Text("Ответственный за проект - " + Model.AssignUser);
+                        }
+                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForInvestor)
+                        {
+                            item.Add().Text("В ожидании инвестора");
+                        }
+                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove && User.IsInRole("Admin"))
+                        {
+                            item.Add().Text("Обработать заявку").Items(subitem =>
+                                {
+                                    foreach (var response in Model.Responses)
+                                    {
+                                        subitem.Add().Text(string.Format(
+                                            "Одобрить отклик от {0} {1} {2}",
+                                            response.InvestorLastName,
+                                            response.InvestorFirstName,
+                                            response.InvestorMiddleName))
+                                               .Url("~/BaseProject/ProcessVerifyResponse/" + Model._id);
+                                    }
+                                });
+                        }
+                        else
+                        {
+                            if (Model.WorkflowState.CurrenState == ProjectStates.WaitForInvestorResponseApprove && User.IsInRole("Investor"))
+                            {
+                                item.Add().Text("Потвердить намерeния по проекту").Url("~/InvestorEntry/ApproveResponse/" + Model._id);
+                            }
+                            else
+                            {
+                                item.Add().Text(string.Format(
+                                            "Инвестор {0} {1} {2} login - {3}",
+                                            Model.Responses[0].InvestorLastName,
+                                            Model.Responses[0].InvestorFirstName,
+                                            Model.Responses[0].InvestorMiddleName,
+                                            Model.InvestorUser));
+                            }
+                        }
+                    }
+                    item.Add().Text("Пометки по проекту").Url("~/Notes/Index/" + Model._id);
+                    item.Add().Text("Добавить пометку для проекта").Url("~/Notes/Create/" + Model._id);
+                });
+            if ((int)Model.WorkflowState.CurrenState > 5)
+            {
+                menu.Add()
+                    .Text("Реализация проекта >")
+                    .Items(item =>
+                        {
+                            item.Add().Text("План проекта").Url("~/Task/PlanForProject/" + Model._id);
+                            if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminPlanApprove && User.IsInRole("Admin"))
+                            {
+                                item.Add().Text("Одобрить план проекта").Url("~/Task/ApproveByAdmin/" + Model._id);
+                            }
+                            else
+                            {
+                                if (Model.WorkflowState.CurrenState == ProjectStates.WaitForInvestorPlanApprove)
+                                {
+                                    if (User.Identity.Name == Model.InvestorUser)
+                                    {
+                                        item.Add().Text("Одобрить план проекта").Url("~/InvestorEntry/ApprovePlan/" + Model._id);
+                                    }
+                                    else
+                                    {
+                                        item.Add().Text("Ожидаем одобрения плана проекта от инвестора");
+                                    }
+                                }
+                                else
+                                {
+                                    if (Model.WorkflowState.CurrenState == ProjectStates.PlanRealiztion
+                                        || Model.WorkflowState.CurrenState == ProjectStates.DefectPlanRealization)
+                                    {
+                                        item.Add().Text("Дорожная карта одобрена план начался");
+                                    }
+                                    else
+                                    {
+                                        item.Add().Text("Дорожная карта одобрена");
+                                    }
+                                }
+                                if (Model.WorkflowState.CurrenState == ProjectStates.WaitForUserApproveCompletion)
+                                {
+                                    item.Add().Text("Потвердить реализацию проекта").Url("~/InvestorEntry/ApprovePlan/" + Model._id);
+                                }
+                                if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveDefectPlanComplete || Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveCompletion)
+                                {
+                                    item.Add().Text("Закончить проект").Url("~/InvestorEntry/ApprovePlan/" + Model._id);
+                                }
+                            }
+                        });
             }
-        }
-        else
-        {
-            <p>
-                Получен отклик - нет</p>
-        }
-    </li>
-    <li>
-        @Html.ActionLink("Дорожная карта проекта", "PlanForProject", "Task", new { id = Model._id  }, null)
-    </li>
-    <li>Дорожная карта утверждена - нет</li>
-    <li>Дорожная карта пройдена - нет</li>
-    <li>Проект закончен - нет</li>
-</ul>
+            if ((int)Model.WorkflowState.CurrenState > 12)
+            {
+                menu.Add()
+                    .Text("Устранение ошибок >")
+                    .Items(item =>
+                    {
+                        item.Add().Text("План реализован без ошибок");
+                    });
+            }
+            if (Model.WorkflowState.CurrenState == ProjectStates.CloseProject)
+            {
+                menu.Add().Text("Проект завершен |");
+            }
+        })
+        .Render();
+}

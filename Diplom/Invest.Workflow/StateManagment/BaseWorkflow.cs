@@ -23,10 +23,10 @@ namespace Invest.Workflow.StateManagment
 
         public string CurrenState
         {
-            get { return Workflow.CurrenState; }
+            get { return Workflow.CurrenState.ToString(); }
             set
             {
-                Move(Workflow.CurrenState, value, "", CurrentCondiotions);
+                Move(Workflow.CurrenState.ToString(), value, "", CurrentCondiotions);
             }
         }
 
@@ -52,7 +52,6 @@ namespace Invest.Workflow.StateManagment
             {
                 Workflow = new WorkflowEntity();
             }
-            Workflow.CurrenState = initialState;
         }
 
         #endregion
@@ -82,24 +81,7 @@ namespace Invest.Workflow.StateManagment
                 }
             }
 
-            Workflow.ChangeHistory.Add(new History()
-            {
-                EditingTime = DateTime.Now,
-                FromState = from,
-                ToState = to,
-                Editor = editor
-            });
-
-            Workflow.CurrenState = to;
-
-            foreach (Func<bool> action in transition.MoveActionFuncs)
-            {
-                if (!action.Invoke())
-                {
-                    Workflow.CurrenState = from;
-                }
-            }
-
+          
             _context.SaveState(this);
         }
 

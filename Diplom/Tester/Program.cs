@@ -1,5 +1,7 @@
-﻿using Invest.Common.Model.User;
+﻿using Invest.Common.Model.ProjectModels;
+using Invest.Common.Model.User;
 using Invest.Common.Notification;
+using Invest.Common.State;
 using Invest.Workflow.Project;
 using Invest.Workflow.StateManagment;
 using System;
@@ -14,12 +16,9 @@ namespace Tester
     {
         static void Main(string[] args)
         {
-            MailNotification not = new MailNotification();
-            string userIdForm = "528f2f54e1859b3bec10aed3";
-            string userIdTo = "528a3243e1859b15a00ea527";
-            var userFrom = RepositoryContext.Current.GetOne<Users>(u => u._id == userIdForm);
-            var userTo = RepositoryContext.Current.GetOne<Users>(u => u._id == userIdTo);
-            //not.NotificateUser(userTo, userFrom, "test", "hi from test");
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == "525a925b61a6e01cb8d6e02d");
+            project.WorkflowState.CurrenState = ProjectStates.PlanRealiztion;
+            RepositoryContext.Current.Update(project);
             Console.Read();
         }
         //private static void GenerateDependendenciesValues()

@@ -19,8 +19,8 @@
             {
                 item.Text = task.Title + " осталось " + (task.Milestone - DateTime.Now).TotalDays.ToString("0.0") + " дней";
             }
-            item.Value = task.TaskId;
-            item.Url("/Task/TaskDetails/" + task.TaskId + "/" + project._id);
+            item.Value = task._id;
+            item.Url("/Task/TaskDetails/" + task._id + "/" + project._id);
         }).Children(t =>
                         {
                             if (t != null && t.SubTask != null)

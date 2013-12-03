@@ -1,0 +1,66 @@
+﻿@model Invest.Common.Model.ProjectModels.ProjectNotes
+@{
+    ViewBag.Title = "Create";
+}
+<h2>
+    Create</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ProjectNotes</legend>
+        @Html.HiddenFor(model => model.ProjectId)
+        @Html.HiddenFor(model => model._id)
+        @Html.HiddenFor(model => model.CretorName)
+        @Html.HiddenFor(model => model.CreatedTime)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NoteTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NoteTitle)
+            @Html.ValidationMessageFor(model => model.NoteTitle)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NoteBody)
+        </div>
+        <div class="editor-field">
+            @Html.Telerik().EditorFor(model => model.NoteBody).Localizable("ru-RU")
+            @Html.ValidationMessageFor(model => model.NoteBody)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CretorName)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.CretorName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedTime)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.CreatedTime)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CretorName)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.CretorName)
+        </div>
+        <div class="editor-field">
+            @Html.ListBoxFor(model => model.RolesForView, new SelectList(new List<string>() { "Admin", "User", "Investor" }))
+            @Html.ValidationMessageFor(model => model.RolesForView)
+        </div>
+        @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
+             .Save("Save", "Notes", new { id = Model._id })
+                 .Remove("Remove", "Notes", new { id = Model._id })
+            .AutoUpload(false)
+        ).Localizable("ru-RU")
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Ко всем записям", "Index") |
+    @Html.ActionLink("К записям по проекту", "Index")
+</div>

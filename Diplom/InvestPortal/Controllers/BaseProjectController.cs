@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
 using BusinessLogic.Managers;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
@@ -10,6 +11,7 @@ using InvestPortal.Models;
 using MongoDB.Bson;
 using MongoRepository;
 using Telerik.Web.Mvc;
+using Invest.Common.State;
 
 namespace InvestPortal.Controllers
 {
@@ -18,7 +20,7 @@ namespace InvestPortal.Controllers
         #region Private Fields
 
         private readonly IRepository _mongoRepository;
-        private readonly ProjectStateManager _projectStateManager;
+        private readonly ProjectStateManager _stateManager;
 
         #endregion
 
@@ -27,7 +29,30 @@ namespace InvestPortal.Controllers
         public BaseProjectController()
         {
             _mongoRepository = RepositoryContext.Current;
-            _projectStateManager = new ProjectStateManager();
+            _stateManager = new ProjectStateManager();
+        }
+
+        #endregion
+
+        #region Fill Project
+
+        public ActionResult FillProject(string id)
+        {
+            return View(RepositoryContext.Current.GetOne<Project>(p => p._id == id));
+        }
+
+        [HttpPost]
+        public ActionResult FillProject(Project model)
+        {
+            if (ModelState.IsValid)
+            {
+                RepositoryContext.Current.Update(model);
+                _stateManager.SetContext(User.Identity.Name,Roles.GetRolesForUser(User.Identity.Name));
+                _stateManager.FillProject(model._id);
+                RedirectToAction("WorkFlowForProject", "BaseProject", new {id = model._id});
+            }
+
+            return View(model);
         }
 
         #endregion
@@ -88,7 +113,7 @@ namespace InvestPortal.Controllers
 
         public ActionResult ToProject(string id)
         {
-            var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null && p.WorkflowState.CurrenState == GreenFieldStates.WaitForVerifyResponse);
+            var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null && p.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove);
             foreach (Project project in responsedProject)
             {
                 var investorResponse = project.Responses.FirstOrDefault(p => p.ResponseId == id);
@@ -102,7 +127,7 @@ namespace InvestPortal.Controllers
 
         public ActionResult ProcessVerifyResponse(string id)
         {
-            var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null && p.WorkflowState.CurrenState == GreenFieldStates.WaitForVerifyResponse);
+            var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null && p.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove);
             foreach (Project project in responsedProject)
             {
                 var investorResponse = project.Responses.FirstOrDefault(p => p.ResponseId == id);
@@ -124,19 +149,34 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_projectStateManager.ProcessVerifyResponse(model.ResponseProjectId,
+                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+                if (_stateManager.ProcessVerifyResponse(model.ResponseProjectId,
                     model.ResponseId,
                     User.Identity.Name,
                     model.UserName,
                     model.Password,
                     model.Email))
                 {
-                    return RedirectToAction("VerifyResponse");
+                    return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = model.ResponseProjectId });
                 }
 
                 return HttpNotFound();
             }
             return View(model);
+        }
+
+        public ActionResult UserApproveCompletion(string projectId)
+        {
+            _stateManager.SetContext(User.Identity.Name,Roles.GetRolesForUser(User.Identity.Name));
+            _stateManager.UserApproveCompletion(projectId);
+            return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = projectId });
+        }
+
+        public ActionResult AdminApproveCompletion(string projectId)
+        {
+            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+            _stateManager.AdminApproveCompletion(projectId);
+            return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = projectId });
         }
 
         #endregion
@@ -153,7 +193,8 @@ namespace InvestPortal.Controllers
         [GridAction]
         public ActionResult _DeleteAjaxEditing(string id)
         {
-            if (_projectStateManager.DeleteResponse(id, User.Identity.Name))
+            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+            if (_stateManager.DeleteResponse(id, User.Identity.Name))
             {
                 return View(new GridModel(InvestorResponses));
             }
@@ -186,10 +227,11 @@ namespace InvestPortal.Controllers
             get
             {
                 BindUsersAndRegions();
-
-                var responsedProject =
-                    RepositoryContext.Current.All<Project>(r => r.AssignUser == User.Identity.Name);
-                return responsedProject.ToList();
+                if (User.IsInRole("Investor"))
+                {
+                    return RepositoryContext.Current.All<Project>(r => r.InvestorUser == User.Identity.Name);
+                }
+                return RepositoryContext.Current.All<Project>(r => r.AssignUser == User.Identity.Name);
             }
         }
 
@@ -199,7 +241,7 @@ namespace InvestPortal.Controllers
             {
                 var responsedProject =
                     RepositoryContext.Current.All<Project>(
-                        r => r.Responses != null && r.WorkflowState.CurrenState == GreenFieldStates.WaitForVerifyResponse);
+                        r => r.Responses != null && r.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove);
                 var model = new List<InvestorResponse>();
                 foreach (var project in responsedProject)
                 {

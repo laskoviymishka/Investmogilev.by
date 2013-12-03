@@ -19,11 +19,11 @@
             <li>
                 <div>@Html.ActionLink("Скачать " + (addInfo as DocumentAdditionalInfo).InfoName,
                                               "Download",
-                                              new { taskId = Model.TaskId, projectId = ViewBag.ProjectId, infoId = addInfo._id })
+                                              new { taskId = Model._id, projectId = ViewBag.ProjectId, infoId = addInfo._id })
                     |
-                    @Html.ActionLink("Изменить документ", "EditDocumentInfo", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId, infoId = addInfo._id })
+                    @Html.ActionLink("Изменить документ", "EditDocumentInfo", new { taskId = Model._id, projectId = ViewBag.ProjectId, infoId = addInfo._id })
                     |
-                    @Html.ActionLink("Удалить документ", "Remove", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId, infoId = addInfo._id })</div>
+                    @Html.ActionLink("Удалить документ", "Remove", new { taskId = Model._id, projectId = ViewBag.ProjectId, infoId = addInfo._id })</div>
                 <div> @Html.Raw(HttpUtility.HtmlDecode(addInfo.InfoValue))</div>
             </li>
                 }
@@ -34,7 +34,7 @@
         Добавить документ к задаче:
     </div>
     @Html.Telerik().Upload().Name("attachments").ShowFileList(true).Multiple(true).Async(async => async
-    .Save("Save", "Task", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId, infoId = ObjectId.GenerateNewId().ToString() })
+    .Save("Save", "Task", new { taskId = Model._id, projectId = ViewBag.ProjectId, infoId = ObjectId.GenerateNewId().ToString() })
     .AutoUpload(false)).Localizable("ru-RU").ClientEvents(c => c
                 .OnSuccess("onSuccess")
         )

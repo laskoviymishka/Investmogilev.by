@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
+using Invest.Common.State;
 
 namespace Invest.Common.Model.ProjectModels
 {
     public class WorkflowEntity 
     {
-        public string CurrenState { get; set; }
+        public ProjectStates CurrenState { get; set; }
         public IList<History> ChangeHistory { get; set; }
 
 
         public override string ToString()
         {
-            return CurrenState;
+            return CurrenState.ToString();
         }
     }
 }

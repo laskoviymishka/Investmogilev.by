@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{428DB588-80CB-47FF-BDDE-D8739CCCD8EC}</Project>
+      <Name>BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Invest.Common\Invest.Common.csproj">
       <Project>{8F5582F4-1EAD-4FE3-990D-36D18FA234D8}</Project>
       <Name>Invest.Common</Name>

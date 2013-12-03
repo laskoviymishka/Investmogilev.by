@@ -64,3 +64,6 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\ru\
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Stateless.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Stateless.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Stateless.xml

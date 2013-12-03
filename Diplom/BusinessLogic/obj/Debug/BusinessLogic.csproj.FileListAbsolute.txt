@@ -22,3 +22,6 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\De
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\Stateless.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\Stateless.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\Stateless.xml

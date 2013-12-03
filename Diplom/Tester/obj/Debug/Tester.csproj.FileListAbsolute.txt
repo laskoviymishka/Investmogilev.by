@@ -35,3 +35,8 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Mon
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.exe
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\BusinessLogic.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Stateless.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\BusinessLogic.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Stateless.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Stateless.xml

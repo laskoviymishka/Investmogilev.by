@@ -1,4 +1,4 @@
-﻿@model InvestPortal.Models.EditTaskViewModel
+﻿@model Invest.Common.Model.ProjectModels.Task
 @{
     ViewBag.Title = "Информация о задаче";
 }
@@ -59,8 +59,8 @@
     else
     {
         <div>
-        @Html.ActionLink("Дополнительная информация о задаче", "AdditionalInfo", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId })|
-        @Html.ActionLink("Редакировать", "TaskEdit", new { taskId = Model.TaskId, projectId = ViewBag.ProjectId })|
+        @Html.ActionLink("Дополнительная информация о задаче", "AdditionalInfo", new { taskId = Model._id, projectId = ViewBag.ProjectId })|
+        @Html.ActionLink("Редакировать", "TaskEdit", new { taskId = Model._id, projectId = ViewBag.ProjectId })|
         @Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId })|
         @Html.ActionLink("К моим задачам", "MyTask")|
         </div>

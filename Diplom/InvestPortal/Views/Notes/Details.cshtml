@@ -1,0 +1,61 @@
+﻿@using Invest.Common.Model.Common
+@model Invest.Common.Model.ProjectModels.ProjectNotes
+@{
+    ViewBag.Title = "Details";
+}
+<h2>
+    Details</h2>
+<fieldset>
+    <legend>ProjectNotes</legend>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model._id)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model._id)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.ProjectId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProjectId)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.NoteTitle)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NoteTitle)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.NoteBody)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NoteBody)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.CretorName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CretorName)
+    </div>
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.CreatedTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedTime)
+    </div>
+    <div class="display-label">
+        Приложения
+    </div>
+    @if (Model.NoteDocument != null)
+    {
+        foreach (var item in Model.NoteDocument)
+        {
+        <li>@Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
+                                              "Download",
+                                               new { noteId = Model._id, docId = item._id })</li>
+        }
+    }
+</fieldset>
+<p>
+    @Html.ActionLink("Назад к списку", "Index")
+</p>

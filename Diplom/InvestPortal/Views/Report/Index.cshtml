@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Invest.Common.Model.ProjectModels.Task>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Index</h2>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Milestone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompletedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsComplete)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsVerifiedComplete)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsLate)
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Milestone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompletedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsComplete)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsVerifiedComplete)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsLate)
+            </td>
+            <td>
+                @Html.ActionLink("Подробнее о задании", "Details", new { id = item._id }) |
+                @if (!item.IsComplete)
+                {
+                    @Html.ActionLink("Отчет по заданию", "CreateReport", new { id = item._id })
+                }
+            </td>
+        </tr>
+    }
+</table>

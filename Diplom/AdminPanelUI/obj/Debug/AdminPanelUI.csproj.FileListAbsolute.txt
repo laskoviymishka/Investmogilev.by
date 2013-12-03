@@ -80,3 +80,6 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\ru\
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\AdminPanelUI.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\AdminPanelUI.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Stateless.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Stateless.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Stateless.xml

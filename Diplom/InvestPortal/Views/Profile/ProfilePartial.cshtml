@@ -5,6 +5,26 @@
 {
     Html.Telerik().PanelBar().Name("PanelBar").HtmlAttributes(new { style = "width: 99%; float: left; margin-bottom: 30px;" }).ExpandMode(PanelBarExpandMode.Multiple).SelectedIndex(0).Items(item =>
         {
+            if (User.IsInRole("Investor"))
+            {
+                item.Add()
+                    .Text("Мои отчеты")
+                    .Items(subItem =>
+                        {
+                            subItem.Add().Text("Все отчеты").Url("/Report/");
+                        }
+                    );
+            }
+            else
+            {
+                item.Add()
+                    .Text("Мои отчеты")
+                    .Items(subItem =>
+                        {
+                            subItem.Add().Text("Все отчеты").Url("/ReportReview/");
+                        }
+                    );
+            }
             item.Add()
                 .Text("Мои проекты")
                 .Items(subItem =>
@@ -24,6 +44,10 @@
                 .Items(subItem =>
                     {
                         subItem.Add()
+                                .Text(string.Format("Новые уведомелния {0}", Model.UnReadNotification)).Url("/Notification/");
+                        subItem.Add()
+                                .Text("Все уведомления").Url("/Notification/All");
+                        subItem.Add()
                                .Text("Все сообщения").Url("/Message/");
                         subItem.Add()
                                .Text("Непрочитанные сообщения " + Model.UnreadMessages).Url("/Message/Unreaded");
@@ -35,19 +59,6 @@
                                 .Text("Отправленные непрочитанные сообщения").Url("/Message/UnreadedSent");
                     }
                 );
-            item.Add()
-                .Text("Контакты")
-                .Items((subItem) =>
-                    {
-                        subItem.Add()
-                               .Text("Мои контакты");
-                        subItem.Add()
-                               .Text("Адресса");
-                        subItem.Add()
-                               .Text("Телефоны");
-                        subItem.Add()
-                               .Text("Общие контакты");
-                    });
             item.Add()
                 .Text("Задачи")
                 .Items((subItem) =>
@@ -66,20 +77,9 @@
                 .Items((subItem) =>
                     {
                         subItem.Add()
-                               .Text("Мои пометки");
-                        subItem.Add()
-                               .Text("Список пометок");
-                        subItem.Add()
-                               .Text("Общие пометки");
-                        subItem.Add()
-                               .Text("Архив");
+                               .Text("Мои пометки").Url("/Notes/All");
                     });
         }).ExpandAll(true).Render();
-    //Html.Telerik().PanelBar()
-    //   .Name("PanelBar1")
-    //   .HtmlAttributes(new { style = "width: 99%;" })
-    //   .BindTo("Invest")
-    //   .Render();
 }
 else
 {

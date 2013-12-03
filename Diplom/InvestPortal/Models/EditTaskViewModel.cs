@@ -17,10 +17,7 @@ namespace InvestPortal.Models
             this.IsVerifiedComplete = task.IsVerifiedComplete;
             this.Milestone = task.Milestone;
             this.MoreInfo = task.MoreInfo;
-            this.SubTask = task.SubTask;
-            this.TaskId = task.TaskId;
+            this._id = task._id;
         }
-
-        public string ProjectId { get; set; }
     }
 }

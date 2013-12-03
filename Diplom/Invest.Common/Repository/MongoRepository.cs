@@ -46,7 +46,7 @@ namespace Invest.Common.Repository
 
         public void Delete<T>(T item) where T : IMongoEntity
         {
-            _db.GetCollection(typeof(T).Name).Remove(Query.EQ("_id", item._id));
+            _db.GetCollection(typeof(T).Name).Remove(Query.EQ("_id", item._id),RemoveFlags.Single);
         }
 
         public void DeleteAll<T>() where T : IMongoEntity

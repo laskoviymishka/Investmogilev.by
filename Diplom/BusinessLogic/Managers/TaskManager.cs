@@ -30,26 +30,8 @@ namespace BusinessLogic.Managers
 
         public IEnumerable<Task> GetAllTask(string userName)
         {
-            var projects = UserProjects(userName);
-            if (!projects.Any())
-            {
-                projects = InvestorProjects(userName);
-            }
             var result = new List<Task>();
-            if (projects != null)
-            {
-                foreach (Project project in projects)
-                {
-                    if (project.Tasks != null && project.Tasks.Any())
-                    {
-                        foreach (var task in project.Tasks)
-                        {
-                            result.AddRange(CollectSubTasks(task));
-                        }
-                    }
-                }
-            }
-
+            result.AddRange(RepositoryContext.Current.All<Task>(t => t.AssignUser == userName));
             return result;
         }
 
@@ -81,14 +63,17 @@ namespace BusinessLogic.Managers
         public void UpdateTask(Task task, string projectId)
         {
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
-            var initialTask = HandleTreeItems(project.Tasks, task.TaskId);
-            initialTask.CompletedOn = task.CompletedOn;
+            var initialTask = HandleTreeItems(project.Tasks, task._id);
             initialTask.Description = task.Description;
             initialTask.Title = task.Title;
-            initialTask.IsComplete = task.IsComplete;
+            if (task.IsComplete)
+            {
+                initialTask.IsComplete = task.IsComplete;
+                initialTask.CompletedOn = DateTime.Now;
+            }
             initialTask.IsVerifiedComplete = task.IsVerifiedComplete;
             initialTask.Milestone = task.Milestone;
-            RepositoryContext.Current.Update(project);
+            RepositoryContext.Current.Update(initialTask);
             _notification.UpdateNotficationForUser(project.AssignUser);
             _notification.UpdateNotficationForUser(project.InvestorUser);
         }
@@ -96,34 +81,10 @@ namespace BusinessLogic.Managers
         public bool CreateTask(Task task, string projectId, string parentId)
         {
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
-            if (projectId == parentId)
-            {
-                if (project.Tasks == null)
-                {
-                    project.Tasks = new List<Task>();
-                }
-                project.Tasks.Add(task);
-                RepositoryContext.Current.Update(project);
-            }
-            else
-            {
-                var parentTask = HandleTreeItems(project.Tasks, parentId);
-                if (parentTask != null)
-                {
-                    if (parentTask.SubTask == null)
-                    {
-                        parentTask.SubTask = new List<Task>();
-                    }
-                    parentTask.SubTask.Add(task);
-                }
-                else
-                {
-                    return false;
-                }
-
-                RepositoryContext.Current.Update(project);
-            }
-
+            task.ProjectId = projectId;
+            task.ParentId = parentId;
+            task.AssignUser = project.AssignUser;
+            RepositoryContext.Current.Add(task);
             _notification.UpdateNotficationForUser(project.AssignUser);
             _notification.UpdateNotficationForUser(project.InvestorUser);
             return true;
@@ -206,12 +167,12 @@ namespace BusinessLogic.Managers
             foreach (Task node in nodes)
             {
                 Task parentNode;
-                if (node.TaskId == id)
+                if (node._id == id)
                 {
                     parentNode = node;
                     return parentNode;
                 }
-                if (node.SubTask == null || node.SubTask.Count <= 0) continue;
+                if (node.SubTask == null || node.SubTask.Count() <= 0) continue;
                 parentNode = HandleTreeItems(node.SubTask, id);
                 if (parentNode != null)
                 {

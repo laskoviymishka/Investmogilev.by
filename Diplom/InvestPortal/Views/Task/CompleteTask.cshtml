@@ -9,11 +9,11 @@
 {
     if (project.Tasks != null && project.Tasks.Any())
     {
-    @Html.Telerik().TreeView().Name("TreeView" + project._id).BindTo(project.Tasks.Where(t => t.IsComplete), mapping => mapping.For<Task>(binding => binding.ItemDataBound((item, task) =>
+    @Html.Telerik().TreeView().Name("TreeView" + project._id).BindTo(project.Tasks.Where(t => (t.IsComplete) || t.SubTask != null && t.SubTask.Any(st => st.IsComplete)), mapping => mapping.For<Task>(binding => binding.ItemDataBound((item, task) =>
         {
             item.Text = task.Title;
-            item.Value = task.TaskId;
-            item.Url("/Task/TaskDetails/" + task.TaskId + "/" + project._id);
+            item.Value = task._id;
+            item.Url("/Task/TaskDetails/" + task._id + "/" + project._id);
         }).Children(t =>
                         {
                             if (t != null && t.SubTask != null)
