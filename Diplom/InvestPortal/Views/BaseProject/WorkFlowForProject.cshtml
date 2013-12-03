@@ -20,18 +20,7 @@
                     }
                     else
                     {
-                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAssignee && User.IsInRole("Admin"))
-                        {
-                            item.Add().Text("Назначить ответственного проект").Url("~/UserManager/AssignUser/" + Model._id);
-                        }
-                        else
-                        {
-                            item.Add().Text("Ответственный за проект - " + Model.AssignUser);
-                        }
-                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForInvestor)
-                        {
-                            item.Add().Text("В ожидании инвестора");
-                        }
+
                         if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove && User.IsInRole("Admin"))
                         {
                             item.Add().Text("Обработать заявку").Items(subitem =>
@@ -55,12 +44,26 @@
                             }
                             else
                             {
-                                item.Add().Text(string.Format(
-                                            "Инвестор {0} {1} {2} login - {3}",
-                                            Model.Responses[0].InvestorLastName,
-                                            Model.Responses[0].InvestorFirstName,
-                                            Model.Responses[0].InvestorMiddleName,
-                                            Model.InvestorUser));
+                                if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAssignee && User.IsInRole("Admin"))
+                                {
+                                    item.Add().Text("Назначить ответственного проект").Url("~/UserManager/AssignUser/" + Model._id);
+                                }
+                                else
+                                {
+                                    if (Model.WorkflowState.CurrenState == ProjectStates.WaitForInvestor)
+                                    {
+                                        item.Add().Text("Ожидаем инвестора");
+                                    }
+                                    else
+                                    {
+                                        item.Add().Text(string.Format(
+                                                  "Инвестор {0} {1} {2} login - {3}",
+                                                  Model.Responses[0].InvestorLastName,
+                                                  Model.Responses[0].InvestorFirstName,
+                                                  Model.Responses[0].InvestorMiddleName,
+                                                  Model.InvestorUser));
+                                    }
+                                }
                             }
                         }
                     }

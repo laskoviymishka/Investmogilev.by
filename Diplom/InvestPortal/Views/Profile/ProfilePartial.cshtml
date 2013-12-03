@@ -12,6 +12,7 @@
                     .Items(subItem =>
                         {
                             subItem.Add().Text("Все отчеты").Url("/Report/");
+                            subItem.Add().Text("Новые отчеты").Url("/Report/UnCompleted");
                         }
                     );
             }
@@ -22,6 +23,7 @@
                     .Items(subItem =>
                         {
                             subItem.Add().Text("Все отчеты").Url("/ReportReview/");
+                            subItem.Add().Text("Новые отчеты").Url("/ReportReview/UnVerified");
                         }
                     );
             }

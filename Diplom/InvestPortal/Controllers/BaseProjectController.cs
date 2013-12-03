@@ -46,10 +46,19 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                RepositoryContext.Current.Update(model);
+                var initial = RepositoryContext.Current.GetOne<Project>(t => t._id == model._id);
+                initial.Name = model.Name;
+                initial.Description = model.Description;
+                initial.AddressName = model.AddressName;
+                initial.Contact = model.Contact;
+                initial.Region = model.Region;
+                initial.Address.Lat = model.Address.Lat;
+                initial.Address.Lng = model.Address.Lng;
+
+                RepositoryContext.Current.Update(initial);
                 _stateManager.SetContext(User.Identity.Name,Roles.GetRolesForUser(User.Identity.Name));
                 _stateManager.FillProject(model._id);
-                RedirectToAction("WorkFlowForProject", "BaseProject", new {id = model._id});
+                return RedirectToAction("WorkFlowForProject", "BaseProject", new {id = model._id});
             }
 
             return View(model);

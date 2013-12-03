@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Invest.Common.Model.Common;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -17,13 +18,32 @@ namespace Invest.Common.Model.ProjectModels
             set;
         }
 
+        [Display(Name = "Имя проекта")]
+        [Required(ErrorMessage = "Введите имя проекта")]
         public string Name { get; set; }
+
+        [Display(Name = "Описание проекта")]
+        [Required(ErrorMessage = "Введите описание проекта")]
         public string Description { get; set; }
+
+        [Display(Name = "Координаты")]
+        [Required(ErrorMessage = "Координаты проекта обязательны")]
         public Address Address { get; set; }
+
+        [Display(Name = "Адрес")]
+        [Required(ErrorMessage = "Введите правильный адрес")]
         public string AddressName { get; set; }
+
+        [Display(Name = "Контакт")]
+        [Required(ErrorMessage = "Введите контактные данные")]
         public string Contact { get; set; }
+
+        [Display(Name = "Регион")]
+        [Required(ErrorMessage = "Введите регион")]
         public string Region { get; set; }
         public string[] Mentors { get; set; }
+
+        [Display(Name = "Ответственные")]
         public string AssignUser { get; set; }
         public string WorkflowId { get; set; }
         public string InvestorUser

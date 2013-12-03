@@ -34,6 +34,24 @@ namespace InvestPortal.Controllers
             return View(result);
         }
 
+        public ActionResult UnComplete()
+        {
+            var projects = RepositoryContext.Current.All<Project>(
+                p =>
+                    p.InvestorUser == User.Identity.Name &&
+                    p.WorkflowState.CurrenState == ProjectStates.PlanRealiztion);
+
+            var result = new List<Task>();
+            foreach (Project project in projects)
+            {
+                if (project.Tasks != null)
+                {
+                    result.AddRange(CollectLeaf(project.Tasks.ToList()));
+                }
+            }
+            return View(result.Where(p => !p.IsComplete));
+        }
+
         public IList<Task> CollectLeaf(IList<Task> item)
         {
             var result = new List<Task>();

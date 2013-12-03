@@ -1025,6 +1025,8 @@
     <Content Include="Views\BaseProject\FillProject.cshtml" />
     <Content Include="Views\Notes\All.cshtml" />
     <Content Include="Views\ReportReview\Details.cshtml" />
+    <Content Include="Views\Report\UnComplete.cshtml" />
+    <Content Include="Views\ReportReview\UnVerified.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

@@ -42,6 +42,17 @@ namespace InvestPortal.Controllers
             return View(model);
         }
 
+        public ActionResult UnVerified()
+        {
+            var tasks = RepositoryContext.Current.All<Task>(t => t.AssignUser == User.Identity.Name && t.Reports != null && t.Reports.Any());
+            var model = new List<TaskReport>();
+            foreach (Task task in tasks.Where(t => !t.IsVerifiedComplete))
+            {
+                model.AddRange(task.Reports);
+            }
+            return View(model);
+        }
+
         public ActionResult Details(string taskId)
         {
             var task = RepositoryContext.Current.GetOne<Task>(p => p._id == taskId);

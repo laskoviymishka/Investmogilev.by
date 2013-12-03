@@ -76,16 +76,9 @@ namespace InvestPortal.Controllers
         [HttpPost]
         public ActionResult AssignUser(Project model)
         {
-            if (ModelState.IsValid)
-            {
-                _stateManager.SetContext(User.Identity.Name,Roles.GetRolesForUser(User.Identity.Name));
-                _stateManager.AssignProjectToUser(model._id, model.AssignUser);
-                return RedirectToAction("UnUsignedProject");
-            }
-            else
-            {
-                return View(model);
-            }
+            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+            _stateManager.AssignProjectToUser(model._id, model.AssignUser);
+            return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
         }
 
         #endregion
