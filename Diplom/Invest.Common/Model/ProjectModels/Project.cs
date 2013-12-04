@@ -46,6 +46,8 @@ namespace Invest.Common.Model.ProjectModels
         [Display(Name = "Ответственные")]
         public string AssignUser { get; set; }
         public string WorkflowId { get; set; }
+
+        [Display(Name = "Инвестор")]
         public string InvestorUser
         {
             get
@@ -71,12 +73,13 @@ namespace Invest.Common.Model.ProjectModels
         public WorkflowEntity WorkflowState { get; set; }
 
         [BsonIgnore]
+        [Display(Name = "Тип проекта")]
         public string ProjectType
         {
             get { return this.GetType().Name; }
         }
 
-        public IList<InvestorResponse> Responses { get; set; }
+        public List<InvestorResponse> Responses { get; set; }
 
         [BsonIgnore]
         public IEnumerable<ProjectNotes> Notes

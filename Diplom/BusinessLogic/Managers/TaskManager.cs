@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using BusinessLogic.Notification;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
 using MongoRepository;
@@ -11,13 +9,6 @@ namespace BusinessLogic.Managers
 {
     public class TaskManager
     {
-        private readonly PortalNotificationHub _notification;
-
-        public TaskManager()
-        {
-            _notification = new PortalNotificationHub();
-        }
-
         public IEnumerable<Project> UserProjects(string userName)
         {
             return RepositoryContext.Current.All<Project>(p => p.AssignUser.ToLower() == userName.ToLower());
@@ -32,21 +23,6 @@ namespace BusinessLogic.Managers
         {
             var result = new List<Task>();
             result.AddRange(RepositoryContext.Current.All<Task>(t => t.AssignUser == userName));
-            return result;
-        }
-
-        private IEnumerable<Task> CollectSubTasks(Task task)
-        {
-            var result = new List<Task>();
-            if (task.SubTask == null || !task.SubTask.Any())
-            {
-                result.Add(task);
-                return result;
-            }
-            foreach (var subTask in task.SubTask)
-            {
-                result.AddRange(CollectSubTasks(subTask));
-            }
             return result;
         }
 
@@ -74,8 +50,6 @@ namespace BusinessLogic.Managers
             initialTask.IsVerifiedComplete = task.IsVerifiedComplete;
             initialTask.Milestone = task.Milestone;
             RepositoryContext.Current.Update(initialTask);
-            _notification.UpdateNotficationForUser(project.AssignUser);
-            _notification.UpdateNotficationForUser(project.InvestorUser);
         }
 
         public bool CreateTask(Task task, string projectId, string parentId)
@@ -85,8 +59,6 @@ namespace BusinessLogic.Managers
             task.ParentId = parentId;
             task.AssignUser = project.AssignUser;
             RepositoryContext.Current.Add(task);
-            _notification.UpdateNotficationForUser(project.AssignUser);
-            _notification.UpdateNotficationForUser(project.InvestorUser);
             return true;
         }
 

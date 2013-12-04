@@ -36,12 +36,10 @@ namespace BusinessLogic.Notification
                 }
 
                 RepositoryContext.Current.Update(message);
-                _notification.UpdateNotficationForUser(message.To);
             }
             else
             {
                 RepositoryContext.Current.Add(message);
-                _notification.UpdateNotficationForUser(message.To);
             }
         }
 

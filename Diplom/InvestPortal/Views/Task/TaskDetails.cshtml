@@ -1,4 +1,5 @@
-﻿@model Invest.Common.Model.ProjectModels.Task
+﻿@using Invest.Common.Model.Common
+@model Invest.Common.Model.ProjectModels.Task
 @{
     ViewBag.Title = "Информация о задаче";
 }
@@ -10,13 +11,12 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Title)
     </div>
-        <div class="display-field">
+    <div class="display-field">
         @Html.LabelFor(model => model.Description)
     </div>
     <div class="display-label">
         @Html.Raw(HttpUtility.HtmlDecode(Model.Description))
     </div>
-
     <div class="display-label">
         @Html.DisplayNameFor(model => model.Milestone)
     </div>
@@ -47,22 +47,43 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.IsLate)
     </div>
-</fieldset>
-<p>
     @if (Model.SubTask != null && Model.SubTask.Any())
     {
-        <div>
-        @Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId })|
-        @Html.ActionLink("К моим задачам", "MyTask")|
+        <div class="display-field">
+            Комплексеная задача. Подзадач: @Model.SubTask.Count()
         </div>
     }
-    else
+    <div class="display-label">
+        Документы прикрепленные к задаче:
+    </div>
+    <ul>
+        @if (Model.MoreInfo != null && Model.MoreInfo.Any())
+        {
+            foreach (var addInfo in Model.MoreInfo)
+            {
+                if (addInfo is DocumentAdditionalInfo)
+                {
+            <li>
+                <div>@Html.ActionLink("Скачать " + (addInfo as DocumentAdditionalInfo).InfoName,
+                                              "Download",
+                                              new { taskId = Model._id, projectId = ViewBag.ProjectId, infoId = addInfo._id })
+                    |
+                    @Html.ActionLink("Изменить документ", "EditDocumentInfo", new { taskId = Model._id, projectId = ViewBag.ProjectId, infoId = addInfo._id })
+                    |
+                    @Html.ActionLink("Удалить документ", "Remove", new { taskId = Model._id, projectId = ViewBag.ProjectId, infoId = addInfo._id })</div>
+                <div>
+                    @Html.Raw(HttpUtility.HtmlDecode(addInfo.InfoValue))</div>
+            </li>
+                }
+            }
+        }
+    </ul>
+</fieldset>
+<p>
+    @if (Model.SubTask == null || !Model.SubTask.Any())
     {
         <div>
-        @Html.ActionLink("Дополнительная информация о задаче", "AdditionalInfo", new { taskId = Model._id, projectId = ViewBag.ProjectId })|
-        @Html.ActionLink("Редакировать", "TaskEdit", new { taskId = Model._id, projectId = ViewBag.ProjectId })|
-        @Html.ActionLink("К дорожной карте проекта", "PlanForProject", new { id = ViewBag.ProjectId })|
-        @Html.ActionLink("К моим задачам", "MyTask")|
+            @Html.ActionLink("Редакировать", "TaskEdit", new { taskId = Model._id, projectId = ViewBag.ProjectId })|
         </div>
     }
 </p>

@@ -28,15 +28,6 @@ namespace BusinessLogic.Notification
 
         public PortalNotification Notification(string userName)
         {
-            if (!CahedUserNotificateInfo.ContainsKey(userName))
-            {
-                UpdateNotficationForUser(userName);
-            }
-            return CahedUserNotificateInfo[userName];
-        }
-
-        public void UpdateNotficationForUser(string userName)
-        {
             var tasks = TaskManager.GetAllTask(userName).ToArray();
             var portalNotification = new PortalNotification
             {
@@ -47,26 +38,7 @@ namespace BusinessLogic.Notification
                 PendingCompleteTask = tasks.Count(t => t.IsComplete && t.CompletedOn < t.Milestone),
                 UnReadNotification = RepositoryContext.Current.All<NotificationQueue>(n => n.UserName == userName && !n.IsRead).Count()
             };
-            if (CahedUserNotificateInfo.ContainsKey(userName))
-            {
-                CahedUserNotificateInfo[userName] = portalNotification;
-            }
-            else
-            {
-                CahedUserNotificateInfo.Add(userName, portalNotification);
-            }
-        }
-
-        public void NotificateStateChanged(string userName, string title, string body)
-        {
-            NotificationQueue notification = new NotificationQueue();
-            notification._id = ObjectId.GenerateNewId().ToString();
-            notification.IsRead = false;
-            notification.NotificationTime = DateTime.Now;
-            notification.NotificationTitle = title;
-            notification.NotigicationBody = body;
-            notification.UserName = userName;
-            RepositoryContext.Current.Add(notification);
+            return portalNotification;
         }
     }
 }

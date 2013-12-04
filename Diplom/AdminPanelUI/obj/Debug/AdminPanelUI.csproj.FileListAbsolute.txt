@@ -46,6 +46,7 @@ D:\develop\DiplomMap-master\Diplom\AdminPanelUI\bin\ru\EntityFramework.resources
 D:\develop\DiplomMap-master\Diplom\AdminPanelUI\obj\Debug\ResolveAssemblyReference.cache
 D:\develop\DiplomMap-master\Diplom\AdminPanelUI\obj\Debug\AdminPanelUI.dll
 D:\develop\DiplomMap-master\Diplom\AdminPanelUI\obj\Debug\AdminPanelUI.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\AdminPanelUI.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\AdminPanelUI.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\BusinessLogic.dll
@@ -63,6 +64,7 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Sys
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\System.Web.WebPages.Razor.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Telerik.Web.Mvc.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoDB.Driver.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Stateless.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\BusinessLogic.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Invest.Common.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\EntityFramework.xml
@@ -76,10 +78,8 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Sys
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\System.Web.WebPages.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\System.Web.WebPages.Razor.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\MongoDB.Driver.xml
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\ru\EntityFramework.resources.dll
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\AdminPanelUI.dll
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\AdminPanelUI.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Stateless.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Stateless.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\Stateless.xml
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\bin\ru\EntityFramework.resources.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\AdminPanelUI.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\AdminPanelUI\obj\Debug\AdminPanelUI.pdb

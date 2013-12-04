@@ -145,6 +145,27 @@ namespace BusinessLogic.Managers
             return true;
         }
 
+        public bool ProcessVerifyResponse(string responseProjectId,
+            string responseId,
+            string editorUserName,
+            string investorUserName)
+        {
+            var project = RepositoryContext.Current.GetOne<Project>(r => r._id == responseProjectId);
+            if (project == null)
+            {
+                return false;
+            }
+            var response = project.Responses.FirstOrDefault(r => r.ResponseId == responseId);
+
+            if (response != null) response.IsVerified = true;
+
+            project.Responses = new List<InvestorResponse>() { response };
+            project.InvestorUser = investorUserName;
+            RepositoryContext.Current.Update(project);
+            StateManager(responseProjectId).Fire(ProjectTriggers.ApproveInvestorByAdmin);
+            return true;
+        }
+
         public bool DeleteResponse(string responseId, string editorUser)
         {
             var investorResponse = InvestorResponses.FirstOrDefault(p => p.ResponseId == responseId);
@@ -222,5 +243,6 @@ namespace BusinessLogic.Managers
         {
             StateManager(projectId).Fire(ProjectTriggers.ApprovePlanCompleteByAdmin);
         }
+
     }
 }

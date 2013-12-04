@@ -52,13 +52,12 @@ namespace InvestPortal.Controllers
                 initial.AddressName = model.AddressName;
                 initial.Contact = model.Contact;
                 initial.Region = model.Region;
-                initial.Address.Lat = model.Address.Lat;
-                initial.Address.Lng = model.Address.Lng;
+                initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
 
                 RepositoryContext.Current.Update(initial);
-                _stateManager.SetContext(User.Identity.Name,Roles.GetRolesForUser(User.Identity.Name));
+                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
                 _stateManager.FillProject(model._id);
-                return RedirectToAction("WorkFlowForProject", "BaseProject", new {id = model._id});
+                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
             }
 
             return View(model);
@@ -74,6 +73,11 @@ namespace InvestPortal.Controllers
         }
 
         public ActionResult WorkFlowForProject(string id)
+        {
+            return View(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));
+        }
+
+        public ActionResult ProjectInfo(string id)
         {
             return View(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));
         }
@@ -140,14 +144,26 @@ namespace InvestPortal.Controllers
             foreach (Project project in responsedProject)
             {
                 var investorResponse = project.Responses.FirstOrDefault(p => p.ResponseId == id);
-                if (investorResponse != null && investorResponse.IsVerified == false)
+                if (investorResponse != null)
                 {
-                    var model = new InvestorRegisterModel();
-                    model.Email = investorResponse.InvestorEmail;
-                    model.ResponseId = id;
-                    model.ResponseProjectId = project._id;
-                    model.Password = ObjectId.GenerateNewId().ToString().Substring(0, 5);
-                    return View(model);
+                    if (string.IsNullOrEmpty(investorResponse.ExistingUser))
+                    {
+                        var model = new InvestorRegisterModel();
+                        model.Email = investorResponse.InvestorEmail;
+                        model.ResponseId = id;
+                        model.ResponseProjectId = project._id;
+                        model.Password = ObjectId.GenerateNewId().ToString().Substring(0, 5);
+                        return View(model);
+                    }
+
+                    _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+                    if (_stateManager.ProcessVerifyResponse(investorResponse.ResponsedProjectId,
+                        investorResponse.ResponseId,
+                        User.Identity.Name,
+                        investorResponse.ExistingUser))
+                    {
+                        return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = investorResponse.ResponsedProjectId });
+                    }
                 }
             }
             return HttpNotFound();
@@ -176,7 +192,7 @@ namespace InvestPortal.Controllers
 
         public ActionResult UserApproveCompletion(string projectId)
         {
-            _stateManager.SetContext(User.Identity.Name,Roles.GetRolesForUser(User.Identity.Name));
+            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
             _stateManager.UserApproveCompletion(projectId);
             return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = projectId });
         }

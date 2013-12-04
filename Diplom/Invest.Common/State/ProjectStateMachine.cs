@@ -19,88 +19,6 @@ namespace Invest.Common.State
 
         #endregion
 
-        #region Action On Entry
-
-        public Action OnOpenEntry { get; set; }
-        public Action OnWaitForAssigneeEntry { get; set; }
-        public Action OnWaitForInvestorEntry { get; set; }
-        public Action OnWaitForAdminInvesotApproveEntry { get; set; }
-        public Action OnWaitForInvestorResponseApproveEntry { get; set; }
-        public Action OnWaitForPlanEntry { get; set; }
-        public Action OnWaitForAdminPlanApproveEntry { get; set; }
-        public Action OnWaitForInvestorPlanApproveEntry { get; set; }
-        public Action OnPlanRealiztionEntry { get; set; }
-        public Action OnWaitForUserApproveCompletionEntry { get; set; }
-        public Action OnWaitForAdminApproveCompletionEntry { get; set; }
-        public Action OnWaitForDefectPlanEntry { get; set; }
-        public Action OnWaitForAdminDefectPlanApproveEntry { get; set; }
-        public Action OnWaitForInvestorDefectPlanApproveEntry { get; set; }
-        public Action OnDefectPlanRealizationEntry { get; set; }
-        public Action OnWaitForAdminApproveDefectPlanCompleteEntry { get; set; }
-        public Action OnCloseProjectEntry { get; set; }
-
-        #endregion
-
-        #region Guard Action Before Entry
-
-        public Func<bool> GuardOpenEntry { get; set; }
-        public Func<bool> GuardFillProject { get; set; }
-        public Func<bool> GuardAssigneeUser { get; set; }
-        public Func<bool> GuardApproveAssignUser { get; set; }
-        public Func<bool> GuardRejectAssignUser { get; set; }
-        public Func<bool> GuardResponseFromInvest { get; set; }
-        public Func<bool> GuardApproveInvestorByAdmin { get; set; }
-        public Func<bool> GuardApproveResponseByInvestor { get; set; }
-        public Func<bool> GuardCompleteFillPlan { get; set; }
-        public Func<bool> GuardApprovePlanByAdmin { get; set; }
-        public Func<bool> GuardApprovePlanByInvestor { get; set; }
-        public Func<bool> GuardRejectPlanByInvestor { get; set; }
-        public Func<bool> GuardCompletePlanRealization { get; set; }
-        public Func<bool> GuardApprovePlanCompleteByUser { get; set; }
-        public Func<bool> GuardApprovePlanCompleteByAdmin { get; set; }
-        public Func<bool> GuardRejectPlanCompleteByUser { get; set; }
-        public Func<bool> GuardRejectPlanCompleteByAdmin { get; set; }
-        public Func<bool> GuardCompleteDefectPlan { get; set; }
-        public Func<bool> GuardApproveCompleteDefectPlanByInvestor { get; set; }
-        public Func<bool> GuardApproveCompleteDefectPlanByAdmin { get; set; }
-        public Func<bool> GuardRejectCompleteDefectPlanByInvestor { get; set; }
-        public Func<bool> GuardRejectCompleteDefectPlanByAdmin { get; set; }
-        public Func<bool> GuardRejectInvestorByAdmin { get; set; }
-        public Func<bool> GuardRejectResponseByInvestor { get; set; }
-        public Func<bool> GuardRejectPlanByAdmin { get; set; }
-        public Func<bool> GuardApproveDefectPlanByAdmin { get; set; }
-        public Func<bool> GuardRejectDefectPlanByAdmin { get; set; }
-        public Func<bool> GuardApproveDefectPlanByInvestor { get; set; }
-        public Func<bool> GuardRejectDefectPlanByInvestor { get; set; }
-        public Func<bool> GuardApproveCompleteDefectPlanByUser { get; set; }
-        public Func<bool> GuardRejectCompleteDefectPlanByUser { get; set; }
-        public Func<bool> GuardFillDefectPlan { get; set; }
-
-        #endregion
-
-        #region Action On Exit
-
-        public Action OnOpenExit { get; set; }
-        public Action OnWaitForAssigneeExit { get; set; }
-        public Action OnWaitForInvestorExit { get; set; }
-        public Action OnWaitForAdminInvesotApproveExit { get; set; }
-        public Action OnWaitForInvestorResponseApproveExit { get; set; }
-        public Action OnWaitForPlanExit { get; set; }
-        public Action OnWaitForAdminPlanApproveExit { get; set; }
-        public Action OnWaitForInvestorPlanApproveExit { get; set; }
-        public Action OnPlanRealiztionExit { get; set; }
-        public Action OnWaitForUserApproveCompletionExit { get; set; }
-        public Action OnWaitForAdminApproveCompletionExit { get; set; }
-        public Action OnWaitForDefectPlanExit { get; set; }
-        public Action OnWaitForAdminDefectPlanApproveExit { get; set; }
-        public Action OnWaitForInvestorDefectPlanApproveExit { get; set; }
-        public Action OnDefectPlanRealizationExit { get; set; }
-        public Action OnWaitForUserApproveDefectPlanExit { get; set; }
-        public Action OnWaitForAdminApproveDefectPlanCompleteExit { get; set; }
-        public Action OnCloseProjectExit { get; set; }
-
-        #endregion
-
         #region Constructor
 
         public ProjectStateMachine(Project project, string userName, string[] userRole)
@@ -111,10 +29,10 @@ namespace Invest.Common.State
             if (_currentProject.WorkflowState == null)
             {
                 _currentProject.WorkflowState = new WorkflowEntity()
-                    {
-                        ChangeHistory = new List<History>(),
-                        CurrenState = ProjectStates.Open
-                    };
+                {
+                    ChangeHistory = new List<History>(),
+                    CurrenState = ProjectStates.Open
+                };
             }
             _stateMachine = new StateMachine<ProjectStates, ProjectTriggers>(_currentProject.WorkflowState.CurrenState);
             ApplyEntryMethods();
@@ -125,15 +43,15 @@ namespace Invest.Common.State
 
         private void Configure()
         {
-            _stateMachine.Configure(ProjectStates.Open)
-                         .OnEntry(() => { if (OnOpenEntry != null) OnOpenEntry(); })
-                         .OnExit(() => { if (OnOpenExit != null) OnOpenExit(); })
-                         .PermitIf(ProjectTriggers.FillProject, ProjectStates.WaitForAssignee, GuardFillProject);
-
             _stateMachine.Configure(ProjectStates.WaitForAssignee)
                          .OnEntry(() => { if (OnWaitForAssigneeEntry != null) OnWaitForAssigneeEntry(); })
                          .OnExit(() => { if (OnWaitForAssigneeExit != null) OnWaitForAssigneeExit(); })
-                         .PermitIf(ProjectTriggers.AssigneeUser, ProjectStates.WaitForInvestor, GuardAssigneeUser);
+                         .PermitIf(ProjectTriggers.AssigneeUser, ProjectStates.Open, GuardFillProject);
+
+            _stateMachine.Configure(ProjectStates.Open)
+                         .OnEntry(() => { if (OnOpenEntry != null) OnOpenEntry(); })
+                         .OnExit(() => { if (OnOpenExit != null) OnOpenExit(); })
+                         .PermitIf(ProjectTriggers.FillProject, ProjectStates.WaitForInvestor, GuardAssigneeUser);
 
             _stateMachine.Configure(ProjectStates.WaitForInvestor)
                          .OnEntry(() => { if (OnWaitForInvestorEntry != null) OnWaitForInvestorEntry(); })
@@ -229,7 +147,7 @@ namespace Invest.Common.State
 
         private void ApplyEntryMethods()
         {
-            OnOpenEntry = () => { };
+            OnOpenEntry = () => MoveState(ProjectStates.Open);
             OnWaitForAssigneeEntry = () => MoveState(ProjectStates.WaitForAssignee);
             OnWaitForInvestorEntry = () => MoveState(ProjectStates.WaitForInvestor);
             OnWaitForAdminInvesotApproveEntry = () => MoveState(ProjectStates.WaitForAdminInvestorApprove);
@@ -307,6 +225,88 @@ namespace Invest.Common.State
 
         #endregion
 
+        #region Action On Entry
+
+        public Action OnOpenEntry { get; set; }
+        public Action OnWaitForAssigneeEntry { get; set; }
+        public Action OnWaitForInvestorEntry { get; set; }
+        public Action OnWaitForAdminInvesotApproveEntry { get; set; }
+        public Action OnWaitForInvestorResponseApproveEntry { get; set; }
+        public Action OnWaitForPlanEntry { get; set; }
+        public Action OnWaitForAdminPlanApproveEntry { get; set; }
+        public Action OnWaitForInvestorPlanApproveEntry { get; set; }
+        public Action OnPlanRealiztionEntry { get; set; }
+        public Action OnWaitForUserApproveCompletionEntry { get; set; }
+        public Action OnWaitForAdminApproveCompletionEntry { get; set; }
+        public Action OnWaitForDefectPlanEntry { get; set; }
+        public Action OnWaitForAdminDefectPlanApproveEntry { get; set; }
+        public Action OnWaitForInvestorDefectPlanApproveEntry { get; set; }
+        public Action OnDefectPlanRealizationEntry { get; set; }
+        public Action OnWaitForAdminApproveDefectPlanCompleteEntry { get; set; }
+        public Action OnCloseProjectEntry { get; set; }
+
+        #endregion
+
+        #region Guard Action Before Entry
+
+        public Func<bool> GuardOpenEntry { get; set; }
+        public Func<bool> GuardFillProject { get; set; }
+        public Func<bool> GuardAssigneeUser { get; set; }
+        public Func<bool> GuardApproveAssignUser { get; set; }
+        public Func<bool> GuardRejectAssignUser { get; set; }
+        public Func<bool> GuardResponseFromInvest { get; set; }
+        public Func<bool> GuardApproveInvestorByAdmin { get; set; }
+        public Func<bool> GuardApproveResponseByInvestor { get; set; }
+        public Func<bool> GuardCompleteFillPlan { get; set; }
+        public Func<bool> GuardApprovePlanByAdmin { get; set; }
+        public Func<bool> GuardApprovePlanByInvestor { get; set; }
+        public Func<bool> GuardRejectPlanByInvestor { get; set; }
+        public Func<bool> GuardCompletePlanRealization { get; set; }
+        public Func<bool> GuardApprovePlanCompleteByUser { get; set; }
+        public Func<bool> GuardApprovePlanCompleteByAdmin { get; set; }
+        public Func<bool> GuardRejectPlanCompleteByUser { get; set; }
+        public Func<bool> GuardRejectPlanCompleteByAdmin { get; set; }
+        public Func<bool> GuardCompleteDefectPlan { get; set; }
+        public Func<bool> GuardApproveCompleteDefectPlanByInvestor { get; set; }
+        public Func<bool> GuardApproveCompleteDefectPlanByAdmin { get; set; }
+        public Func<bool> GuardRejectCompleteDefectPlanByInvestor { get; set; }
+        public Func<bool> GuardRejectCompleteDefectPlanByAdmin { get; set; }
+        public Func<bool> GuardRejectInvestorByAdmin { get; set; }
+        public Func<bool> GuardRejectResponseByInvestor { get; set; }
+        public Func<bool> GuardRejectPlanByAdmin { get; set; }
+        public Func<bool> GuardApproveDefectPlanByAdmin { get; set; }
+        public Func<bool> GuardRejectDefectPlanByAdmin { get; set; }
+        public Func<bool> GuardApproveDefectPlanByInvestor { get; set; }
+        public Func<bool> GuardRejectDefectPlanByInvestor { get; set; }
+        public Func<bool> GuardApproveCompleteDefectPlanByUser { get; set; }
+        public Func<bool> GuardRejectCompleteDefectPlanByUser { get; set; }
+        public Func<bool> GuardFillDefectPlan { get; set; }
+
+        #endregion
+
+        #region Action On Exit
+
+        public Action OnOpenExit { get; set; }
+        public Action OnWaitForAssigneeExit { get; set; }
+        public Action OnWaitForInvestorExit { get; set; }
+        public Action OnWaitForAdminInvesotApproveExit { get; set; }
+        public Action OnWaitForInvestorResponseApproveExit { get; set; }
+        public Action OnWaitForPlanExit { get; set; }
+        public Action OnWaitForAdminPlanApproveExit { get; set; }
+        public Action OnWaitForInvestorPlanApproveExit { get; set; }
+        public Action OnPlanRealiztionExit { get; set; }
+        public Action OnWaitForUserApproveCompletionExit { get; set; }
+        public Action OnWaitForAdminApproveCompletionExit { get; set; }
+        public Action OnWaitForDefectPlanExit { get; set; }
+        public Action OnWaitForAdminDefectPlanApproveExit { get; set; }
+        public Action OnWaitForInvestorDefectPlanApproveExit { get; set; }
+        public Action OnDefectPlanRealizationExit { get; set; }
+        public Action OnWaitForUserApproveDefectPlanExit { get; set; }
+        public Action OnWaitForAdminApproveDefectPlanCompleteExit { get; set; }
+        public Action OnCloseProjectExit { get; set; }
+
+        #endregion
+
         #region Approvals
 
         private bool ApproveForAdmin()
@@ -333,15 +333,26 @@ namespace Invest.Common.State
 
         #endregion
 
+        #region Public Methdods
+
+        public void Fire(ProjectTriggers trigger)
+        {
+            _stateMachine.Fire(trigger);
+        }
+
+        #endregion
+
+        #region Private Helpers
+
         private void MoveState(ProjectStates to)
         {
             var history = new History
-                {
-                    FromState = _currentProject.WorkflowState.CurrenState,
-                    ToState = to,
-                    Editor = _userName,
-                    EditingTime = DateTime.Now
-                };
+            {
+                FromState = _currentProject.WorkflowState.CurrenState,
+                ToState = to,
+                Editor = _userName,
+                EditingTime = DateTime.Now
+            };
 
             _currentProject.WorkflowState.CurrenState = to;
             if (_currentProject.WorkflowState.ChangeHistory == null)
@@ -359,34 +370,32 @@ namespace Invest.Common.State
         private void NotificationQueueAdd(History history, string notificateUser)
         {
             var notification = new NotificationQueue
-                {
-                    _id = ObjectId.GenerateNewId().ToString(),
-                    IsRead = false,
-                    NotificationTime = DateTime.Now,
-                    NotificationTitle = string.Format(
-                        "Состояние проекта {0} изменилось с {1} на {2}",
-                        _currentProject.Name,
-                        history.FromState,
-                        history.ToState),
-                    NotigicationBody = string.Format(
-                        "Состояние проекта {0} изменилось с {1} на {2} пользователем {3} в {4}",
-                        _currentProject.Name,
-                        history.FromState,
-                        history.ToState,
-                        _userName,
-                        history.EditingTime),
-                    UserName = notificateUser
-                };
+            {
+                _id = ObjectId.GenerateNewId().ToString(),
+                IsRead = false,
+                NotificationTime = DateTime.Now,
+                NotificationTitle = string.Format(
+                    "Состояние проекта {0} изменилось с {1} на {2}",
+                    _currentProject.Name,
+                    history.FromState,
+                    history.ToState),
+                NotigicationBody = string.Format(
+                    "Состояние проекта {0} изменилось с {1} на {2} пользователем {3} в {4}",
+                    _currentProject.Name,
+                    history.FromState,
+                    history.ToState,
+                    _userName,
+                    history.EditingTime),
+                UserName = notificateUser
+            };
 
             RepositoryContext.Current.Add(notification);
         }
 
-
-        public void Fire(ProjectTriggers trigger)
-        {
-            _stateMachine.Fire(trigger);
-        }
+        #endregion
     }
+
+    #region Project State Enums
 
     public enum ProjectStates
     {
@@ -442,4 +451,6 @@ namespace Invest.Common.State
         RejectCompleteDefectPlanByAdmin,
         RejectCompleteDefectPlanByUser,
     }
+
+    #endregion
 }

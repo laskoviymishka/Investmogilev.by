@@ -16,9 +16,13 @@ namespace Tester
     {
         static void Main(string[] args)
         {
-            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == "525a925b61a6e01cb8d6e02d");
-            project.WorkflowState.CurrenState = ProjectStates.PlanRealiztion;
-            RepositoryContext.Current.Update(project);
+            int counter = 1;
+            var projects = RepositoryContext.Current.All<Project>();
+            foreach (Project project in projects)
+            {
+                Console.WriteLine(project.GetType());
+                Console.WriteLine(counter++);
+            }
             Console.Read();
         }
         //private static void GenerateDependendenciesValues()

@@ -15,7 +15,6 @@
             item.Value = task._id;
         }).Children(t => t.SubTask))).ExpandAll(true)
 }
-@Html.Telerik().Window().Name("Window").Title("Добавить подзадачу").Buttons(buttons => buttons.Refresh().Maximize().Close()).Content("<div id='Content'></div>").Width(450).Height(450).Draggable(true).Modal(true).Visible(false)
 @if (Model.WorkflowState.CurrenState == ProjectStates.WaitForPlan)
 {
     <input type="button" value="Добавить ключевую точку" onclick=" addCoreTask() "/>
@@ -58,6 +57,39 @@
 }
 else
 {
-    <strong>Невозможно создать план (проверьте статус проекта)</strong>
+    <script type="text/javascript">
+        var selectedNodeValue;
+        var lookupWindow;
+        $(document).ready(function () {
+            $('#TreeView').bind('select', function (e) {
+                selectedNodeValue = $(e.item).closest('.t-item').find(':input[name*="Value"]').val();
+                ShowLookupWindow(selectedNodeValue);
+            });
+        });
+
+        function ShowLookupWindow(param) {
+            var link = '/Task/TaskDetails/' + param + '/@Model._id';
+            lookupWindow = $.telerik.window.create({
+                name: "LookupWindow",
+                title: "Информация о задаче",
+                html: "<div><img src='http://localhost:52641/Content/2013.2.611/Metro/loading.gif'/></div>",
+                contentUrl: link,
+                modal: true,
+                resizable: true,
+                draggable: true,
+                width: 700,
+                height: 750,
+                minHeight: 250,
+                minWidth: 250,
+                maxHeight: 500,
+                maxWidth: 500,
+                onClose: function (e) {
+                    e.preventDefault();
+                    lookupWindow.data('tWindow').destroy();
+                }
+            });
+            lookupWindow.data('tWindow').center().open();
+        }
+    </script>
 }
 

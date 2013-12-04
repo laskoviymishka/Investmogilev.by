@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Authentication;
 using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic.Managers;
@@ -9,6 +10,7 @@ using Invest.Workflow.Project;
 using Invest.Workflow.StateManagment;
 using MongoDB.Bson;
 using MongoRepository;
+using InvestPortal.Models;
 
 namespace InvestPortal.Controllers
 {
@@ -67,8 +69,27 @@ namespace InvestPortal.Controllers
             if (ModelState.IsValid)
             {
                 _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-                _stateManager.ResponseToProject(response, User.Identity.Name);
+                if (!string.IsNullOrEmpty(response.ExistingUser))
+                {
+                    var project = RepositoryContext.Current.GetOne<Project>(p => p.InvestorUser == response.ExistingUser);
+                    if (project != null)
+                    {
+                        response.InvestorEmail = project.Responses[0].InvestorEmail;
+                        response.InvestorFirstName = project.Responses[0].InvestorFirstName;
+                        response.InvestorLastName = project.Responses[0].InvestorLastName;
+                        response.InvestorMiddleName = project.Responses[0].InvestorMiddleName;
+                        response.InvestorOrganizationName = project.Responses[0].InvestorOrganizationName;
+                        response.InvestorPhone = project.Responses[0].InvestorPhone;
+                        response.AdditionalInfo = project.Responses[0].AdditionalInfo;
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("ExistingUser", new AuthenticationException("пользователь не существует"));
+                        return View(response);
+                    }
+                }
 
+                _stateManager.ResponseToProject(response, User.Identity.Name);
                 return RedirectToAction("Index");
             }
             return View(response);
@@ -77,7 +98,7 @@ namespace InvestPortal.Controllers
         [Authorize(Roles = "Investor")]
         public ActionResult ApproveResponse(string id)
         {
-            _stateManager.SetContext(User.Identity.Name,Roles.GetRolesForUser(User.Identity.Name));
+            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
             _stateManager.ApproveResponseByInvestor(id);
             return RedirectToAction("Index");
         }

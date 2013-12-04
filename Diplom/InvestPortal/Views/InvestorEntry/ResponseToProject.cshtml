@@ -1,21 +1,18 @@
 ﻿@model Invest.Common.Model.ProjectModels.InvestorResponse
-
 @{
     ViewBag.Title = "Отклик на проект";
 }
-
-<h2>Ваш отклик на проект</h2>
-
-@using (Html.BeginForm()) {
+<h2>
+    Ваш отклик на проект</h2>
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Отклик</legend>
-
         <div class="editor-label">
             @Html.HiddenFor(model => model.ResponseId)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.ResponseDate)
         </div>
@@ -23,7 +20,6 @@
             @Html.DisplayFor(model => model.ResponseDate)
             @Html.ValidationMessageFor(model => model.ResponseDate)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.InvestorFirstName)
         </div>
@@ -31,7 +27,6 @@
             @Html.EditorFor(model => model.InvestorFirstName)
             @Html.ValidationMessageFor(model => model.InvestorFirstName)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.InvestorMiddleName)
         </div>
@@ -39,7 +34,6 @@
             @Html.EditorFor(model => model.InvestorMiddleName)
             @Html.ValidationMessageFor(model => model.InvestorMiddleName)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.InvestorLastName)
         </div>
@@ -47,7 +41,6 @@
             @Html.EditorFor(model => model.InvestorLastName)
             @Html.ValidationMessageFor(model => model.InvestorLastName)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.InvestorOrganizationName)
         </div>
@@ -55,7 +48,6 @@
             @Html.EditorFor(model => model.InvestorOrganizationName)
             @Html.ValidationMessageFor(model => model.InvestorOrganizationName)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.InvestorEmail)
         </div>
@@ -63,7 +55,6 @@
             @Html.EditorFor(model => model.InvestorEmail)
             @Html.ValidationMessageFor(model => model.InvestorEmail)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.InvestorPhone)
         </div>
@@ -71,7 +62,6 @@
             @Html.EditorFor(model => model.InvestorPhone)
             @Html.ValidationMessageFor(model => model.InvestorPhone)
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.AdditionalInfo)
         </div>
@@ -79,14 +69,18 @@
             @Html.EditorFor(model => model.AdditionalInfo)
             @Html.ValidationMessageFor(model => model.AdditionalInfo)
         </div>
-
         <div class="editor-field">
             @Html.HiddenFor(model => model.ResponsedProjectId)
         </div>
-
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExistingUser)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ExistingUser)
+            @Html.ValidationMessageFor(model => model.ExistingUser)
+        </div>
         <p>
             <input type="submit" value="Отправить" />
         </p>
     </fieldset>
 }
-

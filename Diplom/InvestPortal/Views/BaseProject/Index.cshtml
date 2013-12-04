@@ -14,7 +14,9 @@
         .Items(menu =>
             {
                 menu.Add()
-                    .Text("Подготовка проекта >")
+                    .Text(string.Format("Проект {0} ->", project.Name)).HtmlAttributes(new { style = "width:20%", onClick = "ShowLookupWindow('" + project._id + "')" });
+                menu.Add()
+                    .Text("Подготовка проекта >").HtmlAttributes(new { style = "width:20%" })
                     .Items(item =>
                         {
                             if (project.WorkflowState.CurrenState == ProjectStates.Open)
@@ -36,7 +38,7 @@
                                                     response.InvestorLastName,
                                                     response.InvestorFirstName,
                                                     response.InvestorMiddleName))
-                                                       .Url("~/BaseProject/ProcessVerifyResponse/" + project._id);
+                                                       .Url("~/BaseProject/ProcessVerifyResponse/" + response.ResponseId);
                                             }
                                         });
                                 }
@@ -77,7 +79,7 @@
                         });
                 if ((int)project.WorkflowState.CurrenState > 5)
                 {
-                    menu.Add()
+                    menu.Add().HtmlAttributes(new { style = "width:20%" })
                         .Text("Реализация проекта >")
                         .Items(item =>
                             {
@@ -124,7 +126,7 @@
                 }
                 if ((int)project.WorkflowState.CurrenState > 12)
                 {
-                    menu.Add()
+                    menu.Add().HtmlAttributes(new { style = "width:20%" })
                         .Text("Устранение ошибок >")
                         .Items(item =>
                             {
@@ -133,10 +135,50 @@
                 }
                 if (project.WorkflowState.CurrenState == ProjectStates.CloseProject)
                 {
-                    menu.Add().Text("Проект завершен |");
+                    menu.Add().Text("Проект завершен |").HtmlAttributes(new { style = "width:19%" });
                 }
             })
         .Render();
         }
     </div>
 }
+
+<script type="text/javascript">
+    var selectedNodeValue;
+    var lookupWindow;
+    $(document).ready(function () {
+        $('#TreeView').bind('select', function (e) {
+            selectedNodeValue = $(e.item).closest('.t-item').find(':input[name*="Value"]').val();
+            ShowLookupWindow(selectedNodeValue);
+        });
+    });
+    
+    function onSelect(e) {
+        var item = $(e.item);
+        selectedNodeValue = item;
+    }
+    
+    function ShowLookupWindow(param) {
+        var link = '/BaseProject/ProjectInfo/' + param;
+        lookupWindow = $.telerik.window.create({
+            name: "LookupWindow",
+            title: "Информация о проекте",
+            html: "<div><img src='http://localhost:52641/Content/2013.2.611/Metro/loading.gif'/></div>",
+            contentUrl: link,
+            modal: true,
+            resizable: true,
+            draggable: true,
+            width: 700,
+            height: 750,
+            minHeight: 250,
+            minWidth: 250,
+            maxHeight: 500,
+            maxWidth: 500,
+            onClose: function (e) {
+                e.preventDefault();
+                lookupWindow.data('tWindow').destroy();
+            }
+        });
+        lookupWindow.data('tWindow').center().open();
+    }
+</script>

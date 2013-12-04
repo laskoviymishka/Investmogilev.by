@@ -4,7 +4,21 @@
 @if (User.Identity.IsAuthenticated)
 {
     Html.Telerik().PanelBar().Name("PanelBar").HtmlAttributes(new { style = "width: 99%; float: left; margin-bottom: 30px;" }).ExpandMode(PanelBarExpandMode.Multiple).SelectedIndex(0).Items(item =>
-        {
+    {
+            item.Add()
+                .Text("Мои проекты")
+                .Items(subItem =>
+                {
+                    subItem.Add().Text("Мои на проекты").Url("/BaseProject/");
+                    if (User.IsInRole("Admin"))
+                    {
+                        subItem.Add().Text("Отклики на проекты").Url("/BaseProject/VerifyResponse");
+                        subItem.Add().Text("Назначение ответственных").Url("/UserManager/UnUsignedProject");
+                    }
+                    subItem.Add().Text("Greenfield проекты").Url("/GreenField/");
+                    subItem.Add().Text("Все проекты").Url("/BaseProject/All");
+                }
+                );
             if (User.IsInRole("Investor"))
             {
                 item.Add()
@@ -27,20 +41,6 @@
                         }
                     );
             }
-            item.Add()
-                .Text("Мои проекты")
-                .Items(subItem =>
-                    {
-                        subItem.Add().Text("Мои на проекты").Url("/BaseProject/");
-                        if (User.IsInRole("Admin"))
-                        {
-                            subItem.Add().Text("Отклики на проекты").Url("/BaseProject/VerifyResponse");
-                            subItem.Add().Text("Назначение ответственных").Url("/UserManager/UnUsignedProject");
-                        }
-                        subItem.Add().Text("Greenfield проекты").Url("/GreenField/");
-                        subItem.Add().Text("Все проекты").Url("/BaseProject/All");
-                    }
-                );
             item.Add()
                 .Text("Уведомление")
                 .Items(subItem =>
@@ -88,3 +88,4 @@ else
 
     Html.RenderAction("Login", "Account");
 }
+@Html.ActionLink("Выйти","LogOff","Account")
