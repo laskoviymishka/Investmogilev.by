@@ -52,11 +52,11 @@ function ProjectsFilterViewModel (projectListViewModel) {
 
 	self.SelectedTypes.push(new FilterViewModel("BrownField", "img/factoryClear.png", self))
 	self.SelectedTypes.push(new FilterViewModel("GreenField" , "img/constructioncraneClear.png", self))
-	self.SelectedTypes.push(new FilterViewModel("UnUsedBuilding", "img/office-buildingClear.png", self))
+	self.SelectedTypes.push(new FilterViewModel("UnusedBuilding", "img/office-buildingClear.png", self))
 
 	self.AllTypes.push(new FilterViewModel("BrownField", "img/factoryClear.png", self))
 	self.AllTypes.push(new FilterViewModel("GreenField" , "img/constructioncraneClear.png", self))
-	self.AllTypes.push(new FilterViewModel("UnUsedBuilding", "img/office-buildingClear.png", self))
+	self.AllTypes.push(new FilterViewModel("UnusedBuilding", "img/office-buildingClear.png", self))
 
 	self.FilterChanged = function (argument) {
 		prlVM.UpdateFilter(self)

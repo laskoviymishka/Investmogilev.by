@@ -126,4 +126,46 @@
         </fieldset>
         }
     }
+    @if (Model.Notes != null && Model.Notes.Any())
+    {
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes.ToList()[0].NoteTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes.ToList()[0].NoteBody)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes.ToList()[0].CretorName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes.ToList()[0].CreatedTime)
+                </th>
+            </tr>
+            @foreach (var item in Model.Notes)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item._id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NoteTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NoteBody)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CretorName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedTime)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
 </fieldset>

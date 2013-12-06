@@ -1,5 +1,5 @@
 ﻿function ProjectRepository () {
-	var getGeoJsonString = 'http://tserakhau.cloudapp.net//InvestProjects/ProjectGeoJSON'
+    var getGeoJsonString = 'http://investmogilev.azurewebsites.net/InvestProjects/ProjectGeoJSON'
 
 	this.GetAllGeoJson = function  (callback) {
 		$.ajax({

@@ -67,3 +67,6 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Sta
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\ru\EntityFramework.resources.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\WebActivatorEx.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Antlr3.Runtime.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\System.Web.Optimization.xml

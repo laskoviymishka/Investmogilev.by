@@ -16,6 +16,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,12 +36,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MongoDB.Bson, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -51,6 +59,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -66,9 +78,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <Private>True</Private>
@@ -95,9 +104,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
@@ -116,6 +122,13 @@
     </Reference>
     <Reference Include="Telerik.Web.Mvc">
       <HintPath>..\..\..\..\..\AppData\Roaming\Telerik\Updates\Telerik_Extensions_for_ASPNET_MVC_2013_2_611_OpenSource_hotfix\Binaries\Mvc3\Telerik.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0.4\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -152,14 +165,6 @@
     <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
-    </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -348,11 +353,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\MetroUICSSBundleConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseProjectController.cs" />
     <Compile Include="Controllers\GreenFieldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvestorEntryController.cs" />
+    <Compile Include="Controllers\InvestProjectsController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
@@ -368,6 +375,7 @@
     <Compile Include="Models\BaseProjectViewModel.cs" />
     <Compile Include="Models\DocumentForTaskViewModel.cs" />
     <Compile Include="Models\EditTaskViewModel.cs" />
+    <Compile Include="Models\RegionDropDownViewModel.cs" />
     <Compile Include="Models\SubTaskViewModel.cs" />
     <Compile Include="Models\UserManagereViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -582,6 +590,10 @@
     <Content Include="Content\2013.2.611\Windows7\slider-v.gif" />
     <Content Include="Content\2013.2.611\Windows7\sprite-vertical.png" />
     <Content Include="Content\2013.2.611\Windows7\sprite.png" />
+    <Content Include="Content\metro-ui\css\metro-bootstrap-responsive.css" />
+    <Content Include="Content\metro-ui\css\metro-bootstrap.css" />
+    <Content Include="Content\metro-ui\fonts\iconFont.dev.svg" />
+    <Content Include="Content\metro-ui\fonts\iconFont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\2013.2.611\jquery-1.7.1.min.js" />
     <Content Include="Scripts\2013.2.611\jquery.validate.min.js" />
@@ -614,9 +626,9 @@
     <Content Include="Scripts\2013.2.611\telerik.upload.min.js" />
     <Content Include="Scripts\2013.2.611\telerik.window.min.js" />
     <Content Include="Scripts\gmaps.js" />
-    <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-1.10.2-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -626,6 +638,35 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\metro-ui\jquery.ui.widget.js" />
+    <Content Include="Scripts\metro-ui\metro-accordion.js" />
+    <Content Include="Scripts\metro-ui\metro-button-set.js" />
+    <Content Include="Scripts\metro-ui\metro-calendar.js" />
+    <Content Include="Scripts\metro-ui\metro-carousel.js" />
+    <Content Include="Scripts\metro-ui\metro-core.js" />
+    <Content Include="Scripts\metro-ui\metro-countdown.js" />
+    <Content Include="Scripts\metro-ui\metro-date-format.js" />
+    <Content Include="Scripts\metro-ui\metro-datepicker.js" />
+    <Content Include="Scripts\metro-ui\metro-dialog.js" />
+    <Content Include="Scripts\metro-ui\metro-drag-tile.js" />
+    <Content Include="Scripts\metro-ui\metro-dropdown.js" />
+    <Content Include="Scripts\metro-ui\metro-fluentmenu.js" />
+    <Content Include="Scripts\metro-ui\metro-hint.js" />
+    <Content Include="Scripts\metro-ui\metro-input-control.js" />
+    <Content Include="Scripts\metro-ui\metro-listview.js" />
+    <Content Include="Scripts\metro-ui\metro-live-tile.js" />
+    <Content Include="Scripts\metro-ui\metro-notify.js" />
+    <Content Include="Scripts\metro-ui\metro-plugin-template.js" />
+    <Content Include="Scripts\metro-ui\metro-progressbar.js" />
+    <Content Include="Scripts\metro-ui\metro-rating.js" />
+    <Content Include="Scripts\metro-ui\metro-slider.js" />
+    <Content Include="Scripts\metro-ui\metro-stepper.js" />
+    <Content Include="Scripts\metro-ui\metro-streamer.js" />
+    <Content Include="Scripts\metro-ui\metro-tab-control.js" />
+    <Content Include="Scripts\metro-ui\metro-table.js" />
+    <Content Include="Scripts\metro-ui\metro-times.js" />
+    <Content Include="Scripts\metro-ui\metro-touch-handler.js" />
+    <Content Include="Scripts\metro-ui\metro-treeview.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1000,6 +1041,10 @@
     <Content Include="Views\Task\EditDocumentInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\metro-ui\fonts\iconFont.eot" />
+    <None Include="Content\metro-ui\fonts\iconFont.json" />
+    <None Include="Content\metro-ui\fonts\iconFont.ttf" />
+    <None Include="Content\metro-ui\fonts\iconFont.woff" />
     <None Include="Properties\PublishProfiles\investmogilev - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\investmogilev - Web Deploy.pubxml" />
     <Content Include="Views\UserManager\CreateUser.cshtml" />
@@ -1029,6 +1074,12 @@
     <Content Include="Views\Report\UnComplete.cshtml" />
     <Content Include="Views\ReportReview\UnVerified.cshtml" />
     <Content Include="Views\BaseProject\ProjectInfo.cshtml" />
+    <Content Include="Views\InvestProjects\PopUpDetailsBrownField.cshtml" />
+    <Content Include="Views\InvestProjects\PopUpDetailsGreenField.cshtml" />
+    <Content Include="Views\InvestProjects\PopUpDetailsUnUsedBuilding.cshtml" />
+    <Content Include="Views\InvestProjects\PartialTable.cshtml" />
+    <None Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Shared\_NewLayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
@@ -1047,7 +1098,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52641</DevelopmentServerPort>
+          <DevelopmentServerPort>53235</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -3,7 +3,7 @@ var map
 var projects
 var selectedRegion = ''
     $.ajax({
-        url: 'http://tserakhau.cloudapp.net//InvestProjects/ListOfProjects?callback=jQuery110205763436721172184_1381677318690&_=1381677318691',
+        url: 'http://investmogilev.azurewebsites.net/InvestProjects/ProjectGeoJson?callback=jQuery110205763436721172184_1381677318690&_=1381677318691',
         dataType: 'html',
         success: function (data) {
             //$('#moduleProjecs').html(data);
@@ -97,7 +97,6 @@ function HideCheckedLayers() {
     document.getElementById("demographicSelected").className = "badge hidden"
     document.getElementById("integralSelected").className = "badge hidden"
 }
-
 function openPopUp(e, type) {
     $('#popupContainer').html('');
     Avgrund.show("#default-popup");

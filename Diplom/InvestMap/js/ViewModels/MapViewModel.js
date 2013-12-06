@@ -9,7 +9,10 @@
 	self.ProjectList = ko.observableArray()
 	self.Markers = ko.observableArray()
 	self.Layer = ko.observable()
-
+	self.MapViewCss = ko.observable('btn btn-primary')
+	self.GridViewCss = ko.observable('btn btn-default')
+	self.MapViewVisible = ko.observable('')
+	self.GridViewVisible = ko.observable('hidden')
 
 	self.gLayer = new google.maps.FusionTablesLayer({
         map: map,
@@ -38,13 +41,27 @@
 			marker.InitMarker(map)
 			google.maps.event.addListener(marker.gMarker, 'click', function (e) {
 	            for (var i = 0; i < argument.length; i++) {
-	                if (argument[i].Lat().toPrecision(8) == e.latLng.lb.toPrecision(8)  && argument[i].Lng().toPrecision(8)  == e.latLng.mb.toPrecision(8) ) {
+	                if (argument[i].Lat().toFixed(5) == e.latLng.lat().toFixed(5) && argument[i].Lng().toFixed(5) == e.latLng.lng().toFixed(5)) {
 	                    self.OpenPopUp(argument[i]._id(), argument[i].Type())
 	                }
 	            }
 	        });
 			self.Markers.push(marker)
 		};
+	}
+
+	self.SetMapView = function (argument) {
+		self.MapViewCss('btn btn-primary')
+		self.GridViewCss('btn btn-default')
+		self.GridViewVisible('hidden')
+		self.MapViewVisible('')
+	}
+
+	self.SetGreedView = function (argument) {
+		self.MapViewCss('btn btn-default')
+		self.GridViewCss('btn btn-primary')
+		self.GridViewVisible('')
+		self.MapViewVisible('hidden')
 	}
 
 	self.SetLayer = function (argument) {
@@ -62,7 +79,9 @@
 
 	self.OpenPopUp = function (e, type) {
 	    $('#popupContainer').html('');
-	    linkToDetails = 'http://tserakhau.cloudapp.net//InvestProjects/PopUpDetails' + type.toString() + '/' + e.toString()
+	    linkToDetails = 'http://investmogilev.azurewebsites.net/InvestProjects/PopUpDetails' + type.toString() + '/' + e.toString()
+	    linkToResponse = 'http://investmogilev.azurewebsites.net/InvestorEntry/ResponseToProject/' + e.toString()
+	    $("#popupLink").attr("href", linkToResponse)
 		loadStart()
 	    $.ajax({
 	        url: linkToDetails,
@@ -172,10 +191,7 @@ var mapvm = new MapViewModel(map)
 var plvm  = new ProjectListViewModel(pr,mapvm)
 var layerListViewModel = new LayerListViewModel(dataForLayers, mapvm)
 var pfvm = new ProjectsFilterViewModel(plvm)
-var rvm = new RegionViewModel(regionRepository)
 mapvm.Initialize()
-rvm.Set(dataForRegions[5])
 ko.applyBindings(mapvm, document.getElementById("MapView"));
 ko.applyBindings(layerListViewModel, document.getElementById("LayerView"));
 ko.applyBindings(pfvm, document.getElementById("ProjectFilterView"));
-ko.applyBindings(rvm, document.getElementById("RegionInfoView"));

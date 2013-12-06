@@ -6,12 +6,13 @@
     <!-- Bootstrap -->
     <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="app.css" rel="stylesheet" media="screen">
     <link href="css/avgrund.css" rel="stylesheet" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="../../assets/js/html5shiv.js"></script>
-    <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
+	<script src="../../assets/js/html5shiv.js"></script>
+	<script src="../../assets/js/respond.min.js"></script>
+	<![endif]-->
 </head>
 <body>
     <div>
@@ -25,12 +26,8 @@
                                     <h3 class="panel-title">
                                         Текущий слой карты</h3>
                                 </div>
-                                <div class="panel-body" data-bind='style: { backgroundColor: SelectedLayerCss }'
+                                <div class="panel-body" data-bind='style: { backgroundColor: SelectedLayerCss }, text: SelectedLayerName'
                                     style="color: #F0FFFF">
-                                    <button data-bind='click: LayerRemove' style="float: right" class="btn btn-xs">
-                                        X</button>
-                                    <div data-bind='text: SelectedLayerName'>
-                                    </div>
                                 </div>
                             </div>
                             <div class="btn-group-vertical">
@@ -76,128 +73,34 @@
                     </div>
                     <div id="MapView" data-bind="attr: { class: Css }">
                         <div class="map-container">
-                            <div id="googft-mapCanvas">
+                            <div data-bind="attr: { class: GridViewVisible }" id="test" style="height: 100%">
+                                <iframe src="http://investmogilev.azurewebsites.net/InvestProjects/PartialTable" width="100%" height="100%">
+                                </iframe>
                             </div>
+                            <div id="googft-mapCanvas" data-bind="attr: { class: MapViewVisible }">
+                            </div>
+                        </div>
+                        <div data-bind="attr: { class: MapViewCss }, click: SetMapView">
+                            Карта</div>
+                        <div data-bind="attr: { class: GridViewCss }, click: SetGreedView">
+                            Данные по регионам</div>
+                    </div>
+                    <div id="right" class="hidden">
+                        <div id="RegionInfoView">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="right" class="hidden">
-        </div>
         <div class="loader more">
-            <div id="RegionInfoView">
-                <h1 data-bind="text: RegionName"></h1>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                Динамика агрегированные показатели
-                            </th>
-                            <th>
-                                Интегральный показатель
-                            </th>
-                            <th>
-                                Частные показатели
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody data-bind="foreach: Parametrs">
-                        <tr>
-                            <td style="width: 40%">
-                                <div style="height: 300px; width: auto" data-bind="dxChart: {           
-                                    dataSource: DependAbsoluteValues,
-                                    series: [{ valueField: 'Value', argumentField: 'Year', type: 'area' },
-                                    { valueField: 'Value', argumentField: 'Year', type: 'Spline' }],
-                                    argumentAxis :{
-                                    grid: {
-                                        visible: true
-                                    }
-                                    },
-                                    legend: {
-                                    visible: false
-                                    },
-                                    title: Name,
-                                    tooltip:{
-                                    enabled: true
-                                    },
-                                    animation: { enabled: true },
-                                    renderOptions : {
-                                        force: true,
-                                        animate: true,
-                                        asyncSeriesRendering: false
-                                    }
-                                }">
-                                </div>
-                            </td>
-                            <td>
-                                <p data-bind='text: Name'></p>
-                                <div data-bind='text: IntegralValue'>
-                                </div>
-                                <div class="btn btn-default" data-bind="click: ShowChilds">
-                                    Показать подробную информацию
-                                </div>
-                            </td>
-                            <td style="width: 40%">
-                                <div style="display: none;" data-bind="attr: { id: Name().replace(/ /g, '') }">
-                                    <table >
-                                        <tbody data-bind="foreach: ChildParametrs">
-                                            <tr>
-                                                <td style="width: 75%">
-                                                    <div data-bind="attr: { id: Id }">
-                                                        <div style="height: 300px; width: auto" data-bind="dxChart: {           
-                                                        dataSource: Values,
-                                                        series: [{ valueField: 'Value', argumentField: 'Year', type: 'area' }
-                                                        ,{ valueField: 'Value', argumentField: 'Year', type: 'Spline' }],
-                                                        argumentAxis :{
-                                                        grid: {
-                                                            visible: true
-                                                        }
-                                                        },
-                                                        legend: {
-                                                        visible: false
-                                                        },
-                                                        title: Name() + ' (Абсолютные значения)',
-                                                        tooltip:{
-                                                        enabled: true
-                                                        },
-                                                        animation: { enabled: false },
-                                                        renderOptions : {
-                                                            force: true,
-                                                            animate: true,
-                                                            asyncSeriesRendering: false
-                                                        }
-                                                    }">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td style="width: 20%">
-                                                    <div data-bind='text: Name'>
-                                                    </div>
-                                                    <div data-bind='text: IntegralValue'>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <script src="js/avgrund.js"></script>
-    <script type="text/javascript" src="http://cdn3.devexpress.com/jslib/13.1.7/js/dx.chartjs.js"></script>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/globalize/0.1.1/globalize.min.js"></script>
     <script type="text/javascript" src="js/testData.js"></script>
+    <script src="js/avgrund.js"></script>
     <script type="text/javascript" src="js/mapControl.js"></script>
-    <script type="text/javascript" src="js/data.js"></script>
-    <script type="text/javascript" src="js/ViewModels/RegionViewModel.js"></script>
     <script type="text/javascript" src="js/Infrastructure/ProjectRepository.js"></script>
     <script type="text/javascript" src="js/ViewModels/LayerViewModel.js"></script>
     <script type="text/javascript" src="js/ViewModels/ProjectViewModel.js"></script>
@@ -206,9 +109,11 @@
         width: 25%; min-width: 460px">
         <div id="popupContainer">
         </div>
-        <button onclick="javascript:closeDialog();" style="background-position-x: bottom">Закрыть</button>
+        <button onclick="javascript:closeDialog();" style="background-position-x: bottom" class="btn btn-primary">Закрыть</button>
+        <a id="popupLink" href="http://localhost:52350/InvestorEntry/ResponseToProject/" class="btn btn-info">Откликнуться на проект</a>
     </aside>
     <aside id="loader-popup" class="avgrund-popup">
+    	<button onclick="javascript:closeDialog();" style="background-position-x: bottom">х</button>
         <img src="482.GIF" style="display: block; margin-left: auto; margin-right: auto;"></img>
     </aside>
 </body>

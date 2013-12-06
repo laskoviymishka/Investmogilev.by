@@ -1,99 +1,55 @@
-/*!
- * avgrund 0.1
- * http://lab.hakim.se/avgrund
- * MIT licensed
- *
- * Created by Hakim El Hattab, http://hakim.se
- */
 
-* {
-	margin: 0;
-	padding: 0;
+@media (min-width: 980px) {
+  body {
+    padding-top: 20px;
+  }
+}
+.map-container {
+    height: 760px;
+    max-width: none;
+    !important width: auto;
+    !important display:inline;
+    !important;
 }
 
-html, 
-body {
-	height: 100%;
-	overflow: hidden;
+.hidden {
+    visibility: hidden;
 }
 
-html {
-	background-color: #222;
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGklEQVQIW2NkYGD4D8SMQAwGcAY2AbBKDBUAVuYCBQPd34sAAAAASUVORK5CYII=);
-	background-repeat: repeat;
+img {
+    max-width: none;
 }
 
-h1, 
-h2 {
-	font-size: 24px;
+#left {
 }
 
-p {
-	margin: 10px 0 10px 0;
-	font-size: 16px;
-	line-height: 1.32;
+#mid {
+    height: 760px;
 }
 
-a {
-	color: #7aa76d;
-	text-decoration: none;
-
-	-webkit-transition: 0.15s color ease;
-	   -moz-transition: 0.15s color ease;
-	    -ms-transition: 0.15s color ease;
-	     -o-transition: 0.15s color ease;
-	        transition: 0.15s color ease;
-}
-	a:hover {
-		color: #91cd85;
-	}
-
-small {
-	display: block;
-	margin-top: 15px;
-	padding-top: 15px;
-	color: #333;
-	font-size: 0.85em;
-	border-top: 1px dashed #ccc;
-
-	-webkit-text-size-adjust: none;
+#right {
 }
 
-button {
-	border: 0px;
-	padding: 8px 10px;
-	margin: 5px 0px;
-	border-radius: 1px;
-
-	cursor: pointer;
-	color: #fff;
-	background: #7aa76d;
-	font-size: 15px;
-
-	-webkit-transition: 0.15s background ease;
-	   -moz-transition: 0.15s background ease;
-	    -ms-transition: 0.15s background ease;
-	     -o-transition: 0.15s background ease;
-	        transition: 0.15s background ease;
-}
-	button:hover {
-		background: #91cd85;
-	}
-	button:active {
-		background: #60895a;
-	}
-	button+button {
-		margin-left: 5px;
-	}
-
-.sharing {
-	margin-top: 50px;
+#inner {
+    height: 760px;
 }
 
-body {
-	background: #fff;
+#footer {
+    min-height: 100px;
+    background-color: #ffff00;
+}
 
-	font-family: 'Lato', Helvetica, sans-serif;
-	font-size: 16px;
-	color: #222;
+.project {
+    min-height: 100px;
+    background-color: #808080;
+}
+
+#googft-info-window {
+    visibility: hidden;
+}
+
+#googft-mapCanvas {
+    height: 760px;
+    margin: 0px;
+    padding: 0;
 }

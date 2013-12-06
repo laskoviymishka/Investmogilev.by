@@ -17,12 +17,12 @@ namespace Tester
         static void Main(string[] args)
         {
             int counter = 1;
-            var projects = RepositoryContext.Current.All<Project>();
-            foreach (Project project in projects)
-            {
-                Console.WriteLine(project.GetType());
-                Console.WriteLine(counter++);
-            }
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == "525a9d1661a6e01b0c9a963a");
+            project.InvestorUser = "";
+            project.AssignUser = "";
+            project.WorkflowState.CurrenState = ProjectStates.CloseProject;
+            
+            RepositoryContext.Current.Update(project);
             Console.Read();
         }
         //private static void GenerateDependendenciesValues()
