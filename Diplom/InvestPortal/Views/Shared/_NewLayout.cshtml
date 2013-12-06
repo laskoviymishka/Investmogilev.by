@@ -73,10 +73,7 @@
                             <span class="icon-cog"></span>
                         </a>
                         <ul class="dropdown-menu place-right" data-role="dropdown">
-                            <li><a href="#">Products</a></li>
-                            <li><a href="#">Download</a></li>
-                            <li><a href="#">Support</a></li>
-                            <li><a href="#">Buy Now</a></li>
+                            <li><a href="/account/logoff">Выйти</a></li>
                         </ul>
                     </div>
                     <span class="element-divider place-right"></span>
@@ -88,19 +85,8 @@
                 </nav>
             </nav>
             <div class="row">
-                <div class="span4">
-                 @{Html.RenderAction("ProfilePartial", "Profile");}
-                    <ul class="dropdown-menu open keep-open" style="position: relative; z-index: 1">
-                        <li class="menu-title">This is a title</li>
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li class="menu-title">This is another title</li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li class="disabled"><a href="#">Disabled link</a></li>
-                        <li class="divider"></li>
-                        <li class="checked"><a href="#">Checked link</a></li>
-                    </ul>
+                <div class="span2">
+                 @{Html.RenderAction("MenuPartial", "Profile");}
                 </div>
                 <div class="span8">
                     @RenderBody()

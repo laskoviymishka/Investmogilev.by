@@ -74,7 +74,8 @@ namespace InvestPortal.Controllers
         [AllowAnonymous]
         public string ProjectGeoJson()
         {
-            return JsonConvert.SerializeObject(GenerateGeoJsonData(RepositoryContext.Current.All<Project>(p => p.WorkflowState.CurrenState == ProjectStates.WaitForInvestor)));
+            return JsonConvert.SerializeObject(GenerateGeoJsonData(RepositoryContext.Current.All<Project>(p => p.WorkflowState.CurrenState == ProjectStates.WaitForInvestor
+                || p.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove)));
         }
 
         #endregion

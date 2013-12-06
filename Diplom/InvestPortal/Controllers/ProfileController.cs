@@ -28,5 +28,15 @@ namespace InvestPortal.Controllers
             return PartialView();
         }
 
+        public ActionResult MenuPartial()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var model = _notificationHub.Notification(User.Identity.Name);
+                return PartialView(model);
+            }
+
+            return PartialView();
+        }
     }
 }

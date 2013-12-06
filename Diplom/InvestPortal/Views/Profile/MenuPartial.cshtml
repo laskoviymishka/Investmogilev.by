@@ -1,0 +1,42 @@
+﻿@model Invest.Common.Model.Common.PortalNotification
+@if (User.Identity.IsAuthenticated)
+{
+    <ul class="dropdown-menu open keep-open" style="position: relative; z-index: 1">
+        <li class="menu-title">Проекты</li>
+        @if (User.IsInRole("Admin"))
+        {
+            <li><a href="/BaseProject/All">Все проекты</a></li>
+            <li><a href="/BaseProject/">Мои проекты</a></li>
+            <li><a href="/BaseProject/VerifyResponse">Отклики на проекты</a></li>
+            <li><a href="/UserManager/UnUsignedProject">Назначение ответственных</a></li>
+        }
+        else
+        {
+            <li><a href="/BaseProject/">Мои проекты</a></li>
+        }
+        <li class="menu-title">Отчеты</li>
+        @if (User.IsInRole("Investor"))
+        {
+            <li><a href="/Report/">Все отчеты</a></li>
+            <li><a href="/Report/UnCompleted">Новые отчеты</a></li>
+        }
+        else
+        {
+            <li><a href="/ReportReview/">Все отчеты</a></li>
+            <li><a href="/ReportReview/UnVerified">Новые отчеты</a></li>
+        }
+        <li class="menu-title">Уведомления</li>
+        <li><a href="/Notification/">Все уведомления</a></li>
+        <li><a href="/Notification/All">@string.Format("Новые уведомелния {0}", Model.UnReadNotification)</a></li>
+        <li><a href="/Message/">Все сообщения</a></li>
+        <li><a href="/Message/Unreaded">Непрочитанные сообщения @Model.UnreadMessages</a></li>
+        <li><a href="/Message/Draft">Не отправленные сообщения</a></li>
+        <li><a href="/Message/UnreadedSent">Отправленные непрочитанные сообщения</a></li>
+        <li class="menu-title">Задачи</li>
+        <li><a href="/Task/MyTask">Мои задачи</a></li>
+        <li><a href="/Task/ActiveTask/">@string.Format("Активно {0}, просроченно {1}", Model.ActiveTask, Model.PendingTask)</a></li>
+        <li><a href="/Task/CompleteTask/">@string.Format("Выполнено {0}, просроченно {1}", Model.CompleteTask, Model.PendingCompleteTask)</a></li>
+        <li class="menu-title">Пометки</li>
+        <li><a href="/Notes/All">Мои пометки</a></li>
+    </ul>
+}

@@ -115,8 +115,18 @@ namespace BusinessLogic.Managers
             }
 
             project.Responses.Add(response);
-            RepositoryContext.Current.Update(project);
-            StateManager(response.ResponsedProjectId).Fire(ProjectTriggers.ResponseFromInvest);
+            if (project.WorkflowState.CurrenState == ProjectStates.WaitForInvestor)
+            {
+                RepositoryContext.Current.Update(project);
+                StateManager(response.ResponsedProjectId).Fire(ProjectTriggers.ResponseFromInvest);
+            }
+            else
+            {
+                if (project.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove)
+                {
+                    RepositoryContext.Current.Update(project);
+                }
+            }
             return true;
         }
 

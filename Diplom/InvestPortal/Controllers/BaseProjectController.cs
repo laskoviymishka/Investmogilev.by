@@ -77,6 +77,11 @@ namespace InvestPortal.Controllers
             return View(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));
         }
 
+        public ActionResult WorkFlowForProjectPartial(string id)
+        {
+            return PartialView(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));
+        }
+
         public ActionResult ProjectInfo(string id)
         {
             return View(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));

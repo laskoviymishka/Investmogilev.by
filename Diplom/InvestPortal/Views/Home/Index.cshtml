@@ -4,5 +4,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
-@Html.ActionLink("Потвердить свои проекты", "ApproveResponse", "InvestorEntry")
-@Html.ActionLink("Потвердить свои планы", "ApprovePlan", "InvestorEntry")
+@if (!User.Identity.IsAuthenticated)
+{
+    @Html.ActionLink("Войти", "Login", "Account")
+}
