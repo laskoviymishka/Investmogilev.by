@@ -56,6 +56,7 @@ namespace InvestPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(ProjectNotes model)
         {
             if (ModelState.IsValid)
@@ -74,6 +75,7 @@ namespace InvestPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(ProjectNotes model)
         {
             if (ModelState.IsValid)

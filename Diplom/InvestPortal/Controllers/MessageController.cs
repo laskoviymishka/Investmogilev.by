@@ -91,6 +91,7 @@ namespace InvestPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult EditMessage(MessageQueue model)
         {
             if (ModelState.IsValid)
@@ -102,20 +103,22 @@ namespace InvestPortal.Controllers
             return View(model);
         }
 
+
         public ActionResult NewMessage()
         {
             BindUsers();
             return View(new MessageQueue() { _id = ObjectId.GenerateNewId().ToString(), From = User.Identity.Name });
         }
 
-
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult NewMessage(MessageQueue model)
         {
             if (ModelState.IsValid)
             {
                 if (RepositoryContext.Current.GetOne<Users>(u => u.LoweredUsername == model.To.ToLower()) != null)
                 {
+                    model.IsSended = true;
                     _portalMessage.PushMessage(model);
                     return RedirectToAction("Draft");
                 }

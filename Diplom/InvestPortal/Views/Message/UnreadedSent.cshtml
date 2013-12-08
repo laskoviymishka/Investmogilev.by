@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Новое Сообщение", "NewMessage")
 </p>
-<table>
+<table class="table striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -53,7 +53,7 @@
             @Html.DisplayFor(modelItem => item.To)
         </td>
         <td>
-            @Html.ActionLink("Просматреть сообщение", "Message", new { id = item._id }) |
+            @Html.ActionLink("Просматреть сообщение", "Message", new { id = item._id , @class = "button button-primary" }) |
         </td>
     </tr>
 }

@@ -3,32 +3,16 @@
 @{
     ViewBag.Title = "Активные задачи";
 }
-<h2>
-    Активные задачи</h2>
+<h2>Активные задачи</h2>
 @foreach (var project in Model)
 {
     if (project.Tasks != null && project.Tasks.Any())
     {
-    @Html.Telerik().TreeView().Name("TreeView" + project._id).BindTo(project.Tasks.Where(t => !t.IsComplete), mapping => mapping.For<Task>(binding => binding.ItemDataBound((item, task) =>
+        foreach (var task in project.Tasks)
         {
-            if (task.Milestone < DateTime.Now)
-            {
-                item.Text = task.Title + " просрочена на " + (DateTime.Now - task.Milestone).TotalDays.ToString("0.0") + " дней";
-            }
-            else
-            {
-                item.Text = task.Title + " осталось " + (task.Milestone - DateTime.Now).TotalDays.ToString("0.0") + " дней";
-            }
-            item.Value = task._id;
-            item.Url("/Task/TaskDetails/" + task._id + "/" + project._id);
-        }).Children(t =>
-                        {
-                            if (t != null && t.SubTask != null)
-                            {
-                                return t.SubTask.Where(st => !st.IsComplete);
-                            }
-
-                            return null;
-                        }))).ExpandAll(true)
+    <div class="list-group"  onclick="addSubTask('@task._id','@task.ProjectId')">
+        @{Html.RenderAction("RecursiveTaskPartial", "Task", new { taskId = task._id, projectId = task.ProjectId });}
+    </div>
+        }
     }
 }

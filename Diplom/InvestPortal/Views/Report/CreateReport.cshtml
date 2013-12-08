@@ -20,7 +20,7 @@
             @Html.LabelFor(model => model.Body)
         </div>
         <div class="editor-field">
-            @Html.Telerik().EditorFor(model => model.Body).Localizable("ru-RU")
+            @Html.TextAreaFor(model => model.InfoValue, new { @id = "editor"})
             @Html.ValidationMessageFor(model => model.Body)
         </div>
         <div class="editor-label">
@@ -46,3 +46,6 @@
 <div>
     @Html.ActionLink("Вернуться к всем заданиям", "Index")
 </div>
+<script>
+    $(document).ready(function () { $("#editor").cleditor(); });
+</script>

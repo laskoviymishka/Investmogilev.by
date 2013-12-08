@@ -3,15 +3,13 @@
 @{
     ViewBag.Title = "Мои проекты";
 }
-<h2>
-    Мои проекты</h2>
-@foreach (var project in Model.OrderBy(t => (int)(t.WorkflowState.CurrenState)).Reverse())
-{
-    <div style="margin: 10px">
-        @{
-            Html.RenderAction("WorkFlowForProjectPartial", "BaseProject", new {id = project._id});
-        }
-    </div>
-}
+<h2>Мои проекты</h2>
+
+<div class="accordion" data-role="accordion">
+    @foreach (var project in Model.OrderBy(t => (int)(t.WorkflowState.CurrenState)).Reverse())
+    {
+        Html.RenderAction("WorkFlowForProjectPartial", "BaseProject", new { id = project._id });
+    }
+</div>
 <script type="text/javascript">
 </script>

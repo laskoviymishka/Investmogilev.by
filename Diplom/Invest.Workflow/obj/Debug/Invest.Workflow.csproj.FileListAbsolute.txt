@@ -10,3 +10,15 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Stateless.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.pdb
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Invest.Workflow.dll
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Invest.Workflow.pdb
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Invest.Common.dll
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MongoDB.Driver.dll
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Stateless.dll
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Invest.Common.pdb
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MongoDB.Bson.xml
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MongoDB.Driver.xml
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\Stateless.xml
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.csprojResolveAssemblyReference.cache
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.dll
+C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.pdb

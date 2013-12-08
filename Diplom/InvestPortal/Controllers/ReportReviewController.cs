@@ -81,6 +81,7 @@ namespace InvestPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult ReviewReport(ReportResponse model)
         {
             if (ModelState.IsValid)

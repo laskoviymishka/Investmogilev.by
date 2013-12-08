@@ -3,65 +3,49 @@
 @{
     ViewBag.Title = "ReadMessage";
 }
-<h2>
-    ReadMessage</h2>
+<h2>Прочитать сообщение</h2>
 <fieldset>
-    <legend>MessageQueue</legend>
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model._id)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._id)
-    </div>
-    <div class="display-label">
+    <legend>Сообщение</legend>
+    <small class="display-label">
         @Html.DisplayNameFor(model => model.Title)
-    </div>
-    <div class="display-field">
+    </small>
+    <blockquote class=" left">
         @Html.DisplayFor(model => model.Title)
-    </div>
-    <div class="display-label">
+    </blockquote>
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.Body.Text)
+    </small>
+    <blockquote class=" left">
         @Html.Raw(HttpUtility.HtmlDecode(Model.Body.Text))
-    </div>
-    <div class="display-label">
+    </blockquote>
+    <small class="display-label">
         @Html.DisplayNameFor(model => model.SendedDate)
-    </div>
-    <div class="display-field">
+    </small>
+    <blockquote class=" left">
         @Html.DisplayFor(model => model.SendedDate)
-    </div>
-    <div class="display-label">
+    </blockquote>
+    <small class="display-label">
         @Html.DisplayNameFor(model => model.From)
-    </div>
-    <div class="display-field">
+    </small>
+    <blockquote class=" left">
         @Html.DisplayFor(model => model.From)
-    </div>
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.IsSended)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsSended)
-    </div>
-    <div class="display-label">
-        @Html.DisplayNameFor(model => model.IsReaded)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IsReaded)
-    </div>
-    <div class="display-label">
+    </blockquote>
+    <small class="display-label">
         @Html.DisplayNameFor(model => model.To)
-    </div>
-    <div class="display-field">
+    </small>
+    <blockquote class="">
         @Html.DisplayFor(model => model.To)
-    </div>
+    </blockquote>
     @if (Model.Body != null & Model.Body.Appendix != null)
     {
         foreach (var item in Model.Body.Appendix)
         {
         <li>@Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
                                               "Download",
-                                               new { messageId = Model._id, appendixId = item._id })</li>
+                                               new { messageId = Model._id, appendixId = item._id }, new {@class = "button button-info" })</li>
         }
     }
 </fieldset>
 <p>
-    @Html.ActionLink("Назад к сообщениям", "Index")
+    @Html.ActionLink("Назад к сообщениям", "Index", new {@class = "button button-primary" })
 </p>

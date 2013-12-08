@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Новое сообщение", "NewMessage")
 </p>
-<table>
+<table class="table striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -23,27 +23,28 @@
         <th>
             @Html.DisplayNameFor(model => model.To)
         </th>
-        <th></th>
+        <th>Прочитать</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SendedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsReaded)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.To)
-        </td>
-        <td>
-            @Html.ActionLink("Прочитать", "ReadMessage", new { id = item._id }) |
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SendedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsReaded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.To)
+            </td>
+            <td>
+                @Html.ActionLink("Прочитать", "ReadMessage", new { id = item._id, @class = "btn btn-primary" }) 
+            </td>
+        </tr>
+    }
 
 </table>

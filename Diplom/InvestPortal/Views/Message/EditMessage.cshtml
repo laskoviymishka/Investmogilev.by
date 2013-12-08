@@ -3,14 +3,13 @@
 @{
     ViewBag.Title = "EditMessage";
 }
-<h2>
-    EditMessage</h2>
+<h2>EditMessage</h2>
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Новое сообщение</legend>
+        <legend>Редактировать сообщение</legend>
         @Html.HiddenFor(model => model._id)
         @Html.HiddenFor(model => model.From)
         <div class="editor-label">
@@ -30,36 +29,51 @@
         Model.Body = new MessageBody();
     }
     Model.Body.Text = Server.HtmlDecode(Model.Body.Text);
-    Html.Telerik().EditorFor(model => model.Body.Text).Encode(true).Localizable("ru-RU").Render();
             }
+            <div class="btn-toolbar" data-role="editor-toolbar"
+                data-target="#editor">
+                @Html.TextAreaFor(model => model.Body.Text, new { id = "editor" })
+            </div>
             @Html.ValidationMessageFor(model => model.Body.Text)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.To)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.To)
+            @Html.DisplayFor(model => model.To)
             @Html.ValidationMessageFor(model => model.To)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IsSended)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IsSended)
-            @Html.ValidationMessageFor(model => model.IsSended)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Type)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetNames(typeof(MessageType))))
+            @Html.DisplayFor(model => model.Type)
             @Html.ValidationMessageFor(model => model.Type)
         </div>
+        <div class="editor-label">
+            Приложения
+        </div>
+        <div class="editor-field">
+            @Html.Telerik().Upload().Name("attachments").ShowFileList(true).Multiple(true).Async(async => async
+                .Save("Save", "Message", new { id = Model._id })
+                .AutoUpload(false)).Localizable("ru-RU")
+
+        </div>
         <p>
-            <input type="submit" value="Сохранить сообщение" />
+            <input type="submit" value="Создать сообщение" />
         </p>
+
     </fieldset>
 }
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script> $(document).ready(function () { $("#editor").cleditor(); });</script>
+<script type="text/javascript">
+    //<![CDATA[
+    jQuery(document).ready(function () {
+        if (!jQuery.telerik) jQuery.telerik = {};
+        jQuery('#attachments').tUpload({ async: { "saveUrl": "/Message/Save/@Model._id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
+    });
+    //]]>
+</script>

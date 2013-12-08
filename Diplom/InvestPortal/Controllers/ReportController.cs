@@ -94,6 +94,7 @@ namespace InvestPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult CreateReport(TaskReport model)
         {
             var task = RepositoryContext.Current.GetOne<Task>(t => t._id == model.TaskId);

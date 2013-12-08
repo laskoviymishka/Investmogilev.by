@@ -91,6 +91,13 @@ namespace InvestPortal.Controllers
         }
 
         [Authorize(Roles = "User")]
+        public ActionResult RecursiveTaskPartial(string taskId, string projectId)
+        {
+            Task task = _taskManager.GetTask(taskId, projectId);
+            return PartialView(task);
+        }
+
+        [Authorize(Roles = "User")]
         public ActionResult TaskDetails(string taskId, string projectId)
         {
             ViewBag.ProjectId = projectId;
@@ -106,6 +113,7 @@ namespace InvestPortal.Controllers
 
         [Authorize(Roles = "User")]
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult TaskEdit(Task task)
         {
             _taskManager.UpdateTask(task, task.ProjectId);
@@ -136,11 +144,20 @@ namespace InvestPortal.Controllers
             var viewModel = new SubTaskViewModel();
             viewModel.ParentId = taskId;
             viewModel.ProjectId = projectId;
+            if (taskId != projectId)
+            {
+                ViewBag.ParentName = RepositoryContext.Current.GetOne<Task>(p => p._id == taskId).Title;
+            }
+            else
+            {
+                ViewBag.ParentName = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId).Name;
+            }
             return PartialView(viewModel);
         }
 
         [Authorize(Roles = "User")]
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult CreateSubTask(SubTaskViewModel model)
         {
             if (ModelState.IsValid)

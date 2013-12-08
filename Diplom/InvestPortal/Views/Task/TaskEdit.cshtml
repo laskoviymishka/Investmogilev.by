@@ -20,27 +20,40 @@
         </div>
         <div class="editor-field">
             @{
-              Model.Description = Server.HtmlDecode(Model.Description);
-              Html.Telerik().EditorFor(model => model.Description).Encode(true).Localizable("ru-RU").Render();
-             }
+    Model.Description = Server.HtmlDecode(Model.Description);
+            }
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Milestone)
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Description, new { @style = "width:100%", @id = "editor" })
+            @Html.ValidationMessageFor(model => model.Description)
         </div>
         <div class="editor-field">
             @Html.HiddenFor(model => model.CompletedOn)
         </div>
         @if (Model.SubTask == null || !Model.SubTask.Any())
         {
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Milestone)
+            </div>
             <div class="editor-field">
-                @Html.Telerik().DatePickerFor(model => model.Milestone)
+                <div id="datepicker" class="input-control text">
+                    <input class="t-input"
+                        data-val="true"
+                        data-val-date="Ожидаемая дата прохождения контрольной точки должна быть датой."
+                        data-val-required="Требуется поле Ожидаемая дата прохождения контрольной точки."
+                        id="Milestone"
+                        name="Milestone"
+                        type="text"
+                        value="">
+                    <button class="btn-date"></button>
+                </div>
                 @Html.ValidationMessageFor(model => model.Milestone)
             </div>
             <div class="editor-label">
                 @Html.LabelFor(model => model.IsComplete)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.IsComplete)
+                @Html.DisplayFor(model => model.IsComplete)
                 @Html.ValidationMessageFor(model => model.IsComplete)
             </div>
         }
@@ -62,7 +75,7 @@
             @Html.LabelFor(model => model.IsVerifiedComplete)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.IsVerifiedComplete)
+            @Html.DisplayFor(model => model.IsVerifiedComplete)
             @Html.ValidationMessageFor(model => model.IsVerifiedComplete)
         </div>
         <p>
@@ -84,3 +97,10 @@
         Html.ActionLink("К моим задачам", "MyTask");
     }
 </div>
+<script>
+    $("#datepicker").datepicker({
+        effect: "slide", // none, slide, fade
+        position: "bottom", // top or bottom
+    });
+    $(document).ready(function () { $("#editor").cleditor(); });
+</script>

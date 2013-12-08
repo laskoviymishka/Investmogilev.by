@@ -1,0 +1,25 @@
+﻿@model Invest.Common.Model.ProjectModels.Task
+<div class="listview-outlook" data-role="listview">
+    @if (Model.SubTask == null || !Model.SubTask.Any())
+    {
+        <a class="list"  onclick="addSubTask('@Model._id','@Model.ProjectId')">
+            <div class="list-content">
+                <span class="list-title">@Model.Title</span>
+                <span class="list-subtitle">Время выполнения: @Model.Milestone.ToShortDateString()</span>
+                <span class="list-remark">@Model.Description</span>
+            </div>
+        </a>
+    }
+    else
+    {
+        <div class="list-group"  onclick="addSubTask('@Model._id','@Model.ProjectId')" style="margin-left:20px">
+            <a class="group-title">@Model.Title</a>
+            <div class="group-content">
+                @foreach (var subtask in Model.SubTask)
+                {
+                    Html.RenderAction("RecursiveTaskPartial", "Task", new { taskId = subtask._id, projectId = Model.ProjectId });
+                }
+            </div>
+        </div>
+    }
+</div>

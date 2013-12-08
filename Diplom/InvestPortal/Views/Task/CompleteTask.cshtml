@@ -9,19 +9,11 @@
 {
     if (project.Tasks != null && project.Tasks.Any())
     {
-    @Html.Telerik().TreeView().Name("TreeView" + project._id).BindTo(project.Tasks.Where(t => (t.IsComplete) || t.SubTask != null && t.SubTask.Any(st => st.IsComplete)), mapping => mapping.For<Task>(binding => binding.ItemDataBound((item, task) =>
+        foreach (var task in project.Tasks.Where(t=>t.IsComplete))
         {
-            item.Text = task.Title;
-            item.Value = task._id;
-            item.Url("/Task/TaskDetails/" + task._id + "/" + project._id);
-        }).Children(t =>
-                        {
-                            if (t != null && t.SubTask != null)
-                            {
-                                return t.SubTask.Where(st => st.IsComplete);
-                            }
-
-                            return null;
-                        }))).ExpandAll(false)
+    <div class="list-group"  onclick="addSubTask('@task._id','@task.ProjectId')">
+        @{Html.RenderAction("RecursiveTaskPartial", "Task", new { taskId = task._id, projectId = task.ProjectId });}
+    </div>
+        }
     }
 }

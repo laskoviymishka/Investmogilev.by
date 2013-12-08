@@ -4,27 +4,37 @@
 }
 @using (Ajax.BeginForm(new AjaxOptions() { HttpMethod = "POST" }))
 {
-    <fieldset>
-        <legend>Добавить подзадачу к @Model.ParentId</legend>
+    <fieldset style="max-width: 400px">
+        <legend>Добавить подзадачу к @ViewBag.ParentName</legend>
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
+            @Html.EditorFor(model => model.Name, new { @style = "width:100%" })
             @Html.ValidationMessageFor(model => model.Name)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
-            @Html.Telerik().EditorFor(model => model.Description).Localizable("ru-RU")
+            @Html.TextAreaFor(model => model.Description, new { @style = "width:100%", @id = "editor" })
             @Html.ValidationMessageFor(model => model.Description)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Milestone)
         </div>
         <div class="editor-field">
-            @Html.Telerik().DatePickerFor(model => model.Milestone)
+            <div id="datepicker" class="input-control text">
+                <input class="t-input"
+                    data-val="true"
+                    data-val-date="Ожидаемая дата прохождения контрольной точки должна быть датой."
+                    data-val-required="Требуется поле Ожидаемая дата прохождения контрольной точки."
+                    id="Milestone"
+                    name="Milestone"
+                    type="text"
+                    value="">
+                <button class="btn-date"></button>
+            </div>
             @Html.ValidationMessageFor(model => model.Milestone)
         </div>
         @Html.HiddenFor(model => model.ParentId)
@@ -33,4 +43,11 @@
             <input type="submit" value="Добавить" />
         </p>
     </fieldset>
+    <script>
+        $("#datepicker").datepicker({
+            effect: "slide", // none, slide, fade
+            position: "bottom", // top or bottom
+        });
+        $(document).ready(function () { $("#editor").cleditor(); });
+    </script>
 }

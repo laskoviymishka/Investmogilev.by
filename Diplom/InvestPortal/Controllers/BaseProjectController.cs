@@ -42,6 +42,7 @@ namespace InvestPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult FillProject(Project model)
         {
             if (ModelState.IsValid)

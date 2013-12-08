@@ -2,9 +2,8 @@
 @{
     ViewBag.Title = "Заполнить проект";
 }
-<h2>
-    Заполнить проект</h2>
-    
+<h2>Заполнить проект</h2>
+
 
 <script type="text/javascript">
     var map;
@@ -52,58 +51,20 @@
     });
 </script>
 <style>
-    #container
-    {
+    #container {
         width: 95%;
     }
-    #leftContent
-    {
-        float: left;
-        width: 70%;
-    }
-    #rightContent
-    {
+
+    #leftContent {
         float: right;
-        width: 30%;
+        width: 50%;
+        height: 550px;
     }
-    .btn
-    {
-        -moz-box-shadow: inset 0px 1px 0px 0px #7a8eb9;
-        -webkit-box-shadow: inset 0px 1px 0px 0px #7a8eb9;
-        box-shadow: inset 0px 1px 0px 0px #7a8eb9;
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #637aad), color-stop(1, #5972a7));
-        background: -moz-linear-gradient(top, #637aad 5%, #5972a7 100%);
-        background: -webkit-linear-gradient(top, #637aad 5%, #5972a7 100%);
-        background: -o-linear-gradient(top, #637aad 5%, #5972a7 100%);
-        background: -ms-linear-gradient(top, #637aad 5%, #5972a7 100%);
-        background: linear-gradient(to bottom, #637aad 5%, #5972a7 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#637aad', endColorstr='#5972a7',GradientType=0);
-        background-color: #637aad;
-        border: 1px solid #314179;
-        display: inline-block;
-        cursor: pointer;
-        color: #ffffff;
-        font-family: arial;
-        font-size: 13px;
-        font-weight: bold;
-        padding: 6px 12px;
-        text-decoration: none;
-    }
-    .btn:hover
-    {
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #5972a7), color-stop(1, #637aad));
-        background: -moz-linear-gradient(top, #5972a7 5%, #637aad 100%);
-        background: -webkit-linear-gradient(top, #5972a7 5%, #637aad 100%);
-        background: -o-linear-gradient(top, #5972a7 5%, #637aad 100%);
-        background: -ms-linear-gradient(top, #5972a7 5%, #637aad 100%);
-        background: linear-gradient(to bottom, #5972a7 5%, #637aad 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5972a7', endColorstr='#637aad',GradientType=0);
-        background-color: #5972a7;
-    }
-    .btn:active
-    {
-        position: relative;
-        top: 1px;
+
+    #rightContent {
+        float: left;
+        margin-left: 10px;
+        width: 45%;
     }
 </style>
 @using (Html.BeginForm())
@@ -127,17 +88,18 @@
                 @Html.LabelFor(model => model.Description)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.Description)
+                @Html.TextAreaFor(model => model.Description, new { @id = "editor"})
                 @Html.ValidationMessageFor(model => model.Description)
             </div>
             <div class="editor-label">
                 @Html.LabelFor(model => model.AddressName)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.AddressName)
+                @Html.TextAreaFor(model => model.AddressName)
                 @Html.ValidationMessageFor(model => model.AddressName)
                 <div class="button" onclick="CheckAddress()">
-                    Проверить адресс</div>
+                    Проверить адресс
+                </div>
             </div>
             <div class="editor-label">
                 @Html.LabelFor(model => model.Address)
@@ -170,7 +132,7 @@
                 <input type="submit" value="Сохранить" />
             </p>
         </div>
-        <div id="leftContent" style="height: 550px; width: 70%">
+        <div id="leftContent">
             <div id="map" style="height: 100%">
             </div>
         </div>
@@ -179,3 +141,6 @@
 <div>
     @Html.ActionLink("Назад к моим проектам", "Index")
 </div>
+<script>
+    $(document).ready(function () { $("#editor").cleditor(); });
+</script>

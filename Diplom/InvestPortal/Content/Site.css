@@ -15,12 +15,44 @@ body,html {
     margin:0;
     padding:0;
 }
+ #editor {overflow:scroll; max-height:300px}
 header,
 footer,
 nav,
 section 
 {
     display: block;
+}
+
+/* Upload */
+
+.t-dropzone-active,
+.t-upload-files
+{
+    border-color: #e5e5e5;
+}
+
+.t-dropzone-hovered,
+.t-upload-files
+{
+    background-color: #e5e5e5;    
+}
+
+.t-dropzone em
+{
+    color: #9b9b9b;
+}
+
+.t-progress
+{
+    background-color: #e5e5e5;
+    border-color: #e5e5e5;
+}
+
+.t-progress-status
+{
+    background-color: #309b46;
+    border-color: #309b46;
 }
 
 /* HEADINGS   

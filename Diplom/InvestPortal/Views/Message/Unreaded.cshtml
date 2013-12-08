@@ -2,12 +2,11 @@
 @{
     ViewBag.Title = "Непрочитанные сообщения";
 }
-<h2>
-    Непрочитанные сообщения</h2>
+<h2>Непрочитанные сообщения</h2>
 <p>
     @Html.ActionLink("Создать новое сообщение", "NewMessage")
 </p>
-<table>
+<table class="table striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -27,7 +26,7 @@
         <th>
             @Html.DisplayNameFor(model => model.To)
         </th>
-        <th>
+        <th>Прочитать
         </th>
     </tr>
     @foreach (var item in Model)
@@ -52,7 +51,7 @@
                 @Html.DisplayFor(modelItem => item.To)
             </td>
             <td>
-                @Html.ActionLink("Прочитать", "ReadMessage", new { id = item._id }) |
+                @Html.ActionLink("Прочитать", "ReadMessage", new { id = item._id, @class = "button button-primary" })
             </td>
         </tr>
     }

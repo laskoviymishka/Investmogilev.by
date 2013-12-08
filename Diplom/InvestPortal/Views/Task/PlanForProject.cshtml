@@ -5,91 +5,37 @@
 @{
     ViewBag.Title = "Дорожная карта проекта " + Model.Name;
 }
-<h2>
-    Дорожная карта проекта @Model.Name</h2>
+<h2>Дорожная карта проекта @Model.Name</h2>
 @if (Model.Tasks != null && Model.Tasks.Any())
 {
-    @Html.Telerik().TreeView().Name("TreeView").BindTo(Model.Tasks, mapping => mapping.For<Task>(binding => binding.ItemDataBound((item, task) =>
-        {
-            item.Text = task.Title;
-            item.Value = task._id;
-        }).Children(t => t.SubTask))).ExpandAll(true)
+    foreach (var task in Model.Tasks)
+    {
+    <div class="list-group"  onclick="addSubTask('@task._id','@task.ProjectId')">
+        @{Html.RenderAction("RecursiveTaskPartial", "Task", new { taskId = task._id, projectId = task.ProjectId });}
+    </div>
+    }
 }
 @if (Model.WorkflowState.CurrenState == ProjectStates.WaitForPlan)
 {
-    <input type="button" value="Добавить ключевую точку" onclick=" addCoreTask() "/>
+    <input type="button" value="Добавить ключевую точку" onclick=" addCoreTask() " />
     <script type="text/javascript">
-        var selectedNodeValue;
-        $(document).ready(function() {
-            $('#test').hide();
-            $('#TreeView').bind('select', function(e) {
-                selectedNodeValue = $(e.item).closest('.t-item').find(':input[name*="Value"]').val();
-                openWindow(selectedNodeValue);
-            });
-        });
-
-        function getTreeView() {
-            //"TreeView" is the value specified by the Name() method.
-            var treeview = $("#TreeView").data("tTreeView");
-            return treeview;
-        }
-
-        function openWindow() {
-            var link = '/Task/CreateSubTask/' + selectedNodeValue + '/@Model._id';
-            $.get(link, function(data) {
+        function addCoreTask() {
+            var link = '/Task/CreateSubTask/@Model._id/@Model._id';
+            $.get(link, function (data) {
                 $('#test').html(data);
                 $('#test').show();
             });
         }
 
-        function addCoreTask() {
-            var link = '/Task/CreateSubTask/@Model._id/@Model._id';
-            $.get(link, function(data) {
+        function addSubTask(parentId, projectId) {
+            var link = '/Task/CreateSubTask/' + parentId + '/' + projectId;
+            $.get(link, function (data) {
                 $('#test').html(data);
                 $('#test').show();
             });
         }
     </script>
     <div id="test">
-        @Html.Partial("CreateSubTask", new SubTaskViewModel() { ProjectId = Model._id, ParentId = Model._id })
     </div>
     @Html.ActionLink("Потвердить созданный план", "CompleteFill", new { projectId = Model._id })
 }
-else
-{
-    <script type="text/javascript">
-        var selectedNodeValue;
-        var lookupWindow;
-        $(document).ready(function () {
-            $('#TreeView').bind('select', function (e) {
-                selectedNodeValue = $(e.item).closest('.t-item').find(':input[name*="Value"]').val();
-                ShowLookupWindow(selectedNodeValue);
-            });
-        });
-
-        function ShowLookupWindow(param) {
-            var link = '/Task/TaskDetails/' + param + '/@Model._id';
-            lookupWindow = $.telerik.window.create({
-                name: "LookupWindow",
-                title: "Информация о задаче",
-                html: "<div><img src='http://localhost:52641/Content/2013.2.611/Metro/loading.gif'/></div>",
-                contentUrl: link,
-                modal: true,
-                resizable: true,
-                draggable: true,
-                width: 700,
-                height: 750,
-                minHeight: 250,
-                minWidth: 250,
-                maxHeight: 500,
-                maxWidth: 500,
-                onClose: function (e) {
-                    e.preventDefault();
-                    lookupWindow.data('tWindow').destroy();
-                }
-            });
-            lookupWindow.data('tWindow').center().open();
-        }
-    </script>
-}
-

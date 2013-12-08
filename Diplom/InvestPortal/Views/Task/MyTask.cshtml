@@ -3,27 +3,28 @@
 @{
     ViewBag.Title = "Мои задачи";
 }
-<h2>
-    Мои задачи</h2>
+<h2>Мои задачи</h2>
 @foreach (var project in Model)
 {
     if (project.Tasks != null && project.Tasks.Any())
     {
     <div>
-        @Html.ActionLink("Дорожная карта проекта" + @project.Name + "-" + @project.Description, "PlanForProject", "Task", new { id = project._id }, null)</div>
-    @Html.Telerik().TreeView().Name("TreeView" + project._id).BindTo(project.Tasks, mapping => mapping.For<Task>(binding => binding.ItemDataBound((item, task) =>
+        @Html.ActionLink("Дорожная карта проекта" + @project.Name + "-" + @project.Description, "PlanForProject", "Task", new { id = project._id }, null)
+    </div>
+        foreach (var task in project.Tasks)
         {
-            item.Text = task.Title;
-            item.Value = task._id;
-            item.Url("/Task/TaskDetails/" + task._id + "/" + project._id);
-        }).Children(t => t.SubTask))).ExpandAll(false);
+    <div class="list-group"  onclick="addSubTask('@task._id','@task.ProjectId')">
+        @{Html.RenderAction("RecursiveTaskPartial", "Task", new { taskId = task._id, projectId = task.ProjectId });}
+    </div>
+        }
     }
     else
     {
     <div>
         @Html.ActionLink("Дорожная карта проекта" + @project.Name + "-" + @project.Description, "PlanForProject", "Task", new { id = project._id }, null)
         <div>
-            Ключевых этапов для этого проекте еще нет</div>
+            Ключевых этапов для этого проекте еще нет
+        </div>
     </div>
     }
 }
