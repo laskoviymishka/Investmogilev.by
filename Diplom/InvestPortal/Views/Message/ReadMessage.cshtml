@@ -16,7 +16,9 @@
         @Html.DisplayNameFor(model => model.Body.Text)
     </small>
     <blockquote class=" left">
-        @Html.Raw(HttpUtility.HtmlDecode(Model.Body.Text))
+        <div style="min-height:200px">
+            @Html.Raw(HttpUtility.HtmlDecode(Model.Body.Text))
+        </div>
     </blockquote>
     <small class="display-label">
         @Html.DisplayNameFor(model => model.SendedDate)
@@ -42,10 +44,10 @@
         {
         <li>@Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
                                               "Download",
-                                               new { messageId = Model._id, appendixId = item._id }, new {@class = "button button-info" })</li>
+                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button-info" })</li>
         }
     }
 </fieldset>
 <p>
-    @Html.ActionLink("Назад к сообщениям", "Index", new {@class = "button button-primary" })
+    @Html.ActionLink("Назад к сообщениям", "Index", new { @class = "button button-primary" })
 </p>
