@@ -1,0 +1,114 @@
+﻿@model Invest.Common.Model.ProjectModels.BrownField
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Проект - @Model.Name</legend>
+        @Html.HiddenFor(model => model._id)
+        @Html.HiddenFor(model => model.WorkflowId)
+        @Html.HiddenFor(model => model.InvestorUser)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Description, new { @id = "editor" })
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AddressName)
+        </div>
+        <table class="table hovered">
+            <tr>
+                <td>@Html.TextAreaFor(model => model.AddressName)</td>
+                <td>
+                    @Html.ValidationMessageFor(model => model.AddressName)
+                    <div class="button" onclick="CheckAddress()">
+                        Проверить адресс
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.EstimateRelease)</td>
+                <td>
+                    <div id="datepicker1" class="input-control text">
+                        <input class="t-input"
+                               data-val="true"
+                               data-val-date="The field EstimateRelease must be a date."
+                               id="EstimateRelease"
+                               name="EstimateRelease"
+                               type="text"
+                               value="@Model.EstimateRelease.ToShortDateString()">
+                        @Html.ValidationMessageFor(model => model.EstimateRelease)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.RegistrationDate)</td>
+                <td>
+                    <div id="datepicker2" class="input-control text">
+                        <input class="t-input valid"
+                               data-val="true"
+                               data-val-date="The field RegistrationDate must be a date."
+                               data-val-required="The RegistrationDate field is required."
+                               id="RegistrationDate"
+                               name="RegistrationDate"
+                               type="text"
+                               value="@Model.RegistrationDate.ToShortDateString()">
+                    </div>
+                    @Html.ValidationMessageFor(model => model.RegistrationDate)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.InvestAmount)</td>
+                <td>
+                    @Html.EditorFor(model => model.InvestAmount)
+                    @Html.ValidationMessageFor(model => model.InvestAmount)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.WorkPlaces)</td>
+                <td>
+                    @Html.EditorFor(model => model.WorkPlaces)
+                    @Html.ValidationMessageFor(model => model.WorkPlaces)
+                </td>
+            </tr>
+        </table>
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+        <div style="visibility:hidden">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Address)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Address)
+            </div>
+        </div>
+    </fieldset>
+}
+
+<script>
+    $("#datepicker1").datepicker({
+        effect: "slide", // none, slide, fade
+        position: "bottom", // top or bottom
+    });
+    $("#datepicker2").datepicker({
+        effect: "slide", // none, slide, fade
+        position: "bottom", // top or bottom
+    });
+    $(document).ready(function () { $("#editor").cleditor(); });
+</script>

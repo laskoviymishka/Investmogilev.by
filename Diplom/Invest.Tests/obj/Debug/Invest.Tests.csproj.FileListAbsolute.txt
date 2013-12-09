@@ -1,4 +1,3 @@
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Tests.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Tests.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Common.dll
@@ -28,3 +27,4 @@ C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.dll
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.pdb
+c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.csprojResolveAssemblyReference.cache

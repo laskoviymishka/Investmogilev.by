@@ -9,7 +9,6 @@ D:\develop\DiplomMap-master\Diplom\BusinessLogic\bin\Debug\MongoDB.Driver.xml
 D:\develop\DiplomMap-master\Diplom\BusinessLogic\obj\Debug\ResolveAssemblyReference.cache
 D:\develop\DiplomMap-master\Diplom\BusinessLogic\obj\Debug\BusinessLogic.dll
 D:\develop\DiplomMap-master\Diplom\BusinessLogic\obj\Debug\BusinessLogic.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\BusinessLogic.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\BusinessLogic.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\Invest.Common.dll
@@ -40,3 +39,4 @@ C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debu
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.dll
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.pdb
+c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache

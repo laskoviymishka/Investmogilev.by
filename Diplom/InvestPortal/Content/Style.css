@@ -22,6 +22,34 @@
         vertical-align: baseline;
     }
 
+textarea {
+    border: 1px #d9d9d9 solid;
+    width: 100%;
+    height: 88px;
+    padding: 5px;
+    z-index: 1;
+}
+
+input[type=text] {
+    border: 1px #d9d9d9 solid;
+    width: 100%;
+    height: 22px;
+    padding: 5px;
+    z-index: 1;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border: 2px #d9d9d9 solid;
+    padding: 0;
+    margin: 0 5px 0 0;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .t-dropzone {
     border-style: solid;
     border-width: 0;
@@ -47,11 +75,11 @@
     width: 86px;
     position: relative;
     direction: ltr;
-    overflow: hidden!important; /* important required by IE7 */
+    overflow: hidden !important; /* important required by IE7 */
 }
 
     .t-upload-button input {
-        font: 200px monospace!important; /* The input font size and family are critical for the operation of the Upload */
+        font: 200px monospace !important; /* The input font size and family are critical for the operation of the Upload */
         opacity: 0;
         filter: alpha(opacity=0);
         position: absolute;

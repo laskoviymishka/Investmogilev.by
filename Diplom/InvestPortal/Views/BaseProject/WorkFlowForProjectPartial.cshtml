@@ -4,7 +4,7 @@
 @{
     string selected = "selected";
 }
-<h2>Прогресс по проекту @Model.Name</h2>
+<h3>Прогресс по проекту @Model.Name</h3>
 <div class="row">
     <nav class="breadcrumbs">
         <ul>
@@ -12,28 +12,51 @@
                 @if (Model.WorkflowState.CurrenState == ProjectStates.Open)
                 {
                     <a href="~/BaseProject/FillProject/@Model._id"
-                   class="list"
-                   data-hint="Заполнение проекта|При заполнении проекта необходимо
+                       class="list"
+                       data-hint="Заполнение проекта|При заполнении проекта необходимо
         указать основные данные по проекту а так же указать его местоположение"
-                   data-hint-position="right">
+                       data-hint-position="right">
                         <i class="icon-home"></i>
                         <span class="list-title">Заполнение проекта</span>
                     </a>
                 }
                 else
                 {
-                    <a class="list selected" data-hint="Заполнение проекта| Проект заполнен - @Model.Description"
-                   data-hint-position="right">
-                        <i class="icon-home"></i>
-                        <span class="list-title">Заполнение проекта</span>
-                    </a>
+                    if (Model.WorkflowState.CurrenState != ProjectStates.WaitForAssignee)
+                    {
+                        <a class="list selected" data-hint="Заполнение проекта| Проект заполнен - @Model.Description"
+                           data-hint-position="right">
+                            <i class="icon-home"></i>
+                            <span class="list-title">Заполнение проекта</span>
+                        </a>
+                    }
+                    else
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <a href="~/UserManager/AssignUser/@Model._id" class="list selected" data-hint="Назначение ответственного| Необходимо назначить ответственного"
+                               data-hint-position="right">
+                                <i class="icon-home"></i>
+                                <span class="list-title">Заполнение проекта</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="~/UserManager/AssignUser/@Model._id" class="list selected" data-hint="Назначение ответственного| Ожидаем назначение ответственного"
+                               data-hint-position="right">
+                                <i class="icon-home"></i>
+                                <span class="list-title">Заполнение проекта</span>
+                            </a>
+                        }
+                    }
+
                 }
             </li>
             <li>
                 @if (Model.WorkflowState.CurrenState == ProjectStates.WaitForInvestor)
                 {
                     <a class="list" data-hint="Ожидаем отклик от инвестора| Проект размещен на инвестиционной карте, и в настоящий момент ожидается отклик от инвестора."
-                        data-hint-position="right">
+                       data-hint-position="right">
                         <i class="icon-auction"></i>
                         <span class="list-title">Отклик от инвестора</span>
                     </a>
@@ -42,37 +65,38 @@
                 {
                     if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove)
                     {
-                    <div>
-                        <a class="list " data-hint="Отклик получен| На проект откликнулось @Model.Responses.Count инвесторов"
-                           data-hint-position="right">
-                            <i class="icon-auction"></i>
-                            <span class="list-title">Отклик от инвестора</span>
-                        </a>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <div class="balloon bottom">
-                                <ul>
-                                    @foreach (var response in Model.Responses)
-                                    {
-                                        <div>
-                                            <a href="~/BaseProject/ProcessVerifyResponse/@response.ResponseId" data-hint="Отклик| @string.Format(
+                        <div>
+                            <a class="list " data-hint="Отклик получен| На проект откликнулось @Model.Responses.Count инвесторов"
+                               data-hint-position="right">
+                                <i class="icon-auction"></i>
+                                <span class="list-title">Отклик от инвестора</span>
+                            </a>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="balloon bottom">
+                                    <ul>
+                                        @foreach (var response in Model.Responses)
+                                        {
+                                            <div>
+                                                <a href="~/BaseProject/ProcessVerifyResponse/@response.ResponseId" data-hint="Отклик| @string.Format(
                                                                                                                                       "{0} {1} {2}",
                                                                                                                                       response.InvestorLastName,
                                                                                                                                       response.InvestorFirstName,
                                                                                                                                       response.InvestorMiddleName))" data-hint-position="right">
-                                                <button class="btn" onlick="return false;">@string.Format(
+                                                    <button class="btn" onlick="return false;">
+                                                        @string.Format(
                                                                                                "Одобрить отклик от {0} {1} {2}",
                                                                                                response.InvestorLastName,
                                                                                                response.InvestorFirstName,
                                                                                                response.InvestorMiddleName))
-                                                </button>
-                                            </a>
-                                        </div>
-                                    }
-                                </ul>
-                            </div>
-                        }
-                    </div>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        </div>
                     }
                     else
                     {
@@ -80,21 +104,21 @@
                         {
                             if (User.IsInRole("Investor"))
                             {
-                    <a href="~/InvestorEntry/ApproveResponse/@Model._id"
-                               class="list "
-                               data-hint="Отклик одобрен| Ваш отклик одобрен администрацией. Нажмите что бы потвердить свои намерения."
-                               data-hint-position="right">
-                        <i class="icon-auction"></i>
-                        <span class="list-title">Отклик от инвестора</span>
-                    </a>
+                                <a href="~/InvestorEntry/ApproveResponse/@Model._id"
+                                   class="list "
+                                   data-hint="Отклик одобрен| Ваш отклик одобрен администрацией. Нажмите что бы потвердить свои намерения."
+                                   data-hint-position="right">
+                                    <i class="icon-auction"></i>
+                                    <span class="list-title">Отклик от инвестора</span>
+                                </a>
                             }
                             else
                             {
-                    <a class="list" data-hint="Отклик одобрен администратором| Отклик одобрен администрацией. Ожидаем потверждения от инвестора."
-                        data-hint-position="right">
-                        <i class="icon-auction"></i>
-                        <span class="list-title">Отклик от инвестора</span>
-                    </a>
+                                <a class="list" data-hint="Отклик одобрен администратором| Отклик одобрен администрацией. Ожидаем потверждения от инвестора."
+                                   data-hint-position="right">
+                                    <i class="icon-auction"></i>
+                                    <span class="list-title">Отклик от инвестора</span>
+                                </a>
                             }
                         }
                         else
@@ -109,20 +133,20 @@
                 {
                     if (Model.WorkflowState.CurrenState == ProjectStates.WaitForPlan)
                     {
-                    <a href="~/Task/PlanForProject/@Model._id" class="list" data-hint="План проекта| Разрабатывается план проекта, ожидаем окончания его разработки."
-                    data-hint-position="right">
-                        <i class="icon-flag-2"></i>
-                        <i class="icon-busy"></i>
-                        <span class="list-title">План проекта</span>
-                    </a>
+                        <a href="~/Task/PlanForProject/@Model._id" class="list" data-hint="План проекта| Разрабатывается план проекта, ожидаем окончания его разработки."
+                           data-hint-position="right">
+                            <i class="icon-flag-2"></i>
+                            <i class="icon-busy"></i>
+                            <span class="list-title">План проекта</span>
+                        </a>
                     }
                     if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminPlanApprove && User.IsInRole("Admin"))
                     {
-                    <a href="~/Task/ApproveByAdmin/@Model._id" class="list">
-                        <i class="icon-flag-2"></i>
-                        <i class="icon-busy"></i>
-                        <span class="list-title">План проекта</span>
-                    </a>
+                        <a href="~/Task/ApproveByAdmin/@Model._id" class="list">
+                            <i class="icon-flag-2"></i>
+                            <i class="icon-busy"></i>
+                            <span class="list-title">План проекта</span>
+                        </a>
                     }
                     else
                     {
@@ -130,21 +154,21 @@
                         {
                             if (User.Identity.Name == Model.InvestorUser)
                             {
-                    <a href="~/Task/ApprovePlan/@Model._id" class="list">
-                        <i class="icon-flag-2"></i>
-                        <i class="icon-busy"></i>
-                        <span class="list-title">План проекта</span>
-                    </a>
+                                <a href="~/Task/ApprovePlan/@Model._id" class="list">
+                                    <i class="icon-flag-2"></i>
+                                    <i class="icon-busy"></i>
+                                    <span class="list-title">План проекта</span>
+                                </a>
                             }
                             else
                             {
-                    <a href="~/Task/PlanForProject/@Model._id" class="list"
-                                             data-hint="План проекта| Ожидаем одобрения плана проекта от инвестора"
-                                            data-hint-position="right">
-                        <i class="icon-flag-2"></i>
-                        <i class="icon-busy"></i>
-                        <span class="list-title">План проекта</span>
-                    </a>
+                                <a href="~/Task/PlanForProject/@Model._id" class="list"
+                                   data-hint="План проекта| Ожидаем одобрения плана проекта от инвестора"
+                                   data-hint-position="right">
+                                    <i class="icon-flag-2"></i>
+                                    <i class="icon-busy"></i>
+                                    <span class="list-title">План проекта</span>
+                                </a>
                             }
                         }
                         else
@@ -152,47 +176,47 @@
                             if (Model.WorkflowState.CurrenState == ProjectStates.PlanRealiztion
                                 || Model.WorkflowState.CurrenState == ProjectStates.DefectPlanRealization)
                             {
-                    <a href="~/Task/PlanForProject/@Model._id" class="list"
-                        data-hint="План проекта| Дорожная карта одобрена проект начался"
-                         data-hint-position="right">
-                        <i class="icon-flag-2"></i>
-                        <i class="icon-play"></i>
-                        <span class="list-title">План проекта</span>
-                    </a>
+                                <a href="~/Task/PlanForProject/@Model._id" class="list"
+                                   data-hint="План проекта| Дорожная карта одобрена проект начался"
+                                   data-hint-position="right">
+                                    <i class="icon-flag-2"></i>
+                                    <i class="icon-play"></i>
+                                    <span class="list-title">План проекта</span>
+                                </a>
                             }
                             else
                             {
                                 if (Model.WorkflowState.CurrenState == ProjectStates.CloseProject)
                                 {
-                    <a class="list selected" href="~/Task/PlanForProject/@Model._id"
-                        data-hint="План проекта| План проекта завершен."
-                        data-hint-position="right">
-                        <i class="icon-flag-2"></i>
-                        <i class=" icon-trophy"></i>
-                        <span class="list-title">План проекта</span>
-                    </a>
+                                    <a class="list selected" href="~/Task/PlanForProject/@Model._id"
+                                       data-hint="План проекта| План проекта завершен."
+                                       data-hint-position="right">
+                                        <i class="icon-flag-2"></i>
+                                        <i class=" icon-trophy"></i>
+                                        <span class="list-title">План проекта</span>
+                                    </a>
                                 }
                             }
                         }
                         if (Model.WorkflowState.CurrenState == ProjectStates.WaitForUserApproveCompletion)
                         {
-                    <a href="~/InvestorEntry/ApprovePlan/@Model._id" class="list"
-                        data-hint="План проекта| Дорожная карта одобрена"
-                        data-hint-position="right">
-                        <i class="icon-flag-2"></i>
-                        <i class="icon-busy"></i>
-                        <span class="list-title">План проекта</span>
-                    </a>
+                            <a href="~/InvestorEntry/ApprovePlan/@Model._id" class="list"
+                               data-hint="План проекта| Дорожная карта одобрена"
+                               data-hint-position="right">
+                                <i class="icon-flag-2"></i>
+                                <i class="icon-busy"></i>
+                                <span class="list-title">План проекта</span>
+                            </a>
                         }
                         if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveDefectPlanComplete || Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveCompletion)
                         {
-                    <a href="~/InvestorEntry/ApprovePlan/@Model._id" class="list"
-                        data-hint="План проекта| Дорожная карта одобрена"
-                        data-hint-position="right">
-                        <i class="icon-flag-2"></i>
-                        <i class="icon-busy"></i>
-                        <span class="list-title">План проекта</span>
-                    </a>
+                            <a href="~/InvestorEntry/ApprovePlan/@Model._id" class="list"
+                               data-hint="План проекта| Дорожная карта одобрена"
+                               data-hint-position="right">
+                                <i class="icon-flag-2"></i>
+                                <i class="icon-busy"></i>
+                                <span class="list-title">План проекта</span>
+                            </a>
                         }
                     }
                 }

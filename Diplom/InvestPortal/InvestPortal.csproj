@@ -1156,6 +1156,14 @@
     <Content Include="Views\Profile\MenuPartial.cshtml" />
     <Content Include="Views\BaseProject\WorkFlowForProjectPartial.cshtml" />
     <Content Include="Views\Task\RecursiveTaskPartial.cshtml" />
+    <Content Include="Views\BaseProject\Project.cshtml" />
+    <Content Include="Views\BaseProject\GreenFieldProject.cshtml" />
+    <Content Include="Views\BaseProject\BrownFieldProject.cshtml" />
+    <Content Include="Views\BaseProject\UnUsedBuildingProject.cshtml" />
+    <Content Include="Views\BaseProject\CreateProject.cshtml" />
+    <Content Include="Views\BaseProject\CreateGreenFieldProject.cshtml" />
+    <Content Include="Views\BaseProject\CreateBrownFieldProject.cshtml" />
+    <Content Include="Views\BaseProject\CreateUnUsedBuildingProject.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

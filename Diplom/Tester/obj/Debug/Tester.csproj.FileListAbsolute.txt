@@ -18,7 +18,6 @@ D:\develop\DiplomMap-master\Diplom\Tester\bin\Debug\MongoDB.Driver.xml
 D:\develop\DiplomMap-master\Diplom\Tester\obj\Debug\ResolveAssemblyReference.cache
 D:\develop\DiplomMap-master\Diplom\Tester\obj\Debug\Tester.exe
 D:\develop\DiplomMap-master\Diplom\Tester\obj\Debug\Tester.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Tester.exe.config
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Tester.exe
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Tester.pdb
@@ -61,3 +60,4 @@ C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Mongo
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Stateless.xml
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.csprojResolveAssemblyReference.cache
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.pdb
+c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.csprojResolveAssemblyReference.cache

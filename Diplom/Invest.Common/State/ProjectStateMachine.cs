@@ -340,6 +340,11 @@ namespace Invest.Common.State
             _stateMachine.Fire(trigger);
         }
 
+
+        public bool CanFire(ProjectTriggers trigger)
+        {
+            return _stateMachine.CanFire(trigger);
+        }
         #endregion
 
         #region Private Helpers

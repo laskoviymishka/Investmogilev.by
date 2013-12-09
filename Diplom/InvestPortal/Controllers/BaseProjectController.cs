@@ -34,7 +34,156 @@ namespace InvestPortal.Controllers
 
         #endregion
 
+        #region Create Project
+
+
+        public ActionResult CreateGreenFieldProject()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult CreateGreenFieldProject(GreenField model)
+        {
+            if (ModelState.IsValid)
+            {
+                _stateManager.CreateProject(model, User.Identity.Name);
+                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+            }
+
+            return View(model);
+        }
+
+        public ActionResult CreateBrownFieldProject()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult CreateBrownFieldProject(BrownField model)
+        {
+            if (ModelState.IsValid)
+            {
+                _stateManager.CreateProject(model, User.Identity.Name);
+                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+            }
+
+            return View(model);
+        }
+
+        public ActionResult CreateUnUsedBuildingProject()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult CreateUnUsedBuildingProject(UnUsedBuilding model)
+        {
+            if (ModelState.IsValid)
+            {
+                _stateManager.CreateProject(model, User.Identity.Name);
+                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+            }
+
+            return View(model);
+        }
+
+        public ActionResult CreateProject(string id)
+        {
+            return View();
+        }
+
+        #endregion
+
         #region Fill Project
+
+        public ActionResult GreenFieldProject(string id)
+        {
+            return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as GreenField);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult GreenFieldProject(GreenField model)
+        {
+            if (ModelState.IsValid)
+            {
+                var initial = RepositoryContext.Current.GetOne<Project>(t => t._id == model._id);
+                initial.Name = model.Name;
+                initial.Description = model.Description;
+                initial.AddressName = model.AddressName;
+                initial.Contact = model.Contact;
+                initial.Region = model.Region;
+                initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+
+                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+                _stateManager.FillProject(model._id, initial);
+                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+            }
+
+            return View(model);
+        }
+
+        public ActionResult BrownFieldProject(string id)
+        {
+            return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as BrownField);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult BrownFieldProject(BrownField model)
+        {
+            if (ModelState.IsValid)
+            {
+                var initial = RepositoryContext.Current.GetOne<Project>(t => t._id == model._id);
+                initial.Name = model.Name;
+                initial.Description = model.Description;
+                initial.AddressName = model.AddressName;
+                initial.Contact = model.Contact;
+                initial.Region = model.Region;
+                initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+
+                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+                _stateManager.FillProject(model._id, initial);
+                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+            }
+
+            return View(model);
+        }
+
+        public ActionResult UnUsedBuildingProject(string id)
+        {
+            return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as UnUsedBuilding);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult UnUsedBuildingProject(UnUsedBuilding model)
+        {
+            if (ModelState.IsValid)
+            {
+                var initial = RepositoryContext.Current.GetOne<Project>(t => t._id == model._id) as UnUsedBuilding;
+                initial.Name = model.Name;
+                initial.Description = model.Description;
+                initial.AddressName = model.AddressName;
+                initial.Contact = model.Contact;
+                initial.Region = model.Region;
+                initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+                initial.Area = model.Area;
+                initial.BalancePrice = model.BalancePrice;
+                initial.IsCommunicate = model.IsCommunicate;
+                initial.IsSell = model.IsSell;
+
+                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
+                _stateManager.FillProject(model._id, initial);
+                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+            }
+
+            return View(model);
+        }
 
         public ActionResult FillProject(string id)
         {
@@ -55,13 +204,17 @@ namespace InvestPortal.Controllers
                 initial.Region = model.Region;
                 initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
 
-                RepositoryContext.Current.Update(initial);
                 _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-                _stateManager.FillProject(model._id);
+                _stateManager.FillProject(model._id, initial);
                 return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
             }
 
             return View(model);
+        }
+
+        public ActionResult Project(string id)
+        {
+            return View(RepositoryContext.Current.GetOne<Project>(p => p._id == id));
         }
 
         #endregion

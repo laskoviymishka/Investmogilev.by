@@ -7,86 +7,72 @@
 <h2>Информация о проекте</h2>
 
 <fieldset>
-    <legend>Project</legend>
+    <legend>Проект - @Model.Name</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model._id)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model._id)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Description)
+        @Html.DisplayNameFor(model => model.Description)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.AddressName)
+        @Html.DisplayNameFor(model => model.AddressName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.AddressName)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Contact)
+        @Html.DisplayNameFor(model => model.Contact)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Contact)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Region)
+        @Html.DisplayNameFor(model => model.Region)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Region)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.AssignUser)
+        @Html.DisplayNameFor(model => model.AssignUser)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.AssignUser)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.WorkflowId)
+        @Html.DisplayNameFor(model => model.WorkflowId)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.WorkflowId)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.InvestorUser)
+        @Html.DisplayNameFor(model => model.InvestorUser)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.InvestorUser)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ProjectType)
+        @Html.DisplayNameFor(model => model.ProjectType)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.ProjectType)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.CurrenState)
+        Статус
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.CurrenState)
+        @Html.DisplayFor(model => model.WorkflowState.CurrenState)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Редактировать", "FillProject", new {  id=Model._id  })
+    @Html.ActionLink("Редактировать", "FillProject", new { id = Model._id })
     @Html.ActionLink("Назад к всем проектам", "All")
 </p>

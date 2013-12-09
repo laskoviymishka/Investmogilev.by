@@ -1,8 +1,7 @@
-﻿@model Invest.Common.Model.ProjectModels.Project
-@{
-    ViewBag.Title = "Заполнить проект";
+﻿@{
+    ViewBag.Title = "Создать проект";
 }
-<h2>Заполнить проект</h2>
+<h2>Создание проекта</h2>
 <script type="text/javascript">
     var map;
     function CheckAddress(e) {
@@ -47,12 +46,18 @@
             });
         });
 
-        var link = '/BaseProject/@Model.GetType().Name' + 'Project/@Model._id';
+
+    });
+
+    loadPolymorhCreate = function (type) {
+        var link = '/BaseProject/Create' + type + 'Project/';
+        $('#polymorphicEdit').html("загружается...");
         $.get(link, function (data) {
             $('#polymorphicEdit').html(data);
             $('#polymorphicEdit').show();
         });
-    });
+    }
+
 </script>
 <style>
     #container {
@@ -72,12 +77,35 @@
     }
 </style>
 <div id="container">
-    <div id="polymorphicEdit">Загружется...</div>
+    <div>
+        <div class="input-control radio">
+            <label>
+                <input type="radio" name="r1" onchange="loadPolymorhCreate('GreenField')" />
+                <span class="check"></span>
+                Гринфилд
+            </label>
+        </div>
+        <div class="input-control radio">
+            <label>
+                <input type="radio" name="r1" onchange="loadPolymorhCreate('BrownField')" />
+                <span class="check"></span>
+                Броунфилд
+            </label>
+        </div>
+        <div class="input-control radio">
+            <label>
+                <input type="radio" name="r1" onchange="loadPolymorhCreate('UnUsedBuilding')" />
+                <span class="check"></span>
+                Неиспользуемое здание
+            </label>
+        </div>
+    </div>
+    <div id="polymorphicEdit">Выберите тип проекта</div>
     <div id="leftContent">
         <div id="map" style="height: 100%">
         </div>
         <div>
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Назад к всем проектам", "All")
         </div>
     </div>
 </div>

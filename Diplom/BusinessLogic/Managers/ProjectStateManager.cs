@@ -229,9 +229,17 @@ namespace BusinessLogic.Managers
             StateManager(projectId).Fire(ProjectTriggers.ApprovePlanByAdmin);
         }
 
-        public void FillProject(string projectId)
+        public void FillProject(string projectId, Project project)
         {
-            StateManager(projectId).Fire(ProjectTriggers.FillProject);
+            if (StateManager(projectId).CanFire(ProjectTriggers.FillProject))
+            {
+                RepositoryContext.Current.Update(project);
+                StateManager(projectId).Fire(ProjectTriggers.FillProject);
+            }
+            else
+            {
+                RepositoryContext.Current.Update(project);
+            }
         }
 
         public void ApproveResponseByInvestor(string projectId)
@@ -254,5 +262,27 @@ namespace BusinessLogic.Managers
             StateManager(projectId).Fire(ProjectTriggers.ApprovePlanCompleteByAdmin);
         }
 
+        public void CreateProject(Project project, string editor)
+        {
+            if (project.WorkflowState == null)
+            {
+                project.WorkflowState = new WorkflowEntity()
+                {
+                    CurrenState = ProjectStates.WaitForAssignee,
+                    ChangeHistory = new List<History>()
+                    {
+                        new History()
+                        {
+                            EditingTime = DateTime.Now,
+                            Editor = editor,
+                            FromState = ProjectStates.WaitForAssignee,
+                            ToState = ProjectStates.WaitForAssignee
+                        }
+                    }
+                };
+            }
+
+            RepositoryContext.Current.Add<Project>(project);
+        }
     }
 }

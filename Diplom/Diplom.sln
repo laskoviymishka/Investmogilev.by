@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{6394CFF5-CA05-4688-98F0-1D4239B59958}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Public", "Public", "{A817E7FB-CB51-4026-A997-C4604725B399}"
@@ -41,9 +43,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invest.Tests", "Invest.Tests\Invest.Tests.csproj", "{33D3A500-9A46-434E-956C-5856FF1010BA}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Diplom.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -53,10 +52,11 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Debug|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Debug|Mixed Platforms.Build.0 = Release|Any CPU
+		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Debug|x86.ActiveCfg = Release|Any CPU
 		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A66484E-4898-40AF-B7EE-FE5DE6289D6F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -151,5 +151,8 @@ Global
 		{F66BA572-1C99-4616-9D62-AB209E36D5C9} = {078CDB8A-2564-426D-B4E1-CCE7F4D93258}
 		{CC481CDF-5CBB-4C66-BCBC-24B010D199D2} = {078CDB8A-2564-426D-B4E1-CCE7F4D93258}
 		{33D3A500-9A46-434E-956C-5856FF1010BA} = {078CDB8A-2564-426D-B4E1-CCE7F4D93258}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Diplom.vsmdi
 	EndGlobalSection
 EndGlobal
