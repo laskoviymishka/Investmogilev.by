@@ -21,3 +21,6 @@ C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debu
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.dll
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.pdb
 c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.csprojResolveAssemblyReference.cache
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\bin\Debug\MiniProfiler.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\bin\Debug\MiniProfiler.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\bin\Debug\MiniProfiler.xml

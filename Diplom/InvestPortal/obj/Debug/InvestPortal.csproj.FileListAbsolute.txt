@@ -137,5 +137,10 @@ C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\DotNe
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Stateless.xml
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\ru\EntityFramework.resources.dll
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.pdb
-c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\InvestPortal.dll.config
 c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.csprojResolveAssemblyReference.cache
+c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\EQATEC.Analytics.Monitor.dll
+c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\EQATEC.Analytics.Monitor.xml
+c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\MiniProfiler.dll
+c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\WebActivator.dll
+c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\MiniProfiler.pdb
+c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\MiniProfiler.xml

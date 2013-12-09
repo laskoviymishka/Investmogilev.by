@@ -39,12 +39,12 @@ namespace InvestPortal.Controllers
         {
             if (User.IsInRole("Admin") || User.IsInRole("User"))
             {
-                return View(_taskManager.UserProjects(User.Identity.Name));
+                return View(_taskManager.UserProjects(User.Identity.Name).ToList());
             }
 
             if (User.IsInRole("Investor"))
             {
-                return View(_taskManager.InvestorProjects(User.Identity.Name));
+                return View(_taskManager.InvestorProjects(User.Identity.Name).ToList());
             }
 
             return HttpNotFound("Роль пользователя не определена свяжитесь с администрацией");
@@ -55,12 +55,12 @@ namespace InvestPortal.Controllers
         {
             if (User.IsInRole("Admin") || User.IsInRole("User"))
             {
-                return View(_taskManager.UserProjects(User.Identity.Name));
+                return View(_taskManager.UserProjects(User.Identity.Name).ToList());
             }
 
             if (User.IsInRole("Investor"))
             {
-                return View(_taskManager.InvestorProjects(User.Identity.Name));
+                return View(_taskManager.InvestorProjects(User.Identity.Name).ToList());
             }
 
             return HttpNotFound("Роль пользователя не определена свяжитесь с администрацией");
@@ -72,12 +72,12 @@ namespace InvestPortal.Controllers
         {
             if (User.IsInRole("Admin") || User.IsInRole("User"))
             {
-                return View(_taskManager.UserProjects(User.Identity.Name));
+                return View(_taskManager.UserProjects(User.Identity.Name).ToList());
             }
 
             if (User.IsInRole("Investor"))
             {
-                return View(_taskManager.InvestorProjects(User.Identity.Name));
+                return View(_taskManager.InvestorProjects(User.Identity.Name).ToList());
             }
 
             return HttpNotFound("Роль пользователя не определена свяжитесь с администрацией");

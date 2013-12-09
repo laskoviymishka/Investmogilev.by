@@ -22,3 +22,6 @@ C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\De
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.dll
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.pdb
 c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\obj\Debug\Invest.Workflow.csprojResolveAssemblyReference.cache
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MiniProfiler.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MiniProfiler.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Workflow\bin\Debug\MiniProfiler.xml

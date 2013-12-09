@@ -1,6 +1,5 @@
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\bin\Debug\InvestPortalTests.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\bin\Debug\InvestPortalTests.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.pdb
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\bin\Debug\InvestPortalTests.dll
@@ -8,3 +7,4 @@ C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\bin\
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.csprojResolveAssemblyReference.cache
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.dll
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.csprojResolveAssemblyReference.cache

@@ -10,6 +10,7 @@ using Invest.Common.Repository;
 using InvestPortal.Models;
 using MongoDB.Bson;
 using MongoRepository;
+using StackExchange.Profiling;
 using Telerik.Web.Mvc;
 using Invest.Common.State;
 
@@ -258,8 +259,20 @@ namespace InvestPortal.Controllers
 
         public ActionResult All()
         {
-            BindUsersAndRegions();
-            return View(RepositoryContext.Current.All<Project>());
+            var profiler = MiniProfiler.Current;
+            using (
+                profiler.Step(string.Format("BindUsersAndRegions"))
+                )
+            {
+                BindUsersAndRegions();
+            }
+            var profile2r = MiniProfiler.Current;
+            using (
+                profile2r.Step(string.Format("RepositoryContext.Current.All<Project>().ToList()"))
+                )
+            {
+                return View(RepositoryContext.Current.All<Project>());
+            }
         }
 
         #region Grid Methods project workflow
@@ -272,6 +285,7 @@ namespace InvestPortal.Controllers
         }
 
         #endregion
+
         #endregion
 
         #region VerigyResponse
@@ -438,15 +452,9 @@ namespace InvestPortal.Controllers
         private void BindUsersAndRegions()
         {
             ViewBag.Users = new List<NestedUserViewModel>();
-            ViewBag.Regions = new List<NestedRegionViewModel>();
             foreach (Users mongoUser in _mongoRepository.All<Users>())
             {
                 ViewBag.Users.Add(new NestedUserViewModel() { Name = mongoUser.Username });
-            }
-
-            foreach (Region region in _mongoRepository.All<Region>())
-            {
-                ViewBag.Regions.Add(new NestedRegionViewModel() { RegionName = region.RegionName });
             }
         }
 

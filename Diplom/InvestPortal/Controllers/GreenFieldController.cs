@@ -30,16 +30,12 @@ namespace InvestPortal.Controllers
         public ActionResult Index()
         {
             ViewBag.Users = new List<BaseProjectController.NestedUserViewModel>();
-            ViewBag.Regions = new List<BaseProjectController.NestedRegionViewModel>();
+            
             foreach (Users mongoUser in RepositoryContext.Current.All<Users>())
             {
                 ViewBag.Users.Add(new BaseProjectController.NestedUserViewModel() { Name = mongoUser.Username });
             }
 
-            foreach (Region region in RepositoryContext.Current.All<Region>())
-            {
-                ViewBag.Regions.Add(new BaseProjectController.NestedRegionViewModel() { RegionName = region.RegionName });
-            }
             return View(GreenFields);
         }
 

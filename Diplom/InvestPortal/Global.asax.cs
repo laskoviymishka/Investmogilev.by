@@ -6,6 +6,10 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using InvestPortal.App_Start;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using StackExchange.Profiling;
+using StackExchange.Profiling.MVCHelpers;
 
 namespace InvestPortal
 {
@@ -51,9 +55,18 @@ namespace InvestPortal
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+        }
+
+        protected void Application_BeginRequest()
+        {
+            MiniProfiler.Start();
+        }
+
+        protected void Application_EndRequest()
+        {
+            MiniProfiler.Stop();
         }
     }
 }

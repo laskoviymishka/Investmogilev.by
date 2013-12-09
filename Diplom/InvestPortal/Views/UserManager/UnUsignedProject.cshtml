@@ -6,20 +6,6 @@
 
 <h2>Проекты без отвественных</h2>
 
-@Html.Telerik().Grid(Model).Name("UnUsignedProject").DataKeys(keys => keys.Add(p => p._id)).ToolBar(commands => commands.Insert().ButtonType(GridButtonType.Text).ImageHtmlAttributes(new { style = "margin-left:0" })).DataBinding(dataBinding => dataBinding.Ajax()
-        .Insert("InsertGreenField", "GreenField")).Columns(columns =>
-            {
-                columns.Bound(p => p.Description).Title("Описание проекта");
-                columns.ForeignKey(p => p.Region, (IEnumerable<BaseProjectController.NestedRegionViewModel>)ViewBag.Regions, "RegionName", "RegionName").Title("Регион");
-                columns.Bound(p => p.AddressName).Title("Адресс");
-                columns.ForeignKey(p => p.AssignUser, (IEnumerable<BaseProjectController.NestedUserViewModel>)ViewBag.Users, "Name", "Name").Title("Ответвственный");
-                columns.Bound(p => p.WorkflowState.CurrenState).Title("Текущее состояние");
-                columns.Command(commands =>
-                    {
-                        commands.Custom("Подробнее").Action("AssignUser", "UserManager").ButtonType(GridButtonType.Text).Text("Назначить отвественного");
-                    }).Title("управление");
-            }).Pageable().Scrollable(c => c.Height(600)).Sortable().Selectable().Localizable("ru-RU").Groupable().Filterable()
-
 <script src="~/Content/jquery.dataTables.min.js"></script>
 <link href="~/Content/demo_table.css" rel="stylesheet" />
 <link href="~/Content/jquery.dataTables.css" rel="stylesheet" />

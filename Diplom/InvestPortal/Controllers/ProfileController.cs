@@ -31,12 +31,6 @@ namespace InvestPortal.Controllers
 
         public ActionResult MenuPartial()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var model = _notificationHub.Notification(User.Identity.Name);
-                return PartialView(new PortalNotification());
-            }
-
             return PartialView();
         }
     }

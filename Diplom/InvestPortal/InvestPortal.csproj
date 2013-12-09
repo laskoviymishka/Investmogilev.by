@@ -44,7 +44,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="EQATEC.Analytics.Monitor">
+      <HintPath>D:\develop\DiplomMap-master\profiler\EQATEC.Analytics.Monitor.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MiniProfiler, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -126,6 +133,9 @@
     </Reference>
     <Reference Include="Telerik.Web.Mvc">
       <HintPath>..\packages\TelerikMvcExtensions.2013.2.611\lib\net40\Telerik.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.4.4\lib\net40\WebActivator.dll</HintPath>
     </Reference>
     <Reference Include="WebActivatorEx">
       <HintPath>..\packages\WebActivatorEx.2.0.4\lib\net40\WebActivatorEx.dll</HintPath>
@@ -358,6 +368,8 @@
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\MetroUICSSBundleConfig.cs" />
+    <Compile Include="App_Start\MiniProfiler.cs" />
+    <Compile Include="App_Start\ProfilingFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseProjectController.cs" />
     <Compile Include="Controllers\GreenFieldController.cs" />
@@ -1164,6 +1176,7 @@
     <Content Include="Views\BaseProject\CreateGreenFieldProject.cshtml" />
     <Content Include="Views\BaseProject\CreateBrownFieldProject.cshtml" />
     <Content Include="Views\BaseProject\CreateUnUsedBuildingProject.cshtml" />
+    <Content Include="Views\Shared\_MINIPROFILER UPDATED Layout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

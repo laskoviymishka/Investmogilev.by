@@ -1,5 +1,4 @@
-﻿@model Invest.Common.Model.Common.PortalNotification
-@if (User.Identity.IsAuthenticated)
+﻿@if (User.Identity.IsAuthenticated)
 {
     <ul class="dropdown-menu open keep-open" style="position: relative; z-index: 1">
         <li class="menu-title">Проекты</li>
@@ -26,15 +25,15 @@
         }
         <li class="menu-title">Уведомления</li>
         <li><a href="/Notification/">Все уведомления</a></li>
-        <li><a href="/Notification/All">@string.Format("Новые уведомелния {0}", Model.UnReadNotification)</a></li>
+        <li><a href="/Notification/All">@string.Format("Новые уведомелния {0}", "")</a></li>
         <li><a href="/Message/">Все сообщения</a></li>
-        <li><a href="/Message/Unreaded">Непрочитанные сообщения @Model.UnreadMessages</a></li>
+        <li><a href="/Message/Unreaded">Непрочитанные сообщения </a></li>
         <li><a href="/Message/Draft">Не отправленные сообщения</a></li>
         <li><a href="/Message/UnreadedSent">Отправленные непрочитанные сообщения</a></li>
         <li class="menu-title">Задачи</li>
         <li><a href="/Task/MyTask">Мои задачи</a></li>
-        <li><a href="/Task/ActiveTask/">@string.Format("Активно {0}, просроченно {1}", Model.ActiveTask, Model.PendingTask)</a></li>
-        <li><a href="/Task/CompleteTask/">@string.Format("Выполнено {0}, просроченно {1}", Model.CompleteTask, Model.PendingCompleteTask)</a></li>
+        <li><a href="/Task/ActiveTask/">@string.Format("Активно {0}, просроченно {1}", "","")</a></li>
+        <li><a href="/Task/CompleteTask/">@string.Format("Выполнено {0}, просроченно {1}","", "")</a></li>
         <li class="menu-title">Пометки</li>
         <li><a href="/Notes/All">Мои пометки</a></li>
     </ul>

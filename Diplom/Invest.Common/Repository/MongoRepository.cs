@@ -7,6 +7,7 @@ using Invest.Common.Model.Common;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
+using StackExchange.Profiling;
 
 namespace Invest.Common.Repository
 {
@@ -64,17 +65,29 @@ namespace Invest.Common.Repository
 
         public T GetOne<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
         {
-            return All<T>().Where(expression).SingleOrDefault();
+            var profiler = MiniProfiler.Current;
+            using (profiler.Step(string.Format("select table {0} query getone {1}", typeof(T).Name, expression.ToString())))
+            {
+                return All<T>().Where(expression).SingleOrDefault();
+            }
         }
 
         public IQueryable<T> All<T>() where T : IMongoEntity
         {
-            return Get<IQueryable<T>>(typeof(T).Name, _db.GetCollection(typeof(T).Name).AsQueryable<T>);
+            var profiler = MiniProfiler.Current;
+            using (profiler.Step(string.Format("select table {0} query {1}", typeof(T).Name, "all")))
+            {
+                return Get<IQueryable<T>>(typeof(T).Name, _db.GetCollection(typeof(T).Name).AsQueryable<T>);
+            }
         }
 
         public IQueryable<T> All<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
         {
-            return All<T>().Where(expression);
+            var profiler = MiniProfiler.Current;
+            using (profiler.Step(string.Format("select table {0} query All {1}", typeof(T).Name, expression.ToString())))
+            {
+                return All<T>().Where(expression);
+            }
         }
 
         #endregion
@@ -147,7 +160,7 @@ namespace Invest.Common.Repository
                 }
             }
 
-            return item;
+            return getItemCallback();
         }
 
         private void ExpireCacheToken<T>() where T : IMongoEntity
