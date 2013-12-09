@@ -594,9 +594,12 @@
     <Content Include="Content\2013.2.611\Windows7\slider-v.gif" />
     <Content Include="Content\2013.2.611\Windows7\sprite-vertical.png" />
     <Content Include="Content\2013.2.611\Windows7\sprite.png" />
+    <Content Include="Content\demo_table.css" />
     <Content Include="Content\images\buttons.gif" />
     <Content Include="Content\images\toolbar.gif" />
     <Content Include="Content\jquery.cleditor.css" />
+    <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\jquery.dataTables.min.js" />
     <Content Include="Content\metro-ui\css\metro-bootstrap-responsive.css" />
     <Content Include="Content\metro-ui\css\metro-bootstrap.css" />
     <Content Include="Content\metro-ui\fonts\iconFont.dev.svg" />

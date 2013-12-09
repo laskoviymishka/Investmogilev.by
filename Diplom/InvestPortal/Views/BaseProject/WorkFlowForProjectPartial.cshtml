@@ -6,15 +6,6 @@
 }
 <h2>Прогресс по проекту @Model.Name</h2>
 <div class="row">
-
-    @if ((int)Model.WorkflowState.CurrenState > 5)
-    {
-
-    }
-    else
-    {
-
-    }
     <nav class="breadcrumbs">
         <ul>
             <li>
@@ -108,14 +99,6 @@
                         }
                         else
                         {
-                            if (Model.WorkflowState.CurrenState != ProjectStates.Open)
-                            {
-                    <a class="list selected" data-hint="Отклик готов| Отклик одобрен администрацией и потвержден инвестором."
-                        data-hint-position="right">
-                        <i class="icon-auction"></i>
-                        <span class="list-title">Отклик от инвестора</span>
-                    </a>
-                            }
 
                         }
                     }

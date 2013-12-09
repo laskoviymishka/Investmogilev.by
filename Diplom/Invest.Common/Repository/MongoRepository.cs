@@ -115,39 +115,39 @@ namespace Invest.Common.Repository
         TC Get<TC>(string cacheId, Func<TC> getItemCallback) where TC : class
         {
             var item = HttpRuntime.Cache.Get(cacheId) as TC;
-            //if (item == null)
-            //{
-            //    item = getItemCallback();
-            //    HttpContext.Current.Cache.Insert(cacheId, item);
-            //    if (!_cacheExpired.ContainsKey(cacheId))
-            //    {
-            //        _cacheExpired.Add(cacheId, false);
-            //    }
-            //    else
-            //    {
-            //        _cacheExpired[cacheId] = false;
-            //    }
-            //}
-            //else
-            //{
-            //    if (_cacheExpired.ContainsKey(cacheId))
-            //    {
-            //        if (!_cacheExpired[cacheId])
-            //        {
-            //            return item;
-            //        }
+            if (item == null)
+            {
+                item = getItemCallback();
+                HttpContext.Current.Cache.Insert(cacheId, item);
+                if (!_cacheExpired.ContainsKey(cacheId))
+                {
+                    _cacheExpired.Add(cacheId, false);
+                }
+                else
+                {
+                    _cacheExpired[cacheId] = false;
+                }
+            }
+            else
+            {
+                if (_cacheExpired.ContainsKey(cacheId))
+                {
+                    if (!_cacheExpired[cacheId])
+                    {
+                        return item;
+                    }
 
-            //        item = getItemCallback();
-            //        HttpContext.Current.Cache.Insert(cacheId, item);
-            //        _cacheExpired[cacheId] = false;
-            //    }
-            //    else
-            //    {
-            //        _cacheExpired.Add(cacheId, true);
-            //    }
-            //}
+                    item = getItemCallback();
+                    HttpContext.Current.Cache.Insert(cacheId, item);
+                    _cacheExpired[cacheId] = false;
+                }
+                else
+                {
+                    _cacheExpired.Add(cacheId, true);
+                }
+            }
 
-            return getItemCallback();
+            return item;
         }
 
         private void ExpireCacheToken<T>() where T : IMongoEntity
