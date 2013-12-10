@@ -31,6 +31,22 @@
     <link href="~/Content/metro-ui/css/metro-bootstrap.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/jquery.cleditor.min.js"></script>
     <link href="~/Content/jquery.cleditor.css" rel="stylesheet" />
+    <script>
+        $.validator.methods.number = function (value, element) {
+            return !isNaN($.parseFloat(value));
+        }
+
+        $(function () {
+            $.preferCulture('ru-RU');
+        });
+
+        $(".datepicker").datepicker({
+            defaultDate: +7,
+            autoSize: true,
+            dateFormat: 'dd.mm.yyyy',
+        });
+
+    </script>
     <script src="~/Scripts/gmaps.js"></script>
     <body class="metro">
         <div class="grid">

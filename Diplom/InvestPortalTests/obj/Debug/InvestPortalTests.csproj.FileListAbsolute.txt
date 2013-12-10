@@ -8,3 +8,8 @@ C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\bin\
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.csprojResolveAssemblyReference.cache
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.dll
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.pdb
+d:\Develop\git\DiplomMap\Diplom\InvestPortalTests\bin\Debug\InvestPortalTests.dll
+d:\Develop\git\DiplomMap\Diplom\InvestPortalTests\bin\Debug\InvestPortalTests.pdb
+d:\Develop\git\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.csprojResolveAssemblyReference.cache
+d:\Develop\git\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.dll
+d:\Develop\git\DiplomMap\Diplom\InvestPortalTests\obj\Debug\InvestPortalTests.pdb

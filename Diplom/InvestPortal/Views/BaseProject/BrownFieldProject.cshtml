@@ -46,7 +46,7 @@
                 <td>
                     <div id="datepicker1" class="input-control text">
                         <input class="t-input"
-                               data-val="true"
+                               data-val="false"
                                data-val-date="The field EstimateRelease must be a date."
                                id="EstimateRelease"
                                name="EstimateRelease"
@@ -61,7 +61,7 @@
                 <td>
                     <div id="datepicker2" class="input-control text">
                         <input class="t-input valid"
-                               data-val="true"
+                               data-val="false"
                                data-val-date="The field RegistrationDate must be a date."
                                data-val-required="The RegistrationDate field is required."
                                id="RegistrationDate"
@@ -75,14 +75,14 @@
             <tr>
                 <td>@Html.LabelFor(model => model.InvestAmount)</td>
                 <td>
-                    @Html.EditorFor(model => model.InvestAmount)
+                    @Html.EditorFor(model => model.InvestAmount, new {@class = "k-textbox", data_val = false})
                     @Html.ValidationMessageFor(model => model.InvestAmount)
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.WorkPlaces)</td>
                 <td>
-                    @Html.EditorFor(model => model.WorkPlaces)
+                    @Html.EditorFor(model => model.WorkPlaces, new {@class = "k-textbox", data_val = false})
                     @Html.ValidationMessageFor(model => model.WorkPlaces)
                 </td>
             </tr>

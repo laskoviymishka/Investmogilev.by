@@ -21,3 +21,14 @@ C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debu
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.dll
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.pdb
 c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.csprojResolveAssemblyReference.cache
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\Invest.Common.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\Invest.Common.pdb
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\MongoDB.Bson.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\MongoDB.Driver.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\Stateless.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\MongoDB.Bson.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\MongoDB.Driver.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\Stateless.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.csprojResolveAssemblyReference.cache
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.pdb
