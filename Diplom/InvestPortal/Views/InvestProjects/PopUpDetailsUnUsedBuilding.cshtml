@@ -9,7 +9,7 @@
         </tr>
         <tr>
             <td>Описание проекта</td>
-            <td>@Html.DisplayFor(model => model.Description)</td>
+            <td>@Html.Raw(HttpUtility.HtmlDecode(Model.Description))</td>
         </tr>
         <tr>
             <td>Продажа</td>
