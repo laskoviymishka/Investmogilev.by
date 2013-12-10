@@ -50,13 +50,13 @@ function ProjectsFilterViewModel (projectListViewModel) {
 	self.SelectedTypes = ko.observableArray()
 	self.AllTypes = ko.observableArray()
 
-	self.SelectedTypes.push(new FilterViewModel("BrownField", "img/factoryClear.png", self))
-	self.SelectedTypes.push(new FilterViewModel("GreenField" , "img/constructioncraneClear.png", self))
-	self.SelectedTypes.push(new FilterViewModel("UnusedBuilding", "img/office-buildingClear.png", self))
+	self.SelectedTypes.push(new FilterViewModel("BrownField", "button success", self))
+	self.SelectedTypes.push(new FilterViewModel("GreenField" , "button success", self))
+	self.SelectedTypes.push(new FilterViewModel("UnusedBuilding", "button success", self))
 
-	self.AllTypes.push(new FilterViewModel("BrownField", "img/factoryClear.png", self))
-	self.AllTypes.push(new FilterViewModel("GreenField" , "img/constructioncraneClear.png", self))
-	self.AllTypes.push(new FilterViewModel("UnusedBuilding", "img/office-buildingClear.png", self))
+	self.AllTypes.push(new FilterViewModel("BrownField", "button success", self))
+	self.AllTypes.push(new FilterViewModel("GreenField" , "button success", self))
+	self.AllTypes.push(new FilterViewModel("UnusedBuilding", "button success", self))
 
 	self.FilterChanged = function (argument) {
 		prlVM.UpdateFilter(self)
@@ -81,9 +81,14 @@ function FilterViewModel (name, imgName, projectsFiletrs) {
 	var self = this
 	var parent = projectsFiletrs
 	self.Name = ko.observable(name)
-	self.Img = ko.observable(imgName)
+	self.checked = ko.observable(imgName)
 
 	self.FilterClick = function (argument) {
 		parent.ItemClick(self)
+		if(self.checked() == "button success"){
+			self.checked("button")
+		}else{
+			self.checked("button success")
+		}
 	}
 }

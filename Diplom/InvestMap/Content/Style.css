@@ -1,0 +1,214 @@
+﻿html .t-upload {
+    position: relative; /*possibly unneeded as the style is applied to an inner element as well*/
+    border-width: 0;
+    background: 0;
+}
+
+.t-dropzone, .t-upload-files {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+    .t-dropzone em, .t-upload-button {
+        vertical-align: middle;
+    }
+
+    * + html .t-dropzone em, * + html .t-widget .t-upload-button {
+        vertical-align: baseline;
+    }
+
+    * html .t-dropzone em, * html .t-widget .t-upload-button {
+        vertical-align: baseline;
+    }
+
+.t-dropzone {
+    border-style: solid;
+    border-width: 0;
+    padding: 4px;
+    background-color: transparent;
+}
+
+    .t-dropzone em {
+        margin-left: .6em;
+        visibility: hidden;
+    }
+
+.t-dropzone-active {
+    border-width: 1px;
+    padding: 3px;
+}
+
+    .t-dropzone-active em {
+        visibility: visible;
+    }
+
+.t-upload-button {
+    width: 86px;
+    position: relative;
+    direction: ltr;
+    overflow: hidden!important; /* important required by IE7 */
+}
+
+    .t-upload-button input {
+        font: 200px monospace!important; /* The input font size and family are critical for the operation of the Upload */
+        opacity: 0;
+        filter: alpha(opacity=0);
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+        right: 0;
+        top: 0;
+        z-index: 1;
+    }
+
+.t-state-disabled .t-upload-button input {
+    cursor: default;
+}
+
+.t-upload-files {
+    border-style: solid;
+    border-width: 1px;
+    margin: .2em 0 0;
+    padding: .3em .7em .5em;
+    line-height: 1.9em;
+}
+
+    .t-upload-files .t-button {
+        position: relative;
+        top: 1px;
+        margin-left: 8px;
+        margin-bottom: 8px;
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 84%;
+    }
+
+    * + html .t-upload-files .t-button {
+        line-height: 1;
+    }
+    /*IE7*/ * html .t-upload-files .t-button {
+        line-height: 1;
+    }
+/*IE6*/ .t-upload .t-delete, .t-upload .t-cancel, .t-upload .t-retry {
+    height: 8px;
+    vertical-align: baseline;
+}
+
+.t-upload .t-delete, .t-upload .t-cancel {
+    width: 7px;
+    background-position: -5px -292px;
+}
+
+.t-retry {
+    background-position: -66px -228px;
+    width: 11px;
+}
+
+.t-success {
+    background-position: -64px -240px;
+    margin: 10px;
+    color: forestgreen;
+}
+
+.t-fail {
+    background-position: -64px -256px;
+}
+
+.t-filename {
+    position: relative;
+    display: inline-block;
+    min-width: 120px;
+    max-width: 200px;
+    vertical-align: middle;
+    zoom: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+* html .t-filename {
+    width: 200px;
+    display: inline;
+    margin: 5px;
+}
+
+* + html .t-filename {
+    display: inline;
+}
+
+.t-progress, .t-progress-status {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 118px;
+    height: 2px;
+    border-style: solid;
+    border-width: 1px;
+    background-repeat: repeat-x;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.t-progress-status {
+    left: -1px;
+    bottom: -1px;
+    width: 50%;
+}
+
+.t-upload-selected {
+    min-width: 86px;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -ms-box-sizing: content-box;
+    margin: 3px 0 0;
+}
+
+* + html .t-upload-selected {
+    min-width: 100px;
+}
+
+.t-button {
+    background-color: #F0F0F0;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+    border: 0;
+    right: 4px;
+    height: 24px;
+    min-height: 1px;
+    min-width: 1px;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style-type: none;
+}
+
+.t-dropzone-active,
+.t-upload-files {
+    border-color: #e5e5e5;
+}
+
+.t-dropzone-hovered,
+.t-upload-files {
+    background-color: #e5e5e5;
+}
+
+.t-dropzone em {
+    color: #9b9b9b;
+}
+
+.t-progress {
+    background-color: #e5e5e5;
+    border-color: #e5e5e5;
+}
+
+.t-progress-status {
+    background-color: #309b46;
+    border-color: #309b46;
+}
