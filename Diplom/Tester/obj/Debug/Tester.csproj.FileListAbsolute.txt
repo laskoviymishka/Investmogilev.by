@@ -61,3 +61,5 @@ C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\State
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.csprojResolveAssemblyReference.cache
 C:\Users\Терехов\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.pdb
 c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.csprojResolveAssemblyReference.cache
+d:\Develop\git\DiplomMap\Diplom\Tester\bin\Debug\Tester.exe.config
+d:\Develop\git\DiplomMap\Diplom\Tester\obj\Debug\Tester.exe

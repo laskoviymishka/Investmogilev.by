@@ -58,11 +58,15 @@ function getProjectGeoData() {
 function ShowMap (argument) {
     $('#MainContainer').show();
     $('#RegionView').hide();
+    $('#radioMap').attr("class","icon-radio-checked");
+    $('#radioRegion').attr("class","icon-radio-unchecked");
 }
 
 function ShowRegion (argument) {
     $('#MainContainer').hide();
     $('#RegionView').show();
+    $('#radioMap').attr("class","icon-radio-unchecked");
+    $('#radioRegion').attr("class","icon-radio-checked");
 }
 $(window).resize(function(){
   alert('Размеры окна браузера изменены.');
