@@ -1,8 +1,8 @@
 ﻿@model Invest.Common.Model.ProjectModels.GreenField
 
-<script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/MapMarkerInit.js"></script>
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -27,8 +27,12 @@
         </div>
         <table class="table hovered">
             <tr>
-                <td>@Html.TextAreaFor(model => model.AddressName)</td>
                 <td>
+                    <div id="map" style="height: 250px">
+                    </div>
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.AddressName)
                     @Html.ValidationMessageFor(model => model.AddressName)
                     <div class="button" onclick="CheckAddress()">
                         Проверить адресс

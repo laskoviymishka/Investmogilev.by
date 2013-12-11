@@ -3,51 +3,20 @@
     ViewBag.Title = "Заполнить проект";
 }
 <h2>Заполнить проект</h2>
-
-<script type="text/javascript">
-    var map;
-    function CheckAddress(e) {
-        GMaps.geocode({
-            address: $('#AddressName').val().trim(),
-            callback: function (results, status) {
-                if (status == 'OK') {
-                    var latlng = results[0].geometry.location;
-                    map.removeMarkers();
-                    map.setCenter(latlng.lat(), latlng.lng());
-                    map.setZoom(13);
-                    map.addMarker({
-                        lat: latlng.lat(),
-                        lng: latlng.lng()
-                    });
-                    document.getElementById('Address_Lat').value = latlng.lat().toString();
-                    document.getElementById('Address_Lng').value = latlng.lng().toString();
-                }
-            }
-        });
-    };
-
+<div>
+    @Html.ActionLink("К моим проектам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker big" })
+</div>
+</br>
+<div class="balloon top">
+    <p>Необходимо заполнить проект всей необходимой информацией.</p>
+    <p>Так же крайне важно проверить адрес так, как не известно является ли он верным и отобразится на карте.</p>
+    @if (Model.WorkflowState.CurrenState == Invest.Common.State.ProjectStates.Open)
+    {
+        <small>После сохранения проект отобразится на карте</small>
+    }
+</div>
+<script>
     $(document).ready(function () {
-        map = new GMaps({
-            el: '#map',
-            lat: 53.6,
-            lng: 30.623333,
-            zoom: 8
-        });
-
-        GMaps.on('click', map.map, function (event) {
-            var index = map.markers.length;
-            var lat = event.latLng.lat();
-            var lng = event.latLng.lng();
-            document.getElementById('Address_Lat').value = lat.toString();
-            document.getElementById('Address_Lng').value = lng.toString();
-            map.removeMarkers();
-            map.setCenter(lat, lng);
-            map.addMarker({
-                lat: lat,
-                lng: lng
-            });
-        });
-
         var link = '/BaseProject/@Model.GetType().Name' + 'Project/@Model._id';
         $.get(link, function (data) {
             $('#polymorphicEdit').html(data);
@@ -60,25 +29,12 @@
         width: 95%;
     }
 
-    #leftContent {
-        float: right;
-        width: 50%;
-        height: 550px;
-    }
-
     #polymorphicEdit {
         float: left;
         margin-left: 10px;
-        width: 45%;
+        width: 99%;
     }
 </style>
 <div id="container">
     <div id="polymorphicEdit">Загружется...</div>
-    <div id="leftContent">
-        <div id="map" style="height: 100%">
-        </div>
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    </div>
 </div>
