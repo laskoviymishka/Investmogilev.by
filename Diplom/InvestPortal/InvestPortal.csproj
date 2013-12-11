@@ -367,6 +367,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UploadLocalization.zh-CN.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\DateTimeBinder.cs" />
     <Compile Include="App_Start\DoubleBinder.cs" />
     <Compile Include="App_Start\MetroUICSSBundleConfig.cs" />
     <Compile Include="App_Start\MiniProfiler.cs" />

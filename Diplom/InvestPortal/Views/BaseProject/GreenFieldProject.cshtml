@@ -46,7 +46,7 @@
                 <td>@Html.LabelFor(model => model.EstimateInvestDate)</td>
                 <td>
                     <div id="datepicker" class="input-control text">
-                        <input class="t-input" data-val="true" data-val-date="The field EstimateInvestDate must be a date."
+                        <input class="t-input" data-val="false" data-val-date="The field EstimateInvestDate must be a date."
                                data-val-required="The EstimateInvestDate field is required." id="EstimateInvestDate" name="EstimateInvestDate"
                                type="text" value="">
                     </div>
@@ -142,6 +142,7 @@
     $("#datepicker").datepicker({
         effect: "slide", // none, slide, fade
         position: "bottom", // top or bottom
+        format: "dd/mm/yyyy",
     });
     $(document).ready(function () { $("#editor").cleditor(); });
 </script>

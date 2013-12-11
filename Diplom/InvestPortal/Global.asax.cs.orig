@@ -56,8 +56,10 @@ namespace InvestPortal
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            ModelBinders.Binders.Add(typeof(DateTime), new DateTimeBinder());
+<<<<<<< HEAD
+=======
             ModelBinders.Binders.Add(typeof(double), new DoubleBinder());
+>>>>>>> 4ad2834c9c77dafcda9a7b359d716782a990a049
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }
