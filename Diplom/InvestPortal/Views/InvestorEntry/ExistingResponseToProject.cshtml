@@ -1,0 +1,52 @@
+﻿@model InvestPortal.Models.ExistingResponseViewModel
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Существующий инвестор</legend>
+        @Html.HiddenFor(model => model.ProjectId)
+        @Html.HiddenFor(model => model.ResponseId)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ResponseTime)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.ResponseTime)
+            @Html.ValidationMessageFor(model => model.ResponseTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ConfirmPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        </div>
+        
+        <p style="margin-top:20px">
+            <input type="submit" value="Отправить" />
+        </p>
+    </fieldset>
+}

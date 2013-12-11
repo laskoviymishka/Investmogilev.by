@@ -31,3 +31,4 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\bin\De
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\bin\Debug\Stateless.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.csprojResolveAssemblyReference.cache

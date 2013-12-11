@@ -1,86 +1,28 @@
-﻿@model Invest.Common.Model.ProjectModels.InvestorResponse
-@{
+﻿@{
     ViewBag.Title = "Отклик на проект";
 }
 <h2>
-    Ваш отклик на проект</h2>
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
+    Ваш отклик на проект
+</h2>
+<script>
+    loadResponseForm = function (type) {
+        var link = '/InvestorEntry/' + type + 'ResponseToProject/' + '@ViewBag.ProjectId';
+        $('#New').attr("class", "button");
+        $('#Existing').attr("class", "button");
+        $('#' + type).attr("class", "button success");
 
-    <fieldset>
-        <legend>Отклик</legend>
-        <div class="editor-label">
-            @Html.HiddenFor(model => model.ResponseId)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ResponseDate)
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.ResponseDate)
-            @Html.ValidationMessageFor(model => model.ResponseDate)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InvestorFirstName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InvestorFirstName)
-            @Html.ValidationMessageFor(model => model.InvestorFirstName)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InvestorMiddleName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InvestorMiddleName)
-            @Html.ValidationMessageFor(model => model.InvestorMiddleName)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InvestorLastName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InvestorLastName)
-            @Html.ValidationMessageFor(model => model.InvestorLastName)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InvestorOrganizationName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InvestorOrganizationName)
-            @Html.ValidationMessageFor(model => model.InvestorOrganizationName)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InvestorEmail)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InvestorEmail)
-            @Html.ValidationMessageFor(model => model.InvestorEmail)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.InvestorPhone)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.InvestorPhone)
-            @Html.ValidationMessageFor(model => model.InvestorPhone)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.AdditionalInfo)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.AdditionalInfo)
-            @Html.ValidationMessageFor(model => model.AdditionalInfo)
-        </div>
-        <div class="editor-field">
-            @Html.HiddenFor(model => model.ResponsedProjectId)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ExistingUser)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ExistingUser)
-            @Html.ValidationMessageFor(model => model.ExistingUser)
-        </div>
-        <p>
-            <input type="submit" value="Отправить" />
-        </p>
-    </fieldset>
-}
+        $('#polymorphicEdit').html("загружается...");
+        $.get(link, function (data) {
+            $('#container').html(data);
+            $('#container').show();
+        });
+    }
+</script>
+<div>
+    <div>
+        <div id="New" class="button" onclick="loadResponseForm('New')">Новый пользователь</div>
+        <div id="Existing" class="button" onclick="loadResponseForm('Existing')">Существующий пользователь</div>
+    </div>
+    <div id="container" style="width:400px">
+    </div>
+</div>

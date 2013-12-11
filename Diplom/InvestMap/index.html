@@ -10,9 +10,9 @@
     <link href="css/avgrund.css" rel="stylesheet" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-	<script src="../../assets/js/html5shiv.js"></script>
-	<script src="../../assets/js/respond.min.js"></script>
-	<![endif]-->
+    <script src="../../assets/js/html5shiv.js"></script>
+    <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
     <div>
@@ -24,24 +24,25 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
-                                        Текущий слой карты</h3>
+                                        Текущий слой карты
+                                    </h3>
                                 </div>
                                 <div class="panel-body" data-bind='style: { backgroundColor: SelectedLayerCss }, text: SelectedLayerName'
-                                    style="color: #F0FFFF">
+                                     style="color: #F0FFFF">
                                 </div>
                             </div>
                             <div class="btn-group-vertical">
                                 <div data-bind="foreach: Layers">
                                     <div class="btn-group" style="width: 115%">
                                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                            style="width: 3%">
+                                                style="width: 3%">
                                             <span class="caret" style="width: 0%"></span>
                                             <button type="button" class="btn btn-default" data-bind='text: Name , click: SelectLayer'
-                                                style="width: 80%">
-                                            </button>
+                                                    style="width: 80%"></button>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li data-bind="foreach: Childs"><a data-bind='text: Name, click: SelectLayer'></a>
+                                            <li data-bind="foreach: Childs">
+                                                <a data-bind='text: Name, click: SelectLayer'></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -54,7 +55,8 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">
-                                        Отображаемые типы проектов</h3>
+                                        Отображаемые типы проектов
+                                    </h3>
                                 </div>
                                 <div class="panel-body">
                                     <div data-bind="foreach: SelectedTypes">
@@ -66,7 +68,7 @@
                             </div>
                             <div data-bind="foreach: AllTypes" style="width: 115%">
                                 <div type="button" class="btn btn-default" data-bind='text: Name, click: FilterClick'
-                                    style="width: 87%">
+                                     style="width: 87%">
                                 </div>
                             </div>
                         </div>
@@ -74,16 +76,17 @@
                     <div id="MapView" data-bind="attr: { class: Css }">
                         <div class="map-container">
                             <div data-bind="attr: { class: GridViewVisible }" id="test" style="height: 100%">
-                                <iframe src="http://investmogilev.azurewebsites.net/InvestProjects/PartialTable" width="100%" height="100%">
-                                </iframe>
+                                <iframe src="http://investmogilev.azurewebsites.net/InvestProjects/PartialTable" width="100%" height="100%"></iframe>
                             </div>
                             <div id="googft-mapCanvas" data-bind="attr: { class: MapViewVisible }">
                             </div>
                         </div>
                         <div data-bind="attr: { class: MapViewCss }, click: SetMapView">
-                            Карта</div>
+                            Карта
+                        </div>
                         <div data-bind="attr: { class: GridViewCss }, click: SetGreedView">
-                            Данные по регионам</div>
+                            Данные по регионам
+                        </div>
                     </div>
                     <div id="right" class="hidden">
                         <div id="RegionInfoView">
@@ -105,16 +108,11 @@
     <script type="text/javascript" src="js/ViewModels/LayerViewModel.js"></script>
     <script type="text/javascript" src="js/ViewModels/ProjectViewModel.js"></script>
     <script type="text/javascript" src="js/ViewModels/MapViewModel.js"></script>
-    <aside id="project-popup" class="avgrund-popup" style="height: 600px; overflow-x: auto;
-        width: 25%; min-width: 460px">
-        <div id="popupContainer">
+    <div id="project-popup" style="margin: 20px; overflow-x: auto; width: 25%; min-width: 460px">
+        <div style="margin: 20px">
+            <div id="popupContainer">
+            </div>
         </div>
-        <button onclick="javascript:closeDialog();" style="background-position-x: bottom" class="btn btn-primary">Закрыть</button>
-        <a id="popupLink" href="http://localhost:52350/InvestorEntry/ResponseToProject/" class="btn btn-info">Откликнуться на проект</a>
-    </aside>
-    <aside id="loader-popup" class="avgrund-popup">
-    	<button onclick="javascript:closeDialog();" style="background-position-x: bottom">х</button>
-        <img src="482.GIF" style="display: block; margin-left: auto; margin-right: auto;"></img>
-    </aside>
+    </div>
 </body>
 </html>

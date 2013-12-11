@@ -51,11 +51,8 @@ namespace InvestPortal.Controllers
             Project project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == id);
             if (project != null)
             {
-                InvestorResponse response = new InvestorResponse();
-                response.ResponsedProjectId = id;
-                response.ResponseId = ObjectId.GenerateNewId().ToString();
-                response.ResponseDate = DateTime.Now;
-                return View(response);
+                ViewBag.ProjectId = id;
+                return View();
             }
             else
             {
@@ -63,36 +60,80 @@ namespace InvestPortal.Controllers
             }
         }
 
+        [AllowAnonymous]
+        public ActionResult NewResponseToProject(string id)
+        {
+            Project project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == id);
+            if (project != null)
+            {
+                InvestorResponse responseViewModel = new InvestorResponse();
+                responseViewModel.ResponsedProjectId = id;
+                responseViewModel.ResponseId = ObjectId.GenerateNewId().ToString();
+                responseViewModel.ResponseDate = DateTime.Now;
+                return PartialView(responseViewModel);
+            }
+            else
+            {
+                return HttpNotFound("Проект не найден, свяжитесь с администратором");
+            }
+        }
+
+        [AllowAnonymous]
         [HttpPost]
-        public ActionResult ResponseToProject(InvestorResponse response)
+        public ActionResult NewResponseToProject(InvestorResponse model)
         {
             if (ModelState.IsValid)
             {
                 _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-                if (!string.IsNullOrEmpty(response.ExistingUser))
-                {
-                    var project = RepositoryContext.Current.GetOne<Project>(p => p.InvestorUser == response.ExistingUser);
-                    if (project != null)
-                    {
-                        response.InvestorEmail = project.Responses[0].InvestorEmail;
-                        response.InvestorFirstName = project.Responses[0].InvestorFirstName;
-                        response.InvestorLastName = project.Responses[0].InvestorLastName;
-                        response.InvestorMiddleName = project.Responses[0].InvestorMiddleName;
-                        response.InvestorOrganizationName = project.Responses[0].InvestorOrganizationName;
-                        response.InvestorPhone = project.Responses[0].InvestorPhone;
-                        response.AdditionalInfo = project.Responses[0].AdditionalInfo;
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("ExistingUser", new AuthenticationException("пользователь не существует"));
-                        return View(response);
-                    }
-                }
-
-                _stateManager.ResponseToProject(response, User.Identity.Name);
+                _stateManager.ResponseToProject(model, User.Identity.Name);
                 return RedirectToAction("Index");
             }
-            return View(response);
+            else
+            {
+                return View(model);
+            }
+        }
+
+
+        [AllowAnonymous]
+        public ActionResult ExistingResponseToProject(string id)
+        {
+            Project project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == id);
+            if (project != null)
+            {
+                ExistingResponseViewModel viewModel = new ExistingResponseViewModel();
+                viewModel.ProjectId = id;
+                viewModel.ResponseId = ObjectId.GenerateNewId().ToString();
+                viewModel.ResponseTime = DateTime.Now;
+                return PartialView(viewModel);
+            }
+            else
+            {
+                return HttpNotFound("Проект не найден, свяжитесь с администратором");
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult ExistingResponseToProject(ExistingResponseViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var project = RepositoryContext.Current.GetOne<Project>(p => p.InvestorUser == model.UserName);
+                if (project != null)
+                {
+                    return View(model);
+                }
+                else
+                {
+                    ModelState.AddModelError("ExistingUser", new AuthenticationException("пользователь не существует"));
+                    return View(model);
+                }
+            }
+            else
+            {
+                return View(model);
+            }
         }
 
         [Authorize(Roles = "Investor")]

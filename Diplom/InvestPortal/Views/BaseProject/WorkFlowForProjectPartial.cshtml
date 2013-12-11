@@ -71,32 +71,8 @@
                                 <i class="icon-auction"></i>
                                 <span class="list-title">Отклик от инвестора</span>
                             </a>
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <div class="balloon bottom">
-                                    <ul>
-                                        @foreach (var response in Model.Responses)
-                                        {
-                                            <div>
-                                                <a href="~/BaseProject/ProcessVerifyResponse/@response.ResponseId" data-hint="Отклик| @string.Format(
-                                                                                                                                      "{0} {1} {2}",
-                                                                                                                                      response.InvestorLastName,
-                                                                                                                                      response.InvestorFirstName,
-                                                                                                                                      response.InvestorMiddleName))" data-hint-position="right">
-                                                    <button class="btn" onlick="return false;">
-                                                        @string.Format(
-                                                                                               "Одобрить отклик от {0} {1} {2}",
-                                                                                               response.InvestorLastName,
-                                                                                               response.InvestorFirstName,
-                                                                                               response.InvestorMiddleName))
-                                                    </button>
-                                                </a>
-                                            </div>
-                                        }
-                                    </ul>
-                                </div>
-                            }
                         </div>
+
                     }
                     else
                     {
@@ -128,6 +104,29 @@
                     }
                 }
             </li>
+            @if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove && User.IsInRole("Admin"))
+            {
+                <li class="example_alt_pagination">
+                        @foreach (var response in Model.Responses)
+                        {
+                            <li>
+                                <a href="~/BaseProject/ProcessVerifyResponse/@response.ResponseId"
+                                   data-hint="Отклик| @string.Format(
+                                        "{0} {1} {2}",
+                                        response.InvestorLastName,
+                                        response.InvestorFirstName,
+                                        response.InvestorMiddleName)"
+                                   data-hint-position="right">
+                                    @string.Format(
+                                            "{0} {1} {2}",
+                                            response.InvestorLastName,
+                                            response.InvestorFirstName,
+                                            response.InvestorMiddleName)
+                                </a>
+                            </li>
+                        }
+                </li>
+            }
             <li>
                 @if ((int)Model.WorkflowState.CurrenState > 5)
                 {

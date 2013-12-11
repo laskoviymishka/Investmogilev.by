@@ -393,6 +393,7 @@
     <Compile Include="Models\BaseProjectViewModel.cs" />
     <Compile Include="Models\DocumentForTaskViewModel.cs" />
     <Compile Include="Models\EditTaskViewModel.cs" />
+    <Compile Include="Models\InvestorResponseViewModel.cs" />
     <Compile Include="Models\RegionDropDownViewModel.cs" />
     <Compile Include="Models\SubTaskViewModel.cs" />
     <Compile Include="Models\UserManagereViewModel.cs" />
@@ -1182,6 +1183,8 @@
     <Content Include="Views\BaseProject\CreateBrownFieldProject.cshtml" />
     <Content Include="Views\BaseProject\CreateUnUsedBuildingProject.cshtml" />
     <Content Include="Views\Shared\_MINIPROFILER UPDATED Layout.cshtml" />
+    <Content Include="Views\InvestorEntry\NewResponseToProject.cshtml" />
+    <Content Include="Views\InvestorEntry\ExistingResponseToProject.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
