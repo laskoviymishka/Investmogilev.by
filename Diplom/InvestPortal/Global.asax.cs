@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InvestPortal.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -55,6 +56,7 @@ namespace InvestPortal
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }

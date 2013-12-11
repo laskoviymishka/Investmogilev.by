@@ -45,82 +45,6 @@ var selectedRegion = ''
         }
     });
 
-function RegionSelected(regionName) {
-    document.getElementById("mid").className = "col-md-7"
-    document.getElementById("right").className = "col-md-3"
-    document.getElementById("right").innerText = regionName
-    linkToRegionInfo = 'http://localhost:20483/RegionInfo/GetRegionInfo/' + regionName
-    $.get({
-        type: "GET",
-        url: linkToRegionInfo,
-        dataType: 'raw',
-        success: function (html) {
-            alert(html)
-            ocument.getElementById("right").innerText = html
-        },
-        error: function (e) {
-            alert(e)
-        }
-    });
-
-}
-function UnSelectRegion() {
-    document.getElementById("mid").className = "col-md-10"
-    document.getElementById("right").className = "hidden"
-}
-
-function SetLayer(layerName) {
-    if (layerName == 'integral') {
-        layer.setOptions({
-            styleId: 2,
-            templateId: 2
-        })
-        HideCheckedLayers()
-        document.getElementById("integralSelected").className = "badge"
-        return
-    }
-    if (layerName == 'demographic') {
-        layer.setOptions({
-            styleId: 3,
-            templateId: 4
-        })
-        HideCheckedLayers()
-        document.getElementById("demographicSelected").className = "badge"
-        return
-    }
-    SetLayer('integral')
-}
-
-function HideCheckedLayers() {
-    document.getElementById("agroSelected").className = "badge hidden"
-    document.getElementById("promSelected").className = "badge hidden"
-    document.getElementById("demographicSelected").className = "badge hidden"
-    document.getElementById("integralSelected").className = "badge hidden"
-}
-function openPopUp(e, type) {
-    $('#popupContainer').html('');
-    Avgrund.show("#default-popup");
-    $('#popupContainer')
-    linkToDetails = 'http://tserakhau.cloudapp.net//InvestProjects/PopUpDetails' + type.toString() + '/' + e.toString()
-    $.ajax({
-        url: linkToDetails,
-        dataType: 'html',
-        success: function (data) {
-            $('#popupContainer').html(data);
-        }
-    });
-}
-function closeDialog() {
-    Avgrund.hide();
-}
-
-function loadStart() {
-    Avgrund.show("#loader-popup");
-}
-function loadEnd() {
-    Avgrund.hide();
-}
-
 
 function getProjectGeoData() {
     $.ajax({
@@ -131,3 +55,24 @@ function getProjectGeoData() {
         }
     });
 }
+function ShowMap (argument) {
+    $('#MainContainer').show();
+    $('#RegionView').hide();
+    $('#radioMap').attr("class","icon-radio-checked");
+    $('#radioRegion').attr("class","icon-radio-unchecked");
+}
+
+function ShowRegion (argument) {
+    $('#MainContainer').hide();
+    $('#RegionView').show();
+    $('#radioMap').attr("class","icon-radio-unchecked");
+    $('#radioRegion').attr("class","icon-radio-checked");
+}
+$(window).resize(function(){
+    var height = window.innerHeight
+    $('#googft-mapCanvas').height(height-50);
+});
+$(window).load(function () {
+    var height = window.innerHeight
+    $('#googft-mapCanvas').height(height-50);
+});

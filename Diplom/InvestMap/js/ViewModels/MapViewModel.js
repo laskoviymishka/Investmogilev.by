@@ -82,14 +82,18 @@
 	    linkToDetails = 'http://investmogilev.azurewebsites.net/InvestProjects/PopUpDetails' + type.toString() + '/' + e.toString()
 	    linkToResponse = 'http://investmogilev.azurewebsites.net/InvestorEntry/ResponseToProject/' + e.toString()
 	    $("#popupLink").attr("href", linkToResponse)
-		loadStart()
 	    $.ajax({
 	        url: linkToDetails,
 	        dataType: 'html',
 	        success: function (data) {
-	        	loadEnd()
-	    		Avgrund.show("#project-popup");
 	            $('#popupContainer').html(data);
+	            $.Dialog({
+			        shadow: true,
+			        overlay: true,
+			        icon: '<span class="icon-floppy"></span>',
+			        title: 'Информация о проекте',
+			        content: $('#project-popup').html()
+			    });
 	        }
 	    });
 	}

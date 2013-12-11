@@ -44,3 +44,14 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\De
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\MiniProfiler.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\MiniProfiler.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\WebActivator.dll
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\MongoDB.Driver.dll
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\Stateless.dll
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\WebMatrix.WebData.dll
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\Invest.Common.pdb
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\MongoDB.Bson.xml
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\MongoDB.Driver.xml
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\Stateless.xml
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\WebMatrix.WebData.xml
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.dll
+d:\Develop\git\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.pdb

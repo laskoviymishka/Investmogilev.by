@@ -44,7 +44,7 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Area)</td>
                 <td>
-                    @Html.EditorFor(model => model.Area)
+                    @Html.EditorFor(model => model.Area, new {@class = "k-textbox", data_val = false})
                     @Html.ValidationMessageFor(model => model.Area)
                 </td>
             </tr>
@@ -79,7 +79,7 @@
             <tr>
                 <td>@Html.LabelFor(model => model.BalancePrice)</td>
                 <td>
-                    @Html.EditorFor(model => model.BalancePrice)
+                    @Html.EditorFor(model => model.BalancePrice, new {@class = "k-textbox", data_val = false})
                     @Html.ValidationMessageFor(model => model.BalancePrice)
                 </td>
             </tr>

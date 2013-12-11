@@ -24,3 +24,11 @@ c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\obj\De
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\bin\Debug\MiniProfiler.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\bin\Debug\MiniProfiler.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Common\bin\Debug\MiniProfiler.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\MongoDB.Driver.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\Stateless.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\MongoDB.Bson.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\MongoDB.Driver.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\Stateless.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.csprojResolveAssemblyReference.cache
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.pdb

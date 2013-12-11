@@ -63,14 +63,14 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Area)</td>
                 <td>
-                    @Html.EditorFor(model => model.Area)
+                    @Html.EditorFor(model => model.Area, new {@class = "k-textbox", data_val = false})
                     @Html.ValidationMessageFor(model => model.Area)
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.CadastrValue)</td>
                 <td>
-                    @Html.EditorFor(model => model.CadastrValue)
+                    @Html.EditorFor(model => model.CadastrValue, new {@class = "k-textbox", data_val = false})
                     @Html.ValidationMessageFor(model => model.CadastrValue)
                 </td>
             </tr>

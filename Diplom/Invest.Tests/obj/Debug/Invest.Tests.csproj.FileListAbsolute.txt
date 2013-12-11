@@ -31,3 +31,15 @@ c:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Deb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\MiniProfiler.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\MiniProfiler.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Debug\MiniProfiler.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Workflow.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoDB.Bson.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoDB.Driver.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Stateless.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Common.pdb
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Workflow.pdb
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoDB.Bson.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoDB.Driver.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Stateless.xml
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.csprojResolveAssemblyReference.cache
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.dll
+d:\Develop\git\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.pdb
