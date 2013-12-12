@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using Invest.Common.Model.Common;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
@@ -51,7 +52,7 @@ namespace Invest.Common.Repository
         public void Delete<T>(T item) where T : IMongoEntity
         {
             ExpireCacheToken<T>();
-            _db.GetCollection(typeof(T).Name).Remove(Query.EQ("_id", item._id), RemoveFlags.Single);
+            _db.GetCollection(typeof(T).Name).Remove(Query.EQ("_id", new ObjectId(item._id)));
         }
 
         public void DeleteAll<T>() where T : IMongoEntity
