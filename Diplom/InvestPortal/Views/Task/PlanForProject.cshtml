@@ -8,9 +8,9 @@
 <h2>Дорожная карта проекта @Model.Name</h2>
 @if (Model.Tasks != null && Model.Tasks.Any())
 {
-    foreach (var task in Model.Tasks.Where(t => (!t.IsComplete && !t.IsVerifiedComplete)))
+    foreach (var task in Model.Tasks)
     {
-        <div class="list-group" onclick="addSubTask('@task._id','@task.ProjectId')">
+        <div class="list-group">
             @{Html.RenderAction("RecursiveTaskPartial", "Task", new { taskId = task._id, projectId = task.ProjectId });}
         </div>
     }

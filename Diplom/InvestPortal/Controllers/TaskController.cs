@@ -83,21 +83,21 @@ namespace InvestPortal.Controllers
             return HttpNotFound("Роль пользователя не определена свяжитесь с администрацией");
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize]
         public ActionResult PlanForProject(string id)
         {
             Project pr = _taskManager.GetProject(id);
             return View(_taskManager.GetProject(id));
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize]
         public ActionResult RecursiveTaskPartial(string taskId, string projectId)
         {
             Task task = _taskManager.GetTask(taskId, projectId);
             return PartialView(task);
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize]
         public ActionResult TaskDetails(string taskId, string projectId)
         {
             ViewBag.ProjectId = projectId;
@@ -120,6 +120,7 @@ namespace InvestPortal.Controllers
             return RedirectToAction("TaskDetails", new { taskId = task._id, projectId = task.ProjectId });
         }
 
+        [Authorize(Roles = "User")]
         public ActionResult CompleteFill(string projectId)
         {
             _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
@@ -127,6 +128,7 @@ namespace InvestPortal.Controllers
             return RedirectToAction("ActiveTask", "Task");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult ApproveByAdmin(string id)
         {
             _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
