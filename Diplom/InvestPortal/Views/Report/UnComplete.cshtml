@@ -40,10 +40,10 @@
                 @Html.DisplayFor(modelItem => item.IsLate)
             </td>
             <td>
-                @Html.ActionLink("Подробнее о задании", "Details", new { id = item._id }) |
+                @Html.ActionLink("Подробнее о задании", "Details", new { id = item._id }, new { @class = "button info" })
                 @if (!item.IsComplete)
                 {
-                    @Html.ActionLink("Отчет по заданию", "CreateReport", new { id = item._id })
+                    @Html.ActionLink("Создать отчет", "CreateReport", new { id = item._id }, new { @class = "button success" })
                 }
             </td>
         </tr>

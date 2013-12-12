@@ -22,7 +22,7 @@
             Управление
         </th>
     </tr>
-    @foreach (var item in Model.Where(t => t.IsVisible))
+    @foreach (var item in Model.Where(t => t.IsVisible && !t.IsApproved))
     {
         <tr>
             <td>
@@ -40,13 +40,13 @@
             @if (item.Response == null || (!item.Response.IsReject && !item.Response.IsApproved))
             {
                 <td>
-                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item.TaskId, reportId = item._id })
+                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item.TaskId, reportId = item._id }, new { @class = "button success" })
                 </td>
             }
             else
             {
                 <td>
-                    @Html.ActionLink("Информация об отчете", "Details", new { taskId = item.TaskId})
+                    @Html.ActionLink("Информация о задаче", "Details", new { taskId = item.TaskId }, new { @class = "button info" })
                 </td>
             }
         </tr>

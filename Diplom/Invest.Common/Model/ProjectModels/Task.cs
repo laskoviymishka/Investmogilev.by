@@ -28,11 +28,11 @@ namespace Invest.Common.Model.ProjectModels
         public string ProjectId { get; set; }
 
         [Required]
-        [Display(Name = "Название проекта")]
+        [Display(Name = "Заголовок")]
         public string Title { get; set; }
 
         [Required]
-        [Display(Name = "Описание проекта")]
+        [Display(Name = "Описание")]
         public string Description { get; set; }
 
         [BsonIgnore]

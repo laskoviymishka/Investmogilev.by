@@ -21,7 +21,8 @@ namespace InvestPortal.Controllers
             var projects = RepositoryContext.Current.All<Project>(
                 p => 
                     p.InvestorUser == User.Identity.Name &&
-                    p.WorkflowState.CurrenState == ProjectStates.PlanRealiztion);
+                    (p.WorkflowState.CurrenState == ProjectStates.PlanRealiztion
+                    || p.WorkflowState.CurrenState == ProjectStates.DefectPlanRealization));
 
             var result = new List<Task>();
             foreach (Project project in projects)
@@ -39,7 +40,8 @@ namespace InvestPortal.Controllers
             var projects = RepositoryContext.Current.All<Project>(
                 p =>
                     p.InvestorUser == User.Identity.Name &&
-                    p.WorkflowState.CurrenState == ProjectStates.PlanRealiztion);
+                    (p.WorkflowState.CurrenState == ProjectStates.PlanRealiztion
+                    || p.WorkflowState.CurrenState == ProjectStates.DefectPlanRealization));
 
             var result = new List<Task>();
             foreach (Project project in projects)

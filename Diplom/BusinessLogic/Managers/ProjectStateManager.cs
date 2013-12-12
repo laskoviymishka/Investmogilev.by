@@ -218,17 +218,62 @@ namespace BusinessLogic.Managers
 
         public void CompletePlan(string userName, string projectId)
         {
-            StateManager(projectId).Fire(ProjectTriggers.CompletePlanRealization);
+            var state = StateManager(projectId);
+            if (state.CanFire(ProjectTriggers.CompletePlanRealization))
+            {
+                state.Fire(ProjectTriggers.CompletePlanRealization);
+            }
+            else
+            {
+                if (state.CanFire(ProjectTriggers.CompleteDefectPlan))
+                {
+                    state.Fire(ProjectTriggers.CompleteDefectPlan);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Операция не может быть произведена");
+                }
+            }
         }
 
         public void CompleteFillPlan(string projectId)
         {
-            StateManager(projectId).Fire(ProjectTriggers.CompleteFillPlan);
+            var state = StateManager(projectId);
+            if (state.CanFire(ProjectTriggers.CompleteFillPlan))
+            {
+                state.Fire(ProjectTriggers.CompleteFillPlan);
+            }
+            else
+            {
+                if (state.CanFire(ProjectTriggers.FillDefectPlan))
+                {
+                    state.Fire(ProjectTriggers.FillDefectPlan);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Операция не может быть произведена");
+                }
+            }
         }
 
         public void ApprovePlanByAdmin(string projectId)
         {
-            StateManager(projectId).Fire(ProjectTriggers.ApprovePlanByAdmin);
+            var state = StateManager(projectId);
+            if (state.CanFire(ProjectTriggers.ApprovePlanByAdmin))
+            {
+                state.Fire(ProjectTriggers.ApprovePlanByAdmin);
+            }
+            else
+            {
+                if (state.CanFire(ProjectTriggers.ApproveDefectPlanByAdmin))
+                {
+                    state.Fire(ProjectTriggers.ApproveDefectPlanByAdmin);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Операция не может быть произведена");
+                }
+            }
         }
 
         public void FillProject(string projectId, Project project)
@@ -251,16 +296,62 @@ namespace BusinessLogic.Managers
 
         public void ApprovePlanByInvestor(string projectId)
         {
-            StateManager(projectId).Fire(ProjectTriggers.ApprovePlanByInvestor);
+            var state = StateManager(projectId);
+            if (state.CanFire(ProjectTriggers.ApprovePlanByInvestor))
+            {
+                state.Fire(ProjectTriggers.ApprovePlanByInvestor);
+            }
+            else
+            {
+                if (state.CanFire(ProjectTriggers.ApproveDefectPlanByInvestor))
+                {
+                    state.Fire(ProjectTriggers.ApproveDefectPlanByInvestor);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Операция не может быть произведена");
+                }
+            }
         }
 
         public void UserApproveCompletion(string projectId)
         {
-            StateManager(projectId).Fire(ProjectTriggers.ApprovePlanCompleteByUser);
+            var state = StateManager(projectId);
+            if (state.CanFire(ProjectTriggers.ApprovePlanCompleteByUser))
+            {
+                state.Fire(ProjectTriggers.ApprovePlanCompleteByUser);
+            }
+            else
+            {
+                if (state.CanFire(ProjectTriggers.ApproveCompleteDefectPlanByUser))
+                {
+                    state.Fire(ProjectTriggers.ApproveCompleteDefectPlanByUser);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Операция не может быть произведена");
+                }
+            }
         }
 
         public void AdminApproveCompletion(string projectId)
         {
+            var state = StateManager(projectId);
+            if (state.CanFire(ProjectTriggers.ApprovePlanCompleteByAdmin))
+            {
+                state.Fire(ProjectTriggers.ApprovePlanCompleteByAdmin);
+            }
+            else
+            {
+                if (state.CanFire(ProjectTriggers.ApproveCompleteDefectPlanByAdmin))
+                {
+                    state.Fire(ProjectTriggers.ApproveCompleteDefectPlanByAdmin);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Операция не может быть произведена");
+                }
+            }
             StateManager(projectId).Fire(ProjectTriggers.ApprovePlanCompleteByAdmin);
         }
 
@@ -285,6 +376,34 @@ namespace BusinessLogic.Managers
             }
 
             RepositoryContext.Current.Add<Project>(project);
+        }
+
+        public void BackToTasks(string projectId)
+        {
+            var state = StateManager(projectId);
+            if (state.CanFire(ProjectTriggers.RejectPlanCompleteByUser))
+            {
+                state.Fire(ProjectTriggers.RejectPlanCompleteByUser);
+            }
+            else
+            {
+                if (state.CanFire(ProjectTriggers.RejectPlanCompleteByAdmin))
+                {
+                    state.Fire(ProjectTriggers.RejectPlanCompleteByAdmin);
+                }
+            }
+
+            if (state.CanFire(ProjectTriggers.RejectCompleteDefectPlanByUser))
+            {
+                state.Fire(ProjectTriggers.RejectCompleteDefectPlanByUser);
+            }
+            else
+            {
+                if (state.CanFire(ProjectTriggers.RejectCompleteDefectPlanByAdmin))
+                {
+                    state.Fire(ProjectTriggers.RejectCompleteDefectPlanByAdmin);
+                }
+            }
         }
     }
 }

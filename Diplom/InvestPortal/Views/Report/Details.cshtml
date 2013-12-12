@@ -44,13 +44,13 @@
     <blockquote class="display-field">
         @Html.DisplayFor(model => model.IsLate)
     </blockquote>
-    <fieldset>
+    <fieldset style="margin:20px">
         <legend>Отчеты</legend>
-        @if (Model.Reports != null && Model.Reports.Any(t => t.IsTemp))
+        @if (Model.Reports != null && Model.Reports.Any(t => t.IsVisible))
         {
-            foreach (var item in Model.Reports.Where(t => t.IsTemp))
+            foreach (var item in Model.Reports.Where(t => t.IsVisible))
             {
-                <fieldset>
+                <fieldset style="margin:20px">
                     <legend>Отчет от @item.ReportTime.ToShortDateString()</legend>
                     <small class="display-label">
                         @Html.DisplayNameFor(model => item.Body)
@@ -76,7 +76,7 @@
                             }
                         </blockquote>
                     </ul>
-                    <fieldset>
+                    <fieldset style="margin:20px">
                         <legend>Ответ на отчет</legend>
                         @if (item.Response != null)
                         {

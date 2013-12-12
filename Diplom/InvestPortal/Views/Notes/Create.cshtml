@@ -78,3 +78,11 @@
 <script>
     $(document).ready(function () { $("#editor").cleditor(); });
 </script>
+<script type="text/javascript">
+    //<![CDATA[
+    jQuery(document).ready(function () {
+        if (!jQuery.telerik) jQuery.telerik = {};
+        jQuery('#attachments').tUpload({ async: { "saveUrl": "/Notes/Save/@Model._id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
+    });
+    //]]>
+</script>

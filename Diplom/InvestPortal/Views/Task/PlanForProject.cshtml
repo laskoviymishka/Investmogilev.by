@@ -8,14 +8,14 @@
 <h2>Дорожная карта проекта @Model.Name</h2>
 @if (Model.Tasks != null && Model.Tasks.Any())
 {
-    foreach (var task in Model.Tasks)
+    foreach (var task in Model.Tasks.Where(t => (!t.IsComplete && !t.IsVerifiedComplete)))
     {
-    <div class="list-group"  onclick="addSubTask('@task._id','@task.ProjectId')">
-        @{Html.RenderAction("RecursiveTaskPartial", "Task", new { taskId = task._id, projectId = task.ProjectId });}
-    </div>
+        <div class="list-group" onclick="addSubTask('@task._id','@task.ProjectId')">
+            @{Html.RenderAction("RecursiveTaskPartial", "Task", new { taskId = task._id, projectId = task.ProjectId });}
+        </div>
     }
 }
-@if (Model.WorkflowState.CurrenState == ProjectStates.WaitForPlan)
+@if (Model.WorkflowState.CurrenState == ProjectStates.WaitForPlan || Model.WorkflowState.CurrenState == ProjectStates.PlanRealiztion || Model.WorkflowState.CurrenState == ProjectStates.WaitForDefectPlan)
 {
     <input type="button" value="Добавить ключевую точку" onclick=" addCoreTask() " />
     <script type="text/javascript">
@@ -37,5 +37,8 @@
     </script>
     <div id="test">
     </div>
-    @Html.ActionLink("Потвердить созданный план", "CompleteFill", new { projectId = Model._id })
+
+    <div style="margin:20px">
+        @Html.ActionLink("Потвердить созданный план", "CompleteFill", new { projectId = Model._id }, new { @class = "button success" })
+    </div>
 }

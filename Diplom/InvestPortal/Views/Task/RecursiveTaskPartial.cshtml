@@ -6,7 +6,7 @@
             <div class="list-content">
                 <span class="list-title">@Model.Title</span>
                 <span class="list-subtitle">Время выполнения: @Model.Milestone.ToShortDateString()</span>
-                <span class="list-remark">@Model.Description</span>
+                <span class="list-remark">@Html.Raw(Model.Description)</span>
             </div>
         </a>
     }

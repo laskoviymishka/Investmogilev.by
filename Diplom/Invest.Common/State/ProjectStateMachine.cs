@@ -124,12 +124,12 @@ namespace Invest.Common.State
 
             _stateMachine.Configure(ProjectStates.DefectPlanRealization)
                          .OnEntry(() => { if (OnDefectPlanRealizationEntry != null) OnDefectPlanRealizationEntry(); })
-                         .OnExit(() => { if (OnDefectPlanRealizationExit != null) OnWaitForInvestorDefectPlanApproveExit(); })
+                         .OnExit(() => { if (OnDefectPlanRealizationExit != null) OnDefectPlanRealizationExit(); })
                          .PermitIf(ProjectTriggers.CompleteDefectPlan, ProjectStates.WaitForUserApproveDefectPlanComplete, GuardCompleteDefectPlan);
 
             _stateMachine.Configure(ProjectStates.WaitForUserApproveDefectPlanComplete)
-                         .OnEntry(() => { if (OnWaitForInvestorDefectPlanApproveEntry != null) OnWaitForInvestorDefectPlanApproveEntry(); })
-                         .OnExit(() => { if (OnWaitForInvestorDefectPlanApproveExit != null) OnWaitForInvestorDefectPlanApproveExit(); })
+                         .OnEntry(() => { if (WaitForUserApproveDefectPlanCompleteEntry != null) WaitForUserApproveDefectPlanCompleteEntry(); })
+                         .OnExit(() => { if (OnWaitForUserApproveDefectPlanCompleteExit != null) OnWaitForUserApproveDefectPlanCompleteExit(); })
                          .PermitIf(ProjectTriggers.ApproveCompleteDefectPlanByUser, ProjectStates.WaitForAdminApproveDefectPlanComplete, GuardApproveCompleteDefectPlanByUser)
                          .PermitIf(ProjectTriggers.RejectCompleteDefectPlanByUser, ProjectStates.WaitForDefectPlan, GuardRejectCompleteDefectPlanByUser);
 
@@ -164,6 +164,7 @@ namespace Invest.Common.State
             OnDefectPlanRealizationEntry = () => MoveState(ProjectStates.DefectPlanRealization);
             OnWaitForAdminApproveDefectPlanCompleteEntry = () => MoveState(ProjectStates.WaitForAdminApproveDefectPlanComplete);
             OnCloseProjectEntry = () => MoveState(ProjectStates.CloseProject);
+            WaitForUserApproveDefectPlanCompleteEntry = () => MoveState(ProjectStates.WaitForUserApproveDefectPlanComplete);
         }
 
         private void ApplyExitMethods()
@@ -244,6 +245,7 @@ namespace Invest.Common.State
         public Action OnDefectPlanRealizationEntry { get; set; }
         public Action OnWaitForAdminApproveDefectPlanCompleteEntry { get; set; }
         public Action OnCloseProjectEntry { get; set; }
+        public Action WaitForUserApproveDefectPlanCompleteEntry { get; set; }
 
         #endregion
 
@@ -304,6 +306,7 @@ namespace Invest.Common.State
         public Action OnWaitForUserApproveDefectPlanExit { get; set; }
         public Action OnWaitForAdminApproveDefectPlanCompleteExit { get; set; }
         public Action OnCloseProjectExit { get; set; }
+        public Action OnWaitForUserApproveDefectPlanCompleteExit { get; set; }
 
         #endregion
 
@@ -398,6 +401,7 @@ namespace Invest.Common.State
         }
 
         #endregion
+
     }
 
     #region Project State Enums

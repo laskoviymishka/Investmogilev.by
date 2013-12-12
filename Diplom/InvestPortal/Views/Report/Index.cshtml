@@ -20,12 +20,6 @@
             @Html.DisplayNameFor(model => model.CompletedOn)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsComplete)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsVerifiedComplete)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.IsLate)
         </th>
         <th>
@@ -47,34 +41,28 @@
             <td>
                 @if (item.IsComplete)
                 {
-                    @Html.DisplayFor(modelItem => item.CompletedOn)
+                    if (item.IsVerifiedComplete)
+                    {
+                        @Html.DisplayFor(modelItem => item.CompletedOn)
+                    }
+                    else
+                    {
+                        <p>Отчет отправлен, но еще не проверен</p>
+                    }
                 }
                 else
                 {
                     <p>Задание еще не выполненно</p>
                 }
-            </td>
-            <td>
-                @if (item.IsComplete)
-                {
-                    @Html.DisplayFor(modelItem => item.IsComplete)
-                }
-                else
-                {
-                    <p>Задание еще не выполненно</p>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsVerifiedComplete)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsLate)
             </td>
             <td>
-                @Html.ActionLink("Подробнее о задании", "Details", new { id = item._id }) |
+                @Html.ActionLink("Подробнее о задании", "Details", new { id = item._id }, new { @class = "button info" })
                 @if (!item.IsComplete)
                 {
-                    @Html.ActionLink("Отчет по заданию", "CreateReport", new { id = item._id })
+                    @Html.ActionLink("Создать отчет", "CreateReport", new { id = item._id }, new { @class = "button success" })
                 }
             </td>
         </tr>

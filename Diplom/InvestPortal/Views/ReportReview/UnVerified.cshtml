@@ -3,15 +3,14 @@
     ViewBag.Title = "Непроверенные отчеты";
 }
 <h2>
-    Непроверенные отчеты</h2>
+    Непроверенные отчеты
+</h2>
 <table class="table hovered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Body)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsApproved)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.ReportTime)
         </th>
@@ -22,15 +21,13 @@
             Управление
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Where(t => t.IsVisible))
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Body)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsApproved)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.ReportTime)
             </td>
@@ -40,13 +37,13 @@
             @if (item.Response == null || (!item.Response.IsReject && !item.Response.IsApproved))
             {
                 <td>
-                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item.TaskId, reportId = item._id })
+                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item.TaskId, reportId = item._id }, new { @class = "button success" })
                 </td>
             }
             else
             {
                 <td>
-                    @Html.ActionLink("Информация об отчете", "Details", new { taskId = item.TaskId})
+                    @Html.ActionLink("Информация об отчете", "Details", new { taskId = item.TaskId }, new { @class = "button info" })
                 </td>
             }
         </tr>
