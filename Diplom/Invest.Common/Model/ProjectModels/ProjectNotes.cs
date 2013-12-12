@@ -12,6 +12,7 @@ namespace Invest.Common.Model.ProjectModels
         [BsonRepresentation(BsonType.ObjectId)]
         public string _id { get; set; }
 
+        [Display(Name = "Проект")]
         public string ProjectId { get; set; }
 
         [Display(Name = "Заголовок")]
@@ -28,6 +29,7 @@ namespace Invest.Common.Model.ProjectModels
         [Display(Name = "Время создания")]
         public DateTime CreatedTime { get; set; }
 
+        [Display(Name = "Доступна для ролей")]
         public List<string> RolesForView { get; set; }
 
         public IEnumerable<AdditionalInfo> NoteDocument { get; set; }

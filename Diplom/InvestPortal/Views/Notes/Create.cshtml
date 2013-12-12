@@ -1,67 +1,78 @@
 ﻿@model Invest.Common.Model.ProjectModels.ProjectNotes
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Создание заметки";
 }
 <h2>
-    Create</h2>
+    Создание заметки
+</h2>
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>ProjectNotes</legend>
+        <legend>Заметка</legend>
         @Html.HiddenFor(model => model.ProjectId)
         @Html.HiddenFor(model => model._id)
         @Html.HiddenFor(model => model.CretorName)
         @Html.HiddenFor(model => model.CreatedTime)
-        <div class="editor-label">
+        <small class="editor-label">
             @Html.LabelFor(model => model.NoteTitle)
-        </div>
-        <div class="editor-field">
+        </small>
+        <blockquote class="editor-field">
             @Html.EditorFor(model => model.NoteTitle)
             @Html.ValidationMessageFor(model => model.NoteTitle)
-        </div>
-        <div class="editor-label">
+        </blockquote>
+        <small class="editor-label">
             @Html.LabelFor(model => model.NoteBody)
-        </div>
-        <div class="editor-field">
-            @Html.TextAreaFor(model => model.NoteBody, new { @id = "editor"})
+        </small>
+        <blockquote class="editor-field">
+            @Html.TextAreaFor(model => model.NoteBody, new { @id = "editor" })
             @Html.ValidationMessageFor(model => model.NoteBody)
-        </div>
-        <div class="editor-label">
+        </blockquote>
+        <small class="editor-label">
             @Html.LabelFor(model => model.CretorName)
-        </div>
-        <div class="editor-field">
+        </small>
+        <blockquote class="editor-field">
             @Html.DisplayFor(model => model.CretorName)
-        </div>
-        <div class="editor-label">
+        </blockquote>
+        <small class="editor-label">
             @Html.LabelFor(model => model.CreatedTime)
-        </div>
-        <div class="editor-field">
+        </small>
+        <blockquote class="editor-field">
             @Html.DisplayFor(model => model.CreatedTime)
-        </div>
-        <div class="editor-label">
+        </blockquote>
+        <small class="editor-label">
             @Html.LabelFor(model => model.CretorName)
-        </div>
-        <div class="editor-field">
+        </small>
+        <blockquote class="editor-field">
             @Html.DisplayFor(model => model.CretorName)
-        </div>
-        <div class="editor-field">
+        </blockquote>
+        <small class="editor-label">
+            @Html.LabelFor(model => model.RolesForView)
+        </small>
+        <blockquote class="editor-field">
             @Html.ListBoxFor(model => model.RolesForView, new SelectList(new List<string>() { "Admin", "User", "Investor" }))
             @Html.ValidationMessageFor(model => model.RolesForView)
-        </div>
-        @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
+        </blockquote>
+
+        <small class="editor-label">
+            Приложения
+        </small>
+        <div class="editor-field">
+            @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
              .Save("Save", "Notes", new { id = Model._id })
                  .Remove("Remove", "Notes", new { id = Model._id })
             .AutoUpload(false)
         ).Localizable("ru-RU")
+        </div>
+
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Создать" />
         </p>
     </fieldset>
 }
 <div>
-    @Html.ActionLink("Ко всем записям", "Index") |
+    @Html.ActionLink("Ко всем записям", "Index")
     @Html.ActionLink("К записям по проекту", "Index")
 </div>
 <script>

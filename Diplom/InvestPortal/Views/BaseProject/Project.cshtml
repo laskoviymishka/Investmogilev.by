@@ -78,14 +78,16 @@
         @Html.DisplayFor(model => model.ProjectType)
     </blockquote>
 
-    <small class="display-label">
+    <small class="display-label" data-hint="Системный статус | @Model.WorkflowState.CurrenState"
+           data-hint-position=" right">
         Статус
     </small>
-    <blockquote class="display-field">
+    <blockquote class="display-field" >
         @{Html.RenderAction("WorkFlowForProjectPartial", "BaseProject", new { id = Model._id });}
     </blockquote>
 </fieldset>
-
+</br>
 <p>
+    @Html.ActionLink("Создать заметку к проекту","Create", "Notes", new { id = Model._id }, new { @class = "button info" })
     @Html.ActionLink("Редактировать", "FillProject", new { id = Model._id }, new { @class = "button info"})
 </p>

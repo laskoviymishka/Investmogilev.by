@@ -1,17 +1,12 @@
 ﻿@model IEnumerable<Invest.Common.Model.ProjectModels.ProjectNotes>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Все заметки";
 }
 <h2>
-    Index</h2>
+    Все заметки
+</h2>
 <table class="table hovered">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model._id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectId)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.NoteTitle)
         </th>
@@ -31,12 +26,6 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item._id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.NoteTitle)
             </td>
             <td>
@@ -49,9 +38,12 @@
                 @Html.DisplayFor(modelItem => item.CreatedTime)
             </td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item._id }) |
-                @Html.ActionLink("Подробнее", "Details", new { id = item._id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item._id })
+                @Html.ActionLink("Редактировать", "Edit", new { id = item._id }, new { @class = "button success" })
+                @Html.ActionLink("Подробнее", "Details", new { id = item._id }, new { @class = "button info" })
+                @if (User.Identity.Name == item.CretorName)
+                {
+                    @Html.ActionLink("Удалить", "Delete", new { id = item._id }, new { @class = "button warning" })
+                }
             </td>
         </tr>
     }

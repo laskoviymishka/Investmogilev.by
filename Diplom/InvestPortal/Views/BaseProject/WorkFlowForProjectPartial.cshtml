@@ -79,7 +79,7 @@
                     {
                         if (Model.WorkflowState.CurrenState == ProjectStates.WaitForInvestorResponseApprove)
                         {
-                            if (User.IsInRole("Investor"))
+                            if (User.IsInRole("Investor") && User.Identity.Name == Model.InvestorUser)
                             {
                                 <a href="~/InvestorEntry/ApproveResponse/@Model._id"
                                    class="list "

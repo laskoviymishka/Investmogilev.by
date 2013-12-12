@@ -4,27 +4,31 @@
     ViewBag.Title = "Мои задачи";
 }
 <h2>Мои задачи</h2>
-@foreach (var project in Model)
-{
-    if (project.Tasks != null && project.Tasks.Any())
+<div class="listview-outlook" data-role="listview">
+    @foreach (var project in Model.OrderBy(p => p.Tasks.Count()).Reverse())
     {
-    <div>
-        @Html.ActionLink("Дорожная карта проекта" + @project.Name + "-" + @project.Description, "PlanForProject", "Task", new { id = project._id }, null)
-    </div>
-        foreach (var task in project.Tasks)
+        if (project.Tasks != null && project.Tasks.Any())
         {
-    <div class="list-group"  onclick="addSubTask('@task._id','@task.ProjectId')">
-        @{Html.RenderAction("RecursiveTaskPartial", "Task", new { taskId = task._id, projectId = task.ProjectId });}
-    </div>
+            <div class="list-group collapsed" style="margin-left:20px">
+                <a href="~/Task/PlanForProject/@project._id" class="group-title">План для @project.Name</a>
+                <div class="group-content">
+                    @foreach (var task in project.Tasks)
+                    {
+                        { Html.RenderAction("RecursiveTaskPartial", "Task", new { taskId = task._id, projectId = task.ProjectId }); }
+                    }
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <a href="~/Task/PlanForProject/@project._id" class="list">
+                <div class="list-content">
+                    <span class="list-title">План для @project.Name</span>
+                    <span class="list-subtitle">План пуст</span>
+                    <span class="list-remark">@project.Description</span>
+                </div>
+            </a>
         }
     }
-    else
-    {
-    <div>
-        @Html.ActionLink("Дорожная карта проекта" + @project.Name + "-" + @project.Description, "PlanForProject", "Task", new { id = project._id }, null)
-        <div>
-            Ключевых этапов для этого проекте еще нет
-        </div>
-    </div>
-    }
-}
+</div>

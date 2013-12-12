@@ -63,7 +63,7 @@ namespace InvestPortal.Controllers
             {
                 model.NoteDocument = RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == model._id).NoteDocument;
                 RepositoryContext.Current.Update(model);
-                return RedirectToAction("Index");
+                return RedirectToAction("All");
             }
 
             return View(model);
@@ -82,7 +82,7 @@ namespace InvestPortal.Controllers
             {
                 model.NoteDocument = RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == model._id).NoteDocument;
                 RepositoryContext.Current.Update(model);
-                return RedirectToAction("Index");
+                return RedirectToAction("All");
             }
 
             return View(model);
@@ -92,7 +92,7 @@ namespace InvestPortal.Controllers
         {
             var note = RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == id);
             RepositoryContext.Current.Delete(note);
-            return RedirectToAction("Index");
+            return RedirectToAction("All");
         }
 
         public ActionResult Details(string id)
