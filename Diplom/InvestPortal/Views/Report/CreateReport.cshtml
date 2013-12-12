@@ -1,43 +1,44 @@
 ﻿@model Invest.Common.Model.ProjectModels.TaskReport
 @{
-    ViewBag.Title = "CreateReport";
+    ViewBag.Title = "Создание отчета";
 }
 <h2>
-    CreateReport</h2>
+    Создать отчет
+</h2>
+
+<script src="http://localhost:9222/Scripts/2013.2.611/telerik.common.min.js"></script>
+<script src="http://localhost:9222/Scripts/2013.2.611/telerik.upload.min.js"></script>
+<link href="http://localhost:9222/Content/Style.css" rel="stylesheet" />
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>TaskReport</legend>
+        <legend>Отчет</legend>
         @Html.HiddenFor(model => model._id)
         @Html.HiddenFor(model => model.ProjectId)
         @Html.HiddenFor(model => model.IsApproved)
         @Html.HiddenFor(model => model.ReporterName)
         @Html.HiddenFor(model => model.TaskId)
         @Html.HiddenFor(model => model.ReportTime)
-        <div class="editor-label">
+        <small class="editor-label">
             @Html.LabelFor(model => model.Body)
-        </div>
+        </small>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.Body, new { @id = "editor"})
+            @Html.TextAreaFor(model => model.Body, new { @id = "editor" })
             @Html.ValidationMessageFor(model => model.Body)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ReportTime)
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.ReportTime)
-            @Html.ValidationMessageFor(model => model.ReportTime)
-        </div>
-        <div class="editor-label">
+        <small class="editor-label">
             Приложения
-        </div>
-        @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
+        </small>
+        <div style="margin:10px">
+            @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
                 .Save("Save", "Report", new { taskId = Model.TaskId, reportId = Model._id })
                     .Remove("Remove", "Report", new { taskId = Model.TaskId, reportId = Model._id })
             .AutoUpload(false)
         ).Localizable("ru-RU")
+        </div>
         <p>
             <input type="submit" value="Отправить" />
         </p>
@@ -48,4 +49,12 @@
 </div>
 <script>
     $(document).ready(function () { $("#editor").cleditor(); });
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    jQuery(document).ready(function () {
+        if (!jQuery.telerik) jQuery.telerik = {};
+        jQuery('#attachments').tUpload({ async: { "saveUrl": "/Report/Save?taskId=@Model.TaskId&reportId=@Model._id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
+    });
+    //]]>
 </script>

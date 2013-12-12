@@ -76,6 +76,8 @@ namespace Invest.Common.Model.ProjectModels
             }
             set { _milestoneDate = value; }
         }
+
+        [Display(Name = "Дата выполнения")]
         public DateTime CompletedOn { get; set; }
 
         [Required]

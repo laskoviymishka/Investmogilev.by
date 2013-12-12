@@ -1,15 +1,16 @@
 ﻿@model Invest.Common.Model.ProjectModels.ReportResponse
 @{
-    ViewBag.Title = "ReviewReport";
+    ViewBag.Title = "Проверка отчета";
 }
 <h2>
-    ReviewReport</h2>
+    Провертка отчета
+</h2>
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>ReportResponse</legend>
+        <legend>Отзыв на отчет</legend>
         @Html.HiddenFor(model => model.ResponseTime)
         @Html.HiddenFor(model => model._id)
         @Html.HiddenFor(model => model.TaskId)
@@ -19,7 +20,7 @@
             @Html.LabelFor(model => model.ResponseBody)
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.ResponseBody, new { @id = "editor"})
+            @Html.TextAreaFor(model => model.ResponseBody, new { @id = "editor" })
             @Html.ValidationMessageFor(model => model.ResponseBody)
         </div>
         <div class="editor-label">
@@ -29,11 +30,13 @@
             @Html.EditorFor(model => model.IsApproved)
             @Html.ValidationMessageFor(model => model.IsApproved)
         </div>
-        @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
+        <div style="margin:10px">
+            @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
                 .Save("Save", "ReportReview", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
                 .Remove("Remove", "ReportReview", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
             .AutoUpload(false)
         ).Localizable("ru-RU")
+        </div>
         <p>
             <input type="submit" value="Отправить" />
         </p>
@@ -44,4 +47,13 @@
 </div>
 <script>
     $(document).ready(function () { $("#editor").cleditor(); });
+</script>
+
+<script type="text/javascript">
+    //<![CDATA[
+    jQuery(document).ready(function () {
+        if (!jQuery.telerik) jQuery.telerik = {};
+        jQuery('#attachments').tUpload({ async: { "saveUrl": "/ReportReview/Save?taskId=@Model.TaskId&reportId=@Model._id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
+    });
+    //]]>
 </script>

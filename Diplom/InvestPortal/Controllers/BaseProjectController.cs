@@ -363,18 +363,18 @@ namespace InvestPortal.Controllers
             return View(model);
         }
 
-        public ActionResult UserApproveCompletion(string projectId)
+        public ActionResult UserApproveCompletion(string id)
         {
             _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-            _stateManager.UserApproveCompletion(projectId);
-            return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = projectId });
+            _stateManager.UserApproveCompletion(id);
+            return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = id });
         }
 
-        public ActionResult AdminApproveCompletion(string projectId)
+        public ActionResult AdminApproveCompletion(string id)
         {
             _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-            _stateManager.AdminApproveCompletion(projectId);
-            return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = projectId });
+            _stateManager.AdminApproveCompletion(id);
+            return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = id });
         }
 
         #endregion

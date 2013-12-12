@@ -127,10 +127,10 @@ namespace InvestPortal.Controllers
             return RedirectToAction("ActiveTask", "Task");
         }
 
-        public ActionResult ApproveByAdmin(string projectId)
+        public ActionResult ApproveByAdmin(string id)
         {
             _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-            _stateManager.ApprovePlanByAdmin(projectId);
+            _stateManager.ApprovePlanByAdmin(id);
             return RedirectToAction("ActiveTask", "Task");
         }
 

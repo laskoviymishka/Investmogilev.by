@@ -3,7 +3,8 @@
     ViewBag.Title = "Новые отчеты";
 }
 <h2>
-    Новые отчеты</h2>
+    Новые отчеты
+</h2>
 <table class="table hovered">
     <tr>
         <th>
@@ -16,18 +17,10 @@
             @Html.DisplayNameFor(model => model.Milestone)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CompletedOn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsComplete)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsVerifiedComplete)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.IsLate)
         </th>
         <th>
+            Управление
         </th>
     </tr>
     @foreach (var item in Model)
@@ -37,20 +30,12 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+               @Html.Raw(HttpUtility.HtmlDecode(item.Description))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Milestone)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompletedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsComplete)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsVerifiedComplete)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.IsLate)
             </td>

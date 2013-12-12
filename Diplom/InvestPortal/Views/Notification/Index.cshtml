@@ -1,51 +1,74 @@
 ﻿@model IEnumerable<Invest.Common.Model.User.NotificationQueue>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Новые уведомления";
 }
-
-<h2>Index</h2>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NotificationTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NotigicationBody)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsRead)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NotificationTime)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model.ToArray().Reverse()) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NotificationTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NotigicationBody)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsRead)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NotificationTime)
-        </td>
-        <td>
-            @Html.ActionLink("Прочитать", "Read", new { id = item._id}) 
-        </td>
-    </tr>
-}
-
+<script src="~/Content/jquery.dataTables.min.js"></script>
+<link href="~/Content/demo_table.css" rel="stylesheet" />
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/TableSetup.js"></script>
+<script>
+    /* Table initialisation */
+    $(document).ready(function () {
+        $('#main-table').dataTable({
+            "sPaginationType": "bootstrap",
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ записей на странице",
+                "oPaginate": {
+                    "sNext": "Следующая",
+                    "sPrevious": "Предыдущая"
+                },
+                "sInfo": "Всего _TOTAL_ записей. Показаны от _START_-й до _END_-й записи.",
+                "sSearch": "Введите фильтр для таблицы _INPUT_"
+            }
+        });
+    });
+</script>
+<h2>Новые уведомления</h2>
+<table id="main-table" class="table hovered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotificationTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotigicationBody)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsRead)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotificationTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ToArray().Reverse())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NotificationTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NotigicationBody)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsRead)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NotificationTime)
+                </td>
+                <td>
+                    @Html.ActionLink("Прочитать", "Read", new { id = item._id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

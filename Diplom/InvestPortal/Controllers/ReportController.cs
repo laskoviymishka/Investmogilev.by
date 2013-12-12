@@ -102,6 +102,7 @@ namespace InvestPortal.Controllers
             if (initialReport != null) initialReport.Body = model.Body;
             task.IsComplete = true;
             task.IsVerifiedComplete = false;
+            initialReport.IsVisible = true;
             RepositoryContext.Current.Update(task);
             return RedirectToAction("Index");
         }
@@ -138,7 +139,7 @@ namespace InvestPortal.Controllers
                 document._id = ObjectId.GenerateNewId().ToString();
                 result.Add(document);
             }
-
+            report.IsVisible = false;
             report.Appendix = result;
             RepositoryContext.Current.Update(task);
 

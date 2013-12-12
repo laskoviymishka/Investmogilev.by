@@ -29,6 +29,8 @@ namespace Invest.Common.Model.ProjectModels
         [Display(Name = "Автор")]
         public string ReporterName { get; set; }
 
+        public bool IsVisible { get; set; }
+
         public string TaskId { get; set; }
 
         public ReportResponse Response { get; set; }

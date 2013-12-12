@@ -38,15 +38,19 @@
     <blockquote class="">
         @Html.DisplayFor(model => model.To)
     </blockquote>
-    @if (Model.Body != null & Model.Body.Appendix != null)
-    {
-        foreach (var item in Model.Body.Appendix)
+    <div style="margin:10px">
+        @if (Model.Body != null & Model.Body.Appendix != null)
         {
-        <li>@Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
+            foreach (var item in Model.Body.Appendix)
+            {
+                <li>
+                    @Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
                                               "Download",
-                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button-info" })</li>
+                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button info" })
+                </li>
+            }
         }
-    }
+    </div>
 </fieldset>
 <p>
     @Html.ActionLink("Назад к сообщениям", "Index", new { @class = "button button-primary" })

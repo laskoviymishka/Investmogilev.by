@@ -91,15 +91,24 @@
                             else
                             {
                                 <a class="list" data-hint="Отклик одобрен администратором| Отклик одобрен администрацией. Ожидаем потверждения от инвестора."
-                                   data-hint-position="right">
-                                    <i class="icon-auction"></i>
-                                    <span class="list-title">Отклик от инвестора</span>
+                                   data-hint-position=" right">
+                                    <span data-hint-position="right">
+                                        <i class="icon-auction"></i>
+                                        <span class="list-title">Отклик от инвестора</span>
                                 </a>
                             }
                         }
                         else
                         {
-
+                            if ((int)Model.WorkflowState.CurrenState > 5 && Model.Responses != null)
+                            {
+                                <a class="list" data-hint="Отклик одобрен| Отклик одобрен администрацией и потвержден инвестором. @string.Format("{0} {1} {2}", Model.Responses[0].InvestorLastName, Model.Responses[0].InvestorFirstName, Model.Responses[0].InvestorMiddleName)"
+                                   data-hint-position="right">
+                                    <i class="icon-auction"></i>
+                                    <span data-hint-position="right">
+                                        <span class="list-title">Отклик от инвестора</span>
+                                </a>
+                            }
                         }
                     }
                 }
@@ -107,25 +116,25 @@
             @if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove && User.IsInRole("Admin"))
             {
                 <li class="example_alt_pagination">
-                        @foreach (var response in Model.Responses)
-                        {
-                            <li>
-                                <a href="~/BaseProject/ProcessVerifyResponse/@response.ResponseId"
-                                   data-hint="Отклик| @string.Format(
+                    @foreach (var response in Model.Responses)
+                    {
+                    <li>
+                        <a href="~/BaseProject/ProcessVerifyResponse/@response.ResponseId"
+                           data-hint="Отклик| @string.Format(
                                         "{0} {1} {2}",
                                         response.InvestorLastName,
                                         response.InvestorFirstName,
                                         response.InvestorMiddleName)"
-                                   data-hint-position="right">
-                                    @string.Format(
+                           data-hint-position="right">
+                            @string.Format(
                                             "{0} {1} {2}",
                                             response.InvestorLastName,
                                             response.InvestorFirstName,
                                             response.InvestorMiddleName)
-                                </a>
-                            </li>
-                        }
-                </li>
+                        </a>
+                    </li>
+                    }
+                    </li>
             }
             <li>
                 @if ((int)Model.WorkflowState.CurrenState > 5)
@@ -141,8 +150,10 @@
                     }
                     if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminPlanApprove && User.IsInRole("Admin"))
                     {
-                        <a href="~/Task/ApproveByAdmin/@Model._id" class="list">
-                            <i class="icon-flag-2"></i>
+                        <a href="~/Task/ApproveByAdmin/@Model._id" class="list"
+                           data-hint="План проекта| План проекта помечен как завершенный, нажмите что бы одобрить" data-hint-position="right">
+                            <i class=" icon-flag-2">
+                            </i>
                             <i class="icon-busy"></i>
                             <span class="list-title">План проекта</span>
                         </a>
@@ -153,7 +164,8 @@
                         {
                             if (User.Identity.Name == Model.InvestorUser)
                             {
-                                <a href="~/Task/ApprovePlan/@Model._id" class="list">
+                                <a href="~/InvestorEntry/ApprovePlan/@Model._id" class="list"
+                                   data-hint="План проекта| План проекта одобрен администратором и ожидает вашего одобрения. Нажмите что бы одобрить" data-hint-position="right">
                                     <i class="icon-flag-2"></i>
                                     <i class="icon-busy"></i>
                                     <span class="list-title">План проекта</span>
@@ -197,20 +209,46 @@
                                 }
                             }
                         }
-                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForUserApproveCompletion)
+                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForUserApproveCompletion && User.Identity.Name == Model.AssignUser)
                         {
-                            <a href="~/InvestorEntry/ApprovePlan/@Model._id" class="list"
-                               data-hint="План проекта| Дорожная карта одобрена"
+                            <a href="~/BaseProject/UserApproveCompletion/@Model._id" class="list"
+                               data-hint="План проекта| Дорожная карта пройдена, нажмите  для потверждения выполнения."
                                data-hint-position="right">
                                 <i class="icon-flag-2"></i>
                                 <i class="icon-busy"></i>
                                 <span class="list-title">План проекта</span>
                             </a>
                         }
-                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveDefectPlanComplete || Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveCompletion)
+                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForUserApproveCompletion && User.Identity.Name != Model.AssignUser)
                         {
-                            <a href="~/InvestorEntry/ApprovePlan/@Model._id" class="list"
-                               data-hint="План проекта| Дорожная карта одобрена"
+                            <a href="" class="list"
+                               data-hint="План проекта| Дорожная карта пройдена, ожидаем потверждения ответственного."
+                               data-hint-position="right">
+                                <i class="icon-flag-2"></i>
+                                <i class="icon-busy"></i>
+                                <span class="list-title">План проекта</span>
+                            </a>
+                        }
+
+                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveDefectPlanComplete
+                            || Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveCompletion
+                            && User.IsInRole("Admin"))
+                        {
+                            <a href="~/BaseProject/AdminApproveCompletion/@Model._id" class="list"
+                               data-hint="План проекта| Дорожная карта одобрена ответственным, нажмите что бы закрыть проект"
+                               data-hint-position="right">
+                                <i class="icon-flag-2"></i>
+                                <i class="icon-busy"></i>
+                                <span class="list-title">План проекта</span>
+                            </a>
+                        }
+
+                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveDefectPlanComplete
+                            || Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminApproveCompletion
+                            && !User.IsInRole("Admin"))
+                        {
+                            <a href="~/BaseProject/AdminApproveCompletion/@Model._id" class="list"
+                               data-hint="План проекта| Дорожная карта одобрена ответственным, ожидается отклик от администратора."
                                data-hint-position="right">
                                 <i class="icon-flag-2"></i>
                                 <i class="icon-busy"></i>

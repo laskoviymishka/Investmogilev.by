@@ -22,11 +22,11 @@
             Управление
         </th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Where(t => t.IsVisible))
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Body)
+                @Html.Raw(HttpUtility.HtmlDecode(item.Body))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsApproved)
