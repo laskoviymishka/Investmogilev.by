@@ -2,9 +2,13 @@
     Layout = "~/Views/Shared/_NewLayout.cshtml";
 }
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Главная";
 }
 @if (!User.Identity.IsAuthenticated)
 {
     @Html.ActionLink("Войти", "Login", "Account")
 }
+<h2>Главная</h2>
+<p>
+    Сдесь главная страница с краткой инструкцией
+</p>

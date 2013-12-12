@@ -7,9 +7,9 @@
     @Html.ActionLink("К моим проектам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker big" })
 </div>
 </br>
-<div class="balloon top">
-    <p>Необходимо заполнить проект всей необходимой информацией.</p>
-    <p>Так же крайне важно проверить адрес так, как не известно является ли он верным и отобразится на карте.</p>
+<div class="balloon top" style="width:500px">
+    <p style="margin:20px">Необходимо заполнить проект всей доступной по нему информацией.</p>
+    <p style="margin:20px">Так же крайне важно проверить адрес так, как не известно является ли он верным и отобразится на карте.</p>
     @if (Model.WorkflowState.CurrenState == Invest.Common.State.ProjectStates.Open)
     {
         <small>После сохранения проект отобразится на карте</small>

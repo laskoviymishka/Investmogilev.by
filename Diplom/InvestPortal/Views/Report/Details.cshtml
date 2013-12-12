@@ -63,7 +63,6 @@
                     </small>
                     <ul>
                         <blockquote style="margin:10px">
-
                             @if (item.Appendix != null && item.Appendix.Any())
                             {
                                 foreach (var appendix in item.Appendix)
@@ -99,6 +98,19 @@
                             <blockquote class="display-field">
                                 @Html.DisplayFor(model => item.Response.IsApproved)
                             </blockquote>
+                            <blockquote style="margin:10px">
+                                @if (item.Response.Appendix != null && item.Response.Appendix.Any())
+                                {
+                                    foreach (var appendix in item.Response.Appendix)
+                                    {
+                                        <li>
+                                            @Html.ActionLink("Скачать " + appendix.InfoName,
+                                              "Download",
+                                               new { messageId = Model._id, appendixId = item.Response._id }, new { @class = "button button info" })
+                                        </li>
+                                    }
+                                }
+                            </blockquote>
                         }
                         else
                         {
@@ -112,4 +124,3 @@
         }
     </fieldset>
 </fieldset>
-

@@ -4,11 +4,19 @@
     ViewBag.Title = "Мои проекты";
 }
 <h2>Мои проекты</h2>
-
+<div class="balloon top" style="width:500px">
+    <p style="margin:20px">Информация о всех проектах за которые вы ответственны</p>
+    <p style="margin:20px">Наведите указатель для информации о текущей стадии проекта.</p>
+</div>
 <div class="accordion" data-role="accordion">
     @foreach (var project in Model.OrderBy(t => (int)(t.WorkflowState.CurrenState)).Reverse())
     {
-        Html.RenderAction("WorkFlowForProjectPartial", "BaseProject", new { id = project._id });
+        <div style="margin-top: 10px; margin-bottom: 0px; border: 1px #ccc solid;">
+            <div style="margin: 7px;">
+                <h3>Прогресс по проекту @project.Name</h3>
+                @{Html.RenderAction("WorkFlowForProjectPartial", "BaseProject", new { id = project._id });}
+            </div>
+        </div>
     }
 </div>
 <script type="text/javascript">

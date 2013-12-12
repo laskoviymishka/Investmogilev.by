@@ -50,7 +50,7 @@ namespace InvestPortal.Controllers
             if (ModelState.IsValid)
             {
                 _stateManager.CreateProject(model, User.Identity.Name);
-                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+                return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
             return View(model);
@@ -68,7 +68,7 @@ namespace InvestPortal.Controllers
             if (ModelState.IsValid)
             {
                 _stateManager.CreateProject(model, User.Identity.Name);
-                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+                return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
             return View(model);
@@ -86,7 +86,7 @@ namespace InvestPortal.Controllers
             if (ModelState.IsValid)
             {
                 _stateManager.CreateProject(model, User.Identity.Name);
-                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+                return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
             return View(model);
@@ -122,7 +122,7 @@ namespace InvestPortal.Controllers
 
                 _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
                 _stateManager.FillProject(model._id, initial);
-                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+                return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
             return View(model);
@@ -149,7 +149,7 @@ namespace InvestPortal.Controllers
 
                 _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
                 _stateManager.FillProject(model._id, initial);
-                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+                return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
             return View(model);
@@ -180,7 +180,7 @@ namespace InvestPortal.Controllers
 
                 _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
                 _stateManager.FillProject(model._id, initial);
-                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+                return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
             return View(model);
@@ -207,7 +207,7 @@ namespace InvestPortal.Controllers
 
                 _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
                 _stateManager.FillProject(model._id, initial);
-                return RedirectToAction("WorkFlowForProject", "BaseProject", new { id = model._id });
+                return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
             return View(model);
@@ -305,7 +305,7 @@ namespace InvestPortal.Controllers
                 var investorResponse = project.Responses.FirstOrDefault(p => p.ResponseId == id);
                 if (investorResponse != null)
                 {
-                    return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = project._id });
+                    return RedirectToAction("Project", "BaseProject", new { @id = project._id });
                 }
             }
             return HttpNotFound();
@@ -335,7 +335,7 @@ namespace InvestPortal.Controllers
                         User.Identity.Name,
                         investorResponse.ExistingUser))
                     {
-                        return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = investorResponse.ResponsedProjectId });
+                        return RedirectToAction("Project", "BaseProject", new { @id = investorResponse.ResponsedProjectId });
                     }
                 }
             }
@@ -355,7 +355,7 @@ namespace InvestPortal.Controllers
                     model.Password,
                     model.Email))
                 {
-                    return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = model.ResponseProjectId });
+                    return RedirectToAction("Project", "BaseProject", new { @id = model.ResponseProjectId });
                 }
 
                 return HttpNotFound();
@@ -367,14 +367,14 @@ namespace InvestPortal.Controllers
         {
             _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
             _stateManager.UserApproveCompletion(id);
-            return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = id });
+            return RedirectToAction("Project", "BaseProject", new { @id = id });
         }
 
         public ActionResult AdminApproveCompletion(string id)
         {
             _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
             _stateManager.AdminApproveCompletion(id);
-            return RedirectToAction("WorkFlowForProject", "BaseProject", new { @id = id });
+            return RedirectToAction("Project", "BaseProject", new { @id = id });
         }
 
         #endregion

@@ -68,17 +68,19 @@
                         Приложения
                     </div>
                     <ul>
-                        @if (item.Appendix != null)
-                        {
-                            foreach (var appendix in item.Appendix)
+                        <blockquote style="margin:10px">
+                            @if (item.Appendix != null && item.Appendix.Any())
                             {
-                                <li>
-                                    @Html.ActionLink("Скачать " + (appendix as DocumentAdditionalInfo).InfoName,
-                                                 "Download",
-                                                 new { taskId = Model._id, reportId = item._id, appendixId = appendix._id })
-                                </li>
+                                foreach (var appendix in item.Appendix)
+                                {
+                                    <li>
+                                        @Html.ActionLink("Скачать " + appendix.InfoName,
+                                              "Download",
+                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button info" })
+                                    </li>
+                                }
                             }
-                        }
+                        </blockquote>
                     </ul>
                     <fieldset style="margin-left:20px;">
                         <legend>Ответ на отчет</legend>

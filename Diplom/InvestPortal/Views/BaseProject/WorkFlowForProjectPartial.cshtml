@@ -4,7 +4,7 @@
 @{
     string selected = "selected";
 }
-<h3>Прогресс по проекту @Model.Name</h3>
+
 <div class="row">
     <nav class="breadcrumbs">
         <ul>
@@ -26,6 +26,7 @@
                     {
                         <a class="list selected" data-hint="Заполнение проекта| Проект заполнен - @Model.Description"
                            data-hint-position="right">
+                            <i class="icon-checkmark"></i>
                             <i class="icon-home"></i>
                             <span class="list-title">Заполнение проекта</span>
                         </a>
@@ -104,6 +105,7 @@
                             {
                                 <a class="list" data-hint="Отклик одобрен| Отклик одобрен администрацией и потвержден инвестором. @string.Format("{0} {1} {2}", Model.Responses[0].InvestorLastName, Model.Responses[0].InvestorFirstName, Model.Responses[0].InvestorMiddleName)"
                                    data-hint-position="right">
+                                    <i class="icon-checkmark"></i>
                                     <i class="icon-auction"></i>
                                     <span data-hint-position="right">
                                         <span class="list-title">Отклик от инвестора</span>
