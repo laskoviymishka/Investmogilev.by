@@ -3,6 +3,8 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/MapMarkerInit.js"></script>
+
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -17,6 +19,13 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Name)
             @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Tags)
+        </div>
+        <div class="editor-field">
+            @Html.ListBoxFor(model => model.Tags, new SelectList(new List<string>() { "test", "test2", "test3" }), new { id = "cznTags" })
+            @Html.ValidationMessageFor(model => model.Tags)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Description)
@@ -52,7 +61,7 @@
                     <div id="datepicker" class="input-control text">
                         <input class="t-input" data-val="false" data-val-date="The field EstimateInvestDate must be a date."
                                data-val-required="The EstimateInvestDate field is required." id="EstimateInvestDate" name="EstimateInvestDate"
-                               type="text" value="">
+                               type="text" value="@Model.EstimateInvestDate.ToString("d")">
                     </div>
                     @Html.ValidationMessageFor(model => model.EstimateInvestDate)
                 </td>
@@ -67,14 +76,14 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Area)</td>
                 <td>
-                    @Html.EditorFor(model => model.Area, new {@class = "k-textbox", data_val = false})
+                    @Html.EditorFor(model => model.Area, new { @class = "k-textbox", data_val = false })
                     @Html.ValidationMessageFor(model => model.Area)
                 </td>
             </tr>
             <tr>
                 <td>@Html.LabelFor(model => model.CadastrValue)</td>
                 <td>
-                    @Html.EditorFor(model => model.CadastrValue, new {@class = "k-textbox", data_val = false})
+                    @Html.EditorFor(model => model.CadastrValue, new { @class = "k-textbox", data_val = false })
                     @Html.ValidationMessageFor(model => model.CadastrValue)
                 </td>
             </tr>
@@ -139,7 +148,6 @@
                 @Html.EditorFor(model => model.Address)
             </div>
         </div>
-
     </fieldset>
 }
 <script>
@@ -149,5 +157,7 @@
         format: "dd/mm/yyyy",
     });
     $(document).ready(function () { $("#editor").cleditor(); });
-</script>
 
+    $("#cznTags").chosen();
+    $('.chosen-container').css('width', '100%');
+</script>

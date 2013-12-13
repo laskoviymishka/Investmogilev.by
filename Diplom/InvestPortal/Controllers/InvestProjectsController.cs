@@ -21,6 +21,7 @@ namespace InvestPortal.Controllers
             public string _id { get; set; }
             public string Description { get; set; }
             public string Type { get; set; }
+            public List<string> Tags { get; set; }
         }
 
         #endregion
@@ -96,7 +97,8 @@ namespace InvestPortal.Controllers
                         Name = project.Name,
                         Description = project.Description,
                         _id = project._id,
-                        Type = project.GetType().Name
+                        Type = project.GetType().Name,
+                        Tags = project.Tags
                     });
                 }
             }

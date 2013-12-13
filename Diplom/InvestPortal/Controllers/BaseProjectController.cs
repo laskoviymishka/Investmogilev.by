@@ -103,6 +103,7 @@ namespace InvestPortal.Controllers
 
         public ActionResult GreenFieldProject(string id)
         {
+            ViewBag.Tags = new List<string>() { "test","test2","test3" };
             return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as GreenField);
         }
 
@@ -119,6 +120,7 @@ namespace InvestPortal.Controllers
                 initial.Contact = model.Contact;
                 initial.Region = model.Region;
                 initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+                initial.Tags = model.Tags;
 
                 _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
                 _stateManager.FillProject(model._id, initial);

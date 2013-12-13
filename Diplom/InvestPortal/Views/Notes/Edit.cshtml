@@ -4,6 +4,9 @@
 }
 <h2>
     Редактировать заметку</h2>
+
+<script src="~/Scripts/chosen.jquery.min.js"></script>
+<link href="~/Content/chosen.min.css" rel="stylesheet" />
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -51,7 +54,7 @@
             @Html.LabelFor(model => model.RolesForView)
         </small>
         <blockquote class="editor-field">
-            @Html.ListBoxFor(model => model.RolesForView, new SelectList(new List<string>() { "Admin", "User", "Investor" }))
+            @Html.ListBoxFor(model => model.RolesForView, new SelectList(new List<string>() { "Admin", "User", "Investor" }), new { id = "cznTags" })
             @Html.ValidationMessageFor(model => model.RolesForView)
         </blockquote>
 
@@ -84,5 +87,7 @@
         if (!jQuery.telerik) jQuery.telerik = {};
         jQuery('#attachments').tUpload({ async: { "saveUrl": "/Notes/Save/@Model._id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
     });
+    $("#cznTags").chosen();
+    $('.chosen-container').css('width', '260px');
     //]]>
 </script>

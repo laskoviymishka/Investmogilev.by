@@ -45,7 +45,11 @@ namespace Invest.Common.Model.ProjectModels
 
         [Display(Name = "Ответственные")]
         public string AssignUser { get; set; }
+
         public string WorkflowId { get; set; }
+
+        [Display(Name = "Теги")]
+        public List<string> Tags { get; set; }
 
         [Display(Name = "Инвестор")]
         public string InvestorUser
