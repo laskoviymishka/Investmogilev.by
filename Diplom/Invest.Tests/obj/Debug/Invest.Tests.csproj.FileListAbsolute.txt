@@ -19,7 +19,6 @@ d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoDB.Driver.dll
 d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Stateless.dll
 d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Common.pdb
 d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Workflow.pdb
-d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoDB.Bson.xml
 d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\MongoDB.Driver.xml
 d:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Stateless.xml
 d:\Develop\git\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.csprojResolveAssemblyReference.cache
@@ -43,3 +42,8 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\bin\Deb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Invest.Tests\obj\Debug\Invest.Tests.pdb
+D:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Tests.dll
+D:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Tests.pdb
+D:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\Invest.Common.dll
+D:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\MiniProfiler.dll
+D:\Develop\git\DiplomMap\Diplom\Invest.Tests\bin\Debug\MiniProfiler.xml

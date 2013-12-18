@@ -82,3 +82,8 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Min
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.csprojResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.exe
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.pdb
+D:\Develop\git\DiplomMap\Diplom\Tester\bin\Debug\Tester.exe.config
+D:\Develop\git\DiplomMap\Diplom\Tester\bin\Debug\Tester.exe
+D:\Develop\git\DiplomMap\Diplom\Tester\bin\Debug\MiniProfiler.dll
+D:\Develop\git\DiplomMap\Diplom\Tester\bin\Debug\MiniProfiler.xml
+D:\Develop\git\DiplomMap\Diplom\Tester\obj\Debug\Tester.exe

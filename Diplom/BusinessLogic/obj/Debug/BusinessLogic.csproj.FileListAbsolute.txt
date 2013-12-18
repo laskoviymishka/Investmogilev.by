@@ -55,3 +55,10 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\De
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.pdb
+D:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\BusinessLogic.dll
+D:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\BusinessLogic.pdb
+D:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\Invest.Common.dll
+D:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\MiniProfiler.dll
+D:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\MongoDB.Bson.dll
+D:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\WebActivator.dll
+D:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\MiniProfiler.xml
