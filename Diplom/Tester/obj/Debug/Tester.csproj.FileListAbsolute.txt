@@ -82,3 +82,5 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Min
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.csprojResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.exe
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\obj\Debug\Tester.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\FluentEmail.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\Tester\bin\Debug\Xipton.Razor.dll

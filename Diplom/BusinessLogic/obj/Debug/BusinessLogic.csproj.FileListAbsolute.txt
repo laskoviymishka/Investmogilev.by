@@ -55,3 +55,8 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\De
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\obj\Debug\BusinessLogic.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\Postal.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\Postal.xml
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\FluentEmail.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\System.Web.Razor.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\Xipton.Razor.dll

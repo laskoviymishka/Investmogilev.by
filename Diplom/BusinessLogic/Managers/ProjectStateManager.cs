@@ -216,6 +216,8 @@ namespace BusinessLogic.Managers
 
         #endregion
 
+        #region Old Project Workflow
+
         public void CompletePlan(string userName, string projectId)
         {
             var state = StateManager(projectId);
@@ -405,5 +407,29 @@ namespace BusinessLogic.Managers
                 }
             }
         }
+
+        #endregion
+
+        #region New Project Workflow
+
+        public void FillProject() { }
+
+        public void ResponseOnProject() { }
+
+        public void ApproveInvestor() { }
+
+        public void CreateDocumentPlan() { }
+
+        public void UpdateProgressOnDocumentPlan() { }
+
+        public void CreateMilestones() { }
+
+        public void ReportToMilestone() { }
+
+        public void ReviewReportToMilestone() { }
+
+        public void CloseProject() { }
+
+        #endregion
     }
 }

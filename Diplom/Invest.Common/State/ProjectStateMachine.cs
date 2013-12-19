@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Invest.Common.Model.ProjectModels;
 using Invest.Common.Model.User;
 using MongoDB.Bson;
@@ -40,6 +41,10 @@ namespace Invest.Common.State
             ApplyGuards();
             Configure();
         }
+
+        #endregion
+
+        #region Configure
 
         private void Configure()
         {
@@ -144,6 +149,9 @@ namespace Invest.Common.State
                  .OnExit(() => { if (OnCloseProjectExit != null) OnCloseProjectExit(); });
         }
 
+        #endregion
+
+        #region ApplyMethods
 
         private void ApplyEntryMethods()
         {
@@ -332,6 +340,11 @@ namespace Invest.Common.State
         private bool ApproveForInvestor()
         {
             return _currentProject.InvestorUser == _userName;
+        }
+
+        private bool IsAllTaskComplete()
+        {
+            return _currentProject.Tasks.Any(t => (!t.IsComplete || !t.IsVerifiedComplete)); 
         }
 
         #endregion

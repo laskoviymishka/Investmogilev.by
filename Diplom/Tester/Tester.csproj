@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="App_Data\MailTemplate\Test.cshtml" />
+    <None Include="App_Data\Test.cshtml" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

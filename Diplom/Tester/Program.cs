@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Invest.Common.Model;
 using MongoRepository;
+using BusinessLogic.Notification;
 
 namespace Tester
 {
@@ -17,7 +18,8 @@ namespace Tester
     {
         static void Main(string[] args)
         {
-            Console.Read();
+            MailMessageHandler t = new MailMessageHandler();
+            t.Send();
         }
         //private static void GenerateDependendenciesValues()
         //{

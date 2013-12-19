@@ -1164,6 +1164,7 @@
     <Content Include="App_Data\Drawing1.edx" />
     <Content Include="App_Data\Drawing1.pdf" />
     <Content Include="App_Data\Dynamite.uml" />
+    <Content Include="App_Data\MailTemplate\Test.cshtml" />
     <None Include="Content\metro-ui\fonts\iconFont.eot" />
     <None Include="Content\metro-ui\fonts\iconFont.json" />
     <None Include="Content\metro-ui\fonts\iconFont.ttf" />

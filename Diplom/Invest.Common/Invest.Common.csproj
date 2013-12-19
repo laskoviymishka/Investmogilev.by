@@ -111,6 +111,7 @@
     <Compile Include="Repository\MongoRepository.cs" />
     <Compile Include="Repository\ProjectRepository.cs" />
     <Compile Include="State\ProjectStateMachine.cs" />
+    <Compile Include="State\ProjectUpdateStateMachine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
