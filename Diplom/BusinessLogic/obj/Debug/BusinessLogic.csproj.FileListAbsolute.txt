@@ -60,3 +60,5 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\De
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\FluentEmail.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\System.Web.Razor.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\bin\Debug\Xipton.Razor.dll
+D:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\WebActivator.dll
+D:\Develop\git\DiplomMap\Diplom\BusinessLogic\bin\Debug\MiniProfiler.xml

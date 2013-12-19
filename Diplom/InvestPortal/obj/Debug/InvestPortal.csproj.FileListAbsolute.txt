@@ -210,3 +210,10 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\obj\Deb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\FluentEmail.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Xipton.Razor.dll
+D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\Antlr3.Runtime.dll
+D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\BusinessLogic.dll
+D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\DotNetOpenAuth.AspNet.dll
+D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\DotNetOpenAuth.Core.dll
+D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\MiniProfiler.dll
+D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\WebActivator.dll
+D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\MiniProfiler.xml

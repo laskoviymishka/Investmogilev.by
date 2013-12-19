@@ -112,9 +112,19 @@
     <Compile Include="Repository\ProjectRepository.cs" />
     <Compile Include="State\ProjectStateMachine.cs" />
     <Compile Include="State\ProjectUpdateStateMachine.cs" />
+    <Compile Include="State\ProjectWorkflow.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectWorkflow.stateless</DependentUpon>
+    </Compile>
+    <Compile Include="State\ProjectWorkflowWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="State\ProjectWorkflow.stateless">
+      <Generator>StatelessCodeGenerator</Generator>
+      <LastGenOutput>ProjectWorkflow.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
