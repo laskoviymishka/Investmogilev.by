@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.User;
-using MongoRepository;
 
 namespace BusinessLogic.Notification
 {

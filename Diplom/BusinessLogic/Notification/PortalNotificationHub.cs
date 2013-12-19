@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using BusinessLogic.Managers;
+using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.User;
 using MongoDB.Bson;
-using MongoRepository;
 
 namespace BusinessLogic.Notification
 {

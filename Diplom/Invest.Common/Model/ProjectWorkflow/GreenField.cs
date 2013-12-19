@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Invest.Common.Model.ProjectModels
+namespace Invest.Common.Model.ProjectWorkflow
 {
     public class GreenField : Project
     {

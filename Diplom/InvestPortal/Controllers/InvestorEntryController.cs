@@ -4,12 +4,10 @@ using System.Security.Authentication;
 using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic.Managers;
-using Invest.Common.Model.ProjectModels;
+using Invest.Common;
+using Invest.Common.Model.ProjectWorkflow;
 using Invest.Common.Repository;
-using Invest.Workflow.Project;
-using Invest.Workflow.StateManagment;
 using MongoDB.Bson;
-using MongoRepository;
 using InvestPortal.Models;
 
 namespace InvestPortal.Controllers
@@ -18,9 +16,7 @@ namespace InvestPortal.Controllers
     {
         #region Private Field
 
-        private readonly ProjectRepository _projectRepository;
         private readonly IRepository _responseRepository;
-        private readonly IWorkflowContext _greenFieldWorkflowContext;
         private readonly Dictionary<string, object> _conditions;
         private readonly ProjectStateManager _stateManager;
 

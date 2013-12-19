@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Invest.Common.Model.ProjectModels
+namespace Invest.Common.Model.ProjectWorkflow
 {
     public class UnUsedBuilding : Project
     {
@@ -15,6 +15,6 @@ namespace Invest.Common.Model.ProjectModels
         public bool IsCommunicate { get; set; }
 
         [Display(Name = "Балансовая стоимость здания")]
-        public Nullable<double> BalancePrice { get; set; }
+        public double BalancePrice { get; set; }
     }
 }

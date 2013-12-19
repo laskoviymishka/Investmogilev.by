@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Invest.Common.Model.ProjectModels;
+using Invest.Common.Model.ProjectWorkflow;
 using Stateless;
 
 namespace Invest.Common.State

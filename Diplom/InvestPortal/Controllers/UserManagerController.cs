@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic.Managers;
+using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
 using Invest.Common.Model.User;
 using Invest.Common.Repository;
 using InvestPortal.Models;
-using MongoRepository;
 using Telerik.Web.Mvc;
 
 namespace InvestPortal.Controllers

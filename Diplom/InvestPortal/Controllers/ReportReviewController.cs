@@ -6,10 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic.Managers;
+using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
 using MongoDB.Bson;
-using MongoRepository;
 
 namespace InvestPortal.Controllers
 {

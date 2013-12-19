@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Security;
+using Invest.Common;
 using Invest.Common.Model.ProjectModels;
+using Invest.Common.Model.ProjectWorkflow;
 using Invest.Common.Notification;
 using Invest.Common.State;
-using MongoRepository;
 using BusinessLogic.Notification;
+using Project = Invest.Common.Model.ProjectModels.Project;
 
 namespace BusinessLogic.Managers
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Invest.Common;
 using Invest.Common.Model;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
@@ -10,7 +11,6 @@ using Invest.Common.Model.User;
 using Invest.Common.Repository;
 using InvestPortal.Models;
 using MongoDB.Driver.Builders;
-using MongoRepository;
 using Telerik.Web.Mvc;
 
 namespace InvestPortal.Controllers

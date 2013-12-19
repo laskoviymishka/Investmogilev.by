@@ -3,16 +3,18 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic.Managers;
+using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
+using Invest.Common.Model.ProjectWorkflow;
 using Invest.Common.Model.User;
 using Invest.Common.Repository;
 using InvestPortal.Models;
 using MongoDB.Bson;
-using MongoRepository;
 using StackExchange.Profiling;
 using Telerik.Web.Mvc;
 using Invest.Common.State;
+using Project = Invest.Common.Model.ProjectModels.Project;
 
 namespace InvestPortal.Controllers
 {
@@ -45,25 +47,7 @@ namespace InvestPortal.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult CreateGreenFieldProject(GreenField model)
-        {
-            if (ModelState.IsValid)
-            {
-                _stateManager.CreateProject(model, User.Identity.Name);
-                return RedirectToAction("Project", "BaseProject", new { id = model._id });
-            }
-
-            return View(model);
-        }
-
-        public ActionResult CreateBrownFieldProject()
-        {
-            return PartialView();
-        }
-
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult CreateBrownFieldProject(BrownField model)
+        public ActionResult CreateGreenFieldProject(Invest.Common.Model.ProjectWorkflow.GreenField model)
         {
             if (ModelState.IsValid)
             {

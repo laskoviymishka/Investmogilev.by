@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
-using MongoRepository;
 using System;
 
 namespace BusinessLogic.Managers

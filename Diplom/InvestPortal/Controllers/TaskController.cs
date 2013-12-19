@@ -5,11 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic.Managers;
+using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
 using InvestPortal.Models;
 using MongoDB.Bson;
-using MongoRepository;
 
 namespace InvestPortal.Controllers
 {
@@ -17,8 +17,8 @@ namespace InvestPortal.Controllers
     {
         #region Private Fields
 
-        private readonly TaskManager _taskManager;
         private readonly ProjectStateManager _stateManager;
+        private readonly TaskManager _taskManager;
 
         #endregion
 
@@ -86,7 +86,6 @@ namespace InvestPortal.Controllers
         [Authorize]
         public ActionResult PlanForProject(string id)
         {
-            Project pr = _taskManager.GetProject(id);
             return View(_taskManager.GetProject(id));
         }
 
@@ -117,7 +116,7 @@ namespace InvestPortal.Controllers
         public ActionResult TaskEdit(Task task)
         {
             _taskManager.UpdateTask(task, task.ProjectId);
-            return RedirectToAction("TaskDetails", new { taskId = task._id, projectId = task.ProjectId });
+            return RedirectToAction("TaskDetails", new {taskId = task._id, projectId = task.ProjectId});
         }
 
         [Authorize(Roles = "User")]
@@ -174,12 +173,10 @@ namespace InvestPortal.Controllers
 
                 if (_taskManager.CreateTask(task, model.ProjectId, model.ParentId))
                 {
-                    return RedirectToAction("PlanForProject", "Task", new { @id = model.ProjectId });
-
+                    return RedirectToAction("PlanForProject", "Task", new {@id = model.ProjectId});
                 }
 
                 return HttpNotFound("Возникла ошибка, свяжитесь с администратором");
-
             }
 
             return View(model);
@@ -197,7 +194,13 @@ namespace InvestPortal.Controllers
 
         public ActionResult AddDocumentToTask(string taskId, string projectId)
         {
-            return View(new DocumentForTaskViewModel() { ProjectId = projectId, TaskId = taskId, _id = ObjectId.GenerateNewId().ToString() });
+            return
+                View(new DocumentForTaskViewModel
+                    {
+                        ProjectId = projectId,
+                        TaskId = taskId,
+                        _id = ObjectId.GenerateNewId().ToString()
+                    });
         }
 
         public ActionResult EditDocumentInfo(string taskId, string projectId, string infoId)
@@ -209,14 +212,15 @@ namespace InvestPortal.Controllers
         public ActionResult EditDocumentInfo(DocumentForTaskViewModel model)
         {
             _taskManager.UpdateDocument(model.ProjectId, model.TaskId, model._id, model);
-            return RedirectToAction("AdditionalInfo", "Task", new { @taskId = model.TaskId, @projectId = model.ProjectId });
+            return RedirectToAction("AdditionalInfo", "Task", new {@taskId = model.TaskId, @projectId = model.ProjectId});
         }
 
-        public ActionResult Save(string taskId, string projectId, string infoId, IEnumerable<HttpPostedFileBase> attachments)
+        public ActionResult Save(string taskId, string projectId, string infoId,
+                                 IEnumerable<HttpPostedFileBase> attachments)
         {
             string physicalPath = "";
             string fileName = "";
-            foreach (var file in attachments)
+            foreach (HttpPostedFileBase file in attachments)
             {
                 fileName = Path.GetFileName(file.FileName);
                 physicalPath = Path.Combine(
@@ -227,17 +231,18 @@ namespace InvestPortal.Controllers
             _taskManager.DocumentUplaod(projectId, taskId, infoId, fileName, physicalPath);
             return Content("");
         }
+
         public ActionResult Remove(string taskId, string projectId, string infoId)
         {
             _taskManager.DocumentRemove(projectId, taskId, infoId);
-            return RedirectToAction("AdditionalInfo", "Task", new { @taskId = taskId, @projectId = projectId });
+            return RedirectToAction("AdditionalInfo", "Task", new {taskId, projectId});
         }
 
 
         [Authorize(Roles = "User")]
         public FileResult Download(string taskId, string projectId, string infoId)
         {
-            var doc = _taskManager.DocumentForTaks(projectId, taskId, infoId);
+            DocumentAdditionalInfo doc = _taskManager.DocumentForTaks(projectId, taskId, infoId);
             return File(doc.FilePath, "application/doc", doc.InfoName);
         }
 

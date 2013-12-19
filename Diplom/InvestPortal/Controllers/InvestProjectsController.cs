@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.ProjectModels;
+using Invest.Common.Model.ProjectWorkflow;
 using Invest.Common.Repository;
 using Invest.Common.State;
-using MongoRepository;
 using Newtonsoft.Json;
+using Project = Invest.Common.Model.ProjectModels.Project;
 
 namespace InvestPortal.Controllers
 {

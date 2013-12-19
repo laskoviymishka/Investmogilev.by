@@ -130,7 +130,6 @@ d:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\ru\EntityFramework.resources.dl
 d:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.csprojResolveAssemblyReference.cache
 d:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.dll
 d:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\InvestPortal.dll.config
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\InvestPortal.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\InvestPortal.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Antlr3.Runtime.dll
