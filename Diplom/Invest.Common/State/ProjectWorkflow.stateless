@@ -8,7 +8,8 @@ For more information: http://statelessdesigner.codeplex.com/
     <namespace>Invest.Common.State</namespace>
     <class>public</class>
   </settings>
-  <triggers>     
+
+  <triggers>
     <trigger>FillInformation</trigger>
     <trigger>UpdateInformation</trigger>
     <trigger>InvestorResponsed</trigger>
@@ -22,7 +23,8 @@ For more information: http://statelessdesigner.codeplex.com/
     <trigger>ReRealization</trigger>
     <trigger>ReOpen</trigger>
   </triggers>
-  <states>     
+
+  <states>
     <state start="yes">Open</state>
     <state>OnMap</state>
     <state>InvestorAprove</state>
@@ -32,34 +34,35 @@ For more information: http://statelessdesigner.codeplex.com/
     <state>Realization</state>
     <state>Done</state>
   </states>
+
   <transitions>
-    	<transition trigger="FillInformation" from="Open" to="OnMap" />
+    <transition trigger="FillInformation" from="Open" to="OnMap" />
 
-	<transition trigger="UpdateInformation" from="OnMap" to="OnMap" />
-	<transition trigger="InvestorResponsed" from="OnMap" to="InvestorAprove" />
-	<transition trigger="ReOpen" from="OnMap" to="Open" />
+    <transition trigger="UpdateInformation" from="OnMap" to="OnMap" />
+    <transition trigger="InvestorResponsed" from="OnMap" to="InvestorAprove" />
+    <transition trigger="ReOpen" from="OnMap" to="Open" />
 
-	<transition trigger="InvestorResponsed" from="InvestorAprove" to="InvestorAprove" />
-	<transition trigger="InvestorSelected" from="InvestorAprove" to="WaitForInvestor" />
+    <transition trigger="InvestorResponsed" from="InvestorAprove" to="InvestorAprove" />
+    <transition trigger="InvestorSelected" from="InvestorAprove" to="WaitForInvestor" />
 
-	<transition trigger="InvestorActivate" from="WaitForInvestor" to="OnReview" />
-	<transition trigger="ReInvestor" from="WaitForInvestor" to="OnMap" />
+    <transition trigger="InvestorActivate" from="WaitForInvestor" to="OnReview" />
+    <transition trigger="ReInvestor" from="WaitForInvestor" to="OnMap" />
 
-	<transition trigger="UpdateReviewProgress" from="OnReview" to="OnComission" />
-	<transition trigger="UpdateReviewProgress" from="OnReview" to="OnReview" />
-	<transition trigger="ReInvestor" from="OnReview" to="OnMap" />
+    <transition trigger="UpdateReviewProgress" from="OnReview" to="OnComission" />
+    <transition trigger="UpdateReviewProgress" from="OnReview" to="OnReview" />
+    <transition trigger="ReInvestor" from="OnReview" to="OnMap" />
 
-	<transition trigger="ComissionApprove" from="OnComission" to="Realization" />
-	<transition trigger="ReReview" from="OnComission" to="OnReview" />
-	<transition trigger="ReInvestor" from="OnComission" to="OnMap" />
+    <transition trigger="ComissionApprove" from="OnComission" to="Realization" />
+    <transition trigger="ReReview" from="OnComission" to="OnReview" />
+    <transition trigger="ReInvestor" from="OnComission" to="OnMap" />
 
-	<transition trigger="ReReview" from="Realization" to="OnReview" />
-	<transition trigger="UpdateProgress" from="Realization" to="Realization" />
-	<transition trigger="UpdateProgress" from="Realization" to="Done" />
+    <transition trigger="ReReview" from="Realization" to="OnReview" />
+    <transition trigger="UpdateProgress" from="Realization" to="Realization" />
+    <transition trigger="UpdateProgress" from="Realization" to="Done" />
 
-	<transition trigger="ReRealization" from="Done" to="Realization" />
-	<transition trigger="ReInvestor" from="Done" to="OnMap" />
-	<transition trigger="ReReview" from="Done" to="OnReview" />
-	<transition trigger="ReOpen" from="Done" to="Open" />
+    <transition trigger="ReRealization" from="Done" to="Realization" />
+    <transition trigger="ReInvestor" from="Done" to="OnMap" />
+    <transition trigger="ReReview" from="Done" to="OnReview" />
+    <transition trigger="ReOpen" from="Done" to="Open" />
   </transitions>
 </statemachine>
