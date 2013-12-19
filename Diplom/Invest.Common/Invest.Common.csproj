@@ -102,6 +102,8 @@
     <Compile Include="Model\User\MessageType.cs" />
     <Compile Include="Model\User\UserProfile.cs" />
     <Compile Include="Model\User\Users.cs" />
+    <Compile Include="Notification\IAdminNotification.cs" />
+    <Compile Include="Notification\IInvestorNotification.cs" />
     <Compile Include="Notification\INotification.cs" />
     <Compile Include="Notification\MailNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

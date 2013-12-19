@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Invest.Common.Model.ProjectModels;
+using Invest.Common.Notification;
 
 namespace Invest.Common.State
 {
@@ -22,13 +23,15 @@ namespace Invest.Common.State
         private readonly Project _currentProject;
         private string _currentUser;
         private IList<string> _roles;
+        private readonly IInvestorNotification _investorNotificate;
 
         #endregion
 
         #region Constructor
 
-        public ProjectWorkflowWrapper(ProjectWorkflow workflow, Project currentProject)
+        public ProjectWorkflowWrapper(ProjectWorkflow workflow, Project currentProject, IInvestorNotification investorNotificate)
         {
+            _investorNotificate = investorNotificate;
             _workflow = workflow;
             _currentProject = currentProject;
 
@@ -174,72 +177,134 @@ namespace Invest.Common.State
 
         #region Entry Methods
 
-        private void OnDoneEntry()
+        private void OnOpenEntry()
         {
-        }
-
-        private void OnInvestorAproveEntry()
-        {
-        }
-
-        private void OnOnComissionEntry()
-        {
+            //Проект в начальной стадии
+            //TO-DO
+            //Уведомить соответутсвующий район
+            //Назначить ответственного
+            //Уведомить администрацию
         }
 
         private void OnOnMapEntry()
         {
+            //Проект размещен на карте
+            //TO-DO
+            //Уведомить администрацию
+            //--Возможно уведомить заинтересованных существующих инвесторов
         }
 
-        private void OnOnReviewEntry()
+        private void OnInvestorAproveEntry()
         {
-        }
+            //На проект пришел минимум один отклик
+            //TO-DO
+            //Уведомить ответственного о необходимости проверить инвестора
+            //Уведомить администратора
 
-        private void OnOpenEntry()
-        {
-        }
-
-        private void OnRealizationEntry()
-        {
+            //Отправить инвестору логин и пароль.
+            _investorNotificate.OnInvestorAproveEntry(_currentProject);
         }
 
         private void OnWaitForInvestorEntry()
         {
+            //Инвестор одобрен, необходимо кликнуть на ссылку
+            //TO-DO
+
+            //Уведомить инвестора, что он одобрен и необходимо кликнуть на ссылку
+            _investorNotificate.OnWaitForInvestorEntry(_currentProject);
+
+            //Уведомить администратора что этот инвестор одобрен
+        }
+
+        private void OnOnReviewEntry()
+        {
+            //Причастные структуры
+            //TO-DO
+
+            //Уведомить инвестора о текущем прогрессе
+            _investorNotificate.OnOnReviewEntry(_currentProject);
+        }
+
+        private void OnOnComissionEntry()
+        {
+            //Причастные структуры пройдены, комиссия по рассмотрению началась
+            //TO-DO
+
+            //Уведомить инвестора о комиссии
+            _investorNotificate.OnOnComissionEntry(_currentProject);
+
+            //Уведомить администраторов о комиссии
+        }
+
+        private void OnRealizationEntry()
+        {
+            //Реализация проекта
+            //TO-DO
+
+            //Уведомить инвестора о одобренных отчетах
+            _investorNotificate.OnRealizationEntry(_currentProject);
+
+            //Уведомить администратора о новых отчетах
+        }
+
+        private void OnDoneEntry()
+        {
+            //Окончание проекта
+            //TO-DO
+
+            //Уведомить инвестора о завершении проекта
+            _investorNotificate.OnDoneEntry(_currentProject);
+
+            //Уведомить администраторов о завершении проекта
+            //Уведомить район о завершении проекта
         }
 
         #endregion
 
         #region Exit Methods
 
-        private void OnWaitForInvestorExit()
-        {
-        }
-
-        private void OnRealizationExit()
-        {
-        }
-
         private void OnOpenExit()
-        {
-        }
-
-        private void OnOnReviewExit()
         {
         }
 
         private void OnOnMapExit()
         {
-        }
+            //Первый инвестор откликнулся
+            //TO-DO
+            //Уведомить о первом инвесторе район и администрацию
 
-        private void OnOnComissionExit()
-        {
+            _investorNotificate.OnOnMapExit(_currentProject);
         }
 
         private void OnInvestorAproveExit()
         {
+
+            _investorNotificate.OnInvestorAproveExit(_currentProject);
+        }
+
+        private void OnWaitForInvestorExit()
+        {
+            _investorNotificate.OnWaitForInvestorExit(_currentProject);
+        }
+
+        private void OnOnReviewExit()
+        {
+            _investorNotificate.OnOnReviewExit(_currentProject);
+        }
+
+        private void OnOnComissionExit()
+        {
+            _investorNotificate.OnOnComissionExit(_currentProject);
+        }
+
+        private void OnRealizationExit()
+        {
+            _investorNotificate.OnRealizationExit(_currentProject);
         }
 
         private void OnDoneExit()
         {
+            _investorNotificate.OnDoneExit(_currentProject);
         }
 
         #endregion
