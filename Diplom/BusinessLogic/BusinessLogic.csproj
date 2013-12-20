@@ -74,13 +74,68 @@
   <ItemGroup>
     <Compile Include="Managers\ProjectStateManager.cs" />
     <Compile Include="Managers\TaskManager.cs" />
+    <Compile Include="Notification\IAdminNotification.cs" />
+    <Compile Include="Notification\IInvestorNotification.cs" />
+    <Compile Include="Notification\INotification.cs" />
+    <Compile Include="Notification\IUserNotification.cs" />
     <Compile Include="Notification\MailMessageHandler.cs" />
+    <Compile Include="Notification\MailNotification.cs" />
     <Compile Include="Notification\PortalMessageHandler.cs" />
     <Compile Include="Notification\PortalNotificationHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\MongoMembership.cs" />
     <Compile Include="Providers\MongoProfileProvider.cs" />
     <Compile Include="Providers\MongoRoleProvider.cs" />
+    <Compile Include="Wokflow\IUnitsOfWorkContainer.cs" />
+    <Compile Include="Wokflow\ProjectWorkflowWrapper.cs" />
+    <Compile Include="Wokflow\UnitsOfWorkContainer.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\BaseProjectUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\ComissionFixesUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\DocumentSendingUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\DoneUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\IComissionFixesUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\IDocumentSendingUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\IDoneUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\IInvestorApproveUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\IInvolvedorganizationsUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\IIspolcomFixesUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\IMinEconomyUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\InvestorApproveUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\InvolvedorganizationsUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\IOnComissionUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\IOnIspolcomUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\IOnMapUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\IOpenUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\IPlanCreatingUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\IRealizationUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\IspolcomFixesUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\IWaitComissionUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\IWaitInvolvedUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\IWaitIspolcomUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\MinEconomyUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\OnComissionUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\OnIspolcomUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\OnMapUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\OpenUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\PlanCreatingUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\RealizationUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\WaitComissionUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\WaitInvolvedUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\WaitIspolcomUoW.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -98,6 +153,7 @@
   <ItemGroup>
     <Content Include="razormachine.readme.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

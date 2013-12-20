@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Invest.Common.Model.Common;
+using Invest.Common.State;
 
 namespace Invest.Common.Model.Project
 {
@@ -9,7 +10,7 @@ namespace Invest.Common.Model.Project
         public string Title { get; set; }
         public IEnumerable<Report> TaskReport { get; set; }
         public TaskTypes Type { get; set;}
-        public TaskStep Step { get; set;} // Задача привязана к статусу проекта
+        public ProjectWorkflow.State Step { get; set; } // Задача привязана к статусу проекта
         public DateTime CreationTime { get; set; }
         public DateTime CompleteTime { get; set; }
         public bool IsComplete { get; set; }

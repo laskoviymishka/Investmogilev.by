@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Invest.Common.Model;
 using Invest.Common.Model.Common;
-using MongoDB.Driver;
 
 namespace Invest.Common.Repository
 {

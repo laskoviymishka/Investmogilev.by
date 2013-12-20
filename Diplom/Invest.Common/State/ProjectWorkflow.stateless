@@ -30,7 +30,6 @@ For more information: http://statelessdesigner.codeplex.com/
     <trigger>UpdatePlan</trigger>
     <trigger>ApprovePlan</trigger>
     <trigger>UpdateRealization</trigger>
-
     <trigger>RejectDocument</trigger>
   </triggers>
 
@@ -38,11 +37,11 @@ For more information: http://statelessdesigner.codeplex.com/
     <transition trigger="FillInformation" from="Open" to="OnMap" />
 
     <transition trigger="UpdateInformation" from="OnMap" to="OnMap" />
-    <transition trigger="InvestorResponsed" from="OnMap" to="InvestorAprove" />
+    <transition trigger="InvestorResponsed" from="OnMap" to="InvestorApprove" />
     <transition trigger="ReOpen" from="OnMap" to="Open" />
 
-    <transition trigger="InvestorResponsed" from="InvestorAprove" to="InvestorAprove" />
-    <transition trigger="InvestorSelected" from="InvestorAprove" to="DocumentSending" />
+    <transition trigger="InvestorResponsed" from="InvestorApprove" to="InvestorApprove" />
+    <transition trigger="InvestorSelected" from="InvestorApprove" to="DocumentSending" />
 
     <transition trigger="DocumentUpdate" from="DocumentSending" to="WaitInvolved" />
     <transition trigger="DocumentUpdate" from="DocumentSending" to="DocumentSending" />
@@ -87,7 +86,6 @@ For more information: http://statelessdesigner.codeplex.com/
   <states>
     <state start="yes">Open</state>
     <state>OnMap</state>
-    <state>InvestorAprove</state>
     <state>InvestorApprove</state>
     <state>DocumentSending</state>
     <state>WaitInvolved</state>

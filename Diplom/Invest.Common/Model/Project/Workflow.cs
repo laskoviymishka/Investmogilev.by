@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Invest.Common.State;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Invest.Common.Model.Project
 {
@@ -6,6 +7,6 @@ namespace Invest.Common.Model.Project
     public class Workflow
     {
         public History History { get; set; }
-        public string CurrentState { get; set; }
+        public ProjectWorkflow.State CurrentState { get; set; }
     }
 }
