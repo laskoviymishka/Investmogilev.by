@@ -62,7 +62,6 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         public void InvestorApproveUoWConstructorTest()
         {
             IInvestorApproveUoW target = CreateUoW();
-            Assert.Inconclusive("TODO: Implement code to verify target");
         }
 
         /// <summary>
@@ -72,7 +71,6 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         public void FromInvestorApproveToDocumentTest()
         {
             IInvestorApproveUoW target = CreateUoW();
-            Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
@@ -82,7 +80,6 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         public void FromInvestorApproveToInvestorResponsedTest()
         {
             IInvestorApproveUoW target = CreateUoW();
-            Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
@@ -92,7 +89,6 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         public void FromOnMapToInvestorApproveTest()
         {
             IInvestorApproveUoW target = CreateUoW();
-            Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
@@ -102,7 +98,6 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         public void OnInvestorApproveEntryTest()
         {
             IInvestorApproveUoW target = CreateUoW();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
         /// <summary>
@@ -112,7 +107,6 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         public void OnInvestorApproveExitTest()
         {
             IInvestorApproveUoW target = CreateUoW();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
     }
 }

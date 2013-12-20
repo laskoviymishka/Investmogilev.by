@@ -97,7 +97,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork
         {
             GuardCurrentProjectNotNull();
 
-            if (CurrentProject.WorkflowState.CurrentState == initialState)
+            if (CurrentProject.WorkflowState.CurrentState != initialState)
             {
                 throw new InvalidOperationException("UnExpected state ProjectWorkflow.State.OnMap");
             }

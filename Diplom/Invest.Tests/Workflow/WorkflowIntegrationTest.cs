@@ -60,7 +60,6 @@ namespace Invest.Tests.Workflow
             _adminNotification = new Mock<IAdminNotification>();
             _investorNotification = new Mock<IInvestorNotification>();
             _userName = "test";
-            _roles = new List<string>();
             _unitOfWorksContainer = new UnitsOfWorkContainer(_currentProject,
                 _repository,
                 _userNotification.Object,
@@ -83,6 +82,7 @@ namespace Invest.Tests.Workflow
         public void OpenToMapTransition()
         {
             _roles = new List<string>() { "User" };
+            MyTestInitialize();
             _workflow.TryMove(ProjectWorkflow.Trigger.FillInformation);
             Assert.IsTrue(_repository.GetOne<Project>(p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
         }

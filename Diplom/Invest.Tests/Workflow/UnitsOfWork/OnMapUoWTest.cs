@@ -222,7 +222,7 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         public void OnMapExitTest()
         {
             var wasExceptions = false;
-            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.OnMap;
+            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.Open;
             var target = CreateUoW();
             try
             {
@@ -233,7 +233,7 @@ namespace Invest.Tests.Workflow.UnitsOfWork
                 wasExceptions = true;
             }
 
-            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.InvestorApprove;
+            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.OnMap;
             target = CreateUoW();
 
             target.OnMapExit();

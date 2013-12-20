@@ -91,7 +91,8 @@ namespace Invest.Tests
             if (GetOne<T>(t => t._id == item._id) != null)
             {
                 T elem = GetOne<T>(t => t._id == item._id);
-                elem = item;
+                Delete<T>(item);
+                Add<T>(item);
             }
         }
 
