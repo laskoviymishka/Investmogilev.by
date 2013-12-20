@@ -19,14 +19,23 @@ namespace Invest.Common.State
       UpdateInformation,
       InvestorResponsed,
       InvestorSelected,
-      InvestorActivate,
-      UpdateReviewProgress,
-      ComissionApprove,
-      ReReview,
-      ReInvestor,
-      UpdateProgress,
-      ReRealization,
-      ReOpen,
+      DocumentUpdate,
+      FillInvolvedOrganization,
+      InvolvedOrganizationUpdate,
+      ToComission,
+      Comission,
+      ComissionFix,
+      ComissionFixUpdate,
+      ToIspolcom,
+      Ispolcom,
+      ToIspolcomFix,
+      IspolcomFixUpdate,
+      ToMinEconomy,
+      MinEconomyResponsed,
+      UpdatePlan,
+      ApprovePlan,
+      UpdateRealization,
+      RejectDocument,
     }
 
     public enum State
@@ -34,9 +43,18 @@ namespace Invest.Common.State
       Open,
       OnMap,
       InvestorAprove,
-      WaitForInvestor,
-      OnReview,
+      InvestorApprove,
+      DocumentSending,
+      WaitInvolved,
+      InvolvedOrganizations,
+      WaitComission,
       OnComission,
+      WaitComissionFixes,
+      WaitIspolcom,
+      OnIspolcom,
+      WaitIspolcomFixes,
+      InMinEconomy,
+      PlanCreating,
       Realization,
       Done,
     }
@@ -49,12 +67,30 @@ namespace Invest.Common.State
     public EntryExitDelegate OnOnMapExit = null;
     public EntryExitDelegate OnInvestorAproveEntry = null;
     public EntryExitDelegate OnInvestorAproveExit = null;
-    public EntryExitDelegate OnWaitForInvestorEntry = null;
-    public EntryExitDelegate OnWaitForInvestorExit = null;
-    public EntryExitDelegate OnOnReviewEntry = null;
-    public EntryExitDelegate OnOnReviewExit = null;
+    public EntryExitDelegate OnInvestorApproveEntry = null;
+    public EntryExitDelegate OnInvestorApproveExit = null;
+    public EntryExitDelegate OnDocumentSendingEntry = null;
+    public EntryExitDelegate OnDocumentSendingExit = null;
+    public EntryExitDelegate OnWaitInvolvedEntry = null;
+    public EntryExitDelegate OnWaitInvolvedExit = null;
+    public EntryExitDelegate OnInvolvedOrganizationsEntry = null;
+    public EntryExitDelegate OnInvolvedOrganizationsExit = null;
+    public EntryExitDelegate OnWaitComissionEntry = null;
+    public EntryExitDelegate OnWaitComissionExit = null;
     public EntryExitDelegate OnOnComissionEntry = null;
     public EntryExitDelegate OnOnComissionExit = null;
+    public EntryExitDelegate OnWaitComissionFixesEntry = null;
+    public EntryExitDelegate OnWaitComissionFixesExit = null;
+    public EntryExitDelegate OnWaitIspolcomEntry = null;
+    public EntryExitDelegate OnWaitIspolcomExit = null;
+    public EntryExitDelegate OnOnIspolcomEntry = null;
+    public EntryExitDelegate OnOnIspolcomExit = null;
+    public EntryExitDelegate OnWaitIspolcomFixesEntry = null;
+    public EntryExitDelegate OnWaitIspolcomFixesExit = null;
+    public EntryExitDelegate OnInMinEconomyEntry = null;
+    public EntryExitDelegate OnInMinEconomyExit = null;
+    public EntryExitDelegate OnPlanCreatingEntry = null;
+    public EntryExitDelegate OnPlanCreatingExit = null;
     public EntryExitDelegate OnRealizationEntry = null;
     public EntryExitDelegate OnRealizationExit = null;
     public EntryExitDelegate OnDoneEntry = null;
@@ -64,22 +100,31 @@ namespace Invest.Common.State
     public GuardClauseDelegate GuardClauseFromOnMapToInvestorAproveUsingTriggerInvestorResponsed = null;
     public GuardClauseDelegate GuardClauseFromOnMapToOpenUsingTriggerReOpen = null;
     public GuardClauseDelegate GuardClauseFromInvestorAproveToInvestorAproveUsingTriggerInvestorResponsed = null;
-    public GuardClauseDelegate GuardClauseFromInvestorAproveToWaitForInvestorUsingTriggerInvestorSelected = null;
-    public GuardClauseDelegate GuardClauseFromWaitForInvestorToOnReviewUsingTriggerInvestorActivate = null;
-    public GuardClauseDelegate GuardClauseFromWaitForInvestorToOnMapUsingTriggerReInvestor = null;
-    public GuardClauseDelegate GuardClauseFromOnReviewToOnComissionUsingTriggerUpdateReviewProgress = null;
-    public GuardClauseDelegate GuardClauseFromOnReviewToOnReviewUsingTriggerUpdateReviewProgress = null;
-    public GuardClauseDelegate GuardClauseFromOnReviewToOnMapUsingTriggerReInvestor = null;
-    public GuardClauseDelegate GuardClauseFromOnComissionToRealizationUsingTriggerComissionApprove = null;
-    public GuardClauseDelegate GuardClauseFromOnComissionToOnReviewUsingTriggerReReview = null;
-    public GuardClauseDelegate GuardClauseFromOnComissionToOnMapUsingTriggerReInvestor = null;
-    public GuardClauseDelegate GuardClauseFromRealizationToOnReviewUsingTriggerReReview = null;
-    public GuardClauseDelegate GuardClauseFromRealizationToRealizationUsingTriggerUpdateProgress = null;
-    public GuardClauseDelegate GuardClauseFromRealizationToDoneUsingTriggerUpdateProgress = null;
-    public GuardClauseDelegate GuardClauseFromDoneToRealizationUsingTriggerReRealization = null;
-    public GuardClauseDelegate GuardClauseFromDoneToOnMapUsingTriggerReInvestor = null;
-    public GuardClauseDelegate GuardClauseFromDoneToOnReviewUsingTriggerReReview = null;
-    public GuardClauseDelegate GuardClauseFromDoneToOpenUsingTriggerReOpen = null;
+    public GuardClauseDelegate GuardClauseFromInvestorAproveToDocumentSendingUsingTriggerInvestorSelected = null;
+    public GuardClauseDelegate GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate = null;
+    public GuardClauseDelegate GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate = null;
+    public GuardClauseDelegate GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization = null;
+    public GuardClauseDelegate GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate = null;
+    public GuardClauseDelegate GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission = null;
+    public GuardClauseDelegate GuardClauseFromWaitComissionToOnComissionUsingTriggerComission = null;
+    public GuardClauseDelegate GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument = null;
+    public GuardClauseDelegate GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix = null;
+    public GuardClauseDelegate GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom = null;
+    public GuardClauseDelegate GuardClauseFromWaitComissionFixesToOnMapUsingTriggerRejectDocument = null;
+    public GuardClauseDelegate GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate = null;
+    public GuardClauseDelegate GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate = null;
+    public GuardClauseDelegate GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom = null;
+    public GuardClauseDelegate GuardClauseFromOnIspolcomToOnMapUsingTriggerRejectDocument = null;
+    public GuardClauseDelegate GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix = null;
+    public GuardClauseDelegate GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy = null;
+    public GuardClauseDelegate GuardClauseFromWaitIspolcomFixesToOnMapUsingTriggerRejectDocument = null;
+    public GuardClauseDelegate GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate = null;
+    public GuardClauseDelegate GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate = null;
+    public GuardClauseDelegate GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed = null;
+    public GuardClauseDelegate GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan = null;
+    public GuardClauseDelegate GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan = null;
+    public GuardClauseDelegate GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization = null;
+    public GuardClauseDelegate GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization = null;
     public UnhandledTriggerDelegate OnUnhandledTrigger = null;
 
     public ProjectWorkflow()
@@ -101,42 +146,87 @@ namespace Invest.Common.State
         .OnEntry(() => { if (OnInvestorAproveEntry != null) OnInvestorAproveEntry(); })
         .OnExit(() => { if (OnInvestorAproveExit != null) OnInvestorAproveExit(); })
         .PermitReentryIf(Trigger.InvestorResponsed , () => { if (GuardClauseFromInvestorAproveToInvestorAproveUsingTriggerInvestorResponsed != null) return GuardClauseFromInvestorAproveToInvestorAproveUsingTriggerInvestorResponsed(); return true; } )
-        .PermitIf(Trigger.InvestorSelected, State.WaitForInvestor , () => { if (GuardClauseFromInvestorAproveToWaitForInvestorUsingTriggerInvestorSelected != null) return GuardClauseFromInvestorAproveToWaitForInvestorUsingTriggerInvestorSelected(); return true; } )
+        .PermitIf(Trigger.InvestorSelected, State.DocumentSending , () => { if (GuardClauseFromInvestorAproveToDocumentSendingUsingTriggerInvestorSelected != null) return GuardClauseFromInvestorAproveToDocumentSendingUsingTriggerInvestorSelected(); return true; } )
       ;
-      stateMachine.Configure(State.WaitForInvestor)
-        .OnEntry(() => { if (OnWaitForInvestorEntry != null) OnWaitForInvestorEntry(); })
-        .OnExit(() => { if (OnWaitForInvestorExit != null) OnWaitForInvestorExit(); })
-        .PermitIf(Trigger.InvestorActivate, State.OnReview , () => { if (GuardClauseFromWaitForInvestorToOnReviewUsingTriggerInvestorActivate != null) return GuardClauseFromWaitForInvestorToOnReviewUsingTriggerInvestorActivate(); return true; } )
-        .PermitIf(Trigger.ReInvestor, State.OnMap , () => { if (GuardClauseFromWaitForInvestorToOnMapUsingTriggerReInvestor != null) return GuardClauseFromWaitForInvestorToOnMapUsingTriggerReInvestor(); return true; } )
+      stateMachine.Configure(State.InvestorApprove)
+        .OnEntry(() => { if (OnInvestorApproveEntry != null) OnInvestorApproveEntry(); })
+        .OnExit(() => { if (OnInvestorApproveExit != null) OnInvestorApproveExit(); })
       ;
-      stateMachine.Configure(State.OnReview)
-        .OnEntry(() => { if (OnOnReviewEntry != null) OnOnReviewEntry(); })
-        .OnExit(() => { if (OnOnReviewExit != null) OnOnReviewExit(); })
-        .PermitIf(Trigger.UpdateReviewProgress, State.OnComission , () => { if (GuardClauseFromOnReviewToOnComissionUsingTriggerUpdateReviewProgress != null) return GuardClauseFromOnReviewToOnComissionUsingTriggerUpdateReviewProgress(); return true; } )
-        .PermitReentryIf(Trigger.UpdateReviewProgress , () => { if (GuardClauseFromOnReviewToOnReviewUsingTriggerUpdateReviewProgress != null) return GuardClauseFromOnReviewToOnReviewUsingTriggerUpdateReviewProgress(); return true; } )
-        .PermitIf(Trigger.ReInvestor, State.OnMap , () => { if (GuardClauseFromOnReviewToOnMapUsingTriggerReInvestor != null) return GuardClauseFromOnReviewToOnMapUsingTriggerReInvestor(); return true; } )
+      stateMachine.Configure(State.DocumentSending)
+        .OnEntry(() => { if (OnDocumentSendingEntry != null) OnDocumentSendingEntry(); })
+        .OnExit(() => { if (OnDocumentSendingExit != null) OnDocumentSendingExit(); })
+        .PermitIf(Trigger.DocumentUpdate, State.WaitInvolved , () => { if (GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate != null) return GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate(); return true; } )
+        .PermitReentryIf(Trigger.DocumentUpdate , () => { if (GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate != null) return GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate(); return true; } )
+      ;
+      stateMachine.Configure(State.WaitInvolved)
+        .OnEntry(() => { if (OnWaitInvolvedEntry != null) OnWaitInvolvedEntry(); })
+        .OnExit(() => { if (OnWaitInvolvedExit != null) OnWaitInvolvedExit(); })
+        .PermitIf(Trigger.FillInvolvedOrganization, State.InvolvedOrganizations , () => { if (GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization != null) return GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization(); return true; } )
+      ;
+      stateMachine.Configure(State.InvolvedOrganizations)
+        .OnEntry(() => { if (OnInvolvedOrganizationsEntry != null) OnInvolvedOrganizationsEntry(); })
+        .OnExit(() => { if (OnInvolvedOrganizationsExit != null) OnInvolvedOrganizationsExit(); })
+        .PermitReentryIf(Trigger.InvolvedOrganizationUpdate , () => { if (GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate != null) return GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate(); return true; } )
+        .PermitIf(Trigger.ToComission, State.WaitComission , () => { if (GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission != null) return GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission(); return true; } )
+      ;
+      stateMachine.Configure(State.WaitComission)
+        .OnEntry(() => { if (OnWaitComissionEntry != null) OnWaitComissionEntry(); })
+        .OnExit(() => { if (OnWaitComissionExit != null) OnWaitComissionExit(); })
+        .PermitIf(Trigger.Comission, State.OnComission , () => { if (GuardClauseFromWaitComissionToOnComissionUsingTriggerComission != null) return GuardClauseFromWaitComissionToOnComissionUsingTriggerComission(); return true; } )
       ;
       stateMachine.Configure(State.OnComission)
         .OnEntry(() => { if (OnOnComissionEntry != null) OnOnComissionEntry(); })
         .OnExit(() => { if (OnOnComissionExit != null) OnOnComissionExit(); })
-        .PermitIf(Trigger.ComissionApprove, State.Realization , () => { if (GuardClauseFromOnComissionToRealizationUsingTriggerComissionApprove != null) return GuardClauseFromOnComissionToRealizationUsingTriggerComissionApprove(); return true; } )
-        .PermitIf(Trigger.ReReview, State.OnReview , () => { if (GuardClauseFromOnComissionToOnReviewUsingTriggerReReview != null) return GuardClauseFromOnComissionToOnReviewUsingTriggerReReview(); return true; } )
-        .PermitIf(Trigger.ReInvestor, State.OnMap , () => { if (GuardClauseFromOnComissionToOnMapUsingTriggerReInvestor != null) return GuardClauseFromOnComissionToOnMapUsingTriggerReInvestor(); return true; } )
+        .PermitIf(Trigger.RejectDocument, State.OnMap , () => { if (GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument(); return true; } )
+        .PermitIf(Trigger.ComissionFix, State.WaitComissionFixes , () => { if (GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix != null) return GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix(); return true; } )
+        .PermitIf(Trigger.ToIspolcom, State.WaitIspolcom , () => { if (GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom != null) return GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom(); return true; } )
+      ;
+      stateMachine.Configure(State.WaitComissionFixes)
+        .OnEntry(() => { if (OnWaitComissionFixesEntry != null) OnWaitComissionFixesEntry(); })
+        .OnExit(() => { if (OnWaitComissionFixesExit != null) OnWaitComissionFixesExit(); })
+        .PermitIf(Trigger.RejectDocument, State.OnMap , () => { if (GuardClauseFromWaitComissionFixesToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromWaitComissionFixesToOnMapUsingTriggerRejectDocument(); return true; } )
+        .PermitReentryIf(Trigger.ComissionFixUpdate , () => { if (GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate != null) return GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate(); return true; } )
+        .PermitIf(Trigger.ComissionFixUpdate, State.WaitIspolcom , () => { if (GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate != null) return GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate(); return true; } )
+      ;
+      stateMachine.Configure(State.WaitIspolcom)
+        .OnEntry(() => { if (OnWaitIspolcomEntry != null) OnWaitIspolcomEntry(); })
+        .OnExit(() => { if (OnWaitIspolcomExit != null) OnWaitIspolcomExit(); })
+        .PermitIf(Trigger.Ispolcom, State.OnIspolcom , () => { if (GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom != null) return GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom(); return true; } )
+      ;
+      stateMachine.Configure(State.OnIspolcom)
+        .OnEntry(() => { if (OnOnIspolcomEntry != null) OnOnIspolcomEntry(); })
+        .OnExit(() => { if (OnOnIspolcomExit != null) OnOnIspolcomExit(); })
+        .PermitIf(Trigger.RejectDocument, State.OnMap , () => { if (GuardClauseFromOnIspolcomToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromOnIspolcomToOnMapUsingTriggerRejectDocument(); return true; } )
+        .PermitIf(Trigger.ToIspolcomFix, State.WaitIspolcomFixes , () => { if (GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix != null) return GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix(); return true; } )
+        .PermitIf(Trigger.ToMinEconomy, State.InMinEconomy , () => { if (GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy != null) return GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy(); return true; } )
+      ;
+      stateMachine.Configure(State.WaitIspolcomFixes)
+        .OnEntry(() => { if (OnWaitIspolcomFixesEntry != null) OnWaitIspolcomFixesEntry(); })
+        .OnExit(() => { if (OnWaitIspolcomFixesExit != null) OnWaitIspolcomFixesExit(); })
+        .PermitIf(Trigger.RejectDocument, State.OnMap , () => { if (GuardClauseFromWaitIspolcomFixesToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromWaitIspolcomFixesToOnMapUsingTriggerRejectDocument(); return true; } )
+        .PermitReentryIf(Trigger.IspolcomFixUpdate , () => { if (GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate != null) return GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate(); return true; } )
+        .PermitIf(Trigger.IspolcomFixUpdate, State.WaitIspolcom , () => { if (GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate != null) return GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate(); return true; } )
+      ;
+      stateMachine.Configure(State.InMinEconomy)
+        .OnEntry(() => { if (OnInMinEconomyEntry != null) OnInMinEconomyEntry(); })
+        .OnExit(() => { if (OnInMinEconomyExit != null) OnInMinEconomyExit(); })
+        .PermitIf(Trigger.MinEconomyResponsed, State.PlanCreating , () => { if (GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed != null) return GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed(); return true; } )
+      ;
+      stateMachine.Configure(State.PlanCreating)
+        .OnEntry(() => { if (OnPlanCreatingEntry != null) OnPlanCreatingEntry(); })
+        .OnExit(() => { if (OnPlanCreatingExit != null) OnPlanCreatingExit(); })
+        .PermitReentryIf(Trigger.UpdatePlan , () => { if (GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan != null) return GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan(); return true; } )
+        .PermitIf(Trigger.ApprovePlan, State.Realization , () => { if (GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan != null) return GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan(); return true; } )
       ;
       stateMachine.Configure(State.Realization)
         .OnEntry(() => { if (OnRealizationEntry != null) OnRealizationEntry(); })
         .OnExit(() => { if (OnRealizationExit != null) OnRealizationExit(); })
-        .PermitIf(Trigger.ReReview, State.OnReview , () => { if (GuardClauseFromRealizationToOnReviewUsingTriggerReReview != null) return GuardClauseFromRealizationToOnReviewUsingTriggerReReview(); return true; } )
-        .PermitReentryIf(Trigger.UpdateProgress , () => { if (GuardClauseFromRealizationToRealizationUsingTriggerUpdateProgress != null) return GuardClauseFromRealizationToRealizationUsingTriggerUpdateProgress(); return true; } )
-        .PermitIf(Trigger.UpdateProgress, State.Done , () => { if (GuardClauseFromRealizationToDoneUsingTriggerUpdateProgress != null) return GuardClauseFromRealizationToDoneUsingTriggerUpdateProgress(); return true; } )
+        .PermitReentryIf(Trigger.UpdateRealization , () => { if (GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization != null) return GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization(); return true; } )
+        .PermitIf(Trigger.UpdateRealization, State.Done , () => { if (GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization != null) return GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization(); return true; } )
       ;
       stateMachine.Configure(State.Done)
         .OnEntry(() => { if (OnDoneEntry != null) OnDoneEntry(); })
         .OnExit(() => { if (OnDoneExit != null) OnDoneExit(); })
-        .PermitIf(Trigger.ReRealization, State.Realization , () => { if (GuardClauseFromDoneToRealizationUsingTriggerReRealization != null) return GuardClauseFromDoneToRealizationUsingTriggerReRealization(); return true; } )
-        .PermitIf(Trigger.ReInvestor, State.OnMap , () => { if (GuardClauseFromDoneToOnMapUsingTriggerReInvestor != null) return GuardClauseFromDoneToOnMapUsingTriggerReInvestor(); return true; } )
-        .PermitIf(Trigger.ReReview, State.OnReview , () => { if (GuardClauseFromDoneToOnReviewUsingTriggerReReview != null) return GuardClauseFromDoneToOnReviewUsingTriggerReReview(); return true; } )
-        .PermitIf(Trigger.ReOpen, State.Open , () => { if (GuardClauseFromDoneToOpenUsingTriggerReOpen != null) return GuardClauseFromDoneToOpenUsingTriggerReOpen(); return true; } )
       ;
       stateMachine.OnUnhandledTrigger((state, trigger) => { if (OnUnhandledTrigger != null) OnUnhandledTrigger(state, trigger); });
     }

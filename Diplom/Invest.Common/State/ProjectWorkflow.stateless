@@ -14,26 +14,25 @@ For more information: http://statelessdesigner.codeplex.com/
     <trigger>UpdateInformation</trigger>
     <trigger>InvestorResponsed</trigger>
     <trigger>InvestorSelected</trigger>
-    <trigger>InvestorActivate</trigger>
-    <trigger>UpdateReviewProgress</trigger>
-    <trigger>ComissionApprove</trigger>
-    <trigger>ReReview</trigger>
-    <trigger>ReInvestor</trigger>
-    <trigger>UpdateProgress</trigger>
-    <trigger>ReRealization</trigger>
-    <trigger>ReOpen</trigger>
-  </triggers>
+    <trigger>DocumentUpdate</trigger>
+    <trigger>FillInvolvedOrganization</trigger>
+    <trigger>InvolvedOrganizationUpdate</trigger>
+    <trigger>ToComission</trigger>
+    <trigger>Comission</trigger>
+    <trigger>ComissionFix</trigger>
+    <trigger>ComissionFixUpdate</trigger>
+    <trigger>ToIspolcom</trigger>
+    <trigger>Ispolcom</trigger>
+    <trigger>ToIspolcomFix</trigger>
+    <trigger>IspolcomFixUpdate</trigger>
+    <trigger>ToMinEconomy</trigger>
+    <trigger>MinEconomyResponsed</trigger>
+    <trigger>UpdatePlan</trigger>
+    <trigger>ApprovePlan</trigger>
+    <trigger>UpdateRealization</trigger>
 
-  <states>
-    <state start="yes">Open</state>
-    <state>OnMap</state>
-    <state>InvestorAprove</state>
-    <state>WaitForInvestor</state>
-    <state>OnReview</state>
-    <state>OnComission</state>
-    <state>Realization</state>
-    <state>Done</state>
-  </states>
+    <trigger>RejectDocument</trigger>
+  </triggers>
 
   <transitions>
     <transition trigger="FillInformation" from="Open" to="OnMap" />
@@ -43,26 +42,66 @@ For more information: http://statelessdesigner.codeplex.com/
     <transition trigger="ReOpen" from="OnMap" to="Open" />
 
     <transition trigger="InvestorResponsed" from="InvestorAprove" to="InvestorAprove" />
-    <transition trigger="InvestorSelected" from="InvestorAprove" to="WaitForInvestor" />
+    <transition trigger="InvestorSelected" from="InvestorAprove" to="DocumentSending" />
 
-    <transition trigger="InvestorActivate" from="WaitForInvestor" to="OnReview" />
-    <transition trigger="ReInvestor" from="WaitForInvestor" to="OnMap" />
+    <transition trigger="DocumentUpdate" from="DocumentSending" to="WaitInvolved" />
+    <transition trigger="DocumentUpdate" from="DocumentSending" to="DocumentSending" />
 
-    <transition trigger="UpdateReviewProgress" from="OnReview" to="OnComission" />
-    <transition trigger="UpdateReviewProgress" from="OnReview" to="OnReview" />
-    <transition trigger="ReInvestor" from="OnReview" to="OnMap" />
+    <transition trigger="FillInvolvedOrganization" from="WaitInvolved" to="InvolvedOrganizations" />
 
-    <transition trigger="ComissionApprove" from="OnComission" to="Realization" />
-    <transition trigger="ReReview" from="OnComission" to="OnReview" />
-    <transition trigger="ReInvestor" from="OnComission" to="OnMap" />
+    <transition trigger="InvolvedOrganizationUpdate" from="InvolvedOrganizations" to="InvolvedOrganizations" />
+    <transition trigger="ToComission" from="InvolvedOrganizations" to="WaitComission" />
 
-    <transition trigger="ReReview" from="Realization" to="OnReview" />
-    <transition trigger="UpdateProgress" from="Realization" to="Realization" />
-    <transition trigger="UpdateProgress" from="Realization" to="Done" />
+   <transition trigger="Comission" from="WaitComission" to="OnComission" />
 
-    <transition trigger="ReRealization" from="Done" to="Realization" />
-    <transition trigger="ReInvestor" from="Done" to="OnMap" />
-    <transition trigger="ReReview" from="Done" to="OnReview" />
-    <transition trigger="ReOpen" from="Done" to="Open" />
+   <transition trigger="RejectDocument" from="OnComission" to="OnMap" />
+   <transition trigger="ComissionFix" from="OnComission" to="WaitComissionFixes" />
+   <transition trigger="ToIspolcom" from="OnComission" to="WaitIspolcom" />
+
+
+   <transition trigger="RejectDocument" from="WaitComissionFixes" to="OnMap" />
+   <transition trigger="ComissionFixUpdate" from="WaitComissionFixes" to="WaitComissionFixes" />
+   <transition trigger="ComissionFixUpdate" from="WaitComissionFixes" to="WaitIspolcom" />
+
+   <transition trigger="Ispolcom" from="WaitIspolcom" to="OnIspolcom" />
+
+   <transition trigger="RejectDocument" from="OnIspolcom" to="OnMap" />
+   <transition trigger="ToIspolcomFix" from="OnIspolcom" to="WaitIspolcomFixes" />
+   <transition trigger="ToMinEconomy" from="OnIspolcom" to="InMinEconomy" />
+
+
+   <transition trigger="RejectDocument" from="WaitIspolcomFixes" to="OnMap" />
+   <transition trigger="IspolcomFixUpdate" from="WaitIspolcomFixes" to="WaitIspolcomFixes" />
+   <transition trigger="IspolcomFixUpdate" from="WaitIspolcomFixes" to="WaitIspolcom" />
+
+
+   <transition trigger="MinEconomyResponsed" from="InMinEconomy" to="PlanCreating" />
+
+   <transition trigger="UpdatePlan" from="PlanCreating" to="PlanCreating" />
+   <transition trigger="ApprovePlan" from="PlanCreating" to="Realization" />
+
+   <transition trigger="UpdateRealization" from="Realization" to="Realization" />
+   <transition trigger="UpdateRealization" from="Realization" to="Done" />
   </transitions>
+
+  <states>
+    <state start="yes">Open</state>
+    <state>OnMap</state>
+    <state>InvestorAprove</state>
+    <state>InvestorApprove</state>
+    <state>DocumentSending</state>
+    <state>WaitInvolved</state>
+    <state>InvolvedOrganizations</state>
+    <state>WaitComission</state>
+    <state>OnComission</state>
+    <state>WaitComissionFixes</state>
+    <state>WaitIspolcom</state>
+    <state>OnIspolcom</state>
+    <state>WaitIspolcomFixes</state>
+    <state>InMinEconomy</state>
+    <state>PlanCreating</state>
+    <state>Realization</state>
+    <state>Done</state>
+  </states>
+
 </statemachine>
