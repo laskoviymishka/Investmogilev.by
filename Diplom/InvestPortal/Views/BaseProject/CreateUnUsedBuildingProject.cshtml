@@ -1,4 +1,4 @@
-﻿@model Invest.Common.Model.ProjectWorkflow.UnUsedBuilding
+﻿@model Invest.Common.Model.Project.UnUsedBuilding
 
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -13,7 +13,6 @@
     <fieldset>
         <legend>Проект Неиспользуемого здания</legend>
         @Html.HiddenFor(model => model._id)
-        @Html.HiddenFor(model => model.WorkflowId)
         @Html.HiddenFor(model => model.InvestorUser)
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
@@ -51,13 +50,6 @@
                 <td>
                     @Html.EditorFor(model => model.Area)
                     @Html.ValidationMessageFor(model => model.Area)
-                </td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(model => model.Contact)</td>
-                <td>
-                    @Html.EditorFor(model => model.Contact)
-                    @Html.ValidationMessageFor(model => model.Contact)
                 </td>
             </tr>
             <tr>

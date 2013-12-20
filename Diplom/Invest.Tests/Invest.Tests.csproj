@@ -53,12 +53,11 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Workflow\BaseWorkflowTest.cs" />
-    <Compile Include="Workflow\GreenFieldWorkflowContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Workflow\StateMachineTest.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Workflow\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Invest.Common\Invest.Common.csproj">
       <Project>{8F5582F4-1EAD-4FE3-990D-36D18FA234D8}</Project>

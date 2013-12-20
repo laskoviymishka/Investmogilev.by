@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Invest.Common.Model.Common;
-using Invest.Common.Model.ProjectModels;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model.ProjectWorkflow
+namespace Invest.Common.Model.Project
 {
-     [BsonKnownTypes(typeof(GreenField), typeof(UnUsedBuilding))]
+    [BsonIgnoreExtraElements]
+    [BsonKnownTypes(typeof(GreenField), typeof(UnUsedBuilding), typeof(BrownField))]
     public class Project : IMongoEntity
     {
         [BsonRepresentation(BsonType.ObjectId)]

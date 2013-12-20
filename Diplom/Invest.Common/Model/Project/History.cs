@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Invest.Common.Model.ProjectWorkflow
+namespace Invest.Common.Model.Project
 {
     public class History
     {

@@ -374,7 +374,6 @@
     <Compile Include="App_Start\ProfilingFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseProjectController.cs" />
-    <Compile Include="Controllers\GreenFieldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvestorEntryController.cs" />
     <Compile Include="Controllers\InvestProjectsController.cs" />
@@ -383,7 +382,6 @@
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ReportReviewController.cs" />
-    <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UserManagerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\WorkflowActionsController.cs" />
@@ -393,7 +391,6 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BaseProjectViewModel.cs" />
     <Compile Include="Models\DocumentForTaskViewModel.cs" />
-    <Compile Include="Models\EditTaskViewModel.cs" />
     <Compile Include="Models\InvestorResponseViewModel.cs" />
     <Compile Include="Models\RegionDropDownViewModel.cs" />
     <Compile Include="Models\SubTaskViewModel.cs" />
@@ -1077,15 +1074,6 @@
     <Content Include="Views\BaseProject\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\GreenField\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\GreenField\MoreInfo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\GreenField\InsertGreenField.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\InvestorEntry\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1111,39 +1099,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\BaseProject\ToProject.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\MyTask.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\PlanForProject.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\CreateSubTask.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\_TaskTree.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\TaskDetails.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\TaskEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\ActiveTask.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\CompleteTask.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\AdditionalInfo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\AddDocumentToTask.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Task\EditDocumentInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\messageAppendix\08.12.2013\Tserakhau\excel.xls" />
@@ -1202,14 +1157,12 @@
     <Content Include="Views\Shared\_NewLayout.cshtml" />
     <Content Include="Views\Profile\MenuPartial.cshtml" />
     <Content Include="Views\BaseProject\WorkFlowForProjectPartial.cshtml" />
-    <Content Include="Views\Task\RecursiveTaskPartial.cshtml" />
     <Content Include="Views\BaseProject\Project.cshtml" />
     <Content Include="Views\BaseProject\GreenFieldProject.cshtml" />
     <Content Include="Views\BaseProject\BrownFieldProject.cshtml" />
     <Content Include="Views\BaseProject\UnUsedBuildingProject.cshtml" />
     <Content Include="Views\BaseProject\CreateProject.cshtml" />
     <Content Include="Views\BaseProject\CreateGreenFieldProject.cshtml" />
-    <Content Include="Views\BaseProject\CreateBrownFieldProject.cshtml" />
     <Content Include="Views\BaseProject\CreateUnUsedBuildingProject.cshtml" />
     <Content Include="Views\Shared\_MINIPROFILER UPDATED Layout.cshtml" />
     <Content Include="Views\InvestorEntry\NewResponseToProject.cshtml" />

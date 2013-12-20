@@ -34,7 +34,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ReporterName)
             </td>
-            @if (item.Response == null || (!item.Response.IsReject && !item.Response.IsApproved))
+            @if (item.ReportResponse == null || (!item.ReportResponse.IsReject && !item.ReportResponse.IsApproved))
             {
                 <td>
                     @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item.TaskId, reportId = item._id }, new { @class = "button success" })

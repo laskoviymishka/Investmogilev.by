@@ -143,7 +143,6 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Dot
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\EntityFramework.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\EQATEC.Analytics.Monitor.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Invest.Common.dll
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Invest.Workflow.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Microsoft.Web.WebPages.OAuth.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\MiniProfiler.dll
@@ -171,7 +170,6 @@ C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Web
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Stateless.dll
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\BusinessLogic.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Invest.Common.pdb
-C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Invest.Workflow.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Antlr3.Runtime.pdb
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\EQATEC.Analytics.Monitor.xml
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\MiniProfiler.pdb

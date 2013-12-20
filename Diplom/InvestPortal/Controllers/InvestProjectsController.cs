@@ -2,12 +2,10 @@
 using System.Web.Mvc;
 using Invest.Common;
 using Invest.Common.Model.Common;
-using Invest.Common.Model.ProjectModels;
-using Invest.Common.Model.ProjectWorkflow;
+using Invest.Common.Model.Project;
 using Invest.Common.Repository;
 using Invest.Common.State;
 using Newtonsoft.Json;
-using Project = Invest.Common.Model.ProjectModels.Project;
 
 namespace InvestPortal.Controllers
 {
@@ -15,6 +13,7 @@ namespace InvestPortal.Controllers
     public class InvestProjectsController : Controller
     {
         #region Nested class
+
         class LatLng
         {
             public double? Lat { get; set; }
@@ -28,31 +27,12 @@ namespace InvestPortal.Controllers
 
         #endregion
 
-        #region Fields
-
-        private readonly ProjectRepository _repository = new ProjectRepository();
-
-        #endregion
-
         #region External method
 
         [AllowAnonymous]
         public ActionResult PopUpDetailsGreenField(string id)
         {
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as GreenField;
-
-            if (project == null)
-            {
-                return null;
-            }
-
-            return PartialView(project);
-        }
-
-        [AllowAnonymous]
-        public ActionResult PopUpDetailsBrownField(string id)
-        {
-            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as BrownField;
 
             if (project == null)
             {
@@ -77,8 +57,7 @@ namespace InvestPortal.Controllers
         [AllowAnonymous]
         public string ProjectGeoJson()
         {
-            return JsonConvert.SerializeObject(GenerateGeoJsonData(RepositoryContext.Current.All<Project>(p => p.WorkflowState.CurrenState == ProjectStates.WaitForInvestor
-                || p.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove)));
+            return JsonConvert.SerializeObject(GenerateGeoJsonData(RepositoryContext.Current.All<Project>()));
         }
 
         #endregion

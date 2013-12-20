@@ -78,35 +78,35 @@
                     </ul>
                     <fieldset style="margin:20px">
                         <legend>Ответ на отчет</legend>
-                        @if (item.Response != null)
+                        @if (item.ReportResponse != null)
                         {
                             <small class="display-label">
-                                @Html.DisplayNameFor(model => item.Response.ResponseUser)
+                                @Html.DisplayNameFor(model => item.ReportResponse.ReportResponseUser)
                             </small>
                             <blockquote class="display-field">
-                                @Html.DisplayFor(model => item.Response.ResponseUser)
+                                @Html.DisplayFor(model => item.ReportResponse.ReportResponseUser)
                             </blockquote>
                             <small class="display-label">
-                                @Html.DisplayNameFor(model => item.Response.ResponseBody)
+                                @Html.DisplayNameFor(model => item.ReportResponse.ReportResponseBody)
                             </small>
                             <blockquote class="display-field">
-                                @Html.DisplayFor(model => item.Response.ResponseBody)
+                                @Html.DisplayFor(model => item.ReportResponse.ReportResponseBody)
                             </blockquote>
                             <small class="display-label">
-                                @Html.DisplayNameFor(model => item.Response.IsApproved)
+                                @Html.DisplayNameFor(model => item.ReportResponse.IsApproved)
                             </small>
                             <blockquote class="display-field">
-                                @Html.DisplayFor(model => item.Response.IsApproved)
+                                @Html.DisplayFor(model => item.ReportResponse.IsApproved)
                             </blockquote>
                             <blockquote style="margin:10px">
-                                @if (item.Response.Appendix != null && item.Response.Appendix.Any())
+                                @if (item.ReportResponse.Appendix != null && item.ReportResponse.Appendix.Any())
                                 {
-                                    foreach (var appendix in item.Response.Appendix)
+                                    foreach (var appendix in item.ReportResponse.Appendix)
                                     {
                                         <li>
                                             @Html.ActionLink("Скачать " + appendix.InfoName,
                                               "Download",
-                                               new { messageId = Model._id, appendixId = item.Response._id }, new { @class = "button button info" })
+                                               new { messageId = Model._id, appendixId = item.ReportResponse._id }, new { @class = "button button info" })
                                         </li>
                                     }
                                 }

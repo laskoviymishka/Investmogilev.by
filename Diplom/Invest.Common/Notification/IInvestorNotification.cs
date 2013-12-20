@@ -1,4 +1,4 @@
-﻿using Invest.Common.Model.ProjectWorkflow;
+﻿using Invest.Common.Model.Project;
 
 namespace Invest.Common.Notification
 {

@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic.Managers;
 using Invest.Common;
-using Invest.Common.Model.ProjectWorkflow;
+using Invest.Common.Model.Project;
 using Invest.Common.Repository;
 using MongoDB.Bson;
 using InvestPortal.Models;
@@ -14,27 +14,6 @@ namespace InvestPortal.Controllers
 {
     public class InvestorEntryController : Controller
     {
-        #region Private Field
-
-        private readonly IRepository _responseRepository;
-        private readonly Dictionary<string, object> _conditions;
-        private readonly ProjectStateManager _stateManager;
-
-        #endregion
-
-        #region Constructor
-
-        public InvestorEntryController()
-        {
-            _projectRepository = new ProjectRepository();
-            _responseRepository = new Invest.Common.Repository.MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
-            _greenFieldWorkflowContext = new GreenFieldWorkflowContext(_responseRepository);
-            _conditions = new Dictionary<string, object>();
-            _stateManager = new ProjectStateManager();
-        }
-
-        #endregion
-
         [AllowAnonymous]
         public ActionResult Index()
         {
@@ -80,8 +59,6 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-                _stateManager.ResponseToProject(model, User.Identity.Name);
                 return RedirectToAction("Index");
             }
             else
@@ -135,16 +112,12 @@ namespace InvestPortal.Controllers
         [Authorize(Roles = "Investor")]
         public ActionResult ApproveResponse(string id)
         {
-            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-            _stateManager.ApproveResponseByInvestor(id);
             return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "Investor")]
         public ActionResult ApprovePlan(string id)
         {
-            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-            _stateManager.ApprovePlanByInvestor(id);
             return RedirectToAction("Index");
         }
     }

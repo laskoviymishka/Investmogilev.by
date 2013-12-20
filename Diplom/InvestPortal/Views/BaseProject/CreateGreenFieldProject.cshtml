@@ -1,4 +1,4 @@
-﻿@model Invest.Common.Model.ProjectModels.GreenField
+﻿@model Invest.Common.Model.Project.GreenField
 
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -10,7 +10,6 @@
     <fieldset class="row">
         <legend>Проект Гринфилд</legend>
         @Html.HiddenFor(model => model._id)
-        @Html.HiddenFor(model => model.WorkflowId)
         @Html.HiddenFor(model => model.InvestorUser)
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
@@ -112,13 +111,6 @@
                 <td>
                     @Html.EditorFor(model => model.Appendix)
                     @Html.ValidationMessageFor(model => model.Appendix)
-                </td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(model => model.Contact)</td>
-                <td>
-                    @Html.EditorFor(model => model.Contact)
-                    @Html.ValidationMessageFor(model => model.Contact)
                 </td>
             </tr>
             <tr>

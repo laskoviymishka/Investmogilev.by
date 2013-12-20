@@ -1,8 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model.ProjectWorkflow
+namespace Invest.Common.Model.Project
 {
+    [BsonIgnoreExtraElements]
     public class UnUsedBuilding : Project
     {
         [Display(Name = "Площадь здания проекта")]
@@ -15,6 +16,6 @@ namespace Invest.Common.Model.ProjectWorkflow
         public bool IsCommunicate { get; set; }
 
         [Display(Name = "Балансовая стоимость здания")]
-        public double BalancePrice { get; set; }
+        public double? BalancePrice { get; set; }
     }
 }

@@ -84,25 +84,25 @@
                     </ul>
                     <fieldset style="margin-left:20px;">
                         <legend>Ответ на отчет</legend>
-                        @if (item.Response != null)
+                        @if (item.ReportResponse != null)
                         {
                             <small class="display-label">
-                                @Html.DisplayNameFor(model => item.Response.ResponseUser)
+                                @Html.DisplayNameFor(model => item.ReportResponse.ReportResponseUser)
                             </small>
                             <blockquote class="display-field">
-                                @Html.DisplayFor(model => item.Response.ResponseUser)
+                                @Html.DisplayFor(model => item.ReportResponse.ReportResponseUser)
                             </blockquote>
                             <small class="display-label">
-                                @Html.DisplayNameFor(model => item.Response.ResponseBody)
+                                @Html.DisplayNameFor(model => item.ReportResponse.ReportResponseBody)
                             </small>
                             <blockquote class="display-field">
-                                @Html.DisplayFor(model => item.Response.ResponseBody)
+                                @Html.DisplayFor(model => item.ReportResponse.ReportResponseBody)
                             </blockquote>
                             <small class="display-label">
-                                @Html.DisplayNameFor(model => item.Response.IsApproved)
+                                @Html.DisplayNameFor(model => item.ReportResponse.IsApproved)
                             </small>
                             <blockquote class="display-field">
-                                @Html.DisplayFor(model => item.Response.IsApproved)
+                                @Html.DisplayFor(model => item.ReportResponse.IsApproved)
                             </blockquote>
                         }
                         else

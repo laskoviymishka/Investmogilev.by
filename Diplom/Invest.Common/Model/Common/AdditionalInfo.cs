@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Invest.Common.Model.ProjectModels;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Invest.Common.Model.Common

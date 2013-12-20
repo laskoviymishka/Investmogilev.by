@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using Invest.Common.Model.ProjectModels;
 using Invest.Common.Model.User;
 using Invest.Common.Notification;
 using Invest.Common.State;

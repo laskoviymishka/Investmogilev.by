@@ -91,7 +91,7 @@
                     if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove)
                     {
                         <div>
-                            <a class="list " data-hint="Отклик получен| На проект откликнулось @Model.Responses.Count инвесторов"
+                            <a class="list " data-hint="Отклик получен| На проект откликнулось @Model.ReportResponses.Count инвесторов"
                                data-hint-position="right">
                                 <i class="icon-auction"></i>
                                 <span class="list-title">Отклик от инвестора</span>
@@ -101,7 +101,7 @@
                     }
                     else
                     {
-                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForInvestorResponseApprove)
+                        if (Model.WorkflowState.CurrenState == ProjectStates.WaitForInvestorReportResponseApprove)
                         {
                             if (User.IsInRole("Investor") && User.Identity.Name == Model.InvestorUser)
                             {
@@ -125,9 +125,9 @@
                         }
                         else
                         {
-                            if ((int)Model.WorkflowState.CurrenState > 5 && Model.Responses != null)
+                            if ((int)Model.WorkflowState.CurrenState > 5 && Model.ReportResponses != null)
                             {
-                                <a class="list" data-hint="Отклик одобрен| Отклик одобрен администрацией и потвержден инвестором. @string.Format("{0} {1} {2}", Model.Responses[0].InvestorLastName, Model.Responses[0].InvestorFirstName, Model.Responses[0].InvestorMiddleName)"
+                                <a class="list" data-hint="Отклик одобрен| Отклик одобрен администрацией и потвержден инвестором. @string.Format("{0} {1} {2}", Model.ReportResponses[0].InvestorLastName, Model.ReportResponses[0].InvestorFirstName, Model.ReportResponses[0].InvestorMiddleName)"
                                    data-hint-position="right">
                                     <i class="icon-checkmark"></i>
                                     <i class="icon-auction"></i>
@@ -142,10 +142,10 @@
             @if (Model.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove && User.IsInRole("Admin"))
             {
                 <li class="example_alt_pagination">
-                    @foreach (var response in Model.Responses)
+                    @foreach (var response in Model.ReportResponses)
                     {
                     <li>
-                        <a href="~/BaseProject/ProcessVerifyResponse/@response.ResponseId"
+                        <a href="~/BaseProject/ProcessVerifyResponse/@response.ReportResponseId"
                            data-hint="Отклик| @string.Format(
                                         "{0} {1} {2}",
                                         response.InvestorLastName,

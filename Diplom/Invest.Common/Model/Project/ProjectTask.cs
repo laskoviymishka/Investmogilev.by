@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Invest.Common.Model.Common;
 
-namespace Invest.Common.Model.ProjectWorkflow
+namespace Invest.Common.Model.Project
 {
     public class ProjectTask : IMongoEntity
     {
         public string Title { get; set; }
-        public IEnumerable<TaskReport> TaskReport { get; set; }
+        public IEnumerable<Report> TaskReport { get; set; }
         public TaskTypes Type { get; set;}
         public TaskStep Step { get; set;} // Задача привязана к статусу проекта
         public DateTime CreationTime { get; set; }
