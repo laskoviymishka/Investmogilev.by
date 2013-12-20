@@ -1,4 +1,4 @@
-﻿namespace Invest.Common.Model.ProjectModels
+﻿namespace Invest.Common.Model.Project
 {
     public class Address
     {

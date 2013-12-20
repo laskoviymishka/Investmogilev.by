@@ -567,7 +567,7 @@ jQuery.ajax = function( url, options ) {
 			i,
 			// URL without anti-cache param
 			cacheURL,
-			// Response headers as string
+			// ReportResponse headers as string
 			responseHeadersString,
 			// timeout handle
 			timeoutTimer,
@@ -576,7 +576,7 @@ jQuery.ajax = function( url, options ) {
 			fireGlobals,
 
 			transport,
-			// Response headers
+			// ReportResponse headers
 			responseHeaders,
 			// Create the final options object
 			s = jQuery.ajaxSetup( {}, options ),
@@ -632,7 +632,7 @@ jQuery.ajax = function( url, options ) {
 					return this;
 				},
 
-				// Overrides response content-type header
+				// Overrides ReportResponse content-type header
 				overrideMimeType: function( type ) {
 					if ( !state ) {
 						s.mimeType = type;
@@ -846,7 +846,7 @@ jQuery.ajax = function( url, options ) {
 			// (no matter how long the jqXHR object will be used)
 			transport = undefined;
 
-			// Cache response headers
+			// Cache ReportResponse headers
 			responseHeadersString = headers || "";
 
 			// Set readyState
@@ -855,12 +855,12 @@ jQuery.ajax = function( url, options ) {
 			// Determine if successful
 			isSuccess = status >= 200 && status < 300 || status === 304;
 
-			// Get response data
+			// Get ReportResponse data
 			if ( responses ) {
 				response = ajaxHandleResponses( s, jqXHR, responses );
 			}
 
-			// Convert no matter what (that way responseXXX fields are always set)
+			// Convert no matter what (that way ReportResponseXXX fields are always set)
 			response = ajaxConvert( s, response, jqXHR, isSuccess );
 
 			// If successful, handle type chaining
@@ -4697,7 +4697,7 @@ jQuery.prototype.load = function( url, params, callback ) {
 ///     &#10;    1.1 - load(handler(eventObject)) 
 ///     &#10;    1.2 - load(eventData, handler(eventObject))
 ///     &#10;2: Load data from the server and place the returned HTML into the matched element.
-///     &#10;    2.1 - load(url, data, complete(responseText, textStatus, XMLHttpRequest))
+///     &#10;    2.1 - load(url, data, complete(ReportResponseText, textStatus, XMLHttpRequest))
 /// </summary>
 /// <param name="url" type="String">
 ///     A string containing the URL to which the request is sent.
@@ -4746,7 +4746,7 @@ jQuery.prototype.load = function( url, params, callback ) {
 			data: params
 		}).done(function( responseText ) {
 
-			// Save response for use in complete callback
+			// Save ReportResponse for use in complete callback
 			response = arguments;
 
 			self.html( selector ?

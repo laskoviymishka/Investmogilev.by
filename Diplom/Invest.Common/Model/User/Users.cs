@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Invest.Common.Model.Common;
-using Invest.Common.Model.ProjectModels;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoRepository;
 
 namespace Invest.Common.Model.User
 {
@@ -62,17 +60,5 @@ namespace Invest.Common.Model.User
         public string Comment { get; set; }
 
         public UserProfile Profile { get; set; }
-
-        [BsonIgnore]
-        public IEnumerable<Project> AssignProjects {
-            get
-            {
-                List<Project> model = new List<Project>();
-                model.AddRange(RepositoryContext.Current.All<GreenField>(gr => gr.AssignUser == Username));
-                model.AddRange(RepositoryContext.Current.All<BrownField>(gr => gr.AssignUser == Username));
-                model.AddRange(RepositoryContext.Current.All<UnUsedBuilding>(gr => gr.AssignUser == Username));
-                return model;
-            }
-        }
     }
 }

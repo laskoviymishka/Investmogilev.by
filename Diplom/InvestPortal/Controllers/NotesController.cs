@@ -5,9 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Invest.Common;
 using Invest.Common.Model.Common;
-using Invest.Common.Model.ProjectModels;
-using MongoRepository;
+using Invest.Common.Model.Project;
 using MongoDB.Bson;
 
 namespace InvestPortal.Controllers
@@ -18,7 +18,7 @@ namespace InvestPortal.Controllers
         public ActionResult All()
         {
             var model = new List<ProjectNotes>();
-            foreach (var project in RepositoryContext.Current.All<Project>(p => p.AssignUser == User.Identity.Name))
+            foreach (var project in RepositoryContext.Current.All<Project>())
             {
                 model.AddRange(RepositoryContext.Current.All<ProjectNotes>(n => project != null && n.ProjectId == project._id));
             }

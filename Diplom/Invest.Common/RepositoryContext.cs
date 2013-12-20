@@ -4,7 +4,7 @@ using System.Threading;
 using System.Web;
 using Invest.Common.Repository;
 
-namespace MongoRepository
+namespace Invest.Common
 {
     public static class RepositoryContext
     {
@@ -12,18 +12,15 @@ namespace MongoRepository
         private static readonly Hashtable _threads = new Hashtable();
 
         /// <summary>
-        /// Returns a database context or creates one if it doesn't exist.
+        ///     Returns a database context or creates one if it doesn't exist.
         /// </summary>
         public static IRepository Current
         {
-            get
-            {
-                return GetOrCreateSession();
-            }
+            get { return GetOrCreateSession(); }
         }
 
         /// <summary>
-        /// Returns true if a database context is open.
+        ///     Returns true if a database context is open.
         /// </summary>
         public static bool IsOpen
         {
@@ -41,7 +38,7 @@ namespace MongoRepository
             IRepository session = GetSession();
             if (session == null)
             {
-                session = new Invest.Common.Repository.MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
+                session = new MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
 
                 SaveSession(session);
             }
@@ -55,7 +52,7 @@ namespace MongoRepository
             {
                 if (HttpContext.Current.Items.Contains(HTTPCONTEXTKEY))
                 {
-                    return (IRepository)HttpContext.Current.Items[HTTPCONTEXTKEY];
+                    return (IRepository) HttpContext.Current.Items[HTTPCONTEXTKEY];
                 }
 
                 return null;
@@ -72,7 +69,7 @@ namespace MongoRepository
                 {
                     lock (_threads.SyncRoot)
                     {
-                        return (IRepository)_threads[Thread.CurrentThread.Name];
+                        return (IRepository) _threads[Thread.CurrentThread.Name];
                     }
                 }
             }

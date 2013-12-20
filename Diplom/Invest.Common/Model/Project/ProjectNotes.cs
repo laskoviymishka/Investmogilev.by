@@ -5,7 +5,7 @@ using Invest.Common.Model.Common;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model.ProjectModels
+namespace Invest.Common.Model.Project
 {
     public class ProjectNotes : IMongoEntity
     {

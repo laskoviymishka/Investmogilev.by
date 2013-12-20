@@ -1,15 +1,11 @@
 ﻿using System.Diagnostics;
-using Invest.Common.Model.ProjectModels;
 using Invest.Common.Model.User;
 using Invest.Common.Notification;
 using Invest.Common.State;
-using Invest.Workflow.Project;
-using Invest.Workflow.StateManagment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Invest.Common.Model;
-using MongoRepository;
 using BusinessLogic.Notification;
 
 namespace Tester

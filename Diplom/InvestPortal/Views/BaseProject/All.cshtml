@@ -1,5 +1,5 @@
 ﻿@using InvestPortal.Controllers
-@model IEnumerable<Invest.Common.Model.ProjectModels.Project>
+@model IEnumerable<Invest.Common.Model.Project.Project>
 @{
     ViewBag.Title = "Все проекты";
 }
@@ -42,10 +42,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.AddressName)
             </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.AssignUser)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProjectType)
             </th>
@@ -68,22 +64,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.AddressName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AssignUser)
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.ProjectType)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.WorkflowState.CurrenState)
+                    @Html.DisplayFor(modelItem => item.WorkflowState)
                 </td>
                 <td>
                     <div>
                         @Html.ActionLink("Подробнее", "Project", "BaseProject", new { Id = item._id }, new { @class = "button info", style = "width:100%" })
-                        @if (string.IsNullOrEmpty(item.AssignUser) && User.IsInRole("Admin"))
-                        {
-                            @Html.ActionLink("Назначить ответственного", "AssignUser", "UserManager", new { Id = item._id }, new { @class = "button success", style ="width:100%" });
-                        }
                     </div>
                 </td>
             </tr>

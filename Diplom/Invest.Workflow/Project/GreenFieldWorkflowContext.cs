@@ -8,7 +8,6 @@ using Invest.Common.Model;
 using Invest.Common.Model.ProjectModels;
 using Invest.Common.Repository;
 using Invest.Workflow.StateManagment;
-using History = Invest.Common.Model.ProjectModels.History;
 
 namespace Invest.Workflow.Project
 {

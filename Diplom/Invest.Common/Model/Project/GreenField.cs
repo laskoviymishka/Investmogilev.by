@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model.ProjectModels
+namespace Invest.Common.Model.Project
 {
+    [BsonIgnoreExtraElements]
     public class GreenField : Project
     {
         [Display(Name = "Инвестиционный номер")]

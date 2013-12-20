@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Invest.Common.Model.ProjectModels;
+using Invest.Common.Model.Project;
 using Invest.Common.Notification;
 
 namespace Invest.Common.State
@@ -377,7 +377,7 @@ namespace Invest.Common.State
 
         private bool IsAssignedUser
         {
-            get { return _currentUser == _currentProject.AssignUser && (_roles.Contains(RAYON_ROLE) || _roles.Contains(ADMIN_ROLE)); }
+            get { return true; }
         }
 
         #endregion

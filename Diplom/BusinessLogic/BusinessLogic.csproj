@@ -72,12 +72,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Managers\BrownFieldManager.cs" />
-    <Compile Include="Managers\GreenFieldManager.cs" />
     <Compile Include="Managers\ProjectStateManager.cs" />
     <Compile Include="Managers\TaskManager.cs" />
-    <Compile Include="Managers\UnUsedBuildingManager.cs" />
-    <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Notification\MailMessageHandler.cs" />
     <Compile Include="Notification\PortalMessageHandler.cs" />
     <Compile Include="Notification\PortalNotificationHub.cs" />

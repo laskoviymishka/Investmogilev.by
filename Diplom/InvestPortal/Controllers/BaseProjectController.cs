@@ -3,16 +3,10 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic.Managers;
-using Invest.Common.Model.Common;
-using Invest.Common.Model.ProjectModels;
+using Invest.Common;
+using Invest.Common.Model.Project;
 using Invest.Common.Model.User;
 using Invest.Common.Repository;
-using InvestPortal.Models;
-using MongoDB.Bson;
-using MongoRepository;
-using StackExchange.Profiling;
-using Telerik.Web.Mvc;
-using Invest.Common.State;
 
 namespace InvestPortal.Controllers
 {
@@ -49,25 +43,6 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                _stateManager.CreateProject(model, User.Identity.Name);
-                return RedirectToAction("Project", "BaseProject", new { id = model._id });
-            }
-
-            return View(model);
-        }
-
-        public ActionResult CreateBrownFieldProject()
-        {
-            return PartialView();
-        }
-
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult CreateBrownFieldProject(BrownField model)
-        {
-            if (ModelState.IsValid)
-            {
-                _stateManager.CreateProject(model, User.Identity.Name);
                 return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
@@ -85,7 +60,6 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                _stateManager.CreateProject(model, User.Identity.Name);
                 return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
@@ -103,7 +77,7 @@ namespace InvestPortal.Controllers
 
         public ActionResult GreenFieldProject(string id)
         {
-            ViewBag.Tags = new List<string>() { "test","test2","test3" };
+            ViewBag.Tags = new List<string>() { "test", "test2", "test3" };
             return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as GreenField);
         }
 
@@ -117,40 +91,10 @@ namespace InvestPortal.Controllers
                 initial.Name = model.Name;
                 initial.Description = model.Description;
                 initial.AddressName = model.AddressName;
-                initial.Contact = model.Contact;
                 initial.Region = model.Region;
                 initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
                 initial.Tags = model.Tags;
 
-                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-                _stateManager.FillProject(model._id, initial);
-                return RedirectToAction("Project", "BaseProject", new { id = model._id });
-            }
-
-            return View(model);
-        }
-
-        public ActionResult BrownFieldProject(string id)
-        {
-            return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as BrownField);
-        }
-
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult BrownFieldProject(BrownField model)
-        {
-            if (ModelState.IsValid)
-            {
-                var initial = RepositoryContext.Current.GetOne<Project>(t => t._id == model._id);
-                initial.Name = model.Name;
-                initial.Description = model.Description;
-                initial.AddressName = model.AddressName;
-                initial.Contact = model.Contact;
-                initial.Region = model.Region;
-                initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
-
-                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-                _stateManager.FillProject(model._id, initial);
                 return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
@@ -172,7 +116,6 @@ namespace InvestPortal.Controllers
                 initial.Name = model.Name;
                 initial.Description = model.Description;
                 initial.AddressName = model.AddressName;
-                initial.Contact = model.Contact;
                 initial.Region = model.Region;
                 initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
                 initial.Area = model.Area;
@@ -180,8 +123,6 @@ namespace InvestPortal.Controllers
                 initial.IsCommunicate = model.IsCommunicate;
                 initial.IsSell = model.IsSell;
 
-                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-                _stateManager.FillProject(model._id, initial);
                 return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
@@ -203,12 +144,9 @@ namespace InvestPortal.Controllers
                 initial.Name = model.Name;
                 initial.Description = model.Description;
                 initial.AddressName = model.AddressName;
-                initial.Contact = model.Contact;
                 initial.Region = model.Region;
                 initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
 
-                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-                _stateManager.FillProject(model._id, initial);
                 return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
@@ -244,53 +182,18 @@ namespace InvestPortal.Controllers
             return View(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));
         }
 
-        #region Grid Methods project workflow
-
-        [GridAction]
-        public ActionResult _SelectAjaxEditingIndex()
-        {
-            return View(new GridModel(AllProjectForUser));
-        }
-
         #endregion
 
-
-        #endregion
 
         #region All project
 
         public ActionResult All()
         {
-            var profiler = MiniProfiler.Current;
-            using (
-                profiler.Step(string.Format("BindUsersAndRegions"))
-                )
-            {
-                BindUsersAndRegions();
-            }
-            var profile2r = MiniProfiler.Current;
-            using (
-                profile2r.Step(string.Format("RepositoryContext.Current.All<Project>().ToList()"))
-                )
-            {
-                return View(RepositoryContext.Current.All<Project>());
-            }
-        }
-
-        #region Grid Methods project workflow
-
-        [GridAction]
-        public ActionResult _SelectAjaxEditingAll()
-        {
             BindUsersAndRegions();
-            return View(new GridModel(RepositoryContext.Current.All<Project>()));
+            return View(RepositoryContext.Current.All<Project>());
         }
 
         #endregion
-
-        #endregion
-
-        #region VerigyResponse
 
         #region Main Actions
 
@@ -301,7 +204,7 @@ namespace InvestPortal.Controllers
 
         public ActionResult ToProject(string id)
         {
-            var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null && p.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove);
+            var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null);
             foreach (Project project in responsedProject)
             {
                 var investorResponse = project.Responses.FirstOrDefault(p => p.ResponseId == id);
@@ -313,96 +216,6 @@ namespace InvestPortal.Controllers
             return HttpNotFound();
         }
 
-        public ActionResult ProcessVerifyResponse(string id)
-        {
-            var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null && p.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove);
-            foreach (Project project in responsedProject)
-            {
-                var investorResponse = project.Responses.FirstOrDefault(p => p.ResponseId == id);
-                if (investorResponse != null)
-                {
-                    if (string.IsNullOrEmpty(investorResponse.ExistingUser))
-                    {
-                        var model = new InvestorRegisterModel();
-                        model.Email = investorResponse.InvestorEmail;
-                        model.ResponseId = id;
-                        model.ResponseProjectId = project._id;
-                        model.Password = ObjectId.GenerateNewId().ToString().Substring(0, 5);
-                        return View(model);
-                    }
-
-                    _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-                    if (_stateManager.ProcessVerifyResponse(investorResponse.ResponsedProjectId,
-                        investorResponse.ResponseId,
-                        User.Identity.Name,
-                        investorResponse.ExistingUser))
-                    {
-                        return RedirectToAction("Project", "BaseProject", new { @id = investorResponse.ResponsedProjectId });
-                    }
-                }
-            }
-            return HttpNotFound();
-        }
-
-        [HttpPost]
-        public ActionResult ProcessVerifyResponse(InvestorRegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-                if (_stateManager.ProcessVerifyResponse(model.ResponseProjectId,
-                    model.ResponseId,
-                    User.Identity.Name,
-                    model.UserName,
-                    model.Password,
-                    model.Email))
-                {
-                    return RedirectToAction("Project", "BaseProject", new { @id = model.ResponseProjectId });
-                }
-
-                return HttpNotFound();
-            }
-            return View(model);
-        }
-
-        public ActionResult UserApproveCompletion(string id)
-        {
-            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-            _stateManager.UserApproveCompletion(id);
-            return RedirectToAction("Project", "BaseProject", new { @id = id });
-        }
-
-        public ActionResult AdminApproveCompletion(string id)
-        {
-            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-            _stateManager.AdminApproveCompletion(id);
-            return RedirectToAction("Project", "BaseProject", new { @id = id });
-        }
-
-        #endregion
-
-        #region Grid Methods
-
-        [GridAction]
-        public ActionResult _SelectAjaxEditing()
-        {
-            return View(new GridModel(InvestorResponses));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        [GridAction]
-        public ActionResult _DeleteAjaxEditing(string id)
-        {
-            _stateManager.SetContext(User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name));
-            if (_stateManager.DeleteResponse(id, User.Identity.Name))
-            {
-                return View(new GridModel(InvestorResponses));
-            }
-
-            return HttpNotFound();
-        }
-
-        #endregion
 
         #region Helper Model Class
 
@@ -429,9 +242,9 @@ namespace InvestPortal.Controllers
                 BindUsersAndRegions();
                 if (User.IsInRole("Investor"))
                 {
-                    return RepositoryContext.Current.All<Project>(r => r.InvestorUser == User.Identity.Name);
+                    return RepositoryContext.Current.All<Project>();
                 }
-                return RepositoryContext.Current.All<Project>(r => r.AssignUser == User.Identity.Name);
+                return RepositoryContext.Current.All<Project>();
             }
         }
 
@@ -440,8 +253,7 @@ namespace InvestPortal.Controllers
             get
             {
                 var responsedProject =
-                    RepositoryContext.Current.All<Project>(
-                        r => r.Responses != null && r.WorkflowState.CurrenState == ProjectStates.WaitForAdminInvestorApprove);
+                    RepositoryContext.Current.All<Project>();
                 var model = new List<InvestorResponse>();
                 foreach (var project in responsedProject)
                 {

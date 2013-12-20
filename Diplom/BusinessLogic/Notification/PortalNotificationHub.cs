@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using BusinessLogic.Managers;
+using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.User;
 using MongoDB.Bson;
-using MongoRepository;
 
 namespace BusinessLogic.Notification
 {
@@ -28,17 +28,7 @@ namespace BusinessLogic.Notification
 
         public PortalNotification Notification(string userName)
         {
-            var tasks = TaskManager.GetAllTask(userName).ToArray();
-            var portalNotification = new PortalNotification
-            {
-                UnreadMessages = MessageHandler.Unread(userName).Count(),
-                ActiveTask = tasks.Count(t => !t.IsComplete),
-                PendingTask = tasks.Count(t => !t.IsComplete && t.Milestone < DateTime.Now),
-                CompleteTask = tasks.Count(t => t.IsComplete),
-                PendingCompleteTask = tasks.Count(t => t.IsComplete && t.CompletedOn < t.Milestone),
-                UnReadNotification = RepositoryContext.Current.All<NotificationQueue>(n => n.UserName == userName && !n.IsRead).Count()
-            };
-            return portalNotification;
+            return new PortalNotification();
         }
     }
 }

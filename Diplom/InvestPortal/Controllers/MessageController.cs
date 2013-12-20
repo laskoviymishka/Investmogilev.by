@@ -7,11 +7,11 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic;
 using BusinessLogic.Notification;
+using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.User;
 using InvestPortal.Models;
 using MongoDB.Bson;
-using MongoRepository;
 
 namespace InvestPortal.Controllers
 {
