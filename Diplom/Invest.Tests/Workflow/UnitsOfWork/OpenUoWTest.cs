@@ -9,6 +9,7 @@ using Invest.Common.State;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using Moq;
+using System;
 
 namespace Invest.Tests.Workflow.UnitsOfWork
 {
@@ -45,7 +46,7 @@ namespace Invest.Tests.Workflow.UnitsOfWork
                     Address = new Address { Lat = 52, Lng = 53 },
                     WorkflowState = new Common.Model.Project.Workflow
                         {
-                            History = new History(),
+                            History = new List<History>(),
                             CurrentState = ProjectWorkflow.State.Open
                         }
                 };
@@ -125,8 +126,8 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         {
             bool wasNotificated = false;
             var target = CreateUoW();
-            _adminNotification.Setup(a => a.NotificateFill()).Callback(() => { wasNotificated = true; });
-            target.OnOpenExit();
+            _adminNotification.Setup(a => a.NotificateOpen()).Callback(() => { wasNotificated = true; });
+            target.OnOpenEntry();
             Assert.IsTrue(wasNotificated);
         }
 
@@ -136,11 +137,38 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestMethod()]
         public void OnOpenExitTest()
         {
-            bool wasNotificated = false;
+            var wasExceptions = false;
+            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.Open;
             var target = CreateUoW();
-            _userNotification.Setup(a => a.NotificateOpen()).Callback(() => { wasNotificated = true; });
-            target.OnOpenEntry();
-            Assert.IsTrue(wasNotificated);
+            try
+            {
+                target.OnOpenExit();
+            }
+            catch (InvalidOperationException e)
+            {
+                wasExceptions = true;
+            }
+
+            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.OnMap;
+            target = CreateUoW();
+
+            target.OnOpenExit();
+            Assert.IsTrue(wasExceptions);
+            Assert.IsTrue(
+                _repository.GetOne<Project>(
+                    p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
+
+            Assert.IsTrue(_repository.GetOne<Project>(
+                    p => p._id == _currentProject._id).WorkflowState.History.Count > 0);
+
+            Assert.IsTrue(_repository.GetOne<Project>(
+                    p => p._id == _currentProject._id)
+                        .WorkflowState.History.Find(
+                            h =>
+                                h.Editor == _userName
+                                && h.From == ProjectWorkflow.State.Open
+                                && h.To == ProjectWorkflow.State.OnMap) != null);
+
         }
     }
 }

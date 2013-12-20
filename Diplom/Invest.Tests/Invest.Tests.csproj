@@ -91,6 +91,7 @@
     <Compile Include="Workflow\UnitsOfWork\OpenUoWTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Workflow\UnitsOfWork\UnitsOfWorkContainerTest.cs" />
+    <Compile Include="Workflow\WorkflowIntegrationTest.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

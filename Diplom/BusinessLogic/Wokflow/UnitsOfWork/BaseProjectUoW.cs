@@ -4,6 +4,8 @@ using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Notification;
 using Invest.Common.Repository;
+using System;
+using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork
 {
@@ -73,6 +75,48 @@ namespace BusinessLogic.Wokflow.UnitsOfWork
             {
                 return CurrentProject.Tasks.Any(t => t.Step == CurrentProject.WorkflowState.CurrentState && !t.IsComplete);
             }
+        }
+
+        #endregion
+
+        #region Guard
+
+        protected void GuardCurrentProjectNotNull()
+        {
+            if (CurrentProject == null)
+            {
+                throw new ArgumentNullException("CurrentProject"); 
+            }
+        }
+
+        #endregion
+
+        #region Protected Helpers
+
+        protected void ProcessMoving(ProjectWorkflow.State initialState, string bodyMessage)
+        {
+            GuardCurrentProjectNotNull();
+
+            if (CurrentProject.WorkflowState.CurrentState == initialState)
+            {
+                throw new InvalidOperationException("UnExpected state ProjectWorkflow.State.OnMap");
+            }
+
+            if (CurrentProject.WorkflowState.History == null)
+            {
+                CurrentProject.WorkflowState.History = new List<History>();
+            }
+
+            CurrentProject.WorkflowState.History.Add(new History()
+            {
+                EditingTime = DateTime.Now,
+                Editor = UserName,
+                From = initialState,
+                To = CurrentProject.WorkflowState.CurrentState,
+                Body = bodyMessage
+            });
+
+            Repository.Update<Project>(CurrentProject);
         }
 
         #endregion

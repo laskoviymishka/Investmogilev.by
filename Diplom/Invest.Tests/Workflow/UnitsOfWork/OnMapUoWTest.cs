@@ -47,7 +47,7 @@ namespace Invest.Tests.Workflow.UnitsOfWork
                 Address = new Address { Lat = 52, Lng = 53 },
                 WorkflowState = new Common.Model.Project.Workflow
                 {
-                    History = new History(),
+                    History = new List<History>(),
                     CurrentState = ProjectWorkflow.State.Open
                 }
             };
@@ -207,9 +207,12 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestMethod()]
         public void OnMapEntryTest()
         {
+            bool wasNotificated = false;
             var target = CreateUoW();
+            _adminNotification.Setup(a => a.MapEntryNotificate()).Callback(() => { wasNotificated = true; });
+            target.OnMapEntry();
 
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            Assert.IsTrue(wasNotificated);
         }
 
         /// <summary>
@@ -218,8 +221,39 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestMethod()]
         public void OnMapExitTest()
         {
+            var wasExceptions = false;
+            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.OnMap;
             var target = CreateUoW();
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            try
+            {
+                target.OnMapExit();
+            }
+            catch (InvalidOperationException e)
+            {
+                wasExceptions = true;
+            }
+
+            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.InvestorApprove;
+            target = CreateUoW();
+
+            target.OnMapExit();
+
+            Assert.IsTrue(wasExceptions);
+            Assert.IsTrue(
+                _repository.GetOne<Project>(
+                    p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove);
+
+            Assert.IsTrue(_repository.GetOne<Project>(
+                    p => p._id == _currentProject._id).WorkflowState.History.Count > 0);
+
+            Assert.IsTrue(_repository.GetOne<Project>(
+                    p => p._id == _currentProject._id)
+                        .WorkflowState.History.Find(
+                            h => 
+                                h.Editor == _userName 
+                                && h.From == ProjectWorkflow.State.OnMap
+                                && h.To ==  ProjectWorkflow.State.InvestorApprove) != null);
+
         }
     }
 }

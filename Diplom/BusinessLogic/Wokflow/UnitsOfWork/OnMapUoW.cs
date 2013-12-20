@@ -4,6 +4,8 @@ using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Notification;
 using Invest.Common.Repository;
+using Invest.Common.State;
+using System;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork
 {
@@ -28,12 +30,12 @@ namespace BusinessLogic.Wokflow.UnitsOfWork
 
         public void OnMapExit()
         {
-            throw new System.NotImplementedException();
+            ProcessMoving(ProjectWorkflow.State.OnMap, "Проект покинул состояние НА КАРТЕ");
         }
 
         public void OnMapEntry()
         {
-            throw new System.NotImplementedException();
+            AdminNotification.MapEntryNotificate();
         }
 
         public bool FromOnComissionToOnMap()
