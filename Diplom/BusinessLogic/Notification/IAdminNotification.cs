@@ -6,6 +6,6 @@
 
         void MapEntryNotificate();
 
-        void NotificateOpen();
+        void NotificateReOpen();
     }
 }

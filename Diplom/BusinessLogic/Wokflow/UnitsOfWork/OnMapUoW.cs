@@ -30,11 +30,11 @@ namespace BusinessLogic.Wokflow.UnitsOfWork
 
         public void OnMapExit()
         {
-            ProcessMoving(ProjectWorkflow.State.OnMap, "Проект покинул состояние НА КАРТЕ");
         }
 
         public void OnMapEntry()
         {
+            ProcessMoving(ProjectWorkflow.State.OnMap, "Проект перещел в состояние НА КАРТЕ");
             AdminNotification.MapEntryNotificate();
         }
 

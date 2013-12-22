@@ -87,3 +87,7 @@ D:\Develop\git\DiplomMap\Diplom\Tester\bin\Debug\MiniProfiler.xml
 D:\Develop\git\DiplomMap\Diplom\Tester\obj\Debug\Tester.csprojResolveAssemblyReference.cache
 D:\Develop\git\DiplomMap\Diplom\Tester\obj\Debug\Tester.exe
 D:\Develop\git\DiplomMap\Diplom\Tester\obj\Debug\Tester.pdb
+D:\Develop\git\DiplomMap\Diplom\Tester\bin\Debug\Invest.Tests.dll
+D:\Develop\git\DiplomMap\Diplom\Tester\bin\Debug\Moq.dll
+D:\Develop\git\DiplomMap\Diplom\Tester\bin\Debug\Invest.Tests.pdb
+D:\Develop\git\DiplomMap\Diplom\Tester\bin\Debug\Moq.xml

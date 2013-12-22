@@ -28,12 +28,13 @@ namespace BusinessLogic.Wokflow.UnitsOfWork
 
         public void OnOpenExit()
         {
-            ProcessMoving(ProjectWorkflow.State.Open, "Покинули состояние ОТКРЫТ");
+            AdminNotification.NotificateFill();
         }
 
         public void OnOpenEntry()
         {
-            AdminNotification.NotificateOpen();
+            ProcessMoving(ProjectWorkflow.State.Open, "Проект перещел в состояние НА КАРТЕ");
+            AdminNotification.NotificateReOpen();
         }
 
         public bool FromMapToOpen()

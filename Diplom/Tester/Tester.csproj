@@ -45,6 +45,9 @@
     <Reference Include="MongoDB.Driver, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1312.1622\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -72,6 +75,10 @@
     <ProjectReference Include="..\Invest.Common\Invest.Common.csproj">
       <Project>{8F5582F4-1EAD-4FE3-990D-36D18FA234D8}</Project>
       <Name>Invest.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Invest.Tests\Invest.Tests.csproj">
+      <Project>{33d3a500-9a46-434e-956c-5856ff1010ba}</Project>
+      <Name>Invest.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

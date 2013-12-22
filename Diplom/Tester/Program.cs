@@ -7,15 +7,73 @@ using System.Collections.Generic;
 using System.Linq;
 using Invest.Common.Model;
 using BusinessLogic.Notification;
+using BusinessLogic.Wokflow;
+using Moq;
+using Invest.Common.Model.Project;
+using System.Collections;
+using Invest.Tests;
+using MongoDB.Bson;
 
 namespace Tester
 {
     class Program
     {
+
+        private static Project _currentProject;
+        private static IList _projects;
+        private static MockMongoRepository _repository;
+        private static Mock<IUserNotification> _userNotification;
+        private static Mock<IAdminNotification> _adminNotification;
+        private static Mock<IInvestorNotification> _investorNotification;
+        private static string _userName;
+        private static IEnumerable<string> _roles;
+        private static ProjectWorkflowWrapper _workflow;
+        private static UnitsOfWorkContainer _unitOfWorksContainer;
+
         static void Main(string[] args)
         {
-            MailMessageHandler t = new MailMessageHandler();
-            t.Send();
+            _currentProject = new Project
+            {
+                _id = ObjectId.GenerateNewId().ToString(),
+                Name = "testProjectName",
+                Region = "testProjectRegion",
+                InvestorUser = "",
+                Address = new Address { Lat = 52, Lng = 53 },
+                WorkflowState = new Workflow
+                {
+                    History = new List<History>(),
+                    CurrentState = ProjectWorkflow.State.Open
+                }
+            };
+            _projects = new List<Project> { _currentProject };
+
+            _repository = new MockMongoRepository(_projects);
+
+            _roles = new List<string>() { "User" };
+            _userNotification = new Mock<IUserNotification>();
+            _adminNotification = new Mock<IAdminNotification>();
+            _investorNotification = new Mock<IInvestorNotification>();
+            _userName = "test";
+            _unitOfWorksContainer = new UnitsOfWorkContainer(_currentProject,
+                _repository,
+                _userNotification.Object,
+                _adminNotification.Object,
+                _investorNotification.Object,
+                _userName,
+                _roles);
+            _workflow = new ProjectWorkflowWrapper(
+                new ProjectWorkflow(ProjectWorkflow.State.Open),
+                _currentProject,
+                _investorNotification.Object,
+                _adminNotification.Object,
+                _userNotification.Object,
+                _unitOfWorksContainer);
+
+            _workflow.TryMove(ProjectWorkflow.Trigger.FillInformation);
+
+            Console.WriteLine(_workflow.CurrentState);
+            Console.WriteLine(_repository.GetOne<Project>(p => p._id == _currentProject._id).WorkflowState.CurrentState);
+            Console.Read();
         }
         //private static void GenerateDependendenciesValues()
         //{

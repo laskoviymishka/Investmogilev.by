@@ -125,38 +125,29 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         public void OnOpenEntryTest()
         {
             bool wasNotificated = false;
-            var target = CreateUoW();
-            _adminNotification.Setup(a => a.NotificateOpen()).Callback(() => { wasNotificated = true; });
-            target.OnOpenEntry();
-            Assert.IsTrue(wasNotificated);
-        }
-
-        /// <summary>
-        ///A test for OnOpenExit
-        ///</summary>
-        [TestMethod()]
-        public void OnOpenExitTest()
-        {
+            _adminNotification.Setup(a => a.NotificateReOpen()).Callback(() => { wasNotificated = true; });
             var wasExceptions = false;
-            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.OnMap;
+
+            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.Open;
             var target = CreateUoW();
             try
             {
-                target.OnOpenExit();
+                target.OnOpenEntry();
             }
             catch (InvalidOperationException e)
             {
                 wasExceptions = true;
             }
 
-            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.Open;
+            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.Realization;
             target = CreateUoW();
 
-            target.OnOpenExit();
+            target.OnOpenEntry();
+
             Assert.IsTrue(wasExceptions);
             Assert.IsTrue(
                 _repository.GetOne<Project>(
-                    p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
+                    p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.Open);
 
             Assert.IsTrue(_repository.GetOne<Project>(
                     p => p._id == _currentProject._id).WorkflowState.History.Count > 0);
@@ -166,9 +157,25 @@ namespace Invest.Tests.Workflow.UnitsOfWork
                         .WorkflowState.History.Find(
                             h =>
                                 h.Editor == _userName
-                                && h.From == ProjectWorkflow.State.Open
-                                && h.To == ProjectWorkflow.State.OnMap) != null);
+                                && h.From == ProjectWorkflow.State.OnMap
+                                && h.To == ProjectWorkflow.State.Open) != null);
 
+            Assert.IsTrue(wasNotificated);
+        }
+
+        /// <summary>
+        ///A test for OnOpenExit
+        ///</summary>
+        [TestMethod()]
+        public void OnOpenExitTest()
+        {
+            bool wasNotificate = false;
+            _adminNotification.Setup(a => a.NotificateFill()).Callback(() => { wasNotificate = true; });
+
+            var target = CreateUoW();
+
+            target.OnOpenExit();
+            Assert.IsTrue(wasNotificate);
         }
     }
 }

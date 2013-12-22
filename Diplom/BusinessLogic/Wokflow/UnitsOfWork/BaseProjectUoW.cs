@@ -97,9 +97,9 @@ namespace BusinessLogic.Wokflow.UnitsOfWork
         {
             GuardCurrentProjectNotNull();
 
-            if (CurrentProject.WorkflowState.CurrentState != initialState)
+            if (CurrentProject.WorkflowState.CurrentState == initialState)
             {
-                throw new InvalidOperationException("UnExpected state ProjectWorkflow.State.OnMap");
+                throw new InvalidOperationException("UnExpected state " + initialState);
             }
 
             if (CurrentProject.WorkflowState.History == null)
@@ -111,11 +111,12 @@ namespace BusinessLogic.Wokflow.UnitsOfWork
             {
                 EditingTime = DateTime.Now,
                 Editor = UserName,
-                From = initialState,
-                To = CurrentProject.WorkflowState.CurrentState,
+                To = initialState,
+                From = CurrentProject.WorkflowState.CurrentState,
                 Body = bodyMessage
             });
 
+            CurrentProject.WorkflowState.CurrentState = initialState;
             Repository.Update<Project>(CurrentProject);
         }
 
