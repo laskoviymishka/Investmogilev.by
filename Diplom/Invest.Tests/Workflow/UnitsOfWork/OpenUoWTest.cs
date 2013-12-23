@@ -157,7 +157,7 @@ namespace Invest.Tests.Workflow.UnitsOfWork
                         .WorkflowState.History.Find(
                             h =>
                                 h.Editor == _userName
-                                && h.From == ProjectWorkflow.State.OnMap
+                                && h.From == ProjectWorkflow.State.Realization
                                 && h.To == ProjectWorkflow.State.Open) != null);
 
             Assert.IsTrue(wasNotificated);

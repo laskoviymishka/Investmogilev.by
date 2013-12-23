@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="dbRegionsEntities-Web.config Connection String" description="dbRegionsEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Model.RegionsModel.csdl|res://*/Model.RegionsModel.ssdl|res://*/Model.RegionsModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=tserakhau.cloudapp.net;initial catalog=dbRegions;persist security info=True;user id=sa;password=Pass1234;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="D:\\Develop\\DiplomMap\\Diplom\\AdminPanelUI\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='dbRegionsEntities']/@connectionString" />
-  </parameter>
-</parameters>
