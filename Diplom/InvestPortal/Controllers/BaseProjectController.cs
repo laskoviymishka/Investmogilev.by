@@ -15,7 +15,6 @@ namespace InvestPortal.Controllers
         #region Private Fields
 
         private readonly IRepository _mongoRepository;
-        private readonly ProjectStateManager _stateManager;
 
         #endregion
 
@@ -24,7 +23,6 @@ namespace InvestPortal.Controllers
         public BaseProjectController()
         {
             _mongoRepository = RepositoryContext.Current;
-            _stateManager = new ProjectStateManager();
         }
 
         #endregion
@@ -43,6 +41,7 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
+                ProjectStateManager.StateManagerFactory(model, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
                 return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
@@ -60,6 +59,7 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
+                ProjectStateManager.StateManagerFactory(model, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
                 return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
@@ -95,6 +95,7 @@ namespace InvestPortal.Controllers
                 initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
                 initial.Tags = model.Tags;
 
+                ProjectStateManager.StateManagerFactory(initial, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
                 return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
@@ -123,6 +124,7 @@ namespace InvestPortal.Controllers
                 initial.IsCommunicate = model.IsCommunicate;
                 initial.IsSell = model.IsSell;
 
+                ProjectStateManager.StateManagerFactory(initial, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
                 return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
@@ -147,6 +149,7 @@ namespace InvestPortal.Controllers
                 initial.Region = model.Region;
                 initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
 
+                ProjectStateManager.StateManagerFactory(initial, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
                 return RedirectToAction("Project", "BaseProject", new { id = model._id });
             }
 
@@ -207,7 +210,7 @@ namespace InvestPortal.Controllers
             var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null);
             foreach (Project project in responsedProject)
             {
-                var investorResponse = project.Responses.FirstOrDefault(p => p.ResponseId == id);
+                var investorResponse = project.Responses.FirstOrDefault(p => p.ProjectId == id);
                 if (investorResponse != null)
                 {
                     return RedirectToAction("Project", "BaseProject", new { @id = project._id });

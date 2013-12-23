@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
-using Invest.Common.Notification;
 using Invest.Common.Repository;
 
-namespace BusinessLogic.Wokflow.UnitsOfWork
+namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    public class ComissionFixesUoW : BaseProjectUoW, IComissionFixesUoW
+    class WaitComissionUoW :BaseProjectUoW, IWaitComissionUoW
     {
-        public ComissionFixesUoW(Project currentProject,
+        public WaitComissionUoW(Project currentProject,
             IRepository repository,
             IUserNotification userNotification,
             IAdminNotification adminNotification,

@@ -505,8 +505,7 @@ namespace BusinessLogic.Providers
             {
                 return null;
             }
-
-            var comment = bsonDocument.Contains("Comment") ? bsonDocument["Comment"].AsString : null;
+            
             var email = bsonDocument.Contains("Email") ? bsonDocument["Email"].AsString : null;
             var passwordQuestion = bsonDocument.Contains("PasswordQuestion") ? bsonDocument["PasswordQuestion"].AsString : null;
             var user = new Users();
@@ -515,7 +514,7 @@ namespace BusinessLogic.Providers
                 bsonDocument["_id"].AsObjectId,
                 email,
                 passwordQuestion,
-                comment,
+                "",
                 bsonDocument["IsApproved"].AsBoolean,
                 bsonDocument["IsLockedOut"].AsBoolean,
                 bsonDocument["CreationDate"].ToUniversalTime(),

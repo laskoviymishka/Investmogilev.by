@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
-using Invest.Common.Notification;
 using Invest.Common.Repository;
+using Invest.Common.State;
 
-namespace BusinessLogic.Wokflow.UnitsOfWork
+namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
     public class InvestorApproveUoW : BaseProjectUoW, IInvestorApproveUoW
     {
@@ -23,31 +25,37 @@ namespace BusinessLogic.Wokflow.UnitsOfWork
            userName,
            roles)
         {
+            if (currentProject.Responses == null)
+            {
+                currentProject.Responses = new List<InvestorResponse>();
+            }
         }
 
         public void OnInvestorApproveExit()
         {
-            throw new System.NotImplementedException();
+            AdminNotification.InvestorApprovedNotificate(CurrentProject);
         }
 
         public void OnInvestorApproveEntry()
         {
-            throw new System.NotImplementedException();
+            AdminNotification.InvestorResponsed(CurrentProject);
+            UserNotification.InvestorResponsed(CurrentProject);
+            ProcessMoving(ProjectWorkflow.State.InvestorApprove,"Переход с стадии одобрения инвестора");
         }
 
         public bool FromInvestorApproveToDocument()
         {
-            throw new System.NotImplementedException();
+            return CurrentProject.Responses.Count(r => r.IsVerified) == 1;
         }
 
         public bool FromInvestorApproveToInvestorResponsed()
         {
-            throw new System.NotImplementedException();
+            return CurrentProject.Responses.Any() && !CurrentProject.Responses.Any(r => r.IsVerified);
         }
 
         public bool FromOnMapToInvestorApprove()
         {
-            throw new System.NotImplementedException();
+            return true;
         }
     }
 }

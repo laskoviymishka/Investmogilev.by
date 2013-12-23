@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BusinessLogic.Notification;
 using BusinessLogic.Wokflow.UnitsOfWork;
+using BusinessLogic.Wokflow.UnitsOfWork.Realization;
 using Invest.Common.Model.Project;
 using Invest.Common.Notification;
 using Invest.Common.Repository;
@@ -170,7 +171,7 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         public void OnOpenExitTest()
         {
             bool wasNotificate = false;
-            _adminNotification.Setup(a => a.NotificateFill()).Callback(() => { wasNotificate = true; });
+            _adminNotification.Setup(a => a.NotificateFill(It.IsAny<Project>())).Callback(() => { wasNotificate = true; });
 
             var target = CreateUoW();
 

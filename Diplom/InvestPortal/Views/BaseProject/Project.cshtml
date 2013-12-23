@@ -1,4 +1,4 @@
-﻿@model Invest.Common.Model.ProjectModels.Project
+﻿@model Invest.Common.Model.Project.Project
 
 @{
     ViewBag.Title = "ToProject";
@@ -29,32 +29,13 @@
         @Html.DisplayFor(model => model.AddressName)
     </blockquote>
 
-    <small class="display-label">
-        @Html.DisplayNameFor(model => model.Contact)
-    </small>
-    <blockquote class="display-field">
-        @Html.DisplayFor(model => model.Contact)
-    </blockquote>
+
 
     <small class="display-label">
         @Html.DisplayNameFor(model => model.Region)
     </small>
     <blockquote class="display-field">
         @Html.DisplayFor(model => model.Region)
-    </blockquote>
-
-    <small class="display-label">
-        @Html.DisplayNameFor(model => model.AssignUser)
-    </small>
-    <blockquote class="display-field">
-        @if (string.IsNullOrEmpty(Model.AssignUser))
-        {
-            <p>Ответственный не назначен</p>
-        }
-        else
-        {
-            @Html.DisplayFor(model => model.AssignUser)
-        }
     </blockquote>
 
     <small class="display-label">
@@ -78,7 +59,7 @@
         @Html.DisplayFor(model => model.ProjectType)
     </blockquote>
 
-    <small class="display-label" data-hint="Системный статус | @Model.WorkflowState.CurrenState"
+    <small class="display-label" data-hint="Системный статус | @Model.WorkflowState.CurrentState"
            data-hint-position=" right">
         Статус
     </small>

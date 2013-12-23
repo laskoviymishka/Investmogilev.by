@@ -63,13 +63,9 @@ namespace Tester
                 _roles);
             _workflow = new ProjectWorkflowWrapper(
                 new ProjectWorkflow(ProjectWorkflow.State.Open),
-                _currentProject,
-                _investorNotification.Object,
-                _adminNotification.Object,
-                _userNotification.Object,
                 _unitOfWorksContainer);
 
-            _workflow.TryMove(ProjectWorkflow.Trigger.FillInformation);
+            _workflow.Move(ProjectWorkflow.Trigger.FillInformation);
 
             Console.WriteLine(_workflow.CurrentState);
             Console.WriteLine(_repository.GetOne<Project>(p => p._id == _currentProject._id).WorkflowState.CurrentState);

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BusinessLogic.Notification;
 using BusinessLogic.Wokflow.UnitsOfWork;
+using BusinessLogic.Wokflow.UnitsOfWork.Realization;
 using Invest.Common.State;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Invest.Common.Model.Project;
@@ -123,7 +124,7 @@ namespace Invest.Tests.Workflow.UnitsOfWork
             var target = CreateUoW();
 
             Assert.IsFalse(target.FromOnMapToInvestorApprove());
-            _currentProject.Responses = new List<InvestorResponse> {new InvestorResponse()};
+            _currentProject.Responses = new List<InvestorResponse> { new InvestorResponse() };
             target = CreateUoW();
             Assert.IsTrue(target.FromOnMapToInvestorApprove());
         }
@@ -208,6 +209,7 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         public void OnMapEntryTest()
         {
             var wasExceptions = false;
+            var wasExceptions2 = false;
             bool wasNotificated = false;
             _adminNotification.Setup(a => a.MapEntryNotificate()).Callback(() => { wasNotificated = true; });
 
@@ -222,12 +224,25 @@ namespace Invest.Tests.Workflow.UnitsOfWork
                 wasExceptions = true;
             }
 
+            _currentProject.Address = new Address() { Lat = 2, Lng = 3 };
+            target = CreateUoW();
+            try
+            {
+                target.OnMapEntry();
+            }
+            catch (InvalidOperationException e)
+            {
+                wasExceptions2 = true;
+            }
+
+            _currentProject.Address = new Address() { Lat = 54.2807765015195, Lng = 30.9715922176838 };
             _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.Open;
             target = CreateUoW();
 
             target.OnMapEntry();
 
             Assert.IsTrue(wasExceptions);
+            Assert.IsTrue(wasExceptions2);
             Assert.IsTrue(
                 _repository.GetOne<Project>(
                     p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
@@ -252,7 +267,6 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestMethod()]
         public void OnMapExitTest()
         {
-            
         }
     }
 }

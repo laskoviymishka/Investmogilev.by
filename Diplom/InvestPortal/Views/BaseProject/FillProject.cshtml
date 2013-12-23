@@ -1,4 +1,4 @@
-﻿@model Invest.Common.Model.ProjectModels.Project
+﻿@model Invest.Common.Model.Project.Project
 @{
     ViewBag.Title = "Заполнить проект";
 }
@@ -12,10 +12,7 @@
 <div class="balloon top" style="width:500px">
     <p style="margin:20px">Необходимо заполнить проект всей доступной по нему информацией.</p>
     <p style="margin:20px">Так же крайне важно проверить адрес так, как не известно является ли он верным и отобразится на карте.</p>
-    @if (Model.WorkflowState.CurrenState == Invest.Common.State.ProjectStates.Open)
-    {
-        <small>После сохранения проект отобразится на карте</small>
-    }
+   
 </div>
 <script>
     $(document).ready(function () {

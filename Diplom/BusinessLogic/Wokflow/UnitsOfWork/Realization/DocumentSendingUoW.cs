@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
-using Invest.Common.Notification;
 using Invest.Common.Repository;
 
-namespace BusinessLogic.Wokflow.UnitsOfWork
+namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    class WaitInvolvedUoW : BaseProjectUoW, IWaitInvolvedUoW
+    class DocumentSendingUoW : BaseProjectUoW,IDocumentSendingUoW
     {
-        public WaitInvolvedUoW(Project currentProject,
+        public DocumentSendingUoW(Project currentProject,
             IRepository repository,
             IUserNotification userNotification,
             IAdminNotification adminNotification,

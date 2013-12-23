@@ -67,7 +67,7 @@ namespace Invest.Common.Repository
         public T GetOne<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
         {
             var profiler = MiniProfiler.Current;
-            using (profiler.Step(string.Format("select table {0} query getone {1}", typeof(T).Name, expression.ToString())))
+            using (profiler.Step(string.Format("select table {0} query getone {1}", typeof(T).Name, expression)))
             {
                 return All<T>().Where(expression).SingleOrDefault();
             }

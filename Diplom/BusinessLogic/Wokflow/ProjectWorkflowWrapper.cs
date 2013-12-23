@@ -20,12 +20,6 @@ namespace BusinessLogic.Wokflow
         #region Private Fields
 
         private readonly ProjectWorkflow _workflow;
-        private readonly Project _currentProject;
-        private string _currentUser;
-        private IList<string> _roles;
-        private readonly IInvestorNotification _investorNotificate;
-        private readonly IAdminNotification _adminNotificate;
-        private readonly IUserNotification _userNotificationl;
         private readonly IUnitsOfWorkContainer _unitsOfWork;
 
         #endregion
@@ -33,17 +27,9 @@ namespace BusinessLogic.Wokflow
         #region Constructor
 
         public ProjectWorkflowWrapper(ProjectWorkflow workflow,
-            Project currentProject,
-            IInvestorNotification investorNotificate,
-            IAdminNotification adminNotification,
-            IUserNotification userNotification,
             IUnitsOfWorkContainer unitsOfWork)
         {
-            _investorNotificate = investorNotificate;
-            _userNotificationl = userNotification;
-            _adminNotificate = adminNotification;
             _workflow = workflow;
-            _currentProject = currentProject;
             _unitsOfWork = unitsOfWork;
 
             //Entry Methods Binding
@@ -62,11 +48,14 @@ namespace BusinessLogic.Wokflow
 
         public void SetContext(string currentUser, string[] roles)
         {
-            _currentUser = currentUser;
-            _roles = roles;
         }
 
-        public bool TryMove(ProjectWorkflow.Trigger trigger)
+        public bool IsMoveablde(ProjectWorkflow.Trigger trigger)
+        {
+            return _workflow.CanFire(trigger);
+        }
+
+        public bool Move(ProjectWorkflow.Trigger trigger)
         {
             return _workflow.TryFireTrigger(trigger);
         }

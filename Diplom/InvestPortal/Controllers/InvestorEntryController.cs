@@ -43,7 +43,7 @@ namespace InvestPortal.Controllers
             {
                 InvestorResponse responseViewModel = new InvestorResponse();
                 responseViewModel.ResponsedProjectId = id;
-                responseViewModel.ResponseId = ObjectId.GenerateNewId().ToString();
+                responseViewModel.ProjectId = ObjectId.GenerateNewId().ToString();
                 responseViewModel.ResponseDate = DateTime.Now;
                 return PartialView(responseViewModel);
             }

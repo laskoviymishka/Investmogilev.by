@@ -5,6 +5,8 @@ namespace Invest.Common.Model.Project
 {
     public class InvestorResponse
     {
+        public string ProjectId { get; set; }
+
         public string ResponseId { get; set; }
 
         [Required]

@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using BusinessLogic.Notification;
-using BusinessLogic.Wokflow.UnitsOfWork;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BusinessLogic.Wokflow.UnitsOfWork.Realization;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
-using Invest.Common.Notification;
+using Invest.Common.State;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
 using Moq;
 
 namespace Invest.Tests.Workflow.UnitsOfWork
@@ -18,8 +20,9 @@ namespace Invest.Tests.Workflow.UnitsOfWork
     {
         #region Private Fields
 
+        private IList _projects;
         private Project _currentProject;
-        private Mock<IRepository> _repository;
+        private IRepository _repository;
         private Mock<IUserNotification> _userNotification;
         private Mock<IAdminNotification> _adminNotification;
         private Mock<IInvestorNotification> _investorNotification;
@@ -33,19 +36,32 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            _currentProject = new Project();
-            _repository = new Mock<IRepository>();
+            _currentProject = new Project
+            {
+                _id = ObjectId.GenerateNewId().ToString(),
+                Name = "testProjectName",
+                Region = "testProjectRegion",
+                InvestorUser = "",
+                Address = new Address { Lat = 52, Lng = 53 },
+                WorkflowState = new Common.Model.Project.Workflow
+                {
+                    History = new List<History>(),
+                    CurrentState = ProjectWorkflow.State.Open
+                }
+            };
+            _projects = new List<Project> { _currentProject };
             _userNotification = new Mock<IUserNotification>();
             _adminNotification = new Mock<IAdminNotification>();
             _investorNotification = new Mock<IInvestorNotification>();
             _userName = "test";
             _roles = new List<string>();
+            _repository = new MockMongoRepository(_projects);
         }
 
-        private IInvestorApproveUoW CreateUoW()
+        private InvestorApproveUoW CreateUoW()
         {
             return new InvestorApproveUoW(_currentProject,
-                _repository.Object,
+                _repository,
                 _userNotification.Object,
                 _adminNotification.Object,
                 _investorNotification.Object,
@@ -61,7 +77,8 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestMethod()]
         public void InvestorApproveUoWConstructorTest()
         {
-            IInvestorApproveUoW target = CreateUoW();
+            InvestorApproveUoW target = CreateUoW();
+            Assert.IsNotNull(target);
         }
 
         /// <summary>
@@ -70,7 +87,24 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestMethod()]
         public void FromInvestorApproveToDocumentTest()
         {
-            IInvestorApproveUoW target = CreateUoW();
+            _currentProject.Responses = new List<InvestorResponse>();
+            InvestorApproveUoW target = CreateUoW();
+            Assert.IsFalse(target.FromInvestorApproveToDocument());
+            _currentProject.Responses = new List<InvestorResponse>();
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = false });
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = false });
+            target = CreateUoW();
+            Assert.IsFalse(target.FromInvestorApproveToDocument());
+            _currentProject.Responses = new List<InvestorResponse>();
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = true });
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = true });
+            target = CreateUoW();
+            Assert.IsFalse(target.FromInvestorApproveToDocument());
+            _currentProject.Responses = new List<InvestorResponse>();
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = false });
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = true });
+            target = CreateUoW();
+            Assert.IsTrue(target.FromInvestorApproveToDocument());
         }
 
         /// <summary>
@@ -79,7 +113,21 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestMethod()]
         public void FromInvestorApproveToInvestorResponsedTest()
         {
-            IInvestorApproveUoW target = CreateUoW();
+            InvestorApproveUoW target = CreateUoW();
+
+            Assert.IsFalse(target.FromInvestorApproveToInvestorResponsed());
+
+            _currentProject.Responses = new List<InvestorResponse>();
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = false });
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = false });
+            target = CreateUoW();
+            Assert.IsTrue(target.FromInvestorApproveToInvestorResponsed());
+
+            _currentProject.Responses = new List<InvestorResponse>();
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = false });
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = true });
+            target = CreateUoW();
+            Assert.IsFalse(target.FromInvestorApproveToInvestorResponsed());
         }
 
         /// <summary>
@@ -88,7 +136,22 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestMethod()]
         public void FromOnMapToInvestorApproveTest()
         {
-            IInvestorApproveUoW target = CreateUoW();
+            InvestorApproveUoW target = CreateUoW();
+            Assert.IsTrue(target.FromOnMapToInvestorApprove());
+        }
+
+        /// <summary> 
+        ///A test for  OnInvestorApproveExit
+        ///</summary>
+        [TestMethod()]
+        public void OnInvestorApproveExitTest()
+        {
+            bool wasAdminNotificate = false;
+            _adminNotification.Setup(a => a.InvestorApprovedNotificate(It.IsAny<Project>())).Callback(() =>
+            { wasAdminNotificate = true; });
+            InvestorApproveUoW target = CreateUoW();
+            target.OnInvestorApproveExit();
+            Assert.IsTrue(wasAdminNotificate);
         }
 
         /// <summary>
@@ -97,16 +160,40 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestMethod()]
         public void OnInvestorApproveEntryTest()
         {
-            IInvestorApproveUoW target = CreateUoW();
+            bool wasUserNotificate = false;
+            bool wasAdminNotificate = false;
+
+            _adminNotification.Setup(a => a.InvestorResponsed(It.IsAny<Project>())).Callback(() =>
+                { wasAdminNotificate = true; });
+            _userNotification.Setup(u => u.InvestorResponsed(It.IsAny<Project>())).Callback(() =>
+                { wasUserNotificate = true; });
+
+            _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.OnMap;
+            _currentProject.Responses = new List<InvestorResponse>();
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = false });
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = false });
+            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = true });
+
+            var target = CreateUoW();
+            target.OnInvestorApproveEntry();
+
+            Assert.IsTrue(wasAdminNotificate);
+            Assert.IsTrue(wasUserNotificate);
+            Assert.IsTrue(
+                _repository.GetOne<Project>(
+                    p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove);
+
+            Assert.IsTrue(_repository.GetOne<Project>(
+                    p => p._id == _currentProject._id).WorkflowState.History.Count > 0);
+
+            Assert.IsTrue(_repository.GetOne<Project>(
+                    p => p._id == _currentProject._id)
+                        .WorkflowState.History.Find(
+                            h =>
+                                h.Editor == _userName
+                                && h.From == ProjectWorkflow.State.OnMap
+                                && h.To == ProjectWorkflow.State.InvestorApprove) != null);
         }
 
-        /// <summary>
-        ///A test for OnInvestorApproveExit
-        ///</summary>
-        [TestMethod()]
-        public void OnInvestorApproveExitTest()
-        {
-            IInvestorApproveUoW target = CreateUoW();
-        }
     }
 }

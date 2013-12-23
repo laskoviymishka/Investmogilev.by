@@ -382,6 +382,7 @@
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ReportReviewController.cs" />
+    <Compile Include="Controllers\StateActionsController.cs" />
     <Compile Include="Controllers\UserManagerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\WorkflowActionsController.cs" />

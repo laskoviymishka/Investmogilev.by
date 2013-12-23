@@ -38,7 +38,7 @@ namespace Invest.Common
             IRepository session = GetSession();
             if (session == null)
             {
-                session = new MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
+                session = new MongoRepository("mongodb://tserakhau.cloudapp.net", "ProjectsDev");
 
                 SaveSession(session);
             }

@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
-using Invest.Common.Notification;
 using Invest.Common.Repository;
 
-namespace BusinessLogic.Wokflow.UnitsOfWork
+namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    class InvolvedorganizationsUoW : BaseProjectUoW, IInvolvedorganizationsUoW
+    class OnIspolcomUoW : BaseProjectUoW, IOnIspolcomUoW
     {
-        public InvolvedorganizationsUoW(Project currentProject,
+        public OnIspolcomUoW(Project currentProject,
             IRepository repository,
             IUserNotification userNotification,
             IAdminNotification adminNotification,

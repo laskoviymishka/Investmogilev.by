@@ -12,15 +12,6 @@ namespace InvestPortal.Controllers
 {
     public class WorkflowActionsController : Controller
     {
-        public ActionResult CompletePlan(string id)
-        {
-            return PartialView();
-        }
 
-
-        public ActionResult BackToTasks(string id)
-        {
-            return RedirectToAction("PlanForProject", "Task", new { @id = id });
-        }
     }
 }

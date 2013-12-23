@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BusinessLogic.Notification;
 using BusinessLogic.Wokflow.UnitsOfWork;
+using BusinessLogic.Wokflow.UnitsOfWork.Realization;
 using Invest.Common.Model.Project;
 using Invest.Common.Notification;
 using Invest.Common.Repository;
@@ -122,7 +123,7 @@ namespace BusinessLogic.Wokflow
                 _investorNotification,
                 _userName,
                 _roles);
-            InvolvedorganizationsUoW = new InvolvedorganizationsUoW(_currentProject,
+            InvolvedorganizationsUoW = new InvolvedOrganizationsUoW(_currentProject,
                 _repository,
                 _userNotification,
                 _adminNotification,

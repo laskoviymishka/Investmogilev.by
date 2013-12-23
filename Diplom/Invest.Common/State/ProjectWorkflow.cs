@@ -239,6 +239,11 @@ namespace Invest.Common.State
             return true;
         }
 
+        public bool CanFire(Trigger trigger)
+        {
+            return stateMachine.CanFire(trigger);
+        }
+
         public State GetState
         {
             get

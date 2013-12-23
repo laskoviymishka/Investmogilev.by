@@ -2,12 +2,11 @@
 using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
-using Invest.Common.Notification;
 using Invest.Common.Repository;
 using Invest.Common.State;
 using System;
 
-namespace BusinessLogic.Wokflow.UnitsOfWork
+namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
     public class OnMapUoW : BaseProjectUoW, IOnMapUoW
     {
@@ -34,8 +33,17 @@ namespace BusinessLogic.Wokflow.UnitsOfWork
 
         public void OnMapEntry()
         {
-            ProcessMoving(ProjectWorkflow.State.OnMap, "Проект перещел в состояние НА КАРТЕ");
-            AdminNotification.MapEntryNotificate();
+            GuardCurrentProjectNotNull();
+            if (CurrentProject.Address.Lat > 51 && CurrentProject.Address.Lat < 55 && CurrentProject.Address.Lng > 28 &&
+                CurrentProject.Address.Lng < 32)
+            {
+                ProcessMoving(ProjectWorkflow.State.OnMap, "Проект перещел в состояние НА КАРТЕ");
+                AdminNotification.MapEntryNotificate();
+            }
+            else
+            {
+                throw new InvalidOperationException("Адрес не верен, перепроверьте адрес");
+            }
         }
 
         public bool FromOnComissionToOnMap()

@@ -44,7 +44,7 @@ namespace Invest.Tests.Workflow
                 Name = "testProjectName",
                 Region = "testProjectRegion",
                 InvestorUser = "",
-                Address = new Address { Lat = 52, Lng = 53 },
+                Address = new Address { Lat = 53, Lng = 30 },
                 WorkflowState = new Common.Model.Project.Workflow
                 {
                     History = new List<History>(),
@@ -67,24 +67,39 @@ namespace Invest.Tests.Workflow
                 _investorNotification.Object,
                 _userName,
                 _roles);
-            _workflow = new ProjectWorkflowWrapper(
-                new ProjectWorkflow(ProjectWorkflow.State.Open),
-                _currentProject,
-                _investorNotification.Object,
-                _adminNotification.Object,
-                _userNotification.Object,
-                _unitOfWorksContainer);
-
-
         }
+
+        private ProjectWorkflowWrapper Wrapper()
+        {
+            return new ProjectWorkflowWrapper(
+                new ProjectWorkflow(ProjectWorkflow.State.Open),
+                _unitOfWorksContainer);
+        }
+
 
         [TestMethod]
         public void OpenToMapTransition()
         {
             _roles = new List<string>() { "User" };
             MyTestInitialize();
-            _workflow.TryMove(ProjectWorkflow.Trigger.FillInformation);
+            _workflow = Wrapper();
+            _workflow.Move(ProjectWorkflow.Trigger.FillInformation);
             Assert.IsTrue(_repository.GetOne<Project>(p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
+        }
+
+        [TestMethod]
+        public void ReOpnFromMapTransition()
+        {
+            _roles = new List<string>() { "User" };
+            MyTestInitialize();
+            _workflow = Wrapper();
+            _workflow.Move(ProjectWorkflow.Trigger.FillInformation);
+            Assert.IsTrue(_repository.GetOne<Project>(p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
+
+            _roles = new List<string>() { "Admin" };
+            MyTestInitialize();
+            _workflow.Move(ProjectWorkflow.Trigger.ReOpen);
+            Assert.IsTrue(_repository.GetOne<Project>(p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.Open);
         }
     }
 }

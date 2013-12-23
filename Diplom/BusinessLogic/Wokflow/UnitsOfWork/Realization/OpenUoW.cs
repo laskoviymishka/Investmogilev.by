@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
-using Invest.Common.Notification;
 using Invest.Common.Repository;
 using Invest.Common.State;
 
-namespace BusinessLogic.Wokflow.UnitsOfWork
+namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
     public class OpenUoW : BaseProjectUoW, IOpenUoW
     {
@@ -28,7 +27,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork
 
         public void OnOpenExit()
         {
-            AdminNotification.NotificateFill();
+            AdminNotification.NotificateFill(CurrentProject);
         }
 
         public void OnOpenEntry()

@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
-using Invest.Common.Notification;
 using Invest.Common.Repository;
 
-namespace BusinessLogic.Wokflow.UnitsOfWork
+namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    class PlanCreatingUoW : BaseProjectUoW, IPlanCreatingUoW
+    class IspolcomFixesUoW : BaseProjectUoW, IIspolcomFixesUoW
     {
-        public PlanCreatingUoW(Project currentProject,
+        public IspolcomFixesUoW(Project currentProject,
             IRepository repository,
             IUserNotification userNotification,
             IAdminNotification adminNotification,
