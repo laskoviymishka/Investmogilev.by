@@ -87,7 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MockMongoRepository.cs" />
-    <Compile Include="ProjectStateManagerTest.cs" />
+    <Compile Include="Workflow\ProjectStateManagerTest.cs" />
     <Compile Include="Workflow\UnitsOfWork\InvestorApproveUoWTest.cs" />
     <Compile Include="Workflow\UnitsOfWork\OnMapUoWTest.cs" />
     <Compile Include="Workflow\UnitsOfWork\OpenUoWTest.cs" />
