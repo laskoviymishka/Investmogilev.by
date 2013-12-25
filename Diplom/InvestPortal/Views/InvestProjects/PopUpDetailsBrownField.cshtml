@@ -1,4 +1,4 @@
-﻿@model Invest.Common.Model.ProjectWorkflow.BrownField
+﻿@model Invest.Common.Model.Project.BrownField
 
 <fieldset>
     <legend>Brown Field - инвестиция в существущее производство</legend>
@@ -10,30 +10,6 @@
         <tr>
             <td>Описание проекта</td>
             <td>@Html.Raw(HttpUtility.HtmlDecode(Model.Description))</td>
-        </tr>
-        <tr>
-            <td>Дата регистрации проекта</td>
-            <td>@Html.DisplayFor(model => model.RegistrationDate)</td>
-        </tr>
-        <tr>
-            <td>Дата сдачи проекта</td>
-            <td>@Html.DisplayFor(model => model.EstimateRelease)</td>
-        </tr>
-        <tr>
-            <td>Объем инвестиций</td>
-            <td>@Html.DisplayFor(model => model.InvestAmount) млрд. руб.</td>
-        </tr>
-        <tr>
-            <td>Создаваемые рабочие места</td>
-            <td>@Html.DisplayFor(model => model.WorkPlaces)</td>
-        </tr>
-        <tr>
-            <td>Контакт</td>
-            <td>@Html.DisplayFor(model => model.Contact)</td>
-        </tr>
-        <tr>
-            <td>Примечания</td>
-            <td>@Html.DisplayFor(model => model.Appendix)</td>
         </tr>
     </table>
     <a id="popupLink" href="http://investmogilev.azurewebsites.net/InvestorEntry/ResponseToProject/@Model._id" class="button button info">Откликнуться на проект</a>

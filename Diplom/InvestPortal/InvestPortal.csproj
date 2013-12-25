@@ -399,16 +399,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\BrownField use cases.jpg" />
-    <Content Include="App_Data\diplom.xml" />
-    <Content Include="App_Data\messageAppendix\08.12.2013\Tserakhau\bootstrap-wysiwyg.js" />
-    <Content Include="App_Data\messageAppendix\08.12.2013\Tserakhau\MVC3 %282%29.exe" />
-    <Content Include="App_Data\messageAppendix\08.12.2013\Tserakhau\MVC3 %283%29.exe" />
-    <Content Include="App_Data\messageAppendix\11\28\2013\Tserakhau\BrownField use cases.jpg" />
-    <Content Include="App_Data\ProjectAppendix\05.09.2013                      № 22-10\Tasks\123\Untitled.png" />
-    <Content Include="App_Data\ProjectAppendix\05.09.2013                      № 22-10\Tasks\задание один\diplom.xml" />
-    <Content Include="App_Data\ProjectAppendix\05.09.2013                      № 22-10\Tasks\Заполнить проект\responsesByTserakhau\BrownField use cases.jpg" />
-    <Content Include="App_Data\ProjectAppendix\05.09.2013                      № 22-10\Tasks\фывф\BrownField use cases.jpg" />
     <Content Include="App_Data\SiteMap.xml" />
     <Content Include="Content\2013.2.611\Black\editor.png" />
     <Content Include="Content\2013.2.611\Black\imagebrowser.png" />
@@ -1102,21 +1092,14 @@
     <Content Include="Views\BaseProject\ToProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\messageAppendix\08.12.2013\Tserakhau\excel.xls" />
-    <Content Include="App_Data\messageAppendix\11\28\2013\Tserakhau\diplom.xmi" />
-    <Content Include="App_Data\messageAppendix\11\28\2013\Tserakhau\Drawing1.edx" />
-    <Content Include="App_Data\messageAppendix\11\28\2013\Tserakhau\Drawing1.pdf" />
-    <Content Include="App_Data\ProjectAppendix\05.09.2013                      № 22-10\Book1.xlsx" />
-    <Content Include="App_Data\ProjectAppendix\05.09.2013                      № 22-10\diplom.xmi" />
-    <Content Include="App_Data\ProjectAppendix\05.09.2013                      № 22-10\Drawing1.edx" />
-    <Content Include="App_Data\ProjectAppendix\05.09.2013                      № 22-10\Tasks\задание два\Book1.xlsx" />
-    <Content Include="App_Data\ProjectAppendix\05.09.2013                      № 22-10\Tasks\Заполнить проект\Dynamite.uml" />
-    <Content Include="App_Data\ProjectAppendix\ИД-1378\desktop.ini" />
-    <Content Include="App_Data\Book1.xlsx" />
-    <Content Include="App_Data\Drawing1.edx" />
-    <Content Include="App_Data\Drawing1.pdf" />
-    <Content Include="App_Data\Dynamite.uml" />
     <Content Include="App_Data\MailTemplate\Test.cshtml" />
+    <Content Include="App_Data\MailTemplate\FillInfomrationAdminMail.cshtml" />
+    <Content Include="App_Data\MailTemplate\FirstResponseToInvestor.cshtml" />
+    <Content Include="App_Data\MailTemplate\AdditionalResponseToInvestor.cshtml" />
+    <Content Include="App_Data\MailTemplate\InvestorResponsedMail.cshtml" />
+    <Content Include="App_Data\MailTemplate\InvestorResponded.cshtml" />
+    <Content Include="App_Data\MailTemplate\InvestorApprovedMail.cshtml" />
+    <Content Include="App_Data\MailTemplate\ProjectOpen.cshtml" />
     <None Include="Content\metro-ui\fonts\iconFont.eot" />
     <None Include="Content\metro-ui\fonts\iconFont.json" />
     <None Include="Content\metro-ui\fonts\iconFont.ttf" />
@@ -1169,6 +1152,7 @@
     <Content Include="Views\InvestorEntry\NewResponseToProject.cshtml" />
     <Content Include="Views\InvestorEntry\ExistingResponseToProject.cshtml" />
     <Content Include="Views\WorkflowActions\CompletePlan.cshtml" />
+    <Content Include="Views\Shared\_InvestorEntryLayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

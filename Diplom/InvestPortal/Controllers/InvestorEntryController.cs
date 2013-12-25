@@ -59,6 +59,7 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
+                ProjectStateManager.StateManagerFactory(model.ResponsedProjectId, null, null).ResponsedOnProject(model);
                 return RedirectToAction("Index");
             }
             else

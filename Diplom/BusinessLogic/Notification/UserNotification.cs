@@ -23,8 +23,8 @@ namespace BusinessLogic.Notification
                             .From("laskoviymishka@gmail.com")
                             .UsingClient(Client)
                             .To(user.Email)
-                            .Subject("Проект заполнен и перешел в состояние НА КАРТЕ")
-                            .UsingTemplate(GetTemplate("InvestorApprovedMail"), currentProject);
+                            .Subject("Проект открыт (Пользователь)")
+                            .UsingTemplate(GetTemplate("ProjectOpen"), currentProject);
                 email.Send();
             }
         }
@@ -40,8 +40,8 @@ namespace BusinessLogic.Notification
                             .From("laskoviymishka@gmail.com")
                             .UsingClient(Client)
                             .To(user.Email)
-                            .Subject("Проект заполнен и перешел в состояние НА КАРТЕ")
-                            .UsingTemplate(GetTemplate("InvestorApprovedMail"), currentProject);
+                            .Subject("На проект получен отклик (Пользователь)")
+                            .UsingTemplate(GetTemplate("InvestorResponded"), currentProject);
                 email.Send();
             }
         }

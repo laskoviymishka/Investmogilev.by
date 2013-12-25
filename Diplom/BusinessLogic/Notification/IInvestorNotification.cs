@@ -4,5 +4,6 @@ namespace BusinessLogic.Notification
 {
     public interface IInvestorNotification
     {
+        void InvestorResponsed(Project CurrentProject);
     }
 }

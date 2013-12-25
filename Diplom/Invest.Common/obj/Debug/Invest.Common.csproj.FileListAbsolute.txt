@@ -36,3 +36,4 @@ D:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\MongoDB.Driver.xml
 D:\Develop\git\DiplomMap\Diplom\Invest.Common\bin\Debug\Stateless.xml
 D:\Develop\git\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.dll
 D:\Develop\git\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.pdb
+D:\Develop\git\DiplomMap\Diplom\Invest.Common\obj\Debug\Invest.Common.csprojResolveAssemblyReference.cache

@@ -486,7 +486,6 @@ namespace BusinessLogic.Wokflow
             _workflow.OnDoneExit = OnDoneExit;
             _workflow.OnDocumentSendingExit = OnDocumentSendingExit;
             _workflow.OnInMinEconomyExit = OnInMinEconomyExit;
-            _workflow.OnInvestorApproveExit = OnInvestorApproveExit;
             _workflow.OnInvolvedOrganizationsExit = OnInvolvedOrganizationsExit;
             _workflow.OnOnComissionExit = OnOnComissionExit;
             _workflow.OnOnIspolcomExit = OnOnIspolcomExit;

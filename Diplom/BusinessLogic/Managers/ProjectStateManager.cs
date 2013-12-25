@@ -26,7 +26,7 @@ namespace BusinessLogic.Managers
         #region Private Fields
 
         private readonly ProjectWorkflowWrapper _workflow;
-        private readonly Project _currentProject;
+        private Project _currentProject;
         private string _currentUser;
         private IList<string> _roles;
         private readonly IInvestorNotification _investorNotificate;
@@ -96,25 +96,28 @@ namespace BusinessLogic.Managers
 
         public void ResponsedOnProject(InvestorResponse response)
         {
-            var project = _repository.GetOne<Project>(p => p._id == response.ProjectId);
-            if (project == null)
+            if (_currentProject == null)
             {
                 throw new ArgumentNullException("Проект не найден");
             }
 
             if (_workflow.IsMoveablde(ProjectWorkflow.Trigger.InvestorResponsed))
             {
-                if (project.Responses == null
-                || !project.Responses.Any()
-                || project.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap)
+                if (_currentProject.Responses == null
+                || !_currentProject.Responses.Any()
+                || _currentProject.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap)
                 {
-                    project.Responses = new List<InvestorResponse>();
-
+                    _currentProject.Responses = new List<InvestorResponse>();
                 }
 
-                project.Responses.Add(response);
-                _repository.Update(project);
-                _workflow.Move(ProjectWorkflow.Trigger.InvestorResponsed);
+                _currentProject.Responses.Add(response);
+                _repository.Update(_currentProject);
+
+                if (!_workflow.Move(ProjectWorkflow.Trigger.InvestorResponsed))
+                {
+                    throw new InvalidOperationException("Не могу осуществить операцию InvestorResponsed");
+                }
+
             }
             else
             {
@@ -129,6 +132,11 @@ namespace BusinessLogic.Managers
         public static ProjectStateManager StateManagerFactory(Project currentProject, string currentUser, IList<string> roles)
         {
             return new ProjectStateManager(currentProject, currentUser, roles);
+        }
+
+        public static ProjectStateManager StateManagerFactory(string projectId, string currentUser, IList<string> roles)
+        {
+            return StateManagerFactory(RepositoryContext.Current.GetOne<Project>(p => p._id == projectId),currentUser,roles);
         }
 
         #endregion

@@ -16,7 +16,6 @@ namespace BusinessLogic.Notification
 {
     class AdminNotification : BaseNotificate, IAdminNotification
     {
-
         public AdminNotification()
             : base(RepositoryContext.Current)
         {
@@ -33,9 +32,9 @@ namespace BusinessLogic.Notification
                             .From("laskoviymishka@gmail.com")
                             .UsingClient(Client)
                             .To(user.Email)
-                            .Subject("Проект заполнен и перешел в состояние НА КАРТЕ")
-                            .UsingTemplate(GetTemplate("FillInfomrationAdminMail"), currentProject);
-                email.Send();
+                            .Subject("Проект заполнен и перешел в состояние НА КАРТЕ (Администратор)")
+                            .UsingTemplate(GetTemplate("FillInfomrationAdminMail"), currentProject)
+                            .Send();
             }
         }
 
@@ -58,9 +57,9 @@ namespace BusinessLogic.Notification
                             .From("laskoviymishka@gmail.com")
                             .UsingClient(Client)
                             .To(user.Email)
-                            .Subject("Проект заполнен и перешел в состояние НА КАРТЕ")
-                            .UsingTemplate(GetTemplate("InvestorApprovedMail"), project);
-                email.Send();
+                            .Subject("Инвестор потвержден (Администратор)")
+                            .UsingTemplate(GetTemplate("InvestorApprovedMail"), project)
+                            .Send();
             }
         }
 
@@ -75,9 +74,9 @@ namespace BusinessLogic.Notification
                             .From("laskoviymishka@gmail.com")
                             .UsingClient(Client)
                             .To(user.Email)
-                            .Subject("Проект заполнен и перешел в состояние НА КАРТЕ")
-                            .UsingTemplate(GetTemplate("InvestorResponsedMail"), project);
-                email.Send();
+                            .Subject("Инвестор откликнулся (Администратор)")
+                            .UsingTemplate(GetTemplate("InvestorResponsedMail"), project)
+                            .Send();
             }
         }
     }

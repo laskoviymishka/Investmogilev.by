@@ -1,11 +1,17 @@
 ﻿@{
+    Layout = "~/Views/Shared/_InvestorEntryLayout.cshtml";
     ViewBag.Title = "Отклик на проект";
 }
 <h2>
     Ваш отклик на проект
 </h2>
 <script>
+    window.onload = function () {
+        loadResponseForm('New');
+    }
+
     loadResponseForm = function (type) {
+        $('#container').html("");
         var link = '/InvestorEntry/' + type + 'ResponseToProject/' + '@ViewBag.ProjectId';
         $('#New').attr("class", "button");
         $('#Existing').attr("class", "button");

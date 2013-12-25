@@ -20,7 +20,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         #region Protected Fields
 
-        protected readonly Project CurrentProject;
+        protected Project CurrentProject;
         protected readonly IRepository Repository;
         protected readonly IUserNotification UserNotification;
         protected readonly IAdminNotification AdminNotification;
@@ -95,11 +95,6 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
         protected void ProcessMoving(ProjectWorkflow.State initialState, string bodyMessage)
         {
             GuardCurrentProjectNotNull();
-
-            if (CurrentProject.WorkflowState.CurrentState == initialState)
-            {
-                throw new InvalidOperationException("UnExpected state " + initialState);
-            }
 
             if (CurrentProject.WorkflowState.History == null)
             {

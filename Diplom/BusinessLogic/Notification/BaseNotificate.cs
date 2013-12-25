@@ -6,19 +6,22 @@ using System.Web.Security;
 using BusinessLogic.Providers;
 using Invest.Common.Repository;
 using WebMatrix.WebData;
+using System.Web;
 
 namespace BusinessLogic.Notification
 {
-    class BaseNotificate
+    public class BaseNotificate
     {
         protected readonly IRepository Repository;
         protected readonly RoleProvider RoleProvider;
         protected readonly ExtendedMembershipProvider Membership;
         protected readonly SmtpClient Client;
-        protected const string PassToViews = @"C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\BusinessLogic\Views\Emails\{0}.cshtml";
+        protected const string PassToViews = "~/App_Data/MailTemplate/{0}.cshtml";
 
         protected BaseNotificate(IRepository repository)
         {
+            RoleProvider = new MongoRoleProvider();
+            Membership = new MongoMembership();
             var config = new NameValueCollection();
             config["applicationName"] = "InvestProject";
             config["connectionString"] = "mongodb://tserakhau.cloudapp.net";
@@ -37,12 +40,11 @@ namespace BusinessLogic.Notification
                 Credentials = new NetworkCredential("laskoviymishka@gmail.com", "p0iuytrewq")
             };
             Repository = repository;
-            RoleProvider = new MongoRoleProvider();
         }
 
         protected static string GetTemplate(string mailName)
         {
-            using (var sr = new StreamReader(string.Format(BaseNotificate.PassToViews, mailName)))
+            using (var sr = new StreamReader(string.Format(HttpContext.Current.Server.MapPath(PassToViews).ToString(), mailName)))
             {
                 return sr.ReadToEnd();
             }

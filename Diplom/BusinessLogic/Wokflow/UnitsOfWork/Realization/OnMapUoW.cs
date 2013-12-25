@@ -83,7 +83,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public bool FromOnMapToInvestorApprove()
         {
-            return CurrentProject.Responses != null && CurrentProject.Responses.Any();
+            return true;
         }
     }
 }

@@ -13,13 +13,7 @@
         <legend>Существующий инвестор</legend>
         @Html.HiddenFor(model => model.ProjectId)
         @Html.HiddenFor(model => model.ResponseId)
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ResponseTime)
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.ResponseTime)
-            @Html.ValidationMessageFor(model => model.ResponseTime)
-        </div>
+        @Html.HiddenFor(model => model.ResponseTime)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.UserName)
@@ -44,8 +38,8 @@
             @Html.EditorFor(model => model.ConfirmPassword)
             @Html.ValidationMessageFor(model => model.ConfirmPassword)
         </div>
-        
-        <p style="margin-top:20px">
+
+        <p style="margin-top: 20px">
             <input type="submit" value="Отправить" />
         </p>
     </fieldset>

@@ -507,7 +507,7 @@ namespace BusinessLogic.Providers
             }
             
             var email = bsonDocument.Contains("Email") ? bsonDocument["Email"].AsString : null;
-            var passwordQuestion = bsonDocument.Contains("PasswordQuestion") ? bsonDocument["PasswordQuestion"].AsString : null;
+            var passwordQuestion = "";
             var user = new Users();
             return new MembershipUser(this.Name,
                 bsonDocument["Username"].AsString,

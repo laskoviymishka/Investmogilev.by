@@ -33,14 +33,27 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnInvestorApproveExit()
         {
-            AdminNotification.InvestorApprovedNotificate(CurrentProject);
         }
 
         public void OnInvestorApproveEntry()
         {
-            AdminNotification.InvestorResponsed(CurrentProject);
-            UserNotification.InvestorResponsed(CurrentProject);
-            ProcessMoving(ProjectWorkflow.State.InvestorApprove,"Переход с стадии одобрения инвестора");
+            CurrentProject = Repository.GetOne<Project>(p => p._id == CurrentProject._id);
+            if (CurrentProject.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap)
+            {
+                InvestorNotification.InvestorResponsed(CurrentProject);
+                AdminNotification.InvestorResponsed(CurrentProject);
+                UserNotification.InvestorResponsed(CurrentProject);
+                ProcessMoving(ProjectWorkflow.State.InvestorApprove, "Переход с стадии одобрения инвестора");
+            }
+            else
+            {
+                if (CurrentProject.Responses.Count() > 1)
+                {
+                    InvestorNotification.InvestorResponsed(CurrentProject);
+                    AdminNotification.InvestorResponsed(CurrentProject);
+                    UserNotification.InvestorResponsed(CurrentProject);
+                }
+            }
         }
 
         public bool FromInvestorApproveToDocument()
