@@ -42,8 +42,8 @@ namespace InvestPortal.Controllers
             if (project != null)
             {
                 InvestorResponse responseViewModel = new InvestorResponse();
-                responseViewModel.ResponsedProjectId = id;
-                responseViewModel.ProjectId = ObjectId.GenerateNewId().ToString();
+                responseViewModel.ProjectId = id;
+                responseViewModel.ResponseId = ObjectId.GenerateNewId().ToString();
                 responseViewModel.ResponseDate = DateTime.Now;
                 return PartialView(responseViewModel);
             }
@@ -59,7 +59,7 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                ProjectStateManager.StateManagerFactory(model.ResponsedProjectId, null, null).ResponsedOnProject(model);
+                ProjectStateManager.StateManagerFactory(model.ProjectId, null, null).ResponsedOnProject(model);
                 return RedirectToAction("Index");
             }
             else

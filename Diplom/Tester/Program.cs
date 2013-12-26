@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Invest.Common;
 using Invest.Common.Model.User;
 using Invest.Common.Notification;
 using Invest.Common.State;
@@ -18,7 +19,6 @@ namespace Tester
 {
     class Program
     {
-
         private static Project _currentProject;
         private static IList _projects;
         private static MockMongoRepository _repository;
@@ -32,44 +32,49 @@ namespace Tester
 
         static void Main(string[] args)
         {
-            _currentProject = new Project
-            {
-                _id = ObjectId.GenerateNewId().ToString(),
-                Name = "testProjectName",
-                Region = "testProjectRegion",
-                InvestorUser = "",
-                Address = new Address { Lat = 52, Lng = 53 },
-                WorkflowState = new Workflow
-                {
-                    History = new List<History>(),
-                    CurrentState = ProjectWorkflow.State.Open
-                }
-            };
-            _projects = new List<Project> { _currentProject };
+            TaskTemplate template = new TaskTemplate();
 
-            _repository = new MockMongoRepository(_projects);
+            template.Title = "заявление о заключении инвестиционного договора";
+            template.Step = ProjectWorkflow.State.DocumentSending;
+            template.Type = TaskTypes.Document;
+            template._id = ObjectId.GenerateNewId().ToString();
+            template.Body = "заявление о заключении инвестиционного договора";
+            RepositoryContext.Current.Add(template);
 
-            _roles = new List<string>() { "User" };
-            _userNotification = new Mock<IUserNotification>();
-            _adminNotification = new Mock<IAdminNotification>();
-            _investorNotification = new Mock<IInvestorNotification>();
-            _userName = "test";
-            _unitOfWorksContainer = new UnitsOfWorkContainer(_currentProject,
-                _repository,
-                _userNotification.Object,
-                _adminNotification.Object,
-                _investorNotification.Object,
-                _userName,
-                _roles);
-            _workflow = new ProjectWorkflowWrapper(
-                new ProjectWorkflow(ProjectWorkflow.State.Open),
-                _unitOfWorksContainer);
+            template.Title = "проект инвестиционного договора";
+            template.Step = ProjectWorkflow.State.DocumentSending;
+            template.Type = TaskTypes.Document;
+            template._id = ObjectId.GenerateNewId().ToString();
+            template.Body = "проект инвестиционного договора, подписанный инвестором (инвесторами)";
+            RepositoryContext.Current.Add(template);
 
-            _workflow.Move(ProjectWorkflow.Trigger.FillInformation);
+            template.Title = "копия свидетельства о государственной регистрации";
+            template.Step = ProjectWorkflow.State.DocumentSending;
+            template.Type = TaskTypes.Document;
+            template._id = ObjectId.GenerateNewId().ToString();
+            template.Body = "копия свидетельства о государственной регистрации (для юридических лиц и индивидуальных предпринимателей - резидентов Республики Беларусь), легализованная выписка из торгового регистра страны учреждения (датированная не позднее одного года до подачи заявления) или иное эквивалентное доказательство юридического статуса инвестора (инвесторов) в соответствии с законодательством страны его учреждения (для юридических лиц - нерезидентов Республики Беларусь);";
+            RepositoryContext.Current.Add(template);
 
-            Console.WriteLine(_workflow.CurrentState);
-            Console.WriteLine(_repository.GetOne<Project>(p => p._id == _currentProject._id).WorkflowState.CurrentState);
-            Console.Read();
+            template.Title = "копия документа, удостоверяющего личность инвестора";
+            template.Step = ProjectWorkflow.State.DocumentSending;
+            template.Type = TaskTypes.Document;
+            template._id = ObjectId.GenerateNewId().ToString();
+            template.Body = "копия документа, удостоверяющего личность инвестора (для физических лиц - резидентов Республики Беларусь), копия документа, удостоверяющего личность инвестора, с переводом на русский язык и документ, подлинность подписи переводчика на котором засвидетельствована нотариально (для физических лиц - нерезидентов Республики Беларусь);";
+            RepositoryContext.Current.Add(template);
+
+            template.Title = "копия документа, подтверждающего полномочия лица";
+            template.Step = ProjectWorkflow.State.DocumentSending;
+            template.Type = TaskTypes.Document;
+            template._id = ObjectId.GenerateNewId().ToString();
+            template.Body = "копия документа, подтверждающего полномочия лица (лиц), подписавшего проект инвестиционного договора, на его подписание (для юридических лиц);";
+            RepositoryContext.Current.Add(template);
+
+            template.Title = "краткое финансово-экономическое обоснование";
+            template.Step = ProjectWorkflow.State.DocumentSending;
+            template.Type = TaskTypes.Document;
+            template._id = ObjectId.GenerateNewId().ToString();
+            template.Body = "краткое финансово-экономическое обоснование инвестиционного проекта, подготовленное в произвольной форме и содержащее указание объемов и источников инвестиций, срока реализации инвестиционного проекта, ожидаемого социально-экономического эффекта, а также иную информацию, характеризующую инвестиционный проект.";
+            RepositoryContext.Current.Add(template);
         }
         //private static void GenerateDependendenciesValues()
         //{

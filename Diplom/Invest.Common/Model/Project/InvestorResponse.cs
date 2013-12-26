@@ -42,8 +42,6 @@ namespace Invest.Common.Model.Project
 
         public string ExistingUser { get; set; }
 
-        public string ResponsedProjectId { get; set; }
-
         public bool IsVerified { get; set; }
     }
 }

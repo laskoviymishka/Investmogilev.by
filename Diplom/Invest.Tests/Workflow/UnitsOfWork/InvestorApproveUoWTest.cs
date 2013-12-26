@@ -146,12 +146,6 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         [TestMethod()]
         public void OnInvestorApproveExitTest()
         {
-            bool wasAdminNotificate = false;
-            _adminNotification.Setup(a => a.InvestorApprovedNotificate(It.IsAny<Project>())).Callback(() =>
-            { wasAdminNotificate = true; });
-            InvestorApproveUoW target = CreateUoW();
-            target.OnInvestorApproveExit();
-            Assert.IsTrue(wasAdminNotificate);
         }
 
         /// <summary>
@@ -169,10 +163,12 @@ namespace Invest.Tests.Workflow.UnitsOfWork
                 { wasUserNotificate = true; });
 
             _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.OnMap;
-            _currentProject.Responses = new List<InvestorResponse>();
-            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = false });
-            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = false });
-            _currentProject.Responses.Add(new InvestorResponse() { IsVerified = true });
+            _currentProject.Responses = new List<InvestorResponse>
+                {
+                    new InvestorResponse() {IsVerified = false},
+                    new InvestorResponse() {IsVerified = false},
+                    new InvestorResponse() {IsVerified = true}
+                };
 
             var target = CreateUoW();
             target.OnInvestorApproveEntry();

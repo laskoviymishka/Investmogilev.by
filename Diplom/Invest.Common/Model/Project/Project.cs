@@ -39,11 +39,11 @@ namespace Invest.Common.Model.Project
         [Display(Name = "Инвестор")]
         public string InvestorUser { get; set; }
 
-        public IEnumerable<ProjectTask> Tasks { get; set; }
+        public List<ProjectTask> Tasks { get; set; }
 
-        public IEnumerable<Step> Steps { get; set; }
+        public List<Step> Steps { get; set; }
 
-        public IEnumerable<Project> SubProject { get; set; }
+        public List<Project> SubProject { get; set; }
 
         public Workflow WorkflowState { get; set; }
 

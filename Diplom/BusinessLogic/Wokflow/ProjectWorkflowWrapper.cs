@@ -83,11 +83,6 @@ namespace BusinessLogic.Wokflow
             throw new NotImplementedException();
         }
 
-        private bool GuardClauseFromWaitIspolcomFixesToOnMapUsingTriggerRejectDocument()
-        {
-            throw new NotImplementedException();
-        }
-
         private bool GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization()
         {
             throw new NotImplementedException();
@@ -104,11 +99,6 @@ namespace BusinessLogic.Wokflow
         }
 
         private bool GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromWaitComissionFixesToOnMapUsingTriggerRejectDocument()
         {
             throw new NotImplementedException();
         }
@@ -133,32 +123,8 @@ namespace BusinessLogic.Wokflow
             throw new NotImplementedException();
         }
 
-        private bool GuardClauseFromOpenToOnMapUsingTriggerFillInformation()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromOnMapToOpenUsingTriggerReOpen()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromOnMapToOnMapUsingTriggerUpdateInformation()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromOnMapToInvestorAproveUsingTriggerInvestorResponsed()
-        {
-            throw new NotImplementedException();
-        }
 
         private bool GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromOnIspolcomToOnMapUsingTriggerRejectDocument()
         {
             throw new NotImplementedException();
         }
@@ -178,27 +144,12 @@ namespace BusinessLogic.Wokflow
             throw new NotImplementedException();
         }
 
-        private bool GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument()
-        {
-            throw new NotImplementedException();
-        }
-
         private bool GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission()
         {
             throw new NotImplementedException();
         }
 
         private bool GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromInvestorAproveToInvestorAproveUsingTriggerInvestorResponsed()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromInvestorAproveToDocumentSendingUsingTriggerInvestorSelected()
         {
             throw new NotImplementedException();
         }

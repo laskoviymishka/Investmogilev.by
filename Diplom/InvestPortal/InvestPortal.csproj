@@ -390,6 +390,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AddDocumentVIewModel.cs" />
     <Compile Include="Models\BaseProjectViewModel.cs" />
     <Compile Include="Models\DocumentForTaskViewModel.cs" />
     <Compile Include="Models\InvestorResponseViewModel.cs" />
@@ -1153,6 +1154,26 @@
     <Content Include="Views\InvestorEntry\ExistingResponseToProject.cshtml" />
     <Content Include="Views\WorkflowActions\CompletePlan.cshtml" />
     <Content Include="Views\Shared\_InvestorEntryLayout.cshtml" />
+    <Content Include="Views\WorkflowActions\Open.cshtml" />
+    <Content Include="Views\WorkflowActions\OnMap.cshtml" />
+    <Content Include="Views\WorkflowActions\InvestorApprove.cshtml" />
+    <Content Include="Views\WorkflowActions\DocumentSending.cshtml" />
+    <Content Include="Views\WorkflowActions\WaitInvolved.cshtml" />
+    <Content Include="Views\WorkflowActions\InvolvedOrganizations.cshtml" />
+    <Content Include="Views\WorkflowActions\WaitComission.cshtml" />
+    <Content Include="Views\WorkflowActions\OnComission.cshtml" />
+    <Content Include="Views\WorkflowActions\WaitComissionFixes.cshtml" />
+    <Content Include="Views\WorkflowActions\WaitIspolcom.cshtml" />
+    <Content Include="Views\WorkflowActions\OnIspolcom.cshtml" />
+    <Content Include="Views\WorkflowActions\WaitIspolcomFixes.cshtml" />
+    <Content Include="Views\WorkflowActions\InMinEconomy.cshtml" />
+    <Content Include="Views\WorkflowActions\PlanCreating.cshtml" />
+    <Content Include="Views\WorkflowActions\Realization.cshtml" />
+    <Content Include="Views\WorkflowActions\Done.cshtml" />
+    <Content Include="Views\WorkflowActions\InvestorSelected.cshtml" />
+    <Content Include="Views\WorkflowActions\DocumentUpdate.cshtml" />
+    <Content Include="Views\WorkflowActions\FillInvolvedOrganization.cshtml" />
+    <Content Include="Views\WorkflowActions\AddDocumentTask.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
@@ -1171,7 +1192,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>9222</DevelopmentServerPort>
+          <DevelopmentServerPort>55798</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

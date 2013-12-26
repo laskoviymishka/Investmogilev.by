@@ -127,25 +127,16 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         {
             bool wasNotificated = false;
             _adminNotification.Setup(a => a.NotificateReOpen()).Callback(() => { wasNotificated = true; });
-            var wasExceptions = false;
 
             _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.Open;
             var target = CreateUoW();
-            try
-            {
-                target.OnOpenEntry();
-            }
-            catch (InvalidOperationException e)
-            {
-                wasExceptions = true;
-            }
+            target.OnOpenEntry();
 
             _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.Realization;
             target = CreateUoW();
 
             target.OnOpenEntry();
 
-            Assert.IsTrue(wasExceptions);
             Assert.IsTrue(
                 _repository.GetOne<Project>(
                     p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.Open);

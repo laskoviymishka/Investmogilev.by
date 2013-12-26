@@ -123,7 +123,7 @@ namespace Invest.Tests.Workflow.UnitsOfWork
         {
             var target = CreateUoW();
 
-            Assert.IsFalse(target.FromOnMapToInvestorApprove());
+            Assert.IsTrue(target.FromOnMapToInvestorApprove());
             _currentProject.Responses = new List<InvestorResponse> { new InvestorResponse() };
             target = CreateUoW();
             Assert.IsTrue(target.FromOnMapToInvestorApprove());

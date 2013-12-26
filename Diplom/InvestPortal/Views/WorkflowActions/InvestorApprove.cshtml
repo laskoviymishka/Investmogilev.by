@@ -1,0 +1,44 @@
+﻿@model Invest.Common.Model.Project.Project
+
+<div class="balloon top" style="width: 40%">
+    Необходимо определится с инвестором, а так же выбрать необходимый набор документов.
+</div>
+
+<div class="listview-outlook">
+    @foreach (var response in Model.Responses)
+    {
+        if (!response.IsVerified)
+        {
+        <a href="#" class="list" onclick="InvestorSelected('@response.ResponseId')">
+            <div class="list-content">
+                <span class="list-title">@response.InvestorFirstName @response.InvestorLastName</span>
+                <span class="list-remark">Телефон: @response.InvestorPhone</span> <span class="list-remark">
+                    E-mail: @response.InvestorEmail</span>
+            </div>
+        </a>
+        }
+        else
+        {
+        <a href="#" class="list selected" onclick="InvestorSelected('@response.ResponseId')">
+            <div class="list-content">
+                <span class="list-title">@response.InvestorFirstName @response.InvestorLastName</span>
+                <span class="list-remark">Телефон: @response.InvestorPhone</span> <span class="list-remark">
+                    E-mail: @response.InvestorEmail</span>
+            </div>
+        </a>
+        }
+
+    }
+</div>
+@Html.ActionLink("Добавить необходимыe документы", "AddDocumentTask", "WorkflowActions", new { @projectId = Model._id }, new { @class = "button info" })
+<ul>
+    @foreach (Invest.Common.State.ProjectWorkflow.Trigger trigger in ViewBag.AvaibleTriggers)
+    {
+        <li>@Html.ActionLink(trigger.ToString(), "Triggers", new { projectId = Model._id, @trigger = trigger.ToString() }, new { @class = "button primary" })</li>
+    }
+</ul>
+<script>
+    var InvestorSelected = function (responseId) {
+        window.location.href = '/WorkflowActions/SelectUser?responseId=' + responseId + '&projectId=@Model._id';
+    }
+</script>

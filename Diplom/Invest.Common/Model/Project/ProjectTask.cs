@@ -7,6 +7,8 @@ namespace Invest.Common.Model.Project
 {
     public class ProjectTask : IMongoEntity
     {
+        public string _id { get; set; }
+
         public string Title { get; set; }
         public IEnumerable<Report> TaskReport { get; set; }
         public TaskTypes Type { get; set;}
@@ -15,7 +17,5 @@ namespace Invest.Common.Model.Project
         public DateTime CompleteTime { get; set; }
         public bool IsComplete { get; set; }
         public string Body { get; set; }
-        public string InvolvedOrganization { get; set; }
-        public string _id { get; set; }
     }
 }

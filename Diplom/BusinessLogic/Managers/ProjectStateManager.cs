@@ -140,5 +140,10 @@ namespace BusinessLogic.Managers
         }
 
         #endregion
+
+        public IEnumerable<ProjectWorkflow.Trigger> GetAvaibleTriggers()
+        {
+            return Enum.GetValues(typeof (ProjectWorkflow.Trigger)).Cast<ProjectWorkflow.Trigger>().Where(trigger => _workflow.IsMoveablde(trigger));
+        }
     }
 }

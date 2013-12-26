@@ -67,6 +67,7 @@
     <Compile Include="Model\Project\Report.cs" />
     <Compile Include="Model\Project\ReportResponse.cs" />
     <Compile Include="Model\Project\TaskStep.cs" />
+    <Compile Include="Model\Project\TaskTemplate.cs" />
     <Compile Include="Model\Project\TaskTypes.cs" />
     <Compile Include="Model\Project\Workflow.cs" />
     <Compile Include="Model\User\NotificationQueue.cs" />
