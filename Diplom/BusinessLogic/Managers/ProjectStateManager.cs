@@ -41,32 +41,32 @@ namespace BusinessLogic.Managers
 
         private ProjectStateManager(Project currentProject, string currentUser, IList<string> roles)
         {
-            _currentProject = currentProject;
             _currentUser = currentUser;
             _roles = roles;
             _investorNotificate = new InvestorNotification();
             _adminNotificate = new AdminNotification();
             _userNotificationl = new UserNotification();
             _repository = RepositoryContext.Current;
+            _currentProject = _repository.GetOne<Project>(p => p._id == currentProject._id);
             _unitsOfWork = new UnitsOfWorkContainer(_currentProject,
                 _repository,
                 _userNotificationl,
                 _adminNotificate,
                 _investorNotificate,
                 _currentUser, _roles);
-            if (string.IsNullOrEmpty(currentProject._id))
+            if (string.IsNullOrEmpty(_currentProject._id))
             {
-                currentProject._id = ObjectId.GenerateNewId().ToString();
+                _currentProject._id = ObjectId.GenerateNewId().ToString();
             }
 
-            if (currentProject.WorkflowState == null)
+            if (_currentProject.WorkflowState == null)
             {
-                currentProject.WorkflowState = new Workflow()
+                _currentProject.WorkflowState = new Workflow()
                     {
                         CurrentState = ProjectWorkflow.State.Open
                     };
             }
-            _workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(currentProject.WorkflowState.CurrentState), _unitsOfWork);
+            _workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
         }
 
         #endregion
@@ -144,6 +144,14 @@ namespace BusinessLogic.Managers
         public IEnumerable<ProjectWorkflow.Trigger> GetAvaibleTriggers()
         {
             return Enum.GetValues(typeof (ProjectWorkflow.Trigger)).Cast<ProjectWorkflow.Trigger>().Where(trigger => _workflow.IsMoveablde(trigger));
+        }
+
+        public void InvestorSelected()
+        {
+            if(!_workflow.Move(ProjectWorkflow.Trigger.InvestorSelected))
+            {
+                throw new InvalidOperationException("не могу провести операцию выбора инвестора");
+            }
         }
     }
 }

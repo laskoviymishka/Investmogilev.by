@@ -11,5 +11,7 @@ namespace BusinessLogic.Notification
         void InvestorApprovedNotificate(Project project);
 
         void InvestorResponsed(Project project);
+
+        void DocumentUpdate(Project CurrentProject);
     }
 }

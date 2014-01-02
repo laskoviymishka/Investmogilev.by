@@ -1,0 +1,17 @@
+﻿<div>
+    Необходимо выслать следующие документы
+    <ul>
+        @foreach (var task in Model.Project.Tasks)
+        {
+            <li>
+                @task.Title
+            </li>
+        }
+    </ul>
+    <div>
+        Логин - @Model.Login
+    </div>
+    <div>
+        Пароль - @Model.Pass
+    </div>
+</div>

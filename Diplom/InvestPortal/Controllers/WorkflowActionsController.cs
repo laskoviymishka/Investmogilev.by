@@ -139,8 +139,16 @@ namespace InvestPortal.Controllers
 
         #endregion
 
+        #region InvestorSelected
+
         public ActionResult InvestorSelected(Project project)
         {
+            ProjectStateManager
+                .StateManagerFactory(
+                    project,
+                    User.Identity.Name,
+                    Roles.GetRolesForUser(User.Identity.Name))
+                        .InvestorSelected();
             return View(project);
         }
 
@@ -229,5 +237,7 @@ namespace InvestPortal.Controllers
 
             return RedirectToAction("Project", "BaseProject", new { id = model.PorjectId });
         }
+
+        #endregion
     }
 }

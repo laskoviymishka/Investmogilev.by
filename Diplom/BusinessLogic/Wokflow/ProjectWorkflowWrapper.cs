@@ -380,9 +380,13 @@ namespace BusinessLogic.Wokflow
 
 
             _workflow.GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate =
-                GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate;
+                _unitsOfWork.DocumentSendingUoW.CouldDocumentUpdate;
             _workflow.GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate =
-                GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate;
+                _unitsOfWork.DocumentSendingUoW.CouldDocumentUpdate;
+
+
+
+
             _workflow.GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed =
                 GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed;
             _workflow.GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate =
@@ -432,10 +436,9 @@ namespace BusinessLogic.Wokflow
             _workflow.OnOpenExit = _unitsOfWork.OpenUoW.OnOpenExit;
             _workflow.OnOnMapExit = _unitsOfWork.OnMapUoW.OnMapExit;
             _workflow.OnInvestorApproveExit = _unitsOfWork.InvestorApproveUoW.OnInvestorApproveExit;
-
+            _workflow.OnDocumentSendingExit = _unitsOfWork.DocumentSendingUoW.OnDocumentSendingExit;
 
             _workflow.OnDoneExit = OnDoneExit;
-            _workflow.OnDocumentSendingExit = OnDocumentSendingExit;
             _workflow.OnInMinEconomyExit = OnInMinEconomyExit;
             _workflow.OnInvolvedOrganizationsExit = OnInvolvedOrganizationsExit;
             _workflow.OnOnComissionExit = OnOnComissionExit;
@@ -454,10 +457,9 @@ namespace BusinessLogic.Wokflow
             _workflow.OnOpenEntry = _unitsOfWork.OpenUoW.OnOpenEntry;
             _workflow.OnOnMapEntry = _unitsOfWork.OnMapUoW.OnMapEntry;
             _workflow.OnInvestorApproveEntry = _unitsOfWork.InvestorApproveUoW.OnInvestorApproveEntry;
-
+            _workflow.OnDocumentSendingEntry = _unitsOfWork.DocumentSendingUoW.OnDocumentSendingEntry;
 
             _workflow.OnDoneEntry = OnDoneEntry;
-            _workflow.OnDocumentSendingEntry = OnDocumentSendingEntry;
             _workflow.OnInMinEconomyEntry = OnInMinEconomyEntry;
             _workflow.OnInvolvedOrganizationsEntry = OnInvolvedOrganizationsEntry;
             _workflow.OnOnComissionEntry = OnOnComissionEntry;

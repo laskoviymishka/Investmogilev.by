@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
+using System.Linq;
 using Invest.Common.Repository;
+using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
@@ -22,6 +24,34 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
            userName,
            roles)
         {
+        }
+
+        public void OnDocumentSendingEntry()
+        {
+            if (CurrentProject.WorkflowState.CurrentState == ProjectWorkflow.State.DocumentSending)
+            {
+                InvestorNotification.DocumentUpdate(CurrentProject);
+                AdminNotification.DocumentUpdate(CurrentProject);
+            }
+            else
+            {
+                InvestorNotification.ProjectAproved(CurrentProject);
+            }
+
+            ProcessMoving(ProjectWorkflow.State.DocumentSending, "Проект в стадии сбора документов");
+        }
+
+        public void OnDocumentSendingExit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CouldDocumentUpdate()
+        {
+            return CurrentProject.Tasks.Any(t =>
+                (
+                t.Step == ProjectWorkflow.State.DocumentSending
+                && (t.IsComplete && !t.TaskReport.Last<Report>().ReportResponse.IsApproved || !t.IsComplete)));
         }
     }
 }

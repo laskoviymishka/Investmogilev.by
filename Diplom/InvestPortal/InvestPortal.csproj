@@ -1101,6 +1101,8 @@
     <Content Include="App_Data\MailTemplate\InvestorResponded.cshtml" />
     <Content Include="App_Data\MailTemplate\InvestorApprovedMail.cshtml" />
     <Content Include="App_Data\MailTemplate\ProjectOpen.cshtml" />
+    <Content Include="App_Data\MailTemplate\ProjectAproved.cshtml" />
+    <Content Include="App_Data\MailTemplate\DocumentUpdate.cshtml" />
     <None Include="Content\metro-ui\fonts\iconFont.eot" />
     <None Include="Content\metro-ui\fonts\iconFont.json" />
     <None Include="Content\metro-ui\fonts\iconFont.ttf" />

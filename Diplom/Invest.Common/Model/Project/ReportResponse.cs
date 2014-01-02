@@ -8,7 +8,7 @@ namespace Invest.Common.Model.Project
     {
         public string Body { get; set; }
         public IEnumerable<AdditionalInfo> Info { get; set; }
-        public string IsApproved { get; set; }
+        public bool IsApproved { get; set; }
         public DateTime ResponseTime { get; set; }
         public string _id { get; set; }
     }

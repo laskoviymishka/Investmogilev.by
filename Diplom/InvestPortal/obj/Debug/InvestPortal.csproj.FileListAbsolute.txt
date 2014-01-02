@@ -216,3 +216,4 @@ D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\ru\EntityFramework.resources.dl
 D:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.csprojResolveAssemblyReference.cache
 D:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.dll
 D:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.pdb
+D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\InvestPortal.dll.config

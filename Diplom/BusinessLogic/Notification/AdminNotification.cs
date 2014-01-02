@@ -79,5 +79,23 @@ namespace BusinessLogic.Notification
                             .Send();
             }
         }
+
+
+        public void DocumentUpdate(Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                var email = Email
+                            .From("laskoviymishka@gmail.com")
+                            .UsingClient(Client)
+                            .To(user.Email)
+                            .Subject("Обновления состояния документов")
+                            .UsingTemplate(GetTemplate("DocumentUpdate"), project)
+                            .Send();
+            }
+        }
     }
 }
