@@ -215,16 +215,21 @@ namespace InvestPortal.Controllers
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.PorjectId);
 
             var templates = RepositoryContext.Current.All<TaskTemplate>(t => model.Documents.Contains(t.Title));
+            var tasks = new List<ProjectTask>();
 
-            var tasks = templates.Select(template => new ProjectTask()
+            foreach (var template in templates)
+            {
+                tasks.Add(new ProjectTask()
                 {
                     _id = ObjectId.GenerateNewId().ToString(),
+                    ProjectId = model.PorjectId,
                     Body = template.Body,
                     Title = template.Title,
                     Type = template.Type,
                     Step = template.Step,
                     CreationTime = DateTime.Now
-                }).ToList();
+                });
+            }
 
             if (project.Tasks == null)
             {

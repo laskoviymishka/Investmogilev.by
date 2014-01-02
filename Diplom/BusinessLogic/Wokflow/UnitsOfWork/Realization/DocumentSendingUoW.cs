@@ -35,6 +35,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             }
             else
             {
+                CurrentProject.InvestorUser = CurrentProject.Responses.Find(r => r.IsVerified).InvestorEmail;
                 InvestorNotification.ProjectAproved(CurrentProject);
             }
 

@@ -2,6 +2,7 @@
 using Invest.Common;
 using Invest.Common.Model.Project;
 using System;
+using System.Web.Security;
 namespace BusinessLogic.Notification
 {
     public class InvestorNotification : BaseNotificate, IInvestorNotification
@@ -57,6 +58,7 @@ namespace BusinessLogic.Notification
             var pass = Guid.NewGuid().ToString().Substring(0, 5);
             var login = project.Responses.Find(i => i.IsVerified).InvestorEmail;
             Membership.CreateAccount(login, pass);
+            Roles.AddUserToRole(login, "Investor");
             var email = Email
                .From("laskoviymishka@gmail.com")
                .UsingClient(Client)

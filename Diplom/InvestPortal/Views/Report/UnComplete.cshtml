@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Invest.Common.Model.ProjectModels.Task>
+﻿@model IEnumerable<Invest.Common.Model.Project.ProjectTask>
 @{
-    ViewBag.Title = "Новые отчеты";
+    ViewBag.Title = "Все отчеты";
 }
 <h2>
-    Новые отчеты
+    Все отчеты
 </h2>
 <table class="table hovered">
     <tr>
@@ -11,14 +11,15 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Step)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Milestone)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsLate)
+            @Html.DisplayNameFor(model => model.CompleteTime)
         </th>
+
         <th>
             Управление
         </th>
@@ -30,20 +31,34 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-               @Html.Raw(HttpUtility.HtmlDecode(item.Description))
+                @Html.DisplayFor(modelItem => item.Step)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Milestone)
             </td>
+            <td>
+                @if (item.IsComplete)
+                {
+                    if (item.IsComplete)
+                    {
+                        @Html.DisplayFor(modelItem => item.CompleteTime)
+                    }
+                    else
+                    {
+                        <p>Отчет отправлен, но еще не проверен</p>
+                    }
+                }
+                else
+                {
+                    <p>Задание еще не выполненно</p>
+                }
+            </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.IsLate)
-            </td>
-            <td>
-                @Html.ActionLink("Подробнее о задании", "Details", new { id = item._id }, new { @class = "button info" })
+                @Html.ActionLink("Подробнее о задании", "Details", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info" })
                 @if (!item.IsComplete)
                 {
-                    @Html.ActionLink("Создать отчет", "CreateReport", new { id = item._id }, new { @class = "button success" })
+                    @Html.ActionLink("Создать отчет", "CreateReport", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button success" })
                 }
             </td>
         </tr>

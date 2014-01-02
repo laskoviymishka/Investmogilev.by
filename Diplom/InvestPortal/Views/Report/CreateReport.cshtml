@@ -1,4 +1,4 @@
-﻿@model Invest.Common.Model.ProjectModels.Report
+﻿@model Invest.Common.Model.Project.Report
 @{
     ViewBag.Title = "Создание отчета";
 }
@@ -17,10 +17,8 @@
     <fieldset>
         <legend>Отчет</legend>
         @Html.HiddenFor(model => model._id)
-        @Html.HiddenFor(model => model.ProjectId)
-        @Html.HiddenFor(model => model.IsApproved)
-        @Html.HiddenFor(model => model.ReporterName)
         @Html.HiddenFor(model => model.TaskId)
+        @Html.HiddenFor(model => model.ProjectId)
         @Html.HiddenFor(model => model.ReportTime)
         <small class="editor-label">
             @Html.LabelFor(model => model.Body)
@@ -33,11 +31,7 @@
             Приложения
         </small>
         <div style="margin:10px">
-            @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
-                .Save("Save", "Report", new { taskId = Model.TaskId, reportId = Model._id })
-                    .Remove("Remove", "Report", new { taskId = Model.TaskId, reportId = Model._id })
-            .AutoUpload(false)
-        ).Localizable("ru-RU")
+            @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async.Save("Save", "Report", new { taskId = Model.TaskId, reportId = Model._id }).Remove("Remove", "Report", new { taskId = Model.TaskId, reportId = Model._id }).AutoUpload(false)).Localizable("ru-RU")
         </div>
         <p>
             <input type="submit" value="Отправить" />
@@ -54,7 +48,22 @@
     //<![CDATA[
     jQuery(document).ready(function () {
         if (!jQuery.telerik) jQuery.telerik = {};
-        jQuery('#attachments').tUpload({ async: { "saveUrl": "/Report/Save?taskId=@Model.TaskId&reportId=@Model._id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
+        jQuery('#attachments').tUpload({
+            async: {
+                "saveUrl": "/Report/Save?taskId=@Model.TaskId&reportId=@Model._id&projectId=@Model.ProjectId",
+                "autoUpload": false
+            }, localization: {
+                "cancel": "Отмена",
+                "retry": "Повторить",
+                "select": "Выбрать...",
+                "remove": "Удалить",
+                "uploadSelectedFiles": "Загрузить файлы",
+                "dropFilesHere": "перетащите сюда файлы для загрузки",
+                "statusFailed": "неудачно",
+                "statusUploaded": "загружено",
+                "statusUploading": "загружается"
+            }
+        });
     });
     //]]>
 </script>

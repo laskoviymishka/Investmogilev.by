@@ -18,7 +18,17 @@ namespace InvestPortal.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
+            List<ProjectTask> model = new List<ProjectTask>();
+            foreach (Project project in projects)
+            {
+                foreach (ProjectTask task in project.Tasks.Where(t => t.TaskReport != null && t.TaskReport.Last().ReportResponse == null))
+                {
+                    task.ProjectId = project._id;
+                    model.Add(task);
+                }
+            }
+            return View(model);
         }
 
         public ActionResult UnVerified()

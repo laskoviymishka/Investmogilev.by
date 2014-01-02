@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Invest.Common.Model.ProjectModels.Report>
+﻿@model IEnumerable<Invest.Common.Model.Project.ProjectTask>
 @{
     ViewBag.Title = "Все отчеты";
 }
@@ -7,46 +7,60 @@
 <table class="table hovered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Body)
+            @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsApproved)
+            @Html.DisplayNameFor(model => model.Step)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReportTime)
+            @Html.DisplayNameFor(model => model.Milestone)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReporterName)
+            @Html.DisplayNameFor(model => model.CompleteTime)
         </th>
         <th>
             Управление
         </th>
     </tr>
-    @foreach (var item in Model.Where(t => t.IsVisible && !t.IsApproved))
+    @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.Raw(HttpUtility.HtmlDecode(item.Body))
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsApproved)
+                @Html.DisplayFor(modelItem => item.Step)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReportTime)
+                @Html.DisplayFor(modelItem => item.Milestone)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReporterName)
+                @if (item.IsComplete)
+                {
+                    if (item.IsComplete)
+                    {
+                        @Html.DisplayFor(modelItem => item.CompleteTime)
+                    }
+                    else
+                    {
+                        <p>Отчет отправлен, но еще не проверен</p>
+                    }
+                }
+                else
+                {
+                    <p>Задание еще не выполненно</p>
+                }
             </td>
-            @if (item.ReportResponse == null || (!item.ReportResponse.IsReject && !item.ReportResponse.IsApproved))
+            @if (item.TaskReport.Last().ReportResponse == null)
             {
                 <td>
-                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item.TaskId, reportId = item._id }, new { @class = "button success" })
+                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item._id, reportId = item.TaskReport.Last()._id }, new { @class = "button success" })
                 </td>
             }
             else
             {
                 <td>
-                    @Html.ActionLink("Информация о задаче", "Details", new { taskId = item.TaskId }, new { @class = "button info" })
+                    @Html.ActionLink("Информация о задаче", "Details", new { taskId = item.TaskReport.Last()._id }, new { @class = "button info" })
                 </td>
             }
         </tr>

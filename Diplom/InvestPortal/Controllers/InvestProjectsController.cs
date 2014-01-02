@@ -60,14 +60,14 @@ namespace InvestPortal.Controllers
             return JsonConvert.SerializeObject(GenerateGeoJsonData(RepositoryContext.Current.All<Project>()));
         }
 
-		[AllowAnonymous]
-		public ActionResult PartialTable()
-		{
-			ViewBag.StartYear = 2005;
-			ViewBag.EndYear = 2012;
-			IRepository repository = new MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
-			return PartialView(repository.All<Region>());
-		}
+        [AllowAnonymous]
+        public ActionResult PartialTable()
+        {
+            ViewBag.StartYear = 2005;
+            ViewBag.EndYear = 2012;
+            IRepository repository = new MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
+            return PartialView(repository.All<Region>());
+        }
 
         #endregion
 
