@@ -384,6 +384,7 @@
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ReportReviewController.cs" />
     <Compile Include="Controllers\StateActionsController.cs" />
+    <Compile Include="Controllers\TaskTemplateController.cs" />
     <Compile Include="Controllers\UserManagerController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\WorkflowActionsController.cs" />
@@ -1177,6 +1178,10 @@
     <Content Include="Views\WorkflowActions\DocumentUpdate.cshtml" />
     <Content Include="Views\WorkflowActions\FillInvolvedOrganization.cshtml" />
     <Content Include="Views\WorkflowActions\AddDocumentTask.cshtml" />
+    <Content Include="Views\TaskTemplate\Index.cshtml" />
+    <Content Include="Views\TaskTemplate\Details.cshtml" />
+    <Content Include="Views\TaskTemplate\Create.cshtml" />
+    <Content Include="Views\TaskTemplate\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

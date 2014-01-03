@@ -1,0 +1,41 @@
+﻿@model Invest.Common.Model.Project.TaskTemplate
+
+@{
+    ViewBag.Title = "Подробная информация о шаблоне";
+}
+
+<h2>Подробная информация о шаблоне</h2>
+
+<p>
+    @Html.ActionLink("Назад к шаблонам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker" })
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model._id }, new { @class = "icon-pencil fg-darker" })
+</p>
+
+<fieldset>
+    <legend>Шаблон</legend>
+    <small class="display-label">
+         @Html.DisplayNameFor(model => model.Title)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </blockquote>
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.Step)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.Step)
+    </blockquote>
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.Type)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </blockquote>
+    <small class="display-label">
+         @Html.DisplayNameFor(model => model.Body)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.Body)
+    </blockquote>
+</fieldset>
+

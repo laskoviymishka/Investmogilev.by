@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Invest.Common.Model.Project.TaskTemplate>
+
+@{
+    ViewBag.Title = "Шаблоны задач";
+}
+
+<h2>Все шаблоны задач</h2>
+
+<script src="~/Content/jquery.dataTables.min.js"></script>
+<link href="~/Content/demo_table.css" rel="stylesheet" />
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/TableSetup.js"></script>
+<script>
+    /* Table initialisation */
+    $(document).ready(function () {
+        $('#main-table').dataTable({
+            "sPaginationType": "bootstrap",
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ записей на странице",
+                "oPaginate": {
+                    "sNext": "Следующая",
+                    "sPrevious": "Предыдущая"
+                },
+                "sInfo": "Всего _TOTAL_ записей. Показаны от _START_-й до _END_-й записи.",
+                "sSearch": "Введите фильтр для таблицы _INPUT_"
+            }
+        });
+    });
+</script>
+<p>
+    @Html.ActionLink("Создать новый шаблон", "Create", null, new { @class = "button success"})
+</p>
+<table id="main-table" class="table hovered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Step)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Body)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Step)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Body)
+                </td>
+                <td style="width:150px">
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item._id }, new { @class = "button success", style = "width: 90%" })
+                    @Html.ActionLink("Подробнее", "Details", new { id = item._id }, new { @class = "button info", style = "width: 90%" })
+                    @Html.ActionLink("Удалить", "Delete", new { id = item._id }, new { @class = "button danger", style = "width: 90%" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
