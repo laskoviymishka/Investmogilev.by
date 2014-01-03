@@ -382,7 +382,7 @@ namespace BusinessLogic.Wokflow
             _workflow.GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate =
                 _unitsOfWork.DocumentSendingUoW.CouldDocumentUpdate;
             _workflow.GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate =
-                _unitsOfWork.DocumentSendingUoW.CouldDocumentUpdate;
+                _unitsOfWork.DocumentSendingUoW.CouldDocumentUpdateAndLeave;
 
 
 

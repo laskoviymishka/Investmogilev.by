@@ -5,5 +5,6 @@
         void OnDocumentSendingEntry();
         void OnDocumentSendingExit();
         bool CouldDocumentUpdate();
+        bool CouldDocumentUpdateAndLeave();
     }
 }

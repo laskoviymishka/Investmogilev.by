@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using System.Net.Mail;
-using System.Web.Security;
-using BusinessLogic.Providers;
+﻿using System.Web.Security;
 using FluentEmail;
 using Invest.Common;
 using Invest.Common.Model.Project;
-using Invest.Common.Model.User;
-using Invest.Common.Repository;
-using WebMatrix.WebData;
 
 namespace BusinessLogic.Notification
 {
@@ -28,13 +19,13 @@ namespace BusinessLogic.Notification
             foreach (string userName in users)
             {
                 var user = Membership.GetUser(userName, false);
-                var email = Email
-                            .From("laskoviymishka@gmail.com")
-                            .UsingClient(Client)
-                            .To(user.Email)
-                            .Subject("Проект заполнен и перешел в состояние НА КАРТЕ (Администратор)")
-                            .UsingTemplate(GetTemplate("FillInfomrationAdminMail"), currentProject)
-                            .Send();
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Проект заполнен и перешел в состояние НА КАРТЕ (Администратор)")
+                    .UsingTemplate(GetTemplate("FillInfomrationAdminMail"), currentProject)
+                    .Send();
             }
         }
 
@@ -53,13 +44,13 @@ namespace BusinessLogic.Notification
             foreach (string userName in users)
             {
                 var user = Membership.GetUser(userName, false);
-                var email = Email
-                            .From("laskoviymishka@gmail.com")
-                            .UsingClient(Client)
-                            .To(user.Email)
-                            .Subject("Инвестор потвержден (Администратор)")
-                            .UsingTemplate(GetTemplate("InvestorApprovedMail"), project)
-                            .Send();
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Инвестор потвержден (Администратор)")
+                    .UsingTemplate(GetTemplate("InvestorApprovedMail"), project)
+                    .Send();
             }
         }
 
@@ -70,13 +61,13 @@ namespace BusinessLogic.Notification
             foreach (string userName in users)
             {
                 var user = Membership.GetUser(userName, false);
-                var email = Email
-                            .From("laskoviymishka@gmail.com")
-                            .UsingClient(Client)
-                            .To(user.Email)
-                            .Subject("Инвестор откликнулся (Администратор)")
-                            .UsingTemplate(GetTemplate("InvestorResponsedMail"), project)
-                            .Send();
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Инвестор откликнулся (Администратор)")
+                    .UsingTemplate(GetTemplate("InvestorResponsedMail"), project)
+                    .Send();
             }
         }
 
@@ -88,13 +79,13 @@ namespace BusinessLogic.Notification
             foreach (string userName in users)
             {
                 var user = Membership.GetUser(userName, false);
-                var email = Email
-                            .From("laskoviymishka@gmail.com")
-                            .UsingClient(Client)
-                            .To(user.Email)
-                            .Subject("Обновления состояния документов")
-                            .UsingTemplate(GetTemplate("DocumentUpdate"), project)
-                            .Send();
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Обновления состояния документов по проекту " + project.Name)
+                    .UsingTemplate(GetTemplate("DocumentUpdate"), project)
+                    .Send();
             }
         }
     }

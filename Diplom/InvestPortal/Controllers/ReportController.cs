@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BusinessLogic.Managers;
 using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.Project;
@@ -15,10 +14,13 @@ namespace InvestPortal.Controllers
     [Authorize(Roles = "Investor")]
     public class ReportController : Controller
     {
+        private const string Filepath = "~/App_Data/ProjectInfo/{0}/Tasks/{1}/TaskReports/{2}";
+
         public ActionResult Index()
         {
-            var projects = RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name);
-            List<ProjectTask> model = new List<ProjectTask>();
+            IQueryable<Project> projects =
+                RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name);
+            var model = new List<ProjectTask>();
             foreach (Project project in projects)
             {
                 foreach (ProjectTask task in project.Tasks)
@@ -32,35 +34,38 @@ namespace InvestPortal.Controllers
 
         public ActionResult UnComplete()
         {
-            var projects = RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name);
-            List<ProjectTask> model = new List<ProjectTask>();
+            IQueryable<Project> projects =
+                RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name);
+            var model = new List<ProjectTask>();
             foreach (Project project in projects)
             {
                 model.AddRange(project.Tasks.Where(
-                    t => !t.IsComplete 
-                        && t.TaskReport == null 
-                        || (t.TaskReport != null
-                        && t.TaskReport.Last().ReportResponse != null
-                        && !t.TaskReport.Last().ReportResponse.IsApproved)));
+                    t => !t.IsComplete
+                         && t.TaskReport == null
+                         || (t.TaskReport != null
+                             && t.TaskReport.Last().ReportResponse != null
+                             && !t.TaskReport.Last().ReportResponse.IsApproved)));
             }
             return View(model);
         }
 
         public ActionResult CreateReport(string taskId, string projectId)
         {
-            Report model = new Report();
-            model.TaskId = taskId;
-            model.ProjectId = projectId;
-            model.ReportTime = DateTime.Now;
-            model._id = ObjectId.GenerateNewId().ToString();
-            return View(model);
+            return View(
+                new Report
+                {
+                    TaskId = taskId,
+                    ProjectId = projectId,
+                    ReportTime = DateTime.Now,
+                    _id = ObjectId.GenerateNewId().ToString()
+                });
         }
 
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult CreateReport(Report model)
         {
-            Project project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.ProjectId);
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.ProjectId);
             ProjectTask task = project.Tasks.Find(t => t._id == model.TaskId);
             if (task.TaskReport == null || !task.TaskReport.Any())
             {
@@ -85,15 +90,17 @@ namespace InvestPortal.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(string id)
+        public ActionResult Details(string taskId, string projectId)
         {
-            return View();
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
+            ProjectTask task = project.Tasks.Find(t => t._id == taskId);
+            return View(task);
         }
 
-        public ActionResult Save(string taskId, string reportId, string projectId, IEnumerable<HttpPostedFileBase> attachments)
+        public ActionResult Save(string taskId, string reportId, string projectId,
+            IEnumerable<HttpPostedFileBase> attachments)
         {
-            string filepath = "~/App_Data/ProjectInfo/{0}/Tasks/{1}/TaskReports/{2}";
-            Project project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
             ProjectTask task = project.Tasks.Find(t => t._id == taskId);
             if (task.TaskReport == null || !task.TaskReport.Any())
             {
@@ -108,10 +115,7 @@ namespace InvestPortal.Controllers
             }
             else
             {
-                report = new Report();
-                report.ProjectId = projectId;
-                report._id = reportId;
-                report.TaskId = taskId;
+                report = new Report {ProjectId = projectId, _id = reportId, TaskId = taskId};
                 task.TaskReport.Add(report);
             }
 
@@ -120,23 +124,23 @@ namespace InvestPortal.Controllers
                 report.Info = new List<AdditionalInfo>();
             }
 
-            string physicalPath = "";
-            string fileName = "";
             foreach (var file in attachments)
             {
-                fileName = Path.GetFileName(file.FileName);
-                physicalPath = Path.Combine(
-                    Server.MapPath(string.Format(filepath, project.Name, task.Title, DateTime.Now.ToShortDateString())),
+                string fileName = Path.GetFileName(file.FileName);
+                string physicalPath = Path.Combine(
+                    Server.MapPath(string.Format(Filepath, project.Name, task.Title, DateTime.Now.ToShortDateString())),
                     fileName);
 
                 if (!Directory.Exists(
-                        Server.MapPath(string.Format(filepath, project.Name, task.Title, DateTime.Now.ToShortDateString()))))
+                    Server.MapPath(string.Format(Filepath, project.Name, task.Title, DateTime.Now.ToShortDateString()))))
                 {
-                    Directory.CreateDirectory(Server.MapPath(string.Format(filepath, project.Name, task.Title, DateTime.Now.ToShortDateString())));
+                    Directory.CreateDirectory(
+                        Server.MapPath(string.Format(Filepath, project.Name, task.Title,
+                            DateTime.Now.ToShortDateString())));
                 }
 
                 file.SaveAs(physicalPath);
-                DocumentAdditionalInfo document = new DocumentAdditionalInfo();
+                var document = new DocumentAdditionalInfo();
                 document.FilePath = physicalPath;
                 document.InfoName = fileName;
                 document._id = ObjectId.GenerateNewId().ToString();

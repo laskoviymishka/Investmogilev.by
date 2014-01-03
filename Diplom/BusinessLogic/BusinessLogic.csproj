@@ -97,39 +97,39 @@
     <Compile Include="Wokflow\UnitsOfWork\Realization\ComissionFixesUoW.cs" />
     <Compile Include="Wokflow\UnitsOfWork\Realization\DocumentSendingUoW.cs" />
     <Compile Include="Wokflow\UnitsOfWork\Realization\DoneUoW.cs" />
-    <Compile Include="Wokflow\UnitsOfWork\IComissionFixesUoW.cs" />
-    <Compile Include="Wokflow\UnitsOfWork\IDocumentSendingUoW.cs">
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IComissionFixesUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IDocumentSendingUoW.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Wokflow\UnitsOfWork\IDoneUoW.cs" />
-    <Compile Include="Wokflow\UnitsOfWork\IInvestorApproveUoW.cs">
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IDoneUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IInvestorApproveUoW.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Wokflow\UnitsOfWork\IInvolvedorganizationsUoW.cs">
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IInvolvedorganizationsUoW.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Wokflow\UnitsOfWork\IIspolcomFixesUoW.cs" />
-    <Compile Include="Wokflow\UnitsOfWork\IMinEconomyUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IIspolcomFixesUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IMinEconomyUoW.cs" />
     <Compile Include="Wokflow\UnitsOfWork\Realization\InvestorApproveUoW.cs" />
     <Compile Include="Wokflow\UnitsOfWork\Realization\InvolvedOrganizationsUoW.cs" />
-    <Compile Include="Wokflow\UnitsOfWork\IOnComissionUoW.cs" />
-    <Compile Include="Wokflow\UnitsOfWork\IOnIspolcomUoW.cs" />
-    <Compile Include="Wokflow\UnitsOfWork\IOnMapUoW.cs">
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IOnComissionUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IOnIspolcomUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IOnMapUoW.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Wokflow\UnitsOfWork\IOpenUoW.cs">
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IOpenUoW.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Wokflow\UnitsOfWork\IPlanCreatingUoW.cs" />
-    <Compile Include="Wokflow\UnitsOfWork\IRealizationUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IPlanCreatingUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IRealizationUoW.cs" />
     <Compile Include="Wokflow\UnitsOfWork\Realization\IspolcomFixesUoW.cs" />
-    <Compile Include="Wokflow\UnitsOfWork\IWaitComissionUoW.cs">
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IWaitComissionUoW.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Wokflow\UnitsOfWork\IWaitInvolvedUoW.cs">
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IWaitInvolvedUoW.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Wokflow\UnitsOfWork\IWaitIspolcomUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IWaitIspolcomUoW.cs" />
     <Compile Include="Wokflow\UnitsOfWork\Realization\MinEconomyUoW.cs" />
     <Compile Include="Wokflow\UnitsOfWork\Realization\OnComissionUoW.cs" />
     <Compile Include="Wokflow\UnitsOfWork\Realization\OnIspolcomUoW.cs" />

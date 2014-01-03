@@ -153,5 +153,13 @@ namespace BusinessLogic.Managers
                 throw new InvalidOperationException("не могу провести операцию выбора инвестора");
             }
         }
+
+        public void DocumentUpdate()
+        {
+            if (!_workflow.Move(ProjectWorkflow.Trigger.DocumentUpdate))
+            {
+                throw new InvalidOperationException("не могу провести операцию обновление статуса отправки документов");
+            }
+        }
     }
 }

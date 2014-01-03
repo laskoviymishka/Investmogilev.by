@@ -7,7 +7,7 @@ using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    class DocumentSendingUoW : BaseProjectUoW,IDocumentSendingUoW
+    class DocumentSendingUoW : BaseProjectUoW, IDocumentSendingUoW
     {
         public DocumentSendingUoW(Project currentProject,
             IRepository repository,
@@ -44,15 +44,17 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnDocumentSendingExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public bool CouldDocumentUpdate()
         {
-            return CurrentProject.Tasks.Any(t =>
-                (
-                t.Step == ProjectWorkflow.State.DocumentSending
-                && (t.IsComplete && !t.TaskReport.Last<Report>().ReportResponse.IsApproved || !t.IsComplete)));
+            return CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.DocumentSending && !t.IsComplete);
+        }
+
+
+        public bool CouldDocumentUpdateAndLeave()
+        {
+            return !CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.DocumentSending && !t.IsComplete);
         }
     }
 }

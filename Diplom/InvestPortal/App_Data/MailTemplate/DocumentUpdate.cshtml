@@ -1,3 +1,18 @@
 ﻿<div>
-    Состояние высланных документов обновлено
+    Необходимо выслать следующие документы
+    <ul>
+        @foreach (var task in Model.Tasks)
+        {
+            <li>
+                @task.Title -@if (task.IsComplete)
+                             {
+                                 <p>готово</p>
+                             }
+                             else
+                             {
+                                 <p>не готово</p>
+                             }
+            </li>
+        }
+    </ul>
 </div>

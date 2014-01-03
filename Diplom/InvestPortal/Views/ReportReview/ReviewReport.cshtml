@@ -1,4 +1,4 @@
-﻿@model Invest.Common.Model.ProjectModels.ReportResponse
+﻿@model Invest.Common.Model.Project.ReportResponse
 @{
     ViewBag.Title = "Проверка отчета";
 }
@@ -17,11 +17,11 @@
         @Html.HiddenFor(model => model.ReportId)
         @Html.HiddenFor(model => model.ResponseUser)
         <div class="editor-label">
-            @Html.LabelFor(model => model.ResponseBody)
+            @Html.LabelFor(model => model.Body)
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.ResponseBody, new { @id = "editor" })
-            @Html.ValidationMessageFor(model => model.ResponseBody)
+            @Html.TextAreaFor(model => model.Body, new { @id = "editor" })
+            @Html.ValidationMessageFor(model => model.Body)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.IsApproved)
@@ -42,9 +42,7 @@
         </p>
     </fieldset>
 }
-<div>
-    @Html.ActionLink("Назад к списку всех отчетов", "Index")
-</div>
+
 <script>
     $(document).ready(function () { $("#editor").cleditor(); });
 </script>
@@ -53,7 +51,24 @@
     //<![CDATA[
     jQuery(document).ready(function () {
         if (!jQuery.telerik) jQuery.telerik = {};
-        jQuery('#attachments').tUpload({ async: { "saveUrl": "/ReportReview/Save?taskId=@Model.TaskId&reportId=@Model._id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
+        jQuery('#attachments').tUpload(
+        {
+            async: {
+                "saveUrl": "/ReportReview/Save?taskId=@Model.TaskId&reportId=@Model.ReportId&projectId=@Model.ProjectId&reposponseId=@Model._id",
+                "autoUpload": false
+            },
+            localization: {
+                "cancel": "Отмена",
+                "retry": "Повторить",
+                "select": "Выбрать...",
+                "remove": "Удалить",
+                "uploadSelectedFiles": "Загрузить файлы",
+                "dropFilesHere": "перетащите сюда файлы для загрузки",
+                "statusFailed": "неудачно",
+                "statusUploaded": "загружено",
+                "statusUploading": "загружается"
+            }
+        });
     });
     //]]>
 </script>

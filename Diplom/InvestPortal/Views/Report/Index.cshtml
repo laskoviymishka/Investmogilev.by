@@ -56,7 +56,7 @@
 
             <td>
                 @Html.ActionLink("Подробнее о задании", "Details", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info" })
-                @if (!item.IsComplete)
+                @if (item.TaskReport == null || (item.TaskReport.Last().ReportResponse != null && !item.TaskReport.Last().ReportResponse.IsApproved))
                 {
                     @Html.ActionLink("Создать отчет", "CreateReport", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button success" })
                 }

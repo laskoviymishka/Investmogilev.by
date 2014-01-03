@@ -18,7 +18,7 @@ namespace BusinessLogic.Notification
             {
                 foreach (var response in currentProject.Responses)
                 {
-                    var email = Email
+                    Email
                         .From("laskoviymishka@gmail.com")
                         .UsingClient(Client)
                         .To(response.InvestorEmail)
@@ -29,28 +29,25 @@ namespace BusinessLogic.Notification
             }
             else
             {
-                var email = Email
-                        .From("laskoviymishka@gmail.com")
-                        .UsingClient(Client)
-                        .To(currentProject.Responses[0].InvestorEmail)
-                        .Subject("Ваш отклик на проект (Инвестор)")
-                        .UsingTemplate(GetTemplate("FirstResponseToInvestor"), currentProject)
-                        .Send();
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(currentProject.Responses[0].InvestorEmail)
+                    .Subject("Ваш отклик на проект (Инвестор)")
+                    .UsingTemplate(GetTemplate("FirstResponseToInvestor"), currentProject)
+                    .Send();
             }
-
-
         }
-
 
         public void DocumentUpdate(Project project)
         {
-            var email = Email
-                       .From("laskoviymishka@gmail.com")
-                       .UsingClient(Client)
-                       .To(project.Responses[0].InvestorEmail)
-                       .Subject("Обновления состояния ваших документов")
-                       .UsingTemplate(GetTemplate("DocumentUpdate"), project)
-                       .Send();
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Обновления состояния документов по проекту " + project.Name)
+                .UsingTemplate(GetTemplate("DocumentUpdate"), project)
+                .Send();
         }
 
         public void ProjectAproved(Project project)
@@ -59,13 +56,14 @@ namespace BusinessLogic.Notification
             var login = project.Responses.Find(i => i.IsVerified).InvestorEmail;
             Membership.CreateAccount(login, pass);
             Roles.AddUserToRole(login, "Investor");
-            var email = Email
-               .From("laskoviymishka@gmail.com")
-               .UsingClient(Client)
-               .To(project.Responses[0].InvestorEmail)
-               .Subject("Ваша заявка одобрена")
-               .UsingTemplate(GetTemplate("ProjectAproved"), new { Pass = pass, Login = login, Project = project })
-               .Send();
+
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Ваша заявка одобрена")
+                .UsingTemplate(GetTemplate("ProjectAproved"), new { Pass = pass, Login = login, Project = project })
+                .Send();
         }
     }
 }

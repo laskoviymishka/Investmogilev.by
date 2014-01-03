@@ -1,11 +1,13 @@
-﻿@using Invest.Common.Model.Common
-@model Invest.Common.Model.ProjectModels.Task
+﻿@model Invest.Common.Model.Project.ProjectTask
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "информация о задаче";
 }
 <h2>
-    Details
+    информация о задаче
 </h2>
+<div>
+    @Html.ActionLink("К моим задачам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker big" })
+</div>
 <fieldset>
     <legend>Задание</legend>
     <small class="display-label">
@@ -14,47 +16,26 @@
     <blockquote class="display-field">
         @Html.DisplayFor(model => model.Title)
     </blockquote>
-    <small class="display-label">
-        @Html.DisplayNameFor(model => model.Description)
-    </small>
-    <blockquote class="display-field">
-        @Html.Raw(HttpUtility.HtmlDecode(Model.Description))
-    </blockquote>
+
     <small class="display-label">
         @Html.DisplayNameFor(model => model.Milestone)
     </small>
     <blockquote class="display-field">
         @Html.DisplayFor(model => model.Milestone)
     </blockquote>
-    <small class="display-label">
-        @Html.DisplayNameFor(model => model.CompletedOn)
-    </small>
-    <blockquote class="display-field">
-        @Html.DisplayFor(model => model.CompletedOn)
-    </blockquote>
+
     <small class="display-label">
         @Html.DisplayNameFor(model => model.IsComplete)
     </small>
     <blockquote class="display-field">
         @Html.DisplayFor(model => model.IsComplete)
     </blockquote>
-    <small class="display-label">
-        @Html.DisplayNameFor(model => model.IsVerifiedComplete)
-    </small>
-    <blockquote class="display-field">
-        @Html.DisplayFor(model => model.IsVerifiedComplete)
-    </blockquote>
-    <small class="display-label">
-        @Html.DisplayNameFor(model => model.IsLate)
-    </small>
-    <blockquote class="display-field">
-        @Html.DisplayFor(model => model.IsLate)
-    </blockquote>
+
     <fieldset style="margin-left:20px">
         <legend>Отчеты</legend>
-        @if (Model.Reports != null)
+        @if (Model.TaskReport != null)
         {
-            foreach (var item in Model.Reports.Where(t => t.IsVisible))
+            foreach (var item in Model.TaskReport)
             {
                 <fieldset style="margin-left:20px">
                     <legend>Отчет от @item.ReportTime.ToShortDateString()</legend>
@@ -68,35 +49,29 @@
                         Приложения
                     </div>
                     <ul>
-                        <blockquote style="margin:10px">
-                            @if (item.Appendix != null && item.Appendix.Any())
+                        <fieldset style="margin:10px">
+                            @if (item.Info != null && item.Info.Any())
                             {
-                                foreach (var appendix in item.Appendix)
+                                foreach (var appendix in item.Info)
                                 {
-                                    <li>
+                                    <blockquote>
                                         @Html.ActionLink("Скачать " + appendix.InfoName,
                                               "Download",
                                                new { messageId = Model._id, appendixId = item._id }, new { @class = "button button info" })
-                                    </li>
+                                    </blockquote>
                                 }
                             }
-                        </blockquote>
+                        </fieldset>
                     </ul>
                     <fieldset style="margin-left:20px;">
                         <legend>Ответ на отчет</legend>
                         @if (item.ReportResponse != null)
                         {
                             <small class="display-label">
-                                @Html.DisplayNameFor(model => item.ReportResponse.ReportResponseUser)
+                                @Html.DisplayNameFor(model => item.ReportResponse.Body)
                             </small>
                             <blockquote class="display-field">
-                                @Html.DisplayFor(model => item.ReportResponse.ReportResponseUser)
-                            </blockquote>
-                            <small class="display-label">
-                                @Html.DisplayNameFor(model => item.ReportResponse.ReportResponseBody)
-                            </small>
-                            <blockquote class="display-field">
-                                @Html.DisplayFor(model => item.ReportResponse.ReportResponseBody)
+                                @Html.DisplayFor(model => item.ReportResponse.Body)
                             </blockquote>
                             <small class="display-label">
                                 @Html.DisplayNameFor(model => item.ReportResponse.IsApproved)
@@ -104,6 +79,24 @@
                             <blockquote class="display-field">
                                 @Html.DisplayFor(model => item.ReportResponse.IsApproved)
                             </blockquote>
+                            <div class="display-label">
+                                Приложения
+                            </div>
+                            <ul>
+                                <fieldset style="margin:10px">
+                                    @if (item.ReportResponse.Info != null && item.ReportResponse.Info.Any())
+                                    {
+                                        foreach (var appendix in item.ReportResponse.Info)
+                                        {
+                                            <blockquote>
+                                                @Html.ActionLink("Скачать " + appendix.InfoName,
+                                              "Download",
+                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button info" })
+                                            </blockquote>
+                                        }
+                                    }
+                                </fieldset>
+                            </ul>
                         }
                         else
                         {
@@ -117,6 +110,4 @@
         }
     </fieldset>
 </fieldset>
-<p>
-    @Html.ActionLink("К списку отчетов", "Index")
-</p>
+

@@ -5,10 +5,13 @@
 <h2>
     Создать отчет
 </h2>
+<div>
+    @Html.ActionLink("К моим задачам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker big" })
+</div>
 
-<script src="http://localhost:9222/Scripts/2013.2.611/telerik.common.min.js"></script>
-<script src="http://localhost:9222/Scripts/2013.2.611/telerik.upload.min.js"></script>
-<link href="http://localhost:9222/Content/Style.css" rel="stylesheet" />
+<script src="/Scripts/2013.2.611/telerik.common.min.js"></script>
+<script src="/Scripts/2013.2.611/telerik.upload.min.js"></script>
+<link href="/Content/Style.css" rel="stylesheet" />
 
 @using (Html.BeginForm())
 {
@@ -38,9 +41,7 @@
         </p>
     </fieldset>
 }
-<div>
-    @Html.ActionLink("Вернуться к всем заданиям", "Index")
-</div>
+
 <script>
     $(document).ready(function () { $("#editor").cleditor(); });
 </script>

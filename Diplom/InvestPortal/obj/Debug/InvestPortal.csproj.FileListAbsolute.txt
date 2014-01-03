@@ -217,3 +217,4 @@ D:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.csprojResolv
 D:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.dll
 D:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.pdb
 D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\InvestPortal.dll.config
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\InvestPortal.dll.config
