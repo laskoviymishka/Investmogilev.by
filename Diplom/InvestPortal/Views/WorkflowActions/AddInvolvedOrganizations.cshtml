@@ -1,15 +1,16 @@
 ﻿@using Invest.Common.State
 @model InvestPortal.Models.AddDocumentViewModel
 @{
-    ViewBag.Title = "Необходимые документы для проекта";
+    ViewBag.Title = "Причастные лица";
 }
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
 <h2>
-    Необходимые документы для проекта</h2>
+    Причастные лица
+</h2>
 @{
-        List<string> documentList = ViewBag.DocumentList as List<string>;
-    }
+    List<string> documentList = ViewBag.DocumentList as List<string>;
+}
 @using (Html.BeginForm())
 {
     <fieldset>

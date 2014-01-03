@@ -4,10 +4,16 @@ namespace BusinessLogic.Notification
 {
     public interface IInvestorNotification
     {
-        void InvestorResponsed(Project CurrentProject);
+        void InvestorResponsed(Project project);
 
-        void DocumentUpdate(Project CurrentProject);
+        void DocumentUpdate(Project project);
 
-        void ProjectAproved(Project CurrentProject);
+        void ProjectAproved(Project project);
+
+        void InvolvedOrganizationUpdate(Project project);
+
+        void Comission(Comission comission, Project project);
+
+        void WaitComission(Project project);
     }
 }

@@ -1060,6 +1060,10 @@
       <Project>{8F5582F4-1EAD-4FE3-990D-36D18FA234D8}</Project>
       <Name>Invest.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Invest.Tests\Invest.Tests.csproj">
+      <Project>{33D3A500-9A46-434E-956C-5856FF1010BA}</Project>
+      <Name>Invest.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\UserManager\Index.cshtml" />
@@ -1105,6 +1109,9 @@
     <Content Include="App_Data\MailTemplate\ProjectOpen.cshtml" />
     <Content Include="App_Data\MailTemplate\ProjectAproved.cshtml" />
     <Content Include="App_Data\MailTemplate\DocumentUpdate.cshtml" />
+    <Content Include="App_Data\MailTemplate\WaitInvolved.cshtml" />
+    <Content Include="App_Data\MailTemplate\InvolvedOrganizationUpdate.cshtml" />
+    <Content Include="App_Data\MailTemplate\WaitComission.cshtml" />
     <None Include="Content\metro-ui\fonts\iconFont.eot" />
     <None Include="Content\metro-ui\fonts\iconFont.json" />
     <None Include="Content\metro-ui\fonts\iconFont.ttf" />
@@ -1182,6 +1189,8 @@
     <Content Include="Views\TaskTemplate\Details.cshtml" />
     <Content Include="Views\TaskTemplate\Create.cshtml" />
     <Content Include="Views\TaskTemplate\Edit.cshtml" />
+    <Content Include="Views\WorkflowActions\AddInvolvedOrganizations.cshtml" />
+    <Content Include="Views\ReportReview\InvolvedReport.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

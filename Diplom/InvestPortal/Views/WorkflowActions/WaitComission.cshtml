@@ -1,2 +1,8 @@
 ﻿@model Invest.Common.Model.Project.Project
 
+<h2>Ожидается комиссия</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    @Html.ActionLink("Созвать комиссию","CreateComission","ReportReview",null, new {@class = "button success"})
+}

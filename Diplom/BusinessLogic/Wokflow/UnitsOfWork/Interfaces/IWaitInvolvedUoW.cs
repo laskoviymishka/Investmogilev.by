@@ -2,6 +2,11 @@
 {
     public interface IWaitInvolvedUoW
     {
-         
+
+        void OnWaitInvolvedExit();
+
+        void OnWaitInvolvedEntry();
+
+        bool CouldFillInvolvedOrganization();
     }
 }

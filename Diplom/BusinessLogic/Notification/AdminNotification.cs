@@ -5,7 +5,7 @@ using Invest.Common.Model.Project;
 
 namespace BusinessLogic.Notification
 {
-    class AdminNotification : BaseNotificate, IAdminNotification
+    public class AdminNotification : BaseNotificate, IAdminNotification
     {
         public AdminNotification()
             : base(RepositoryContext.Current)
@@ -85,6 +85,77 @@ namespace BusinessLogic.Notification
                     .To(user.Email)
                     .Subject("Обновления состояния документов по проекту " + project.Name)
                     .UsingTemplate(GetTemplate("DocumentUpdate"), project)
+                    .Send();
+            }
+        }
+
+        public void WaitInvolved(Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Необходимо заполнить причастных лиц для проекта " + project.Name)
+                    .UsingTemplate(GetTemplate("WaitInvolved"), project)
+                    .Send();
+            }
+        }
+
+
+        public void InvolvedOrganizationUpdate(Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Обновления состояния причастных лиц по проекту " + project.Name)
+                    .UsingTemplate(GetTemplate("InvolvedOrganizationUpdate"), project)
+                    .Send();
+            }
+        }
+
+
+        public void Comission(Comission comission, Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Назначена комиссия по проекту " + project.Name)
+                    .UsingTemplate(GetTemplate("Comission"), new { Project = project, Comission = comission })
+                    .Send();
+            }
+        }
+
+
+        public void WaitComission(Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Ожидается комиссия по проекту " + project.Name)
+                    .UsingTemplate(GetTemplate("WaitComission"), project)
                     .Send();
             }
         }

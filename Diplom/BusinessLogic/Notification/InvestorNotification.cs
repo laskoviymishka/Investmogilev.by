@@ -65,5 +65,41 @@ namespace BusinessLogic.Notification
                 .UsingTemplate(GetTemplate("ProjectAproved"), new { Pass = pass, Login = login, Project = project })
                 .Send();
         }
+
+
+        public void InvolvedOrganizationUpdate(Project project)
+        {
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Обновления состояния причастных лиц по проекту " + project.Name)
+                .UsingTemplate(GetTemplate("InvolvedOrganizationUpdate"), project)
+                .Send();
+        }
+
+
+        public void Comission(Comission comission, Project project)
+        {
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Назначена комиссия по проекту " + project.Name)
+                .UsingTemplate(GetTemplate("Comission"), new { Project = project, Comission = comission })
+                .Send();
+        }
+
+
+        public void WaitComission(Project project)
+        {
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Ожидается комиссия по проекту " + project.Name)
+                .UsingTemplate(GetTemplate("WaitComission"), project)
+                .Send();
+        }
     }
 }

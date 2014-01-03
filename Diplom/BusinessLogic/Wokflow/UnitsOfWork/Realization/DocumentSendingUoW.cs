@@ -44,6 +44,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnDocumentSendingExit()
         {
+            InvestorNotification.DocumentUpdate(CurrentProject);
         }
 
         public bool CouldDocumentUpdate()

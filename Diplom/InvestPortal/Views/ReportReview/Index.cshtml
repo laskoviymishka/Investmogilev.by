@@ -1,9 +1,11 @@
-﻿@model IEnumerable<Invest.Common.Model.Project.ProjectTask>
+﻿@using Invest.Common.Model.Project
+@model IEnumerable<Invest.Common.Model.Project.ProjectTask>
 @{
     ViewBag.Title = "Все отчеты";
 }
 <h2>
-    Все отчеты</h2>
+    Все отчеты
+</h2>
 <table class="table hovered">
     <tr>
         <th>
@@ -51,7 +53,7 @@
                     <p>Задание еще не выполненно</p>
                 }
             </td>
-            @if (item.TaskReport.Last().ReportResponse == null)
+            @if (item.TaskReport != null && item.TaskReport.Last().ReportResponse == null)
             {
                 <td>
                     @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item._id, reportId = item.TaskReport.Last()._id, projectId = item.ProjectId }, new { @class = "button success" })
@@ -61,6 +63,10 @@
             {
                 <td>
                     @Html.ActionLink("Информация о задаче", "Details", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info" })
+                    @if (item.TaskReport == null && item.Type == TaskTypes.InvolvedOrganiztion)
+                    {
+                        @Html.ActionLink("Отчет по причастному лицу", "InvolvedReport", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button success" })
+                    }
                 </td>
             }
         </tr>

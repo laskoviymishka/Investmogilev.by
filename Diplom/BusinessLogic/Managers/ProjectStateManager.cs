@@ -161,5 +161,29 @@ namespace BusinessLogic.Managers
                 throw new InvalidOperationException("не могу провести операцию обновление статуса отправки документов");
             }
         }
+
+        public void FillInvolvedOrganization()
+        {
+            if (!_workflow.Move(ProjectWorkflow.Trigger.FillInvolvedOrganization))
+            {
+                throw new InvalidOperationException("не могу провести операцию заполнения причастных лиц");
+            }
+        }
+
+        public void InvolvedOrganizationUpdate()
+        {
+            if (!_workflow.Move(ProjectWorkflow.Trigger.InvolvedOrganizationUpdate))
+            {
+                throw new InvalidOperationException("не могу провести операцию обновления статуса причастных лиц");
+            }
+        }
+
+        public void ToComission()
+        {
+            if (!_workflow.Move(ProjectWorkflow.Trigger.ToComission))
+            {
+                throw new InvalidOperationException("не могу провести операцию обновления статуса причастных лиц");
+            }
+        }
     }
 }

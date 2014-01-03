@@ -7,11 +7,15 @@ namespace BusinessLogic.Notification
         void NotificateFill(Project project);
         void MapEntryNotificate();
         void NotificateReOpen();
-
         void InvestorApprovedNotificate(Project project);
-
         void InvestorResponsed(Project project);
+        void DocumentUpdate(Project project);
+        void WaitInvolved(Project project);
 
-        void DocumentUpdate(Project CurrentProject);
+        void InvolvedOrganizationUpdate(Project project);
+
+        void Comission(Comission comission, Project project);
+
+        void WaitComission(Project project);
     }
 }

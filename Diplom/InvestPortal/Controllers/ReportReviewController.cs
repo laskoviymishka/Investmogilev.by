@@ -21,10 +21,10 @@ namespace InvestPortal.Controllers
         public ActionResult Index()
         {
             var projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
-            List<ProjectTask> model = new List<ProjectTask>();
+            var model = new List<ProjectTask>();
             foreach (Project project in projects)
             {
-                foreach (ProjectTask task in project.Tasks.Where(t => t.TaskReport != null))
+                foreach (ProjectTask task in project.Tasks.Where(t => t.TaskReport != null || t.Type == TaskTypes.InvolvedOrganiztion))
                 {
                     task.ProjectId = project._id;
                     model.Add(task);
@@ -36,10 +36,10 @@ namespace InvestPortal.Controllers
         public ActionResult UnVerified()
         {
             var projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
-            List<ProjectTask> model = new List<ProjectTask>();
+            var model = new List<ProjectTask>();
             foreach (Project project in projects)
             {
-                foreach (ProjectTask task in project.Tasks.Where(t => t.TaskReport != null && t.TaskReport.Last().ReportResponse == null))
+                foreach (ProjectTask task in project.Tasks.Where(t => t.TaskReport != null && t.TaskReport.Last().ReportResponse == null || t.Type == TaskTypes.InvolvedOrganiztion))
                 {
                     task.ProjectId = project._id;
                     model.Add(task);
@@ -179,6 +179,61 @@ namespace InvestPortal.Controllers
             var doc = note.NoteDocument.FirstOrDefault(t => t._id == docId) as DocumentAdditionalInfo;
             if (doc != null) return File(doc.FilePath, "application/doc", doc.InfoName);
             return null;
+        }
+
+        public ActionResult InvolvedReport(string taskId, string projectId)
+        {
+            return View(
+                new ReportResponse
+                {
+                    TaskId = taskId,
+                    ProjectId = projectId,
+                    ResponseTime = DateTime.Now,
+                    _id = ObjectId.GenerateNewId().ToString()
+                });
+        }
+
+        [HttpPost]
+        public ActionResult InvolvedReport(ReportResponse model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.ProjectId);
+            var task = project.Tasks.Find(t => t._id == model.TaskId);
+            if (task.TaskReport == null)
+            {
+                task.TaskReport = new List<Report>();
+            }
+
+            var report = new Report
+                {
+                    _id = ObjectId.GenerateNewId().ToString(),
+                    ReportTime = DateTime.Now,
+                    Body = model.Body,
+                    ReportResponse = model
+                };
+
+            task.TaskReport.Add(report);
+            task.IsComplete = model.IsApproved;
+            RepositoryContext.Current.Update(project);
+
+            if (project.Tasks.Any(t => t.Type == TaskTypes.InvolvedOrganiztion && t.TaskReport == null))
+            {
+                ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                    Roles.GetRolesForUser(User.Identity.Name)).InvolvedOrganizationUpdate();
+            }
+            else
+            {
+                ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                    Roles.GetRolesForUser(User.Identity.Name)).ToComission();
+            }
+
+            return RedirectToAction("Project", "BaseProject", new { id = project._id });
+        }
+
+        public ActionResult CreateComission()
+        {
+            throw new NotImplementedException();
         }
     }
 }

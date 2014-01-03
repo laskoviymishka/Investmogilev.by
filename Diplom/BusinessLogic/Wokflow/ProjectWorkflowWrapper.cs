@@ -183,10 +183,6 @@ namespace BusinessLogic.Wokflow
             throw new NotImplementedException();
         }
 
-        private void OnWaitInvolvedEntry()
-        {
-            throw new NotImplementedException();
-        }
 
         private void OnWaitComissionFixesEntry()
         {
@@ -208,15 +204,6 @@ namespace BusinessLogic.Wokflow
             throw new NotImplementedException();
         }
 
-        private void OnOpenEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnOnMapEntry()
-        {
-            throw new NotImplementedException();
-        }
 
         private void OnOnIspolcomEntry()
         {
@@ -224,26 +211,6 @@ namespace BusinessLogic.Wokflow
         }
 
         private void OnOnComissionEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnInvolvedOrganizationsEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnInvestorAproveEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnInvestorApproveEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnDocumentSendingEntry()
         {
             throw new NotImplementedException();
         }
@@ -377,22 +344,26 @@ namespace BusinessLogic.Wokflow
             _workflow.GuardClauseFromInvestorApproveToInvestorApproveUsingTriggerInvestorResponsed =
                 _unitsOfWork.InvestorApproveUoW.FromInvestorApproveToInvestorResponsed;
 
-
-
             _workflow.GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate =
                 _unitsOfWork.DocumentSendingUoW.CouldDocumentUpdate;
             _workflow.GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate =
                 _unitsOfWork.DocumentSendingUoW.CouldDocumentUpdateAndLeave;
 
+            _workflow.GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization =
+                _unitsOfWork.WaitInvolvedUoW.CouldFillInvolvedOrganization;
 
+            _workflow.GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate =
+                _unitsOfWork.InvolvedorganizationsUoW.CouldInvolvedOrganizationUpdate;
+            _workflow.GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission =
+                _unitsOfWork.InvolvedorganizationsUoW.CouldInvolvedOrganizationUpdateAndLeave;
+            
+            _workflow.GuardClauseFromWaitComissionToOnComissionUsingTriggerComission =
+                _unitsOfWork.WaitComissionUoW.CouldComission;
 
 
             _workflow.GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed =
                 GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed;
-            _workflow.GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate =
-                GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate;
-            _workflow.GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission =
-                GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission;
+
 
             _workflow.GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix =
                 GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix;
@@ -418,10 +389,8 @@ namespace BusinessLogic.Wokflow
                 GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate;
             _workflow.GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate =
                 GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate;
-            _workflow.GuardClauseFromWaitComissionToOnComissionUsingTriggerComission =
-                GuardClauseFromWaitComissionToOnComissionUsingTriggerComission;
-            _workflow.GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization =
-                GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization;
+
+
 
             _workflow.GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate =
                 GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate;
@@ -437,17 +406,18 @@ namespace BusinessLogic.Wokflow
             _workflow.OnOnMapExit = _unitsOfWork.OnMapUoW.OnMapExit;
             _workflow.OnInvestorApproveExit = _unitsOfWork.InvestorApproveUoW.OnInvestorApproveExit;
             _workflow.OnDocumentSendingExit = _unitsOfWork.DocumentSendingUoW.OnDocumentSendingExit;
+            _workflow.OnWaitInvolvedExit = _unitsOfWork.WaitInvolvedUoW.OnWaitInvolvedExit;
+            _workflow.OnInvolvedOrganizationsExit = _unitsOfWork.InvolvedorganizationsUoW.OnInvolvedOrganizationsExit;
+            _workflow.OnWaitComissionExit = _unitsOfWork.WaitComissionUoW.OnWaitComissionExit;
+
 
             _workflow.OnDoneExit = OnDoneExit;
             _workflow.OnInMinEconomyExit = OnInMinEconomyExit;
-            _workflow.OnInvolvedOrganizationsExit = OnInvolvedOrganizationsExit;
             _workflow.OnOnComissionExit = OnOnComissionExit;
             _workflow.OnOnIspolcomExit = OnOnIspolcomExit;
             _workflow.OnPlanCreatingExit = OnPlanCreatingExit;
             _workflow.OnRealizationExit = OnRealizationExit;
-            _workflow.OnWaitComissionExit = OnWaitComissionExit;
             _workflow.OnWaitComissionFixesExit = OnWaitComissionFixesExit;
-            _workflow.OnWaitInvolvedExit = OnWaitInvolvedExit;
             _workflow.OnWaitIspolcomExit = OnWaitIspolcomExit;
             _workflow.OnWaitIspolcomFixesExit = OnWaitIspolcomFixesExit;
         }
@@ -458,17 +428,18 @@ namespace BusinessLogic.Wokflow
             _workflow.OnOnMapEntry = _unitsOfWork.OnMapUoW.OnMapEntry;
             _workflow.OnInvestorApproveEntry = _unitsOfWork.InvestorApproveUoW.OnInvestorApproveEntry;
             _workflow.OnDocumentSendingEntry = _unitsOfWork.DocumentSendingUoW.OnDocumentSendingEntry;
+            _workflow.OnWaitInvolvedEntry = _unitsOfWork.WaitInvolvedUoW.OnWaitInvolvedEntry;
+            _workflow.OnInvolvedOrganizationsEntry = _unitsOfWork.InvolvedorganizationsUoW.OnInvolvedOrganizationsEntry;
+            _workflow.OnWaitComissionEntry = _unitsOfWork.WaitComissionUoW.OnWaitComissionEntry;
+
 
             _workflow.OnDoneEntry = OnDoneEntry;
             _workflow.OnInMinEconomyEntry = OnInMinEconomyEntry;
-            _workflow.OnInvolvedOrganizationsEntry = OnInvolvedOrganizationsEntry;
             _workflow.OnOnComissionEntry = OnOnComissionEntry;
             _workflow.OnOnIspolcomEntry = OnOnIspolcomEntry;
             _workflow.OnPlanCreatingEntry = OnPlanCreatingEntry;
             _workflow.OnRealizationEntry = OnRealizationEntry;
-            _workflow.OnWaitComissionEntry = OnWaitComissionEntry;
             _workflow.OnWaitComissionFixesEntry = OnWaitComissionFixesEntry;
-            _workflow.OnWaitInvolvedEntry = OnWaitInvolvedEntry;
             _workflow.OnWaitIspolcomEntry = OnWaitIspolcomEntry;
             _workflow.OnWaitIspolcomFixesEntry = OnWaitIspolcomFixesEntry;
         }

@@ -218,3 +218,7 @@ D:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.dll
 D:\Develop\git\DiplomMap\Diplom\InvestPortal\obj\Debug\InvestPortal.pdb
 D:\Develop\git\DiplomMap\Diplom\InvestPortal\bin\InvestPortal.dll.config
 C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\InvestPortal.dll.config
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Invest.Tests.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Moq.dll
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Invest.Tests.pdb
+C:\Users\Andrei_Tserakhau\Documents\GitHub\DiplomMap\Diplom\InvestPortal\bin\Moq.xml

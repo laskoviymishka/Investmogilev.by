@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
+using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
@@ -22,6 +24,21 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
            userName,
            roles)
         {
+        }
+
+        public void OnWaitInvolvedExit()
+        {
+        }
+
+        public void OnWaitInvolvedEntry()
+        {
+            AdminNotification.WaitInvolved(CurrentProject);
+            ProcessMoving(ProjectWorkflow.State.WaitInvolved, "Заполнение заинтерисованных организаций");
+        }
+
+        public bool CouldFillInvolvedOrganization()
+        {
+            return CurrentProject.Tasks.Any(t => t.Type == TaskTypes.InvolvedOrganiztion);
         }
     }
 }

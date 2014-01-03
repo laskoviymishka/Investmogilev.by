@@ -97,12 +97,19 @@ namespace InvestPortal.Controllers
                 case ProjectWorkflow.Trigger.InvestorSelected:
                     return RedirectToAction("InvestorSelected", project);
                 case ProjectWorkflow.Trigger.DocumentUpdate:
-                    return RedirectToAction("DocumentUpdate", project);
+                    return View("DocumentUpdate",
+                        project.Tasks.Where(t => t.Step == ProjectWorkflow.State.DocumentSending));
                 case ProjectWorkflow.Trigger.FillInvolvedOrganization:
-                    return RedirectToAction("FillInvolvedOrganization", project);
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                        Roles.GetRolesForUser(User.Identity.Name)).FillInvolvedOrganization();
+                    return RedirectToAction("Project", "BaseProject", new { id = project._id });
                 case ProjectWorkflow.Trigger.InvolvedOrganizationUpdate:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                         Roles.GetRolesForUser(User.Identity.Name)).InvolvedOrganizationUpdate();
                     break;
                 case ProjectWorkflow.Trigger.ToComission:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                        Roles.GetRolesForUser(User.Identity.Name)).ToComission();
                     break;
                 case ProjectWorkflow.Trigger.Comission:
                     break;
@@ -134,7 +141,7 @@ namespace InvestPortal.Controllers
                     throw new ArgumentOutOfRangeException();
             }
 
-            return null;
+            return RedirectToAction("Project", "BaseProject", new { id = project._id });
         }
 
         #endregion
@@ -152,15 +159,7 @@ namespace InvestPortal.Controllers
             return View(project);
         }
 
-        public ActionResult DocumentUpdate(Project project)
-        {
-            return View(project);
-        }
 
-        public ActionResult FillInvolvedOrganization(Project project)
-        {
-            return View(project);
-        }
 
         public ActionResult SelectUser(string projectId, string responseId)
         {
@@ -173,8 +172,8 @@ namespace InvestPortal.Controllers
             var response = project.Responses.Find(r => r.ResponseId == responseId);
             response.IsVerified = true;
             RepositoryContext.Current.Update(project);
-            
-            return RedirectToAction("Project", "BaseProject", new {id = projectId});
+
+            return RedirectToAction("Project", "BaseProject", new { id = projectId });
         }
 
         public ActionResult AddDocumentTask(string projectId)
@@ -244,5 +243,77 @@ namespace InvestPortal.Controllers
         }
 
         #endregion
+
+        public ActionResult AddInvolvedOrganizations(string projectId)
+        {
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
+            if (project == null)
+            {
+                return HttpNotFound("проект не найден");
+            }
+
+            var model = new AddDocumentViewModel();
+            model.PorjectId = projectId;
+            model.Documents = new List<string>();
+
+            ViewBag.DocumentList = RepositoryContext.Current.All<TaskTemplate>(t => t.Type == TaskTypes.InvolvedOrganiztion).Select(template => template.Title).ToList();
+
+            if (project.Tasks != null)
+            {
+                foreach (var document in project.Tasks.Where(t => t.Type == TaskTypes.InvolvedOrganiztion))
+                {
+                    model.Documents.Add(document.Title);
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddInvolvedOrganizations(AddDocumentViewModel model)
+        {
+            ViewBag.DocumentList = RepositoryContext.Current.All<TaskTemplate>(t => t.Type == TaskTypes.InvolvedOrganiztion).Select(template => template.Title).ToList();
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.PorjectId);
+
+            var templates = RepositoryContext.Current.All<TaskTemplate>(t => model.Documents.Contains(t.Title));
+            var tasks = new List<ProjectTask>();
+
+            foreach (var template in templates)
+            {
+                tasks.Add(new ProjectTask
+                {
+                    _id = ObjectId.GenerateNewId().ToString(),
+                    ProjectId = model.PorjectId,
+                    Body = template.Body,
+                    Title = template.Title,
+                    Type = template.Type,
+                    Step = ProjectWorkflow.State.InvolvedOrganizations,
+                    CreationTime = DateTime.Now
+                });
+            }
+
+            if (project.Tasks == null)
+            {
+                project.Tasks = new List<ProjectTask>();
+            }
+            project.Tasks.RemoveAll(p => p.Type == TaskTypes.InvolvedOrganiztion);
+            project.Tasks.AddRange(tasks);
+
+            RepositoryContext.Current.Update(project);
+            ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).DocumentUpdate();
+            return RedirectToAction("Project", "BaseProject", new { id = model.PorjectId });
+        }
+
+
+        public ActionResult FillInvolvedOrganization(Project project)
+        {
+            return RedirectToAction("Project", "BaseProject", new { id = project._id });
+        }
     }
 }

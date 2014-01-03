@@ -2,6 +2,11 @@
 {
     public interface IWaitComissionUoW
     {
-         
+
+        void OnWaitComissionExit();
+
+        void OnWaitComissionEntry();
+
+        bool CouldComission();
     }
 }

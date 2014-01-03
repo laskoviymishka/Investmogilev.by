@@ -1,0 +1,23 @@
+﻿@using Invest.Common.Model.Project
+<div>
+    Необходимо выслать следующие документы
+    <ul>
+        @foreach (var task in Model.Tasks)
+        {
+            if (task.Type == TaskTypes.InvolvedOrganiztion)
+            {
+                <li>
+                    @task.Title - @if (task.TaskReport != null)
+                    {
+                        <p>готово</p>
+                    }
+                    else
+                    {
+                        <p>не готово</p>
+                    }
+                </li>
+            }
+
+        }
+    </ul>
+</div>
