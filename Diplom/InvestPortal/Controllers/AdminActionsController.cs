@@ -14,17 +14,19 @@ using MongoDB.Bson;
 namespace InvestPortal.Controllers
 {
     [Authorize]
-    public class ReportReviewController : Controller
+    public class AdminActionsController : Controller
     {
         private const string Filepath = "~/App_Data/ProjectInfo/{0}/Tasks/{1}/TaskReports/{2}/response/";
 
         public ActionResult Index()
         {
-            var projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
+            IQueryable<Project> projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
             var model = new List<ProjectTask>();
             foreach (Project project in projects)
             {
-                foreach (ProjectTask task in project.Tasks.Where(t => t.TaskReport != null || t.Type == TaskTypes.InvolvedOrganiztion))
+                foreach (
+                    ProjectTask task in
+                        project.Tasks.Where(t => t.TaskReport != null || t.Type == TaskTypes.InvolvedOrganiztion))
                 {
                     task.ProjectId = project._id;
                     model.Add(task);
@@ -35,11 +37,16 @@ namespace InvestPortal.Controllers
 
         public ActionResult UnVerified()
         {
-            var projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
+            IQueryable<Project> projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
             var model = new List<ProjectTask>();
             foreach (Project project in projects)
             {
-                foreach (ProjectTask task in project.Tasks.Where(t => t.TaskReport != null && t.TaskReport.Last().ReportResponse == null || t.Type == TaskTypes.InvolvedOrganiztion))
+                foreach (
+                    ProjectTask task in
+                        project.Tasks.Where(
+                            t =>
+                                t.TaskReport != null && t.TaskReport.Last().ReportResponse == null ||
+                                t.Type == TaskTypes.InvolvedOrganiztion))
                 {
                     task.ProjectId = project._id;
                     model.Add(task);
@@ -51,7 +58,7 @@ namespace InvestPortal.Controllers
         public ActionResult Details(string taskId, string projectId)
         {
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
-            var task = project.Tasks.Find(t => t._id == taskId);
+            ProjectTask task = project.Tasks.Find(t => t._id == taskId);
             return View(task);
         }
 
@@ -59,13 +66,13 @@ namespace InvestPortal.Controllers
         {
             return View(
                 new ReportResponse
-                    {
-                        TaskId = taskId,
-                        ProjectId = projectId,
-                        ReportId = reportId,
-                        ResponseTime = DateTime.Now,
-                        _id = ObjectId.GenerateNewId().ToString()
-                    });
+                {
+                    TaskId = taskId,
+                    ProjectId = projectId,
+                    ReportId = reportId,
+                    ResponseTime = DateTime.Now,
+                    _id = ObjectId.GenerateNewId().ToString()
+                });
         }
 
         [HttpPost]
@@ -78,13 +85,13 @@ namespace InvestPortal.Controllers
             }
 
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.ProjectId);
-            var task = project.Tasks.Find(t => t._id == model.TaskId);
+            ProjectTask task = project.Tasks.Find(t => t._id == model.TaskId);
             if (task.TaskReport == null || !task.TaskReport.Any())
             {
                 task.TaskReport = new List<Report>();
             }
 
-            var report = task.TaskReport.Find(t => t._id == model.ReportId);
+            Report report = task.TaskReport.Find(t => t._id == model.ReportId);
 
             if (report.ReportResponse == null)
             {
@@ -101,7 +108,6 @@ namespace InvestPortal.Controllers
             {
                 task.IsComplete = true;
                 task.CompleteTime = DateTime.Now;
-
             }
 
             RepositoryContext.Current.Update(project);
@@ -110,22 +116,22 @@ namespace InvestPortal.Controllers
                 project,
                 User.Identity.Name,
                 Roles.GetRolesForUser(User.Identity.Name))
-                    .DocumentUpdate();
+                .DocumentUpdate();
 
             return RedirectToAction("Index");
         }
 
-
-        public ActionResult Save(string taskId, string reportId, string reposponseId, string projectId, IEnumerable<HttpPostedFileBase> attachments)
+        public ActionResult Save(string taskId, string reportId, string reposponseId, string projectId,
+            IEnumerable<HttpPostedFileBase> attachments)
         {
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
-            var task = project.Tasks.Find(t => t._id == taskId);
+            ProjectTask task = project.Tasks.Find(t => t._id == taskId);
             if (task.TaskReport == null || !task.TaskReport.Any())
             {
                 task.TaskReport = new List<Report>();
             }
 
-            var report = task.TaskReport.Find(t => t._id == reportId);
+            Report report = task.TaskReport.Find(t => t._id == reportId);
 
             if (report.ReportResponse == null)
             {
@@ -140,32 +146,34 @@ namespace InvestPortal.Controllers
             }
 
 
-            foreach (var file in attachments)
+            foreach (HttpPostedFileBase file in attachments)
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var physicalPath = Path.Combine(
+                string fileName = Path.GetFileName(file.FileName);
+                string physicalPath = Path.Combine(
                     Server.MapPath(string.Format(Filepath, project.Name, task.Title, DateTime.Now.ToShortDateString())),
                     fileName);
 
                 if (!Directory.Exists(
-                            Server.MapPath(
-                                string.Format(
-                                Filepath,
-                                project.Name,
-                                task.Title,
-                                DateTime.Now.ToShortDateString()))))
+                    Server.MapPath(
+                        string.Format(
+                            Filepath,
+                            project.Name,
+                            task.Title,
+                            DateTime.Now.ToShortDateString()))))
                 {
-                    Directory.CreateDirectory(Server.MapPath(string.Format(Filepath, project.Name, task.Title, DateTime.Now.ToShortDateString())));
+                    Directory.CreateDirectory(
+                        Server.MapPath(string.Format(Filepath, project.Name, task.Title,
+                            DateTime.Now.ToShortDateString())));
                 }
 
                 file.SaveAs(physicalPath);
                 report.ReportResponse.Info.Add(
                     new DocumentAdditionalInfo
-                        {
-                            FilePath = physicalPath,
-                            InfoName = fileName,
-                            _id = ObjectId.GenerateNewId().ToString()
-                        });
+                    {
+                        FilePath = physicalPath,
+                        InfoName = fileName,
+                        _id = ObjectId.GenerateNewId().ToString()
+                    });
             }
 
             RepositoryContext.Current.Update(project);
@@ -199,19 +207,19 @@ namespace InvestPortal.Controllers
             if (!ModelState.IsValid) return View(model);
 
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.ProjectId);
-            var task = project.Tasks.Find(t => t._id == model.TaskId);
+            ProjectTask task = project.Tasks.Find(t => t._id == model.TaskId);
             if (task.TaskReport == null)
             {
                 task.TaskReport = new List<Report>();
             }
 
             var report = new Report
-                {
-                    _id = ObjectId.GenerateNewId().ToString(),
-                    ReportTime = DateTime.Now,
-                    Body = model.Body,
-                    ReportResponse = model
-                };
+            {
+                _id = ObjectId.GenerateNewId().ToString(),
+                ReportTime = DateTime.Now,
+                Body = model.Body,
+                ReportResponse = model
+            };
 
             task.TaskReport.Add(report);
             task.IsComplete = model.IsApproved;
@@ -228,7 +236,7 @@ namespace InvestPortal.Controllers
                     Roles.GetRolesForUser(User.Identity.Name)).ToComission();
             }
 
-            return RedirectToAction("Project", "BaseProject", new { id = project._id });
+            return RedirectToAction("Project", "BaseProject", new {id = project._id});
         }
 
         public ActionResult CreateComission()

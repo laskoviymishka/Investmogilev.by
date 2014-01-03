@@ -12,7 +12,7 @@ using MongoDB.Bson;
 namespace InvestPortal.Controllers
 {
     [Authorize(Roles = "Investor")]
-    public class ReportController : Controller
+    public class InvestorActionsController : Controller
     {
         private const string Filepath = "~/App_Data/ProjectInfo/{0}/Tasks/{1}/TaskReports/{2}";
 

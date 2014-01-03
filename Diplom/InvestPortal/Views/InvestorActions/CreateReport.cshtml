@@ -34,7 +34,7 @@
             Приложения
         </small>
         <div style="margin:10px">
-            @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async.Save("Save", "Report", new { taskId = Model.TaskId, reportId = Model._id }).Remove("Remove", "Report", new { taskId = Model.TaskId, reportId = Model._id }).AutoUpload(false)).Localizable("ru-RU")
+            @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async.Save("Save", "InvestorActions", new { taskId = Model.TaskId, reportId = Model._id }).Remove("Remove", "InvestorActions", new { taskId = Model.TaskId, reportId = Model._id }).AutoUpload(false)).Localizable("ru-RU")
         </div>
         <p>
             <input type="submit" value="Отправить" />

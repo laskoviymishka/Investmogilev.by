@@ -381,8 +381,8 @@
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\ReportReviewController.cs" />
+    <Compile Include="Controllers\InvestorActionsController.cs" />
+    <Compile Include="Controllers\AdminActionsController.cs" />
     <Compile Include="Controllers\StateActionsController.cs" />
     <Compile Include="Controllers\TaskTemplateController.cs" />
     <Compile Include="Controllers\UserManagerController.cs" />
@@ -1132,18 +1132,18 @@
     <Content Include="Views\Notes\Create.cshtml" />
     <Content Include="Views\Notes\Details.cshtml" />
     <Content Include="Views\Notes\Edit.cshtml" />
-    <Content Include="Views\Report\Index.cshtml" />
-    <Content Include="Views\Report\CreateReport.cshtml" />
-    <Content Include="Views\Report\Details.cshtml" />
-    <Content Include="Views\ReportReview\Index.cshtml" />
-    <Content Include="Views\ReportReview\ReviewReport.cshtml" />
+    <Content Include="Views\InvestorActions\Index.cshtml" />
+    <Content Include="Views\InvestorActions\CreateReport.cshtml" />
+    <Content Include="Views\InvestorActions\Details.cshtml" />
+    <Content Include="Views\AdminActions\Index.cshtml" />
+    <Content Include="Views\AdminActions\ReviewReport.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
     <Content Include="Views\Notification\All.cshtml" />
     <Content Include="Views\BaseProject\FillProject.cshtml" />
     <Content Include="Views\Notes\All.cshtml" />
-    <Content Include="Views\ReportReview\Details.cshtml" />
-    <Content Include="Views\Report\UnComplete.cshtml" />
-    <Content Include="Views\ReportReview\UnVerified.cshtml" />
+    <Content Include="Views\AdminActions\Details.cshtml" />
+    <Content Include="Views\InvestorActions\UnComplete.cshtml" />
+    <Content Include="Views\AdminActions\UnVerified.cshtml" />
     <Content Include="Views\BaseProject\ProjectInfo.cshtml" />
     <Content Include="Views\InvestProjects\PopUpDetailsBrownField.cshtml" />
     <Content Include="Views\InvestProjects\PopUpDetailsGreenField.cshtml" />
@@ -1190,7 +1190,7 @@
     <Content Include="Views\TaskTemplate\Create.cshtml" />
     <Content Include="Views\TaskTemplate\Edit.cshtml" />
     <Content Include="Views\WorkflowActions\AddInvolvedOrganizations.cshtml" />
-    <Content Include="Views\ReportReview\InvolvedReport.cshtml" />
+    <Content Include="Views\AdminActions\InvolvedReport.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

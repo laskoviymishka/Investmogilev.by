@@ -32,10 +32,10 @@
         </div>
         <div style="margin:10px">
             @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
-                .Save("Save", "ReportReview", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
-                .Remove("Remove", "ReportReview", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
-            .AutoUpload(false)
-        ).Localizable("ru-RU")
+                .Save("Save", "AdminActions", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
+                .Remove("Remove", "AdminActions", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
+                .AutoUpload(false)
+                ).Localizable("ru-RU")
         </div>
         <p>
             <input type="submit" value="Отправить" />

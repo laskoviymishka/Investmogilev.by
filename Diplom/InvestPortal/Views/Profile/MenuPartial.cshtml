@@ -16,13 +16,13 @@
         <li class="menu-title">Отчеты</li>
         @if (User.IsInRole("Investor"))
         {
-            <li><a href="/Report/">Все отчеты</a></li>
-            <li><a href="/Report/UnComplete">Задачи требующие отчета</a></li>
+            <li><a href="/InvestorActions/">Все отчеты</a></li>
+            <li><a href="/InvestorActions/UnComplete">Задачи требующие отчета</a></li>
         }
         else
         {
-            <li><a href="/ReportReview/">Все отчеты</a></li>
-            <li><a href="/ReportReview/UnVerified">Новые отчеты</a></li>
+            <li><a href="/AdminActions/">Все отчеты</a></li>
+            <li><a href="/AdminActions/UnVerified">Новые отчеты</a></li>
         }
         <li class="menu-title">Уведомления</li>
         <li><a href="/Notification/">Все уведомления</a></li>
@@ -30,16 +30,18 @@
         <li><a href="/Message/">Все сообщения</a></li>
         <li><a href="/Message/Unreaded">Непрочитанные сообщения </a></li>
         <li><a href="/Message/UnreadedSent">Отправленные непрочитанные сообщения</a></li>
-        <li class="menu-title">Задачи</li>
-        <li><a href="/TaskTemplate">Шаблоны задач</a></li>
-        <li><a href="/Task/ActiveTask/">@string.Format("Активно {0}, просроченно {1}", "", "")</a></li>
-        <li><a href="/Task/CompleteTask/">@string.Format("Выполнено {0}, просроченно {1}", "", "")</a></li>
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="menu-title">Задачи</li>
+            <li><a href="/TaskTemplate">Шаблоны задач</a></li>
+            <li><a href="/Task/ActiveTask/">@string.Format("Активно {0}, просроченно {1}", "", "")</a></li>
+            <li><a href="/Task/CompleteTask/">@string.Format("Выполнено {0}, просроченно {1}", "", "")</a></li>
+        }
         <li class="menu-title">Пометки</li>
         <li><a href="/Notes/All">Мои пометки</a></li>
     </ul>
 }
 else
 {
-    <ul class="dropdown-menu open keep-open" style="position: relative; z-index: 1">
-    </ul>
+    <ul class="dropdown-menu open keep-open" style="position: relative; z-index: 1"></ul>
 }

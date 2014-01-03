@@ -4,5 +4,5 @@
 
 @if (User.IsInRole("Admin"))
 {
-    @Html.ActionLink("Созвать комиссию","CreateComission","ReportReview",null, new {@class = "button success"})
+    @Html.ActionLink("Созвать комиссию","CreateComission","AdminActions",null, new {@class = "button success"})
 }
