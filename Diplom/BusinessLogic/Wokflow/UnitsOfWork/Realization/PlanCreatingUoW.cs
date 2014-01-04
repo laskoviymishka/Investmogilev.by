@@ -23,5 +23,25 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
            roles)
         {
         }
+
+        public void OnPlanCreatingExit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnPlanCreatingEntry()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CouldUpdatePlan()
+        {
+            return true;
+        }
+
+        public bool CouldApprovePlan()
+        {
+            return true;
+        }
     }
 }

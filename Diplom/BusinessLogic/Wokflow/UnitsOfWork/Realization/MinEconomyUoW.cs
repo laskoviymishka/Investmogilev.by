@@ -23,5 +23,20 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
            roles)
         {
         }
+
+         public void OnInMinEconomyExit()
+         {
+             throw new System.NotImplementedException();
+         }
+
+         public void OnInMinEconomyEntry()
+         {
+             throw new System.NotImplementedException();
+         }
+
+         public bool CouldMinEconomyResponsed()
+         {
+             return true;
+         }
     }
 }

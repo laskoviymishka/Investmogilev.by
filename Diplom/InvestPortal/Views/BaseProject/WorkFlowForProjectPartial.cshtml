@@ -1,4 +1,2 @@
-﻿@using BusinessLogic.Managers
-@using Invest.Common.State
-@model Invest.Common.Model.Project.Project
-
+﻿@model Invest.Common.Model.Project.Project
+@{Html.RenderAction("StatusInfo", "WorkflowActions", new { id = Model._id });}

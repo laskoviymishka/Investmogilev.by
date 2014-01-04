@@ -23,5 +23,15 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
            roles)
         {
         }
+
+        public void OnDoneExit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnDoneEntry()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

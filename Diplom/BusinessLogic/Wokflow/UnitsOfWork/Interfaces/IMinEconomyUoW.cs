@@ -2,6 +2,11 @@
 {
     public interface IMinEconomyUoW
     {
-         
+
+        void OnInMinEconomyExit();
+
+        void OnInMinEconomyEntry();
+
+        bool CouldMinEconomyResponsed();
     }
 }

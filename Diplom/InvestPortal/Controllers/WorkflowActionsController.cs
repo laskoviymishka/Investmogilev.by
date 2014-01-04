@@ -30,43 +30,7 @@ namespace InvestPortal.Controllers
                 Roles.GetRolesForUser(User.Identity.Name))
                 .GetAvaibleTriggers();
 
-            switch (project.WorkflowState.CurrentState)
-            {
-                case ProjectWorkflow.State.Open:
-                    return PartialView("Open", project);
-                case ProjectWorkflow.State.OnMap:
-                    return PartialView("OnMap", project);
-                case ProjectWorkflow.State.InvestorApprove:
-                    return PartialView("InvestorApprove", project);
-                case ProjectWorkflow.State.DocumentSending:
-                    return PartialView("DocumentSending", project);
-                case ProjectWorkflow.State.WaitInvolved:
-                    return PartialView("WaitInvolved", project);
-                case ProjectWorkflow.State.InvolvedOrganizations:
-                    return PartialView("InvolvedOrganizations", project);
-                case ProjectWorkflow.State.WaitComission:
-                    return PartialView("WaitComission", project);
-                case ProjectWorkflow.State.OnComission:
-                    return PartialView("OnComission", project);
-                case ProjectWorkflow.State.WaitComissionFixes:
-                    return PartialView("WaitComissionFixes", project);
-                case ProjectWorkflow.State.WaitIspolcom:
-                    return PartialView("WaitIspolcom", project);
-                case ProjectWorkflow.State.OnIspolcom:
-                    return PartialView("OnIspolcom", project);
-                case ProjectWorkflow.State.WaitIspolcomFixes:
-                    return PartialView("WaitIspolcomFixes", project);
-                case ProjectWorkflow.State.InMinEconomy:
-                    return PartialView("InMinEconomy", project);
-                case ProjectWorkflow.State.PlanCreating:
-                    return PartialView("PlanCreating", project);
-                case ProjectWorkflow.State.Realization:
-                    return PartialView("Realization", project);
-                case ProjectWorkflow.State.Done:
-                    return PartialView("Done", project);
-                default:
-                    return HttpNotFound("не известное состояние проекта");
-            }
+            return PartialView(project.WorkflowState.CurrentState.ToString(), project);
         }
 
         public ActionResult Triggers(string projectId, string trigger)

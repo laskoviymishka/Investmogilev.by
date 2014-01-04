@@ -23,5 +23,20 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
            roles)
         {
         }
+
+        public void OnWaitIspolcomExit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnWaitIspolcomEntry()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CouldToIspolcom()
+        {
+            return true;
+        }
     }
 }

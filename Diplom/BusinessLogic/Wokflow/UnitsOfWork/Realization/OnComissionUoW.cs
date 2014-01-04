@@ -40,5 +40,25 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             AdminNotification.Comission(comission, CurrentProject);
             ProcessMoving(ProjectWorkflow.State.OnComission, "Проект ожидает комиссию");
         }
+
+        public void OnOnComissionExit()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnOnComissionEntry()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CouldComissionFix()
+        {
+            return true;
+        }
+
+        public bool CouldToIspolcom()
+        {
+            return true;
+        }
     }
 }

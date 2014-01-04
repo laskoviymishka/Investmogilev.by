@@ -64,258 +64,6 @@ namespace BusinessLogic.Wokflow
 
         #endregion
 
-        #region Binding Methods
-
-        #region Guards
-
-        private bool GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromWaitComissionToOnComissionUsingTriggerComission()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        private bool GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region Entry Methods
-
-        private void OnWaitIspolcomFixesEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnWaitIspolcomEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        private void OnWaitComissionFixesEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnWaitComissionEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnRealizationEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnPlanCreatingEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        private void OnOnIspolcomEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnOnComissionEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnInMinEconomyEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnDoneEntry()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region Exit Methods
-
-        private void OnWaitIspolcomFixesExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnWaitIspolcomExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnWaitInvolvedExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnWaitComissionFixesExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnWaitComissionExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnRealizationExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnPlanCreatingExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnOpenExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnOnMapExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnOnIspolcomExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnOnComissionExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnInvolvedOrganizationsExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnInvestorAproveExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnInvestorApproveExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnDocumentSendingExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnInMinEconomyExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnDoneExit()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
         #region Binding
 
         private void BindGuardMethods()
@@ -356,48 +104,46 @@ namespace BusinessLogic.Wokflow
                 _unitsOfWork.InvolvedorganizationsUoW.CouldInvolvedOrganizationUpdate;
             _workflow.GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission =
                 _unitsOfWork.InvolvedorganizationsUoW.CouldInvolvedOrganizationUpdateAndLeave;
-            
+
             _workflow.GuardClauseFromWaitComissionToOnComissionUsingTriggerComission =
                 _unitsOfWork.WaitComissionUoW.CouldComission;
 
-
+            //Not Implemented
             _workflow.GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed =
-                GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed;
-
+                _unitsOfWork.MinEconomyUoW.CouldMinEconomyResponsed;
 
             _workflow.GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix =
-                GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix;
+                _unitsOfWork.OnComissionUoW.CouldComissionFix;
             _workflow.GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom =
-                GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom;
+                _unitsOfWork.OnComissionUoW.CouldToIspolcom;
+
             _workflow.GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy =
-                GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy;
-
+                _unitsOfWork.OnIspolcomUoW.CouldToMinEconomy;
             _workflow.GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix =
-                GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix;
-
+                _unitsOfWork.OnIspolcomUoW.CouldToIspolcomFix;
 
             _workflow.GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan =
-                GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan;
+                _unitsOfWork.PlanCreatingUoW.CouldUpdatePlan;
             _workflow.GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan =
-                GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan;
+                _unitsOfWork.PlanCreatingUoW.CouldApprovePlan;
+
             _workflow.GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization =
-                GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization;
+                _unitsOfWork.RealizationUoW.CouldUpdateRealization;
             _workflow.GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization =
-                GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization;
+                _unitsOfWork.RealizationUoW.CouldUpdateRealizationAndLeave;
 
             _workflow.GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate =
-                GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate;
+                _unitsOfWork.ComissionFixesUoW.CouldUpdateComissionFix;
             _workflow.GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate =
-                GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate;
-
-
+                _unitsOfWork.ComissionFixesUoW.CouldUpdateComissionFixAndLeave;
 
             _workflow.GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate =
-                GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate;
+                _unitsOfWork.IspolcomFixesUoW.CouldIspolcomFixUpdate;
             _workflow.GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate =
-                GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate;
+                _unitsOfWork.IspolcomFixesUoW.CouldIspolcomFixUpdateAndLeave;
+
             _workflow.GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom =
-                GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom;
+                _unitsOfWork.WaitIspolcomUoW.CouldToIspolcom;
         }
 
         private void BindExitMethods()
@@ -410,16 +156,16 @@ namespace BusinessLogic.Wokflow
             _workflow.OnInvolvedOrganizationsExit = _unitsOfWork.InvolvedorganizationsUoW.OnInvolvedOrganizationsExit;
             _workflow.OnWaitComissionExit = _unitsOfWork.WaitComissionUoW.OnWaitComissionExit;
 
-
-            _workflow.OnDoneExit = OnDoneExit;
-            _workflow.OnInMinEconomyExit = OnInMinEconomyExit;
-            _workflow.OnOnComissionExit = OnOnComissionExit;
-            _workflow.OnOnIspolcomExit = OnOnIspolcomExit;
-            _workflow.OnPlanCreatingExit = OnPlanCreatingExit;
-            _workflow.OnRealizationExit = OnRealizationExit;
-            _workflow.OnWaitComissionFixesExit = OnWaitComissionFixesExit;
-            _workflow.OnWaitIspolcomExit = OnWaitIspolcomExit;
-            _workflow.OnWaitIspolcomFixesExit = OnWaitIspolcomFixesExit;
+            //Not implemented
+            _workflow.OnOnComissionExit = _unitsOfWork.OnComissionUoW.OnOnComissionExit;
+            _workflow.OnWaitComissionFixesExit = _unitsOfWork.ComissionFixesUoW.OnWaitComissionFixesExit;
+            _workflow.OnWaitIspolcomExit = _unitsOfWork.WaitIspolcomUoW.OnWaitIspolcomExit;
+            _workflow.OnOnIspolcomExit = _unitsOfWork.OnIspolcomUoW.OnOnIspolcomExit;
+            _workflow.OnWaitIspolcomFixesExit =_unitsOfWork.IspolcomFixesUoW.OnWaitIspolcomFixesExit;
+            _workflow.OnInMinEconomyExit =_unitsOfWork.MinEconomyUoW.OnInMinEconomyExit;
+            _workflow.OnPlanCreatingExit =_unitsOfWork.PlanCreatingUoW.OnPlanCreatingExit;
+            _workflow.OnRealizationExit =_unitsOfWork.RealizationUoW.OnRealizationExit;
+            _workflow.OnDoneExit =_unitsOfWork.DoneUoW.OnDoneExit;
         }
 
         private void BindEntryMethods()
@@ -432,23 +178,17 @@ namespace BusinessLogic.Wokflow
             _workflow.OnInvolvedOrganizationsEntry = _unitsOfWork.InvolvedorganizationsUoW.OnInvolvedOrganizationsEntry;
             _workflow.OnWaitComissionEntry = _unitsOfWork.WaitComissionUoW.OnWaitComissionEntry;
 
-
-            _workflow.OnDoneEntry = OnDoneEntry;
-            _workflow.OnInMinEconomyEntry = OnInMinEconomyEntry;
-            _workflow.OnOnComissionEntry = OnOnComissionEntry;
-            _workflow.OnOnIspolcomEntry = OnOnIspolcomEntry;
-            _workflow.OnPlanCreatingEntry = OnPlanCreatingEntry;
-            _workflow.OnRealizationEntry = OnRealizationEntry;
-            _workflow.OnWaitComissionFixesEntry = OnWaitComissionFixesEntry;
-            _workflow.OnWaitIspolcomEntry = OnWaitIspolcomEntry;
-            _workflow.OnWaitIspolcomFixesEntry = OnWaitIspolcomFixesEntry;
+            //Not Implemnted
+            _workflow.OnOnComissionEntry = _unitsOfWork.OnComissionUoW.OnOnComissionEntry;
+            _workflow.OnWaitComissionFixesEntry = _unitsOfWork.ComissionFixesUoW.OnWaitComissionFixesEntry;
+            _workflow.OnWaitIspolcomEntry = _unitsOfWork.WaitIspolcomUoW.OnWaitIspolcomEntry;
+            _workflow.OnOnIspolcomEntry = _unitsOfWork.OnIspolcomUoW.OnOnIspolcomEntry;
+            _workflow.OnWaitIspolcomFixesEntry = _unitsOfWork.IspolcomFixesUoW.OnWaitIspolcomFixesEntry;
+            _workflow.OnInMinEconomyEntry = _unitsOfWork.MinEconomyUoW.OnInMinEconomyEntry;
+            _workflow.OnPlanCreatingEntry = _unitsOfWork.PlanCreatingUoW.OnPlanCreatingEntry;
+            _workflow.OnRealizationEntry = _unitsOfWork.RealizationUoW.OnRealizationEntry;
+            _workflow.OnDoneEntry = _unitsOfWork.DoneUoW.OnDoneEntry;
         }
-
-        #endregion
-
-        #endregion
-
-        #region Private Helpers
 
         #endregion
     }

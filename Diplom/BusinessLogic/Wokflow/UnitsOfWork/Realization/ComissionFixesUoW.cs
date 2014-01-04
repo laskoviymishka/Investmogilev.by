@@ -23,5 +23,25 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
            roles)
         {
         }
+
+        public void OnWaitComissionFixesExit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnWaitComissionFixesEntry()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CouldUpdateComissionFix()
+        {
+            return true;
+        }
+
+        public bool CouldUpdateComissionFixAndLeave()
+        {
+            return true;
+        }
     }
 }

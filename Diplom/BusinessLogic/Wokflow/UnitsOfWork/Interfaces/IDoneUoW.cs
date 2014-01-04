@@ -2,6 +2,9 @@
 {
     public interface IDoneUoW
     {
-         
+
+        void OnDoneExit();
+
+        void OnDoneEntry();
     }
 }

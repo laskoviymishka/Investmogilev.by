@@ -1,13 +1,8 @@
-﻿@using Invest.Common.State
-@model IEnumerable<Invest.Common.Model.Project.Project>
+﻿@model IEnumerable<Invest.Common.Model.Project.Project>
 @{
     ViewBag.Title = "Мои проекты";
 }
 <h2>Мои проекты</h2>
-<div class="balloon top" style="width:500px">
-    <p style="margin:20px">Информация о всех проектах за которые вы ответственны</p>
-    <p style="margin:20px">Наведите указатель для информации о текущей стадии проекта.</p>
-</div>
 <div class="accordion" data-role="accordion">
     @foreach (var project in Model.OrderBy(t => (int)(t.WorkflowState.CurrentState)).Reverse())
     {

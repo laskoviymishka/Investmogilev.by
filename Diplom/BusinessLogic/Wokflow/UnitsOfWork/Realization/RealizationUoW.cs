@@ -23,5 +23,25 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
            roles)
         {
         }
+
+        public void OnRealizationExit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnRealizationEntry()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CouldUpdateRealization()
+        {
+            return true;
+        }
+
+        public bool CouldUpdateRealizationAndLeave()
+        {
+            return true;
+        }
     }
 }
