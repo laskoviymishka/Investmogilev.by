@@ -27,8 +27,22 @@ namespace InvestPortal.Controllers
 
         #endregion
 
-        #region Create Project
+        #region All project
 
+        public ActionResult Index()
+        {
+            return View(AllProjectForUser);
+        }
+
+        public ActionResult All()
+        {
+            BindUsersAndRegions();
+            return View(RepositoryContext.Current.All<Project>());
+        }
+
+        #endregion
+
+        #region Create Project
 
         public ActionResult CreateGreenFieldProject()
         {
@@ -41,8 +55,9 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                ProjectStateManager.StateManagerFactory(model, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
-                return RedirectToAction("Project", "BaseProject", new { id = model._id });
+                ProjectStateManager.StateManagerFactory(model, User.Identity.Name,
+                    Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
+                return RedirectToAction("Project", "BaseProject", new {id = model._id});
             }
 
             return View(model);
@@ -59,8 +74,9 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                ProjectStateManager.StateManagerFactory(model, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
-                return RedirectToAction("Project", "BaseProject", new { id = model._id });
+                ProjectStateManager.StateManagerFactory(model, User.Identity.Name,
+                    Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
+                return RedirectToAction("Project", "BaseProject", new {id = model._id});
             }
 
             return View(model);
@@ -73,11 +89,11 @@ namespace InvestPortal.Controllers
 
         #endregion
 
-        #region Fill Project
+        #region Update Project
 
         public ActionResult GreenFieldProject(string id)
         {
-            ViewBag.Tags = new List<string>() { "test", "test2", "test3" };
+            ViewBag.Tags = new List<string> {"test", "test2", "test3"};
             return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as GreenField);
         }
 
@@ -92,11 +108,12 @@ namespace InvestPortal.Controllers
                 initial.Description = model.Description;
                 initial.AddressName = model.AddressName;
                 initial.Region = model.Region;
-                initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+                initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
                 initial.Tags = model.Tags;
 
-                ProjectStateManager.StateManagerFactory(initial, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-                return RedirectToAction("Project", "BaseProject", new { id = model._id });
+                ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
+                    Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
+                return RedirectToAction("Project", "BaseProject", new {id = model._id});
             }
 
             return View(model);
@@ -118,14 +135,15 @@ namespace InvestPortal.Controllers
                 initial.Description = model.Description;
                 initial.AddressName = model.AddressName;
                 initial.Region = model.Region;
-                initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+                initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
                 initial.Area = model.Area;
                 initial.BalancePrice = model.BalancePrice;
                 initial.IsCommunicate = model.IsCommunicate;
                 initial.IsSell = model.IsSell;
 
-                ProjectStateManager.StateManagerFactory(initial, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-                return RedirectToAction("Project", "BaseProject", new { id = model._id });
+                ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
+                    Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
+                return RedirectToAction("Project", "BaseProject", new {id = model._id});
             }
 
             return View(model);
@@ -147,10 +165,11 @@ namespace InvestPortal.Controllers
                 initial.Description = model.Description;
                 initial.AddressName = model.AddressName;
                 initial.Region = model.Region;
-                initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+                initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
 
-                ProjectStateManager.StateManagerFactory(initial, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-                return RedirectToAction("Project", "BaseProject", new { id = model._id });
+                ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
+                    Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
+                return RedirectToAction("Project", "BaseProject", new {id = model._id});
             }
 
             return View(model);
@@ -163,12 +182,7 @@ namespace InvestPortal.Controllers
 
         #endregion
 
-        #region Base project workflow for user
-
-        public ActionResult Index()
-        {
-            return View(AllProjectForUser);
-        }
+        #region Workflow
 
         public ActionResult WorkFlowForProject(string id)
         {
@@ -179,60 +193,6 @@ namespace InvestPortal.Controllers
         {
             return PartialView(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));
         }
-
-        public ActionResult ProjectInfo(string id)
-        {
-            return View(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));
-        }
-
-        #endregion
-
-
-        #region All project
-
-        public ActionResult All()
-        {
-            BindUsersAndRegions();
-            return View(RepositoryContext.Current.All<Project>());
-        }
-
-        #endregion
-
-        #region Main Actions
-
-        public ActionResult VerifyResponse()
-        {
-            return View(InvestorResponses);
-        }
-
-        public ActionResult ToProject(string id)
-        {
-            var responsedProject = RepositoryContext.Current.All<Project>(p => p.Responses != null);
-            foreach (Project project in responsedProject)
-            {
-                var investorResponse = project.Responses.FirstOrDefault(p => p.ProjectId == id);
-                if (investorResponse != null)
-                {
-                    return RedirectToAction("Project", "BaseProject", new { @id = project._id });
-                }
-            }
-            return HttpNotFound();
-        }
-
-
-        #region Helper Model Class
-
-        public class NestedUserViewModel
-        {
-            public string Name { get; set; }
-        }
-
-        public class NestedRegionViewModel
-        {
-            public string RegionName { get; set; }
-        }
-
-        #endregion
 
         #endregion
 
@@ -255,10 +215,10 @@ namespace InvestPortal.Controllers
         {
             get
             {
-                var responsedProject =
+                IQueryable<Project> responsedProject =
                     RepositoryContext.Current.All<Project>();
                 var model = new List<InvestorResponse>();
-                foreach (var project in responsedProject)
+                foreach (Project project in responsedProject)
                 {
                     model.AddRange(project.Responses);
                 }
@@ -271,8 +231,18 @@ namespace InvestPortal.Controllers
             ViewBag.Users = new List<NestedUserViewModel>();
             foreach (Users mongoUser in _mongoRepository.All<Users>())
             {
-                ViewBag.Users.Add(new NestedUserViewModel() { Name = mongoUser.Username });
+                ViewBag.Users.Add(new NestedUserViewModel {Name = mongoUser.Username});
             }
+        }
+
+        public class NestedRegionViewModel
+        {
+            public string RegionName { get; set; }
+        }
+
+        public class NestedUserViewModel
+        {
+            public string Name { get; set; }
         }
 
         #endregion

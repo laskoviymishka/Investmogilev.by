@@ -20,12 +20,13 @@ namespace InvestPortal.Controllers
             var model = new List<ProjectNotes>();
             foreach (var project in RepositoryContext.Current.All<Project>())
             {
-                model.AddRange(RepositoryContext.Current.All<ProjectNotes>(n => project != null && n.ProjectId == project._id));
+                model.AddRange(
+                    RepositoryContext.Current.All<ProjectNotes>(n => project != null && n.ProjectId == project._id));
             }
 
             model.AddRange(RepositoryContext.Current.All<ProjectNotes>(n => n.CretorName == User.Identity.Name));
 
-            foreach (var role in Roles.GetRolesForUser(User.Identity.Name))
+            foreach (string role in Roles.GetRolesForUser(User.Identity.Name))
             {
                 model.AddRange(
                     RepositoryContext.Current.All<ProjectNotes>(
@@ -45,12 +46,12 @@ namespace InvestPortal.Controllers
         public ActionResult Create(string id)
         {
             var note = new ProjectNotes
-                {
-                    ProjectId = id,
-                    CretorName = User.Identity.Name,
-                    _id = ObjectId.GenerateNewId().ToString(),
-                    CreatedTime = DateTime.Now
-                };
+            {
+                ProjectId = id,
+                CretorName = User.Identity.Name,
+                _id = ObjectId.GenerateNewId().ToString(),
+                CreatedTime = DateTime.Now
+            };
             RepositoryContext.Current.Add(note);
             return View(note);
         }
@@ -61,7 +62,8 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.NoteDocument = RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == model._id).NoteDocument;
+                model.NoteDocument =
+                    RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == model._id).NoteDocument;
                 RepositoryContext.Current.Update(model);
                 return RedirectToAction("All");
             }
@@ -80,7 +82,8 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.NoteDocument = RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == model._id).NoteDocument;
+                model.NoteDocument =
+                    RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == model._id).NoteDocument;
                 RepositoryContext.Current.Update(model);
                 return RedirectToAction("All");
             }
@@ -115,7 +118,7 @@ namespace InvestPortal.Controllers
             }
 
 
-            foreach (var file in attachments)
+            foreach (HttpPostedFileBase file in attachments)
             {
                 string fileName = Path.GetFileName(file.FileName);
                 string physicalPath = Path.Combine(
@@ -123,9 +126,10 @@ namespace InvestPortal.Controllers
                     fileName);
 
                 if (!Directory.Exists(
-                        Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name))))
+                    Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name))))
                 {
-                    Directory.CreateDirectory(Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name)));
+                    Directory.CreateDirectory(
+                        Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name)));
                 }
 
                 file.SaveAs(physicalPath);

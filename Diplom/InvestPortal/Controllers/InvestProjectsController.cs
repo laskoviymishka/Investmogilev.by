@@ -4,7 +4,6 @@ using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
-using Invest.Common.State;
 using Newtonsoft.Json;
 
 namespace InvestPortal.Controllers
@@ -14,7 +13,7 @@ namespace InvestPortal.Controllers
     {
         #region Nested class
 
-        class LatLng
+        private class LatLng
         {
             public double? Lat { get; set; }
             public double? Lng { get; set; }
@@ -76,11 +75,11 @@ namespace InvestPortal.Controllers
         private IList<LatLng> GenerateGeoJsonData(IEnumerable<Project> projects)
         {
             IList<LatLng> latLngs = new List<LatLng>();
-            foreach (var project in projects)
+            foreach (Project project in projects)
             {
                 if (project.Address.Lat != 1)
                 {
-                    latLngs.Add(new LatLng()
+                    latLngs.Add(new LatLng
                     {
                         Lat = project.Address.Lat,
                         Lng = project.Address.Lng,

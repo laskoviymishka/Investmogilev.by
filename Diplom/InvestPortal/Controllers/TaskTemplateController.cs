@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Invest.Common;
 using Invest.Common.Model.Project;
 using MongoDB.Bson;
@@ -23,7 +19,7 @@ namespace InvestPortal.Controllers
 
         public ActionResult Create()
         {
-            return View(new TaskTemplate { _id = ObjectId.GenerateNewId().ToString() });
+            return View(new TaskTemplate {_id = ObjectId.GenerateNewId().ToString()});
         }
 
         [HttpPost]

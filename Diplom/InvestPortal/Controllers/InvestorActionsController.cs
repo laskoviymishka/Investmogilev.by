@@ -124,7 +124,7 @@ namespace InvestPortal.Controllers
                 report.Info = new List<AdditionalInfo>();
             }
 
-            foreach (var file in attachments)
+            foreach (HttpPostedFileBase file in attachments)
             {
                 string fileName = Path.GetFileName(file.FileName);
                 string physicalPath = Path.Combine(

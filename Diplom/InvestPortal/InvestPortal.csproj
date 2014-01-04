@@ -1078,12 +1078,6 @@
     <Content Include="Views\InvestorEntry\ResponseToProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\BaseProject\VerifyResponse.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\BaseProject\ProcessVerifyResponse.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\UserManager\UnUsignedProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1094,9 +1088,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Profile\ProfilePartial.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\BaseProject\ToProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\MailTemplate\Test.cshtml" />
@@ -1144,7 +1135,6 @@
     <Content Include="Views\AdminActions\Details.cshtml" />
     <Content Include="Views\InvestorActions\UnComplete.cshtml" />
     <Content Include="Views\AdminActions\UnVerified.cshtml" />
-    <Content Include="Views\BaseProject\ProjectInfo.cshtml" />
     <Content Include="Views\InvestProjects\PopUpDetailsBrownField.cshtml" />
     <Content Include="Views\InvestProjects\PopUpDetailsGreenField.cshtml" />
     <Content Include="Views\InvestProjects\PopUpDetailsUnUsedBuilding.cshtml" />

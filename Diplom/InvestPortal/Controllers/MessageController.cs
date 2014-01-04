@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using BusinessLogic;
 using BusinessLogic.Notification;
 using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.User;
-using InvestPortal.Models;
 using MongoDB.Bson;
 
 namespace InvestPortal.Controllers
@@ -65,7 +61,7 @@ namespace InvestPortal.Controllers
 
         public ActionResult ReadMessage(string id)
         {
-            var message = _portalMessage.ReadMessage(User.Identity.Name, id);
+            MessageQueue message = _portalMessage.ReadMessage(User.Identity.Name, id);
             if (message != null)
             {
                 return View(message);
@@ -76,7 +72,7 @@ namespace InvestPortal.Controllers
 
         public ActionResult EditMessage(string id)
         {
-            var message = _portalMessage.Message(User.Identity.Name, id);
+            MessageQueue message = _portalMessage.Message(User.Identity.Name, id);
             if (message != null)
             {
                 if (!message.IsSended)
@@ -84,7 +80,7 @@ namespace InvestPortal.Controllers
                     return View(message);
                 }
 
-                return RedirectToAction("Message", new { id = message._id });
+                return RedirectToAction("Message", new {id = message._id});
             }
 
             return RedirectToAction("Index");
@@ -107,7 +103,7 @@ namespace InvestPortal.Controllers
         public ActionResult NewMessage()
         {
             BindUsers();
-            return View(new MessageQueue() { _id = ObjectId.GenerateNewId().ToString(), From = User.Identity.Name });
+            return View(new MessageQueue {_id = ObjectId.GenerateNewId().ToString(), From = User.Identity.Name});
         }
 
         [HttpPost]
@@ -135,21 +131,25 @@ namespace InvestPortal.Controllers
         {
             string physicalPath = "";
             string fileName = "";
-            foreach (var file in attachments)
+            foreach (HttpPostedFileBase file in attachments)
             {
                 fileName = Path.GetFileName(file.FileName);
                 physicalPath = Path.Combine(
-                    Server.MapPath(string.Format("~/App_Data/messageAppendix/{1}/{0}/", User.Identity.Name, DateTime.Now.ToShortDateString())),
+                    Server.MapPath(string.Format("~/App_Data/messageAppendix/{1}/{0}/", User.Identity.Name,
+                        DateTime.Now.ToShortDateString())),
                     fileName);
 
                 if (!Directory.Exists(
-                        Server.MapPath(string.Format("~/App_Data/messageAppendix/{1}/{0}/", User.Identity.Name, DateTime.Now.ToShortDateString()))))
+                    Server.MapPath(string.Format("~/App_Data/messageAppendix/{1}/{0}/", User.Identity.Name,
+                        DateTime.Now.ToShortDateString()))))
                 {
-                    Directory.CreateDirectory(Server.MapPath(string.Format("~/App_Data/messageAppendix/{1}/{0}/", User.Identity.Name, DateTime.Now.ToShortDateString())));
+                    Directory.CreateDirectory(
+                        Server.MapPath(string.Format("~/App_Data/messageAppendix/{1}/{0}/", User.Identity.Name,
+                            DateTime.Now.ToShortDateString())));
                 }
 
                 file.SaveAs(physicalPath);
-                DocumentAdditionalInfo document = new DocumentAdditionalInfo();
+                var document = new DocumentAdditionalInfo();
                 document.FilePath = physicalPath;
                 document.InfoName = fileName;
                 document._id = ObjectId.GenerateNewId().ToString();
@@ -170,8 +170,8 @@ namespace InvestPortal.Controllers
 
         private void BindUsers()
         {
-            List<string> users = new List<string>();
-            foreach (var mongoUser in RepositoryContext.Current.All<Users>())
+            var users = new List<string>();
+            foreach (Users mongoUser in RepositoryContext.Current.All<Users>())
             {
                 users.Add(mongoUser.Username);
             }

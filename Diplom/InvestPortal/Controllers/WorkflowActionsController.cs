@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BusinessLogic.Managers;
@@ -16,10 +14,6 @@ namespace InvestPortal.Controllers
 {
     public class WorkflowActionsController : Controller
     {
-        public WorkflowActionsController()
-        {
-        }
-
         #region Common methods
 
         public ActionResult StatusInfo(string id)
@@ -102,10 +96,10 @@ namespace InvestPortal.Controllers
                 case ProjectWorkflow.Trigger.FillInvolvedOrganization:
                     ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
                         Roles.GetRolesForUser(User.Identity.Name)).FillInvolvedOrganization();
-                    return RedirectToAction("Project", "BaseProject", new { id = project._id });
+                    return RedirectToAction("Project", "BaseProject", new {id = project._id});
                 case ProjectWorkflow.Trigger.InvolvedOrganizationUpdate:
                     ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
-                         Roles.GetRolesForUser(User.Identity.Name)).InvolvedOrganizationUpdate();
+                        Roles.GetRolesForUser(User.Identity.Name)).InvolvedOrganizationUpdate();
                     break;
                 case ProjectWorkflow.Trigger.ToComission:
                     ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
@@ -141,7 +135,7 @@ namespace InvestPortal.Controllers
                     throw new ArgumentOutOfRangeException();
             }
 
-            return RedirectToAction("Project", "BaseProject", new { id = project._id });
+            return RedirectToAction("Project", "BaseProject", new {id = project._id});
         }
 
         #endregion
@@ -155,25 +149,24 @@ namespace InvestPortal.Controllers
                     project,
                     User.Identity.Name,
                     Roles.GetRolesForUser(User.Identity.Name))
-                        .InvestorSelected();
+                .InvestorSelected();
             return View(project);
         }
-
 
 
         public ActionResult SelectUser(string projectId, string responseId)
         {
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
-            var prevResponses = project.Responses.Where(r => r.IsVerified);
-            foreach (var prevResponse in prevResponses)
+            IEnumerable<InvestorResponse> prevResponses = project.Responses.Where(r => r.IsVerified);
+            foreach (InvestorResponse prevResponse in prevResponses)
             {
                 prevResponse.IsVerified = false;
             }
-            var response = project.Responses.Find(r => r.ResponseId == responseId);
+            InvestorResponse response = project.Responses.Find(r => r.ResponseId == responseId);
             response.IsVerified = true;
             RepositoryContext.Current.Update(project);
 
-            return RedirectToAction("Project", "BaseProject", new { id = projectId });
+            return RedirectToAction("Project", "BaseProject", new {id = projectId});
         }
 
         public ActionResult AddDocumentTask(string projectId)
@@ -188,11 +181,15 @@ namespace InvestPortal.Controllers
             model.PorjectId = projectId;
             model.Documents = new List<string>();
 
-            ViewBag.DocumentList = RepositoryContext.Current.All<TaskTemplate>(t => t.Step == ProjectWorkflow.State.DocumentSending).Select(template => template.Title).ToList();
+            ViewBag.DocumentList =
+                RepositoryContext.Current.All<TaskTemplate>(t => t.Step == ProjectWorkflow.State.DocumentSending)
+                    .Select(template => template.Title)
+                    .ToList();
 
             if (project.Tasks != null)
             {
-                foreach (var document in project.Tasks.Where(t => t.Step == ProjectWorkflow.State.DocumentSending))
+                foreach (
+                    ProjectTask document in project.Tasks.Where(t => t.Step == ProjectWorkflow.State.DocumentSending))
                 {
                     model.Documents.Add(document.Title);
                 }
@@ -204,7 +201,10 @@ namespace InvestPortal.Controllers
         [HttpPost]
         public ActionResult AddDocumentTask(AddDocumentViewModel model)
         {
-            ViewBag.DocumentList = RepositoryContext.Current.All<TaskTemplate>(t => t.Step == ProjectWorkflow.State.DocumentSending).Select(template => template.Title).ToList();
+            ViewBag.DocumentList =
+                RepositoryContext.Current.All<TaskTemplate>(t => t.Step == ProjectWorkflow.State.DocumentSending)
+                    .Select(template => template.Title)
+                    .ToList();
 
             if (!ModelState.IsValid)
             {
@@ -213,12 +213,13 @@ namespace InvestPortal.Controllers
 
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.PorjectId);
 
-            var templates = RepositoryContext.Current.All<TaskTemplate>(t => model.Documents.Contains(t.Title));
+            IQueryable<TaskTemplate> templates =
+                RepositoryContext.Current.All<TaskTemplate>(t => model.Documents.Contains(t.Title));
             var tasks = new List<ProjectTask>();
 
-            foreach (var template in templates)
+            foreach (TaskTemplate template in templates)
             {
-                tasks.Add(new ProjectTask()
+                tasks.Add(new ProjectTask
                 {
                     _id = ObjectId.GenerateNewId().ToString(),
                     ProjectId = model.PorjectId,
@@ -239,10 +240,12 @@ namespace InvestPortal.Controllers
 
             RepositoryContext.Current.Update(project);
 
-            return RedirectToAction("Project", "BaseProject", new { id = model.PorjectId });
+            return RedirectToAction("Project", "BaseProject", new {id = model.PorjectId});
         }
 
         #endregion
+
+        #region InvolvedOrganization
 
         public ActionResult AddInvolvedOrganizations(string projectId)
         {
@@ -256,11 +259,14 @@ namespace InvestPortal.Controllers
             model.PorjectId = projectId;
             model.Documents = new List<string>();
 
-            ViewBag.DocumentList = RepositoryContext.Current.All<TaskTemplate>(t => t.Type == TaskTypes.InvolvedOrganiztion).Select(template => template.Title).ToList();
+            ViewBag.DocumentList =
+                RepositoryContext.Current.All<TaskTemplate>(t => t.Type == TaskTypes.InvolvedOrganiztion)
+                    .Select(template => template.Title)
+                    .ToList();
 
             if (project.Tasks != null)
             {
-                foreach (var document in project.Tasks.Where(t => t.Type == TaskTypes.InvolvedOrganiztion))
+                foreach (ProjectTask document in project.Tasks.Where(t => t.Type == TaskTypes.InvolvedOrganiztion))
                 {
                     model.Documents.Add(document.Title);
                 }
@@ -272,7 +278,10 @@ namespace InvestPortal.Controllers
         [HttpPost]
         public ActionResult AddInvolvedOrganizations(AddDocumentViewModel model)
         {
-            ViewBag.DocumentList = RepositoryContext.Current.All<TaskTemplate>(t => t.Type == TaskTypes.InvolvedOrganiztion).Select(template => template.Title).ToList();
+            ViewBag.DocumentList =
+                RepositoryContext.Current.All<TaskTemplate>(t => t.Type == TaskTypes.InvolvedOrganiztion)
+                    .Select(template => template.Title)
+                    .ToList();
 
             if (!ModelState.IsValid)
             {
@@ -281,10 +290,11 @@ namespace InvestPortal.Controllers
 
             var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.PorjectId);
 
-            var templates = RepositoryContext.Current.All<TaskTemplate>(t => model.Documents.Contains(t.Title));
+            IQueryable<TaskTemplate> templates =
+                RepositoryContext.Current.All<TaskTemplate>(t => model.Documents.Contains(t.Title));
             var tasks = new List<ProjectTask>();
 
-            foreach (var template in templates)
+            foreach (TaskTemplate template in templates)
             {
                 tasks.Add(new ProjectTask
                 {
@@ -306,14 +316,16 @@ namespace InvestPortal.Controllers
             project.Tasks.AddRange(tasks);
 
             RepositoryContext.Current.Update(project);
-            ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).DocumentUpdate();
-            return RedirectToAction("Project", "BaseProject", new { id = model.PorjectId });
+            ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                Roles.GetRolesForUser(User.Identity.Name)).DocumentUpdate();
+            return RedirectToAction("Project", "BaseProject", new {id = model.PorjectId});
         }
-
 
         public ActionResult FillInvolvedOrganization(Project project)
         {
-            return RedirectToAction("Project", "BaseProject", new { id = project._id });
+            return RedirectToAction("Project", "BaseProject", new {id = project._id});
         }
+
+        #endregion
     }
 }

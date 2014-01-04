@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using BusinessLogic.Managers;
 using Invest.Common;
-using Invest.Common.Model.Common;
-using Invest.Common.Model.Project;
 using Invest.Common.Model.User;
 using Invest.Common.Repository;
 using InvestPortal.Models;
-using Telerik.Web.Mvc;
 
 namespace InvestPortal.Controllers
 {
@@ -23,11 +19,14 @@ namespace InvestPortal.Controllers
 
         #endregion
 
+        #region Constructor
+
         public UserManagerController()
         {
             _repository = RepositoryContext.Current;
         }
 
+        #endregion
 
         #region Create User
 
@@ -70,18 +69,18 @@ namespace InvestPortal.Controllers
                 {
                     if (!Roles.IsUserInRole(mongoUser.Username, UserRoles.Admin.ToString()))
                     {
-                        var vm = new UserManagerViewModel()
-                            {
-                                _id = mongoUser._id,
-                                Username = mongoUser.Username,
-                                LoweredEmail = mongoUser.Email,
-                                CreationDate = mongoUser.CreationDate,
-                                IsLockedOut = mongoUser.IsLockedOut,
-                                Password = "not showing",
-                                PasswordQuestion = mongoUser.PasswordQuestion,
-                                PasswordAnswer = mongoUser.PasswordAnswer,
-                                IsApproved = mongoUser.IsApproved
-                            };
+                        var vm = new UserManagerViewModel
+                        {
+                            _id = mongoUser._id,
+                            Username = mongoUser.Username,
+                            LoweredEmail = mongoUser.Email,
+                            CreationDate = mongoUser.CreationDate,
+                            IsLockedOut = mongoUser.IsLockedOut,
+                            Password = "not showing",
+                            PasswordQuestion = mongoUser.PasswordQuestion,
+                            PasswordAnswer = mongoUser.PasswordAnswer,
+                            IsApproved = mongoUser.IsApproved
+                        };
 
                         vm.Roles = new List<UserRoles>();
                         string[] userRoles = Roles.GetRolesForUser(vm.Username);

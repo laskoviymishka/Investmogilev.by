@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\DocumentManager.cs" />
     <Compile Include="Managers\ProjectStateManager.cs" />
     <Compile Include="Managers\TaskManager.cs" />
     <Compile Include="Notification\AdminNotification.cs" />
