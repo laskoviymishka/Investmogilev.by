@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BusinessLogic.Managers;
 using BusinessLogic.Notification;
 using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.User;
+using Invest.Common.Repository;
 using MongoDB.Bson;
 
 namespace InvestPortal.Controllers
@@ -15,6 +18,10 @@ namespace InvestPortal.Controllers
     public class MessageController : Controller
     {
         #region Private Fields
+
+        private const string Template = "messageAppendix/{1}/{0}/";
+
+        private readonly IRepository _userRepository;
 
         private readonly PortalMessageHandler _portalMessage;
 
@@ -25,9 +32,12 @@ namespace InvestPortal.Controllers
         public MessageController()
         {
             _portalMessage = new PortalMessageHandler();
+            _userRepository = new MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
         }
 
         #endregion
+
+        #region Main Methods
 
         public ActionResult Index()
         {
@@ -80,7 +90,7 @@ namespace InvestPortal.Controllers
                     return View(message);
                 }
 
-                return RedirectToAction("Message", new {id = message._id});
+                return RedirectToAction("Message", new { id = message._id });
             }
 
             return RedirectToAction("Index");
@@ -103,7 +113,7 @@ namespace InvestPortal.Controllers
         public ActionResult NewMessage()
         {
             BindUsers();
-            return View(new MessageQueue {_id = ObjectId.GenerateNewId().ToString(), From = User.Identity.Name});
+            return View(new MessageQueue { _id = ObjectId.GenerateNewId().ToString(), From = User.Identity.Name });
         }
 
         [HttpPost]
@@ -112,7 +122,7 @@ namespace InvestPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (RepositoryContext.Current.GetOne<Users>(u => u.LoweredUsername == model.To.ToLower()) != null)
+                if (_userRepository.GetOne<Users>(u => u.LoweredUsername == model.To.ToLower()) != null)
                 {
                     model.IsSended = true;
                     _portalMessage.PushMessage(model);
@@ -125,43 +135,44 @@ namespace InvestPortal.Controllers
             return View(model);
         }
 
+        #endregion
+
         #region Appendix
 
         public ActionResult Save(string id, IEnumerable<HttpPostedFileBase> attachments)
         {
-            string physicalPath = "";
-            string fileName = "";
-            foreach (HttpPostedFileBase file in attachments)
+            foreach (var file in attachments)
             {
-                fileName = Path.GetFileName(file.FileName);
-                physicalPath = Path.Combine(
-                    Server.MapPath(string.Format("~/App_Data/messageAppendix/{1}/{0}/", User.Identity.Name,
-                        DateTime.Now.ToShortDateString())),
-                    fileName);
+                var fileName = Path.GetFileName(file.FileName);
+                var physicalPath =
+                    AdditionalInfoManager.GetPhysicalPath(
+                        Template,
+                        new []
+                        {
+                            User.Identity.Name,
+                            DateTime.Now.ToString("MM-dd-yy")
+                        });
 
-                if (!Directory.Exists(
-                    Server.MapPath(string.Format("~/App_Data/messageAppendix/{1}/{0}/", User.Identity.Name,
-                        DateTime.Now.ToShortDateString()))))
-                {
-                    Directory.CreateDirectory(
-                        Server.MapPath(string.Format("~/App_Data/messageAppendix/{1}/{0}/", User.Identity.Name,
-                            DateTime.Now.ToShortDateString())));
-                }
+                file.SaveAs(physicalPath + fileName);
 
-                file.SaveAs(physicalPath);
-                var document = new DocumentAdditionalInfo();
-                document.FilePath = physicalPath;
-                document.InfoName = fileName;
-                document._id = ObjectId.GenerateNewId().ToString();
-                _portalMessage.AddAppendix(User.Identity.Name, id, document);
+                _portalMessage.AddAppendix(
+                    User.Identity.Name,
+                    id,
+                    new DocumentAdditionalInfo
+                        {
+                            FilePath = physicalPath + fileName,
+                            InfoName = fileName,
+                            _id = ObjectId.GenerateNewId().ToString()
+                        });
             }
+
             return Content("");
         }
 
         public FileResult Download(string messageId, string appendixId)
         {
             var doc = _portalMessage.Appendix(User.Identity.Name, messageId, appendixId) as DocumentAdditionalInfo;
-            return File(doc.FilePath, "application/doc", doc.InfoName);
+            return doc != null ? File(doc.FilePath, "application/doc", doc.InfoName) : null;
         }
 
         #endregion
@@ -170,11 +181,7 @@ namespace InvestPortal.Controllers
 
         private void BindUsers()
         {
-            var users = new List<string>();
-            foreach (Users mongoUser in RepositoryContext.Current.All<Users>())
-            {
-                users.Add(mongoUser.Username);
-            }
+            var users = _userRepository.All<Users>().Select(mongoUser => mongoUser.Username).ToList();
             ViewBag.Users = users;
         }
 

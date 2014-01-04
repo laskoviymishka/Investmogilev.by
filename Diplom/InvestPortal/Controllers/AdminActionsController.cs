@@ -16,7 +16,7 @@ namespace InvestPortal.Controllers
     [Authorize]
     public class AdminActionsController : Controller
     {
-        private const string Filepath = "~/App_Data/ProjectInfo/{0}/Tasks/{1}/TaskReports/{2}/response/";
+        #region MainAction
 
         public ActionResult Index()
         {
@@ -62,6 +62,10 @@ namespace InvestPortal.Controllers
             return View(task);
         }
 
+        #endregion
+
+        #region Review Report
+
         public ActionResult ReviewReport(string taskId, string reportId, string projectId)
         {
             return View(
@@ -84,36 +88,11 @@ namespace InvestPortal.Controllers
                 return View(model);
             }
 
-            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.ProjectId);
-            ProjectTask task = project.Tasks.Find(t => t._id == model.TaskId);
-            if (task.TaskReport == null || !task.TaskReport.Any())
-            {
-                task.TaskReport = new List<Report>();
-            }
-
-            Report report = task.TaskReport.Find(t => t._id == model.ReportId);
-
-            if (report.ReportResponse == null)
-            {
-                report.ReportResponse = model;
-            }
-            else
-            {
-                report.ReportResponse.ResponseTime = model.ResponseTime;
-                report.ReportResponse.Body = model.Body;
-                report.ReportResponse.IsApproved = model.IsApproved;
-            }
-
-            if (report.ReportResponse.IsApproved)
-            {
-                task.IsComplete = true;
-                task.CompleteTime = DateTime.Now;
-            }
-
-            RepositoryContext.Current.Update(project);
+            var reportManager = new ReportManager(model.TaskId, model.ReportId, model.ProjectId);
+            reportManager.CreateReportResponse(model);
 
             ProjectStateManager.StateManagerFactory(
-                project,
+                reportManager.CurrentProject,
                 User.Identity.Name,
                 Roles.GetRolesForUser(User.Identity.Name))
                 .DocumentUpdate();
@@ -121,73 +100,9 @@ namespace InvestPortal.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Save(string taskId, string reportId, string reposponseId, string projectId,
-            IEnumerable<HttpPostedFileBase> attachments)
-        {
-            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
-            ProjectTask task = project.Tasks.Find(t => t._id == taskId);
-            if (task.TaskReport == null || !task.TaskReport.Any())
-            {
-                task.TaskReport = new List<Report>();
-            }
+        #endregion
 
-            Report report = task.TaskReport.Find(t => t._id == reportId);
-
-            if (report.ReportResponse == null)
-            {
-                report.ReportResponse = new ReportResponse
-                {
-                    _id = reposponseId,
-                    ProjectId = projectId,
-                    TaskId = taskId,
-                    ReportId = reportId,
-                    Info = new List<AdditionalInfo>()
-                };
-            }
-
-
-            foreach (HttpPostedFileBase file in attachments)
-            {
-                string fileName = Path.GetFileName(file.FileName);
-                string physicalPath = Path.Combine(
-                    Server.MapPath(string.Format(Filepath, project.Name, task.Title, DateTime.Now.ToShortDateString())),
-                    fileName);
-
-                if (!Directory.Exists(
-                    Server.MapPath(
-                        string.Format(
-                            Filepath,
-                            project.Name,
-                            task.Title,
-                            DateTime.Now.ToShortDateString()))))
-                {
-                    Directory.CreateDirectory(
-                        Server.MapPath(string.Format(Filepath, project.Name, task.Title,
-                            DateTime.Now.ToShortDateString())));
-                }
-
-                file.SaveAs(physicalPath);
-                report.ReportResponse.Info.Add(
-                    new DocumentAdditionalInfo
-                    {
-                        FilePath = physicalPath,
-                        InfoName = fileName,
-                        _id = ObjectId.GenerateNewId().ToString()
-                    });
-            }
-
-            RepositoryContext.Current.Update(project);
-
-            return Content("");
-        }
-
-        public FileResult Download(string noteId, string docId)
-        {
-            var note = RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == noteId);
-            var doc = note.NoteDocument.FirstOrDefault(t => t._id == docId) as DocumentAdditionalInfo;
-            if (doc != null) return File(doc.FilePath, "application/doc", doc.InfoName);
-            return null;
-        }
+        #region Involved Report
 
         public ActionResult InvolvedReport(string taskId, string projectId)
         {
@@ -239,9 +154,46 @@ namespace InvestPortal.Controllers
             return RedirectToAction("Project", "BaseProject", new {id = project._id});
         }
 
+        #endregion
+
+        #region Comission
+
         public ActionResult CreateComission()
         {
             throw new NotImplementedException();
         }
+
+        #endregion
+
+        #region Appendix
+
+        public ActionResult Save(string taskId, string reportId, string responsedId, string projectId,
+            IEnumerable<HttpPostedFileBase> attachments)
+        {
+            foreach (HttpPostedFileBase file in attachments)
+            {
+                var reportManager = new ReportManager(taskId, reportId, projectId);
+                string fileName = Path.GetFileName(file.FileName);
+                string physicalPath = reportManager.GetReportResponseDocumentPhysicalPath();
+                file.SaveAs(physicalPath);
+                reportManager.AddDocumentToReportResponse(responsedId, new DocumentAdditionalInfo
+                {
+                    FilePath = physicalPath,
+                    InfoName = fileName,
+                    _id = ObjectId.GenerateNewId().ToString()
+                });
+            }
+
+            return Content("");
+        }
+
+        public FileResult Download(string taskId, string reportId, string responsedId, string projectId)
+        {
+            var reportManager = new ReportManager(taskId, reportId, projectId);
+            var doc = reportManager.GetReportResponseAdditionalInfo(responsedId) as DocumentAdditionalInfo;
+            return doc != null ? File(doc.FilePath, "application/doc", doc.InfoName) : null;
+        }
+
+        #endregion
     }
 }

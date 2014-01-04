@@ -1,12 +1,11 @@
 ﻿@using Invest.Common.Model.User
-@using MongoDB.Bson
 @model Invest.Common.Model.User.MessageQueue
 @{
     ViewBag.Title = "Новое сообщение";
 }
-<script src="http://localhost:9222/Scripts/2013.2.611/telerik.common.min.js"></script>
-<script src="http://localhost:9222/Scripts/2013.2.611/telerik.upload.min.js"></script>
-<link href="http://localhost:9222/Content/Style.css" rel="stylesheet" />
+<script src="~/Scripts/2013.2.611/telerik.common.min.js"></script>
+<script src="~/Scripts/2013.2.611/telerik.upload.min.js"></script>
+<link href="~/Content/Style.css" rel="stylesheet" />
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
@@ -26,15 +25,15 @@
         </div>
         <div class="editor-field">
             @{
-    if (Model.Body == null)
-    {
-        Model.Body = new MessageBody();
-    }
-    Model.Body.Text = Server.HtmlDecode(Model.Body.Text);
+                if (Model.Body == null)
+                {
+                    Model.Body = new MessageBody();
+                }
+                Model.Body.Text = Server.HtmlDecode(Model.Body.Text);
             }
             <div class="btn-toolbar" data-role="editor-toolbar"
-                data-target="#editor">
-                @Html.TextAreaFor(model => model.Body.Text, new { id = "editor" })
+                 data-target="#editor">
+                @Html.TextAreaFor(model => model.Body.Text, new {id = "editor"})
             </div>
             @Html.ValidationMessageFor(model => model.Body.Text)
         </div>
@@ -42,14 +41,14 @@
             @Html.LabelFor(model => model.To)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.To, new SelectList((List<string>)ViewBag.Users))
+            @Html.DropDownListFor(model => model.To, new SelectList((List<string>) ViewBag.Users))
             @Html.ValidationMessageFor(model => model.To)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Type)
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetNames(typeof(MessageType))))
+            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetNames(typeof (MessageType))))
             @Html.ValidationMessageFor(model => model.Type)
         </div>
         <div class="editor-label">
@@ -57,7 +56,7 @@
         </div>
         <div class="editor-field">
             @Html.Telerik().Upload().Name("attachments").ShowFileList(true).Multiple(true).Async(async => async
-                .Save("Save", "Message", new { id = Model._id })
+                .Save("Save", "Message", new {id = Model._id})
                 .AutoUpload(false)).Localizable("ru-RU")
 
         </div>
@@ -70,12 +69,31 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-<script> $(document).ready(function () { $("#editor").cleditor(); });</script>
+<script> $(document).ready(function() { $("#editor").cleditor(); }); </script>
 <script type="text/javascript">
     //<![CDATA[
-    jQuery(document).ready(function () {
+    jQuery(document).ready(function() {
         if (!jQuery.telerik) jQuery.telerik = {};
-        jQuery('#attachments').tUpload({ async: { "saveUrl": "/Message/Save/@Model._id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
+        jQuery('#attachments').tUpload(
+        {
+            async:
+                {
+                    "saveUrl": "/Message/Save/@Model._id",
+                    "autoUpload": false
+                },
+            localization:
+            {
+                "cancel": "Отмена",
+                "retry": "Повторить",
+                "select": "Выбрать...",
+                "remove": "Удалить",
+                "uploadSelectedFiles": "Загрузить файлы",
+                "dropFilesHere": "перетащите сюда файлы для загрузки",
+                "statusFailed": "неудачно",
+                "statusUploaded": "загружено",
+                "statusUploading": "загружается"
+            }
+        });
     });
     //]]>
 </script>
