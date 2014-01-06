@@ -1103,6 +1103,9 @@
     <Content Include="App_Data\MailTemplate\WaitInvolved.cshtml" />
     <Content Include="App_Data\MailTemplate\InvolvedOrganizationUpdate.cshtml" />
     <Content Include="App_Data\MailTemplate\WaitComission.cshtml" />
+    <Content Include="App_Data\MailTemplate\Comission.cshtml" />
+    <Content Include="App_Data\MailTemplate\ComissionFixNeeded.cshtml" />
+    <Content Include="App_Data\MailTemplate\UpdateComissionFix.cshtml" />
     <None Include="Content\metro-ui\fonts\iconFont.eot" />
     <None Include="Content\metro-ui\fonts\iconFont.json" />
     <None Include="Content\metro-ui\fonts\iconFont.ttf" />
@@ -1181,6 +1184,8 @@
     <Content Include="Views\TaskTemplate\Edit.cshtml" />
     <Content Include="Views\WorkflowActions\AddInvolvedOrganizations.cshtml" />
     <Content Include="Views\AdminActions\InvolvedReport.cshtml" />
+    <Content Include="Views\AdminActions\Comission.cshtml" />
+    <Content Include="Views\WorkflowActions\AddComissionFix.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

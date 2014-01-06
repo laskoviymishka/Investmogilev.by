@@ -1,2 +1,40 @@
-﻿@model Invest.Common.Model.Project.Project
+﻿@using Invest.Common.State
+@model Invest.Common.Model.Project.Project
 
+<h2>Проект направлен на комиссию @Model.ProjectComission.CommissionTime.ToShortDateString()</h2>
+
+<div class="listview-outlook">
+    @foreach (var task in Model.Tasks.Where(t => t.Step == ProjectWorkflow.State.WaitComissionFixes))
+    {
+        <a class="list">
+            <div class="list-content">
+                <span class="list-title">@task.Title</span>
+                <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
+                    Описание: @task.Body
+                </span>
+            </div>
+        </a>
+    }
+</div>
+
+<div>
+    <ul>
+        <li>
+            @Html.ActionLink("Добавить замечание по проекту", "AddComissionFix", new { projectId = Model._id }, new
+                {
+                    @class = "button danger",
+                    @style = "width: 300px"
+                })
+        </li>
+        @foreach (ProjectWorkflow.Trigger trigger in ViewBag.AvaibleTriggers)
+        {
+            <li>
+                @Html.ActionLink(trigger.ToString(), "Triggers", new { projectId = Model._id, @trigger = trigger.ToString() }, new
+                {
+                    @class = "button primary",
+                    @style = "width: 300px"
+                })
+            </li>
+        }
+    </ul>
+</div>

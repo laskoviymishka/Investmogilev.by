@@ -2,6 +2,7 @@
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
+using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
@@ -31,7 +32,9 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnWaitIspolcomEntry()
         {
-            throw new System.NotImplementedException();
+            InvestorNotification.WaitIspolcom(CurrentProject);
+            AdminNotification.WaitIspolcom(CurrentProject);
+            ProcessMoving(ProjectWorkflow.State.WaitIspolcom, "Проект ожидает исполнительный комитет");
         }
 
         public bool CouldToIspolcom()

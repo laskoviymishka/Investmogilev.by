@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BusinessLogic.Notification;
+using Invest.Common;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
 using Invest.Common.State;
@@ -26,7 +28,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
         {
         }
 
-        public void OnComissionEntry()
+        public void OnOnComissionEntry()
         {
             var comission = Repository.GetOne<Comission>(c => c.CommissionTime > DateTime.Now);
             if (comission.ProjectIds == null)
@@ -43,22 +45,16 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnOnComissionExit()
         {
-            throw new NotImplementedException();
-        }
-
-        public void OnOnComissionEntry()
-        {
-            throw new NotImplementedException();
         }
 
         public bool CouldComissionFix()
         {
-            return true;
+            return CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.WaitComissionFixes);
         }
 
         public bool CouldToIspolcom()
         {
-            return true;
+            return CurrentProject.Tasks.All(t => t.Step != ProjectWorkflow.State.WaitComissionFixes);
         }
     }
 }

@@ -9,6 +9,7 @@ using BusinessLogic.Managers;
 using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.Project;
+using Invest.Common.State;
 using MongoDB.Bson;
 
 namespace InvestPortal.Controllers
@@ -91,12 +92,6 @@ namespace InvestPortal.Controllers
             var reportManager = new ReportManager(model.TaskId, model.ReportId, model.ProjectId);
             reportManager.CreateReportResponse(model);
 
-            ProjectStateManager.StateManagerFactory(
-                reportManager.CurrentProject,
-                User.Identity.Name,
-                Roles.GetRolesForUser(User.Identity.Name))
-                .DocumentUpdate();
-
             return RedirectToAction("Index");
         }
 
@@ -140,18 +135,21 @@ namespace InvestPortal.Controllers
             task.IsComplete = model.IsApproved;
             RepositoryContext.Current.Update(project);
 
-            if (project.Tasks.Any(t => t.Type == TaskTypes.InvolvedOrganiztion && t.TaskReport == null))
+            if (task.Step == ProjectWorkflow.State.WaitInvolved)
             {
-                ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
-                    Roles.GetRolesForUser(User.Identity.Name)).InvolvedOrganizationUpdate();
-            }
-            else
-            {
-                ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
-                    Roles.GetRolesForUser(User.Identity.Name)).ToComission();
+                if (project.Tasks.Any(t => t.Type == TaskTypes.InvolvedOrganiztion && t.TaskReport == null))
+                {
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                        Roles.GetRolesForUser(User.Identity.Name)).InvolvedOrganizationUpdate();
+                }
+                else
+                {
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                        Roles.GetRolesForUser(User.Identity.Name)).ToComission();
+                }
             }
 
-            return RedirectToAction("Project", "BaseProject", new {id = project._id});
+            return RedirectToAction("Project", "BaseProject", new { id = project._id });
         }
 
         #endregion
@@ -192,6 +190,42 @@ namespace InvestPortal.Controllers
             var reportManager = new ReportManager(taskId, reportId, projectId);
             var doc = reportManager.GetReportResponseAdditionalInfo(responsedId) as DocumentAdditionalInfo;
             return doc != null ? File(doc.FilePath, "application/doc", doc.InfoName) : null;
+        }
+
+        #endregion
+
+        #region Comission
+
+        public ActionResult Comission()
+        {
+            return View(new Comission
+                {
+                    _id = ObjectId.GenerateNewId().ToString(),
+                });
+        }
+
+        [HttpPost]
+        public ActionResult Comission(Comission comission)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(comission);
+            }
+
+            if (comission.CommissionTime < DateTime.Now)
+            {
+                ModelState.AddModelError("CommissionTime", "Время комиссии должно быть больше чем текущее время");
+                return View(comission);
+            }
+
+            RepositoryContext.Current.Add(comission);
+
+            foreach (var project in comission.Projects)
+            {
+                ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).Comission();
+            }
+
+            return RedirectToAction("All", "BaseProject");
         }
 
         #endregion

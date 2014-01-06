@@ -182,7 +182,31 @@ namespace BusinessLogic.Managers
         {
             if (!_workflow.Move(ProjectWorkflow.Trigger.ToComission))
             {
-                throw new InvalidOperationException("не могу провести операцию обновления статуса причастных лиц");
+                throw new InvalidOperationException("не могу провести операцию перевода в стадию на комиссии");
+            }
+        }
+
+        public void Comission()
+        {
+            if (!_workflow.Move(ProjectWorkflow.Trigger.Comission))
+            {
+                throw new InvalidOperationException("не могу провести операцию перевода в стадию на комиссии");
+            }
+        }
+
+        public void ComissionFix()
+        {
+            if (!_workflow.Move(ProjectWorkflow.Trigger.ComissionFix))
+            {
+                throw new InvalidOperationException("не могу провести операцию перевода в стадию на исправления после комиссии");
+            }
+        }
+
+        public void ComissionFixUpdate()
+        {
+            if (!_workflow.Move(ProjectWorkflow.Trigger.ComissionFixUpdate))
+            {
+                throw new InvalidOperationException("не могу провести операцию перевода в стадию на исправления после комиссии");
             }
         }
     }

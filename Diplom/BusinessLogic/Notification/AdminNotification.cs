@@ -159,5 +159,23 @@ namespace BusinessLogic.Notification
                     .Send();
             }
         }
+
+
+        public void UpdateComissionFix(Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Обновления состояния исправлений после комиссии " + project.Name)
+                    .UsingTemplate(GetTemplate("UpdateComissionFix"), project)
+                    .Send();
+            }
+        }
     }
 }

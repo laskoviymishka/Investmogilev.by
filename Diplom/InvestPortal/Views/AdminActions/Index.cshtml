@@ -12,6 +12,9 @@
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Step)
         </th>
         <th>
@@ -20,7 +23,7 @@
         <th>
             @Html.DisplayNameFor(model => model.CompleteTime)
         </th>
-        <th>
+        <th style="width: 200px">
             Управление
         </th>
     </tr>
@@ -29,6 +32,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Step)
@@ -55,17 +61,17 @@
             </td>
             @if (item.TaskReport != null && item.TaskReport.Last().ReportResponse == null)
             {
-                <td>
-                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item._id, reportId = item.TaskReport.Last()._id, projectId = item.ProjectId }, new { @class = "button success" })
+                <td style="width: 200px">
+                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item._id, reportId = item.TaskReport.Last()._id, projectId = item.ProjectId }, new { @class = "button success", style = "width: 200px" })
                 </td>
             }
             else
             {
-                <td>
-                    @Html.ActionLink("Информация о задаче", "Details", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info" })
+                <td style="width: 200px">
+                    @Html.ActionLink("Информация о задаче", "Details", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info", style = "width: 200px" })
                     @if (item.TaskReport == null && item.Type == TaskTypes.InvolvedOrganiztion)
                     {
-                        @Html.ActionLink("Отчет по причастному лицу", "InvolvedReport", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button success" })
+                        @Html.ActionLink("Отчет по причастному лицу", "InvolvedReport", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button success", style = "width: 200px" })
                     }
                 </td>
             }

@@ -15,5 +15,11 @@ namespace BusinessLogic.Notification
         void Comission(Comission comission, Project project);
 
         void WaitComission(Project project);
+
+        void UpdateComissionFix(Project project);
+
+        void ComissionFixNeeded(Project project);
+
+        void WaitIspolcom(Project project);
     }
 }

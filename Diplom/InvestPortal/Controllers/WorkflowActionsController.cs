@@ -60,7 +60,7 @@ namespace InvestPortal.Controllers
                 case ProjectWorkflow.Trigger.FillInvolvedOrganization:
                     ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
                         Roles.GetRolesForUser(User.Identity.Name)).FillInvolvedOrganization();
-                    return RedirectToAction("Project", "BaseProject", new {id = project._id});
+                    break;
                 case ProjectWorkflow.Trigger.InvolvedOrganizationUpdate:
                     ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
                         Roles.GetRolesForUser(User.Identity.Name)).InvolvedOrganizationUpdate();
@@ -70,10 +70,16 @@ namespace InvestPortal.Controllers
                         Roles.GetRolesForUser(User.Identity.Name)).ToComission();
                     break;
                 case ProjectWorkflow.Trigger.Comission:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                        Roles.GetRolesForUser(User.Identity.Name)).Comission();
                     break;
                 case ProjectWorkflow.Trigger.ComissionFix:
+                   ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                        Roles.GetRolesForUser(User.Identity.Name)).ComissionFix();
                     break;
                 case ProjectWorkflow.Trigger.ComissionFixUpdate:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                        Roles.GetRolesForUser(User.Identity.Name)).ComissionFixUpdate();
                     break;
                 case ProjectWorkflow.Trigger.ToIspolcom:
                     break;
@@ -288,6 +294,46 @@ namespace InvestPortal.Controllers
         public ActionResult FillInvolvedOrganization(Project project)
         {
             return RedirectToAction("Project", "BaseProject", new {id = project._id});
+        }
+
+        #endregion
+
+        #region Comission Fixes
+
+        public ActionResult AddComissionFix(string projectid)
+        {
+            return View(new ProjectTask
+                {
+                    _id = ObjectId.GenerateNewId().ToString(),
+                    CreationTime = DateTime.Now,
+                    ProjectId = projectid,
+                    Step = ProjectWorkflow.State.WaitComissionFixes
+                });
+        }
+        [HttpPost]
+        public ActionResult AddComissionFix(ProjectTask projectTask)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(projectTask);
+            }
+
+            if (projectTask.Milestone < DateTime.Now)
+            {
+                ModelState.AddModelError("Milestone", "Дата выполнения исправлений не может быть в прошлом");
+                return View(projectTask);
+            }
+
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectTask.ProjectId);
+            if (project.Tasks == null)
+            {
+                project.Tasks = new List<ProjectTask>();
+            }
+            
+            project.Tasks.Add(projectTask);
+            RepositoryContext.Current.Update(project);
+
+            return RedirectToAction("Project", "BaseProject", new {id = projectTask.ProjectId});
         }
 
         #endregion

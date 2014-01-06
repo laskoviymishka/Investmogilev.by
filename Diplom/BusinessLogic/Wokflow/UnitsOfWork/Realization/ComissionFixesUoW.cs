@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
+using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
@@ -26,22 +28,32 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnWaitComissionFixesExit()
         {
-            throw new System.NotImplementedException();
+
         }
 
         public void OnWaitComissionFixesEntry()
         {
-            throw new System.NotImplementedException();
+            if (CurrentProject.WorkflowState.CurrentState == ProjectWorkflow.State.WaitComissionFixes)
+            {
+                AdminNotification.UpdateComissionFix(CurrentProject);
+                InvestorNotification.UpdateComissionFix(CurrentProject);
+            }
+            else
+            {
+                InvestorNotification.ComissionFixNeeded(CurrentProject);
+            }
+
+            ProcessMoving(ProjectWorkflow.State.WaitComissionFixes, "Обновление состояния");
         }
 
         public bool CouldUpdateComissionFix()
         {
-            return true;
+            return CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.WaitComissionFixes && !t.IsComplete);
         }
 
         public bool CouldUpdateComissionFixAndLeave()
         {
-            return true;
+            return !CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.WaitComissionFixes && !t.IsComplete);
         }
     }
 }

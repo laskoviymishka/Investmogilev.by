@@ -54,6 +54,12 @@ namespace Invest.Common.Model.Project
             get { return GetType().Name; }
         }
 
+        [BsonIgnore]
+        public Comission ProjectComission
+        {
+            get { return RepositoryContext.Current.GetOne<Comission>(c => c.ProjectIds.Contains(_id)); }
+        }
+
         public List<InvestorResponse> Responses { get; set; }
 
     }

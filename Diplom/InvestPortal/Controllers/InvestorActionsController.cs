@@ -42,6 +42,7 @@ namespace InvestPortal.Controllers
             {
                 model.AddRange(project.Tasks.Where(
                     t => !t.IsComplete
+                         && t.Type == TaskTypes.Document
                          && t.TaskReport == null
                          || (t.TaskReport != null
                              && t.TaskReport.Last().ReportResponse != null

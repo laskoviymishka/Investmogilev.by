@@ -101,5 +101,28 @@ namespace BusinessLogic.Notification
                 .UsingTemplate(GetTemplate("WaitComission"), project)
                 .Send();
         }
+
+
+        public void UpdateComissionFix(Project project)
+        {
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Обновления состояния дороботок после комиссии " + project.Name)
+                .UsingTemplate(GetTemplate("UpdateComissionFix"), project)
+                .Send();
+        }
+
+        public void ComissionFixNeeded(Project project)
+        {
+            Email
+                 .From("laskoviymishka@gmail.com")
+                 .UsingClient(Client)
+                 .To(project.Responses[0].InvestorEmail)
+                 .Subject("Комиссия одобрила проект с дороботками " + project.Name)
+                 .UsingTemplate(GetTemplate("ComissionFixNeeded"), project)
+                 .Send();
+        }
     }
 }

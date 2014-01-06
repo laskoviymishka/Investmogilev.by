@@ -20,7 +20,7 @@
             @Html.DisplayNameFor(model => model.CompleteTime)
         </th>
 
-        <th>
+        <th style="width: 200px">
             Управление
         </th>
     </tr>
@@ -54,11 +54,11 @@
                 }
             </td>
 
-            <td>
-                @Html.ActionLink("Подробнее о задании", "Details", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info" })
+            <td style="width: 200px">
+                @Html.ActionLink("Подробнее о задании", "Details", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info", @style = "width: 200px" })
                 @if (!item.IsComplete)
                 {
-                    @Html.ActionLink("Создать отчет", "CreateReport", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button success" })
+                    @Html.ActionLink("Создать отчет", "CreateReport", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button success", @style = "width: 200px" })
                 }
             </td>
         </tr>

@@ -1,0 +1,66 @@
+﻿@model Invest.Common.Model.Project.Comission
+
+@{
+    ViewBag.Title = "Созыв комиссии";
+}
+<link href="~/Content/Style.css" rel="stylesheet" />
+<script src="~/Scripts/chosen.jquery.min.js"></script>
+<style>
+    .calendar-dropdown {
+        position: relative !important
+    }
+</style>
+<link href="~/Content/chosen.min.css" rel="stylesheet" />
+<h2>Созыв комиссии</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Comission</legend>
+        @Html.HiddenFor(model => model._id)
+
+
+        <small class="editor-label">
+            @Html.LabelFor(model => model.Body)
+        </small>
+        <blockquote class="editor-field">
+            <div class="btn-toolbar" data-role="editor-toolbar"
+                 data-target="#editor">
+                @Html.TextAreaFor(model => model.Body, new { id = "editor" })
+            </div>
+            @Html.ValidationMessageFor(model => model.Body)
+        </blockquote>
+
+        <small class="editor-label">
+            @Html.LabelFor(model => model.CommissionTime)
+        </small>
+        <blockquote class="editor-field">
+            <div id="datepicker">
+                <input class="t-input"
+                       data-val="false"
+                       data-val-date="The field EstimateInvestDate must be a date."
+                       data-val-required="The EstimateInvestDate field is required."
+                       id="CommissionTime"
+                       name="CommissionTime"
+                       type="text" value="">
+            </div>
+            @Html.ValidationMessageFor(model => model.CommissionTime)
+        </blockquote>
+
+        <p>
+            <input type="submit" value="Созвать комиссию" />
+        </p>
+    </fieldset>
+}
+<script>
+    $("#datepicker").datepicker({
+        effect: "slide", // none, slide, fade
+        position: "bottom", // top or bottom
+        format: "dd/mm/yyyy",
+    });
+</script>
+<script> $(document).ready(function () { $("#editor").cleditor(); }); </script>
+
