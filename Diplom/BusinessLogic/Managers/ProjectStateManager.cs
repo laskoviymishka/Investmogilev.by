@@ -225,42 +225,66 @@ namespace BusinessLogic.Managers
 
         public void ToIspolcomFix()
         {
-            throw new NotImplementedException();
+            if (!_workflow.Move(ProjectWorkflow.Trigger.ToIspolcomFix))
+            {
+                throw new InvalidOperationException("не могу провести операцию ToIspolcomFix");
+            }
         }
 
         public void IspolcomFixUpdate()
         {
-            throw new NotImplementedException();
+            if (!_workflow.Move(ProjectWorkflow.Trigger.IspolcomFixUpdate))
+            {
+                throw new InvalidOperationException("не могу провести операцию IspolcomFixUpdate");
+            }
         }
 
         public void ToMinEconomy()
         {
-            throw new NotImplementedException();
+            if (!_workflow.Move(ProjectWorkflow.Trigger.ToMinEconomy))
+            {
+                throw new InvalidOperationException("не могу провести операцию ToMinEconomy");
+            }
         }
 
         public void MinEconomyResponsed()
         {
-            throw new NotImplementedException();
+            if (!_workflow.Move(ProjectWorkflow.Trigger.MinEconomyResponsed))
+            {
+                throw new InvalidOperationException("не могу провести операцию MinEconomyResponsed");
+            }
         }
 
         public void UpdatePlan()
         {
-            throw new NotImplementedException();
+            if (!_workflow.Move(ProjectWorkflow.Trigger.UpdatePlan))
+            {
+                throw new InvalidOperationException("не могу провести операцию UpdatePlan");
+            }
         }
 
         public void ApprovePlan()
         {
-            throw new NotImplementedException();
+            if (!_workflow.Move(ProjectWorkflow.Trigger.ApprovePlan))
+            {
+                throw new InvalidOperationException("не могу провести операцию ApprovePlan");
+            }
         }
 
         public void UpdateRealization()
         {
-            throw new NotImplementedException();
+            if (!_workflow.Move(ProjectWorkflow.Trigger.UpdateRealization))
+            {
+                throw new InvalidOperationException("не могу провести операцию UpdateRealization");
+            }
         }
 
         public void RejectDocument()
         {
-            throw new NotImplementedException();
+            if (!_workflow.Move(ProjectWorkflow.Trigger.RejectDocument))
+            {
+                throw new InvalidOperationException("не могу провести операцию RejectDocument");
+            }
         }
     }
 }

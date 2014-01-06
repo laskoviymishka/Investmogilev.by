@@ -29,12 +29,11 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnOnIspolcomExit()
         {
-            throw new NotImplementedException();
         }
 
         public void OnOnIspolcomEntry()
         {
-            var comission = Repository.GetOne<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Ispolcom);
+            var comission = Repository.All<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Ispolcom).First();
             if (comission.ProjectIds == null)
             {
                 comission.ProjectIds = new List<string>();
@@ -53,12 +52,12 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public bool CouldToMinEconomy()
         {
-            return Roles.Contains("Admin");
+            return Roles.Contains("Admin") && !CurrentProject.Tasks.Any(p => (p.Step == ProjectWorkflow.State.WaitIspolcomFixes && !p.IsComplete));
         }
 
         public bool CouldToIspolcomFix()
         {
-            return true;
+            return Roles.Contains("Admin") && CurrentProject.Tasks.Any(p => (p.Step == ProjectWorkflow.State.WaitIspolcomFixes && !p.IsComplete));
         }
     }
 }

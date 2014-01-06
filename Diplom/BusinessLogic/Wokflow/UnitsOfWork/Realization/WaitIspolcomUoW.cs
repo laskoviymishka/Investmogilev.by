@@ -39,7 +39,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public bool CouldToIspolcom()
         {
-            return Repository.GetOne<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Ispolcom) != null;
+            return Repository.All<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Ispolcom) != null;
         }
     }
 }

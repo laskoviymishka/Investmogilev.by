@@ -148,5 +148,40 @@ namespace BusinessLogic.Notification
                  .UsingTemplate(GetTemplate("OnIspolcom"), new { Project = project, Comission = comission })
                  .Send();
         }
+
+
+        public void IspolcomFixNeeded(Project project)
+        {
+            Email
+                 .From("laskoviymishka@gmail.com")
+                 .UsingClient(Client)
+                 .To(project.Responses[0].InvestorEmail)
+                 .Subject("Исполкому необходимы дороботи " + project.Name)
+                 .UsingTemplate(GetTemplate("IspolcomFixNeeded"), project)
+                 .Send();
+        }
+
+        public void UpdateIspolcomFix(Project project)
+        {
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Обновления состояния дороботок после исполкома " + project.Name)
+                .UsingTemplate(GetTemplate("UpdateIspolcomFix"), project)
+                .Send();
+        }
+
+
+        public void InMinEconomy(Project project)
+        {
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Проект направлен в министерство экономики " + project.Name)
+                .UsingTemplate(GetTemplate("InMinEconomy"), project)
+                .Send();
+        }
     }
 }

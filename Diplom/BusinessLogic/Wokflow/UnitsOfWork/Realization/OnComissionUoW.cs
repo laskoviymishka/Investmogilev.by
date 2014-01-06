@@ -30,7 +30,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnOnComissionEntry()
         {
-            var comission = Repository.GetOne<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Comission);
+            var comission = Repository.All<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Comission).First();
             if (comission.ProjectIds == null)
             {
                 comission.ProjectIds = new List<string>();

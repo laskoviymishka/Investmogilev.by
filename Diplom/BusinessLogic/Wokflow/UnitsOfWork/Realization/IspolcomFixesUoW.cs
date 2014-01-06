@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
+using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
@@ -26,22 +28,31 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnWaitIspolcomFixesExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnWaitIspolcomFixesEntry()
         {
-            throw new System.NotImplementedException();
+            if (CurrentProject.WorkflowState.CurrentState == ProjectWorkflow.State.WaitIspolcomFixes)
+            {
+                AdminNotification.UpdateIspolcomFix(CurrentProject);
+                InvestorNotification.UpdateIspolcomFix(CurrentProject);
+            }
+            else
+            {
+                InvestorNotification.IspolcomFixNeeded(CurrentProject);
+            }
+
+            ProcessMoving(ProjectWorkflow.State.WaitIspolcomFixes, "Обновление состояния оиждает исправлений");
         }
 
         public bool CouldIspolcomFixUpdate()
         {
-            return true;
+            return CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.WaitIspolcomFixes && !t.IsComplete);
         }
 
         public bool CouldIspolcomFixUpdateAndLeave()
         {
-            return true;
+            return !CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.WaitIspolcomFixes && !t.IsComplete);
         }
     }
 }

@@ -320,18 +320,18 @@ namespace InvestPortal.Controllers
 
         #region Comission Fixes
 
-        public ActionResult AddComissionFix(string projectid)
+        public ActionResult AddFix(string projectid, ProjectWorkflow.State state)
         {
             return View(new ProjectTask
                 {
                     _id = ObjectId.GenerateNewId().ToString(),
                     CreationTime = DateTime.Now,
                     ProjectId = projectid,
-                    Step = ProjectWorkflow.State.WaitComissionFixes
+                    Step = state
                 });
         }
         [HttpPost]
-        public ActionResult AddComissionFix(ProjectTask projectTask)
+        public ActionResult AddFix(ProjectTask projectTask)
         {
             if (!ModelState.IsValid)
             {

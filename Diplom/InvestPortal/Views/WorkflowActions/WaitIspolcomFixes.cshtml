@@ -1,2 +1,117 @@
-﻿@model Invest.Common.Model.Project.Project
+﻿@using Invest.Common.Model.Project
+@using Invest.Common.State
+@model Project
 
+<h2>Проект направлен на комиссию @Model.ProjectComission.CommissionTime.ToShortDateString()</h2>
+<div class="listview-outlook">
+    <div class="list-group">
+        <a class="group-title">Необходимые документы</a>
+        <div class="group-content">
+            @foreach (var task in Model.Tasks.Where(t => t.Step == ProjectWorkflow.State.WaitIspolcomFixes && t.Type == TaskTypes.Document))
+            {
+                if (task.IsComplete)
+                {
+                    <a class="list marked">
+                        <div class="list-content">
+                            <span class="list-title">@task.Title</span>
+                            <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
+                                Описание: @task.Body
+                            </span>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        <a href="/AdminActions/Details?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                            <div class="list-content">
+                                <span class="list-title">@task.Title</span>
+                                <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
+                                    Описание: @task.Body
+                                </span>
+                            </div>
+                        </a>
+                    }
+                    else
+                    {
+                        if (User.IsInRole("Investor"))
+                        {
+                            <a href="/InvestorActions/CreateReport?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                                <div class="list-content">
+                                    <span class="list-title">@task.Title</span>
+                                    <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
+                                        Описание: @task.Body
+                                    </span>
+                                </div>
+                            </a>
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+    <div class="list-group">
+        <a class="group-title">Причастные ораганизации</a>
+        <div class="group-content">
+            @foreach (var task in Model.Tasks.Where(t => t.Step == ProjectWorkflow.State.WaitIspolcomFixes && t.Type == TaskTypes.InvolvedOrganiztion))
+            {
+                if (task.IsComplete)
+                {
+                    <a class="list marked">
+                        <div class="list-content">
+                            <span class="list-title">@task.Title</span>
+                            <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
+                                Описание: @task.Body
+                            </span>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        <a href="/AdminActions/InvolvedReport?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                            <div class="list-content">
+                                <span class="list-title">@task.Title</span>
+                                <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
+                                    Описание: @task.Body
+                                </span>
+                            </div>
+                        </a>
+                    }
+                    else
+                    {
+                        if (User.IsInRole("Investor"))
+                        {
+                            <a href="/InvestorActions/Details?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                                <div class="list-content">
+                                    <span class="list-title">@task.Title</span>
+                                    <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
+                                        Описание: @task.Body
+                                    </span>
+                                </div>
+                            </a>
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <ul>
+        @foreach (ProjectWorkflow.Trigger trigger in ViewBag.AvaibleTriggers)
+        {
+            <li>
+                @Html.ActionLink(trigger.ToString(), "Triggers", new { projectId = Model._id, @trigger = trigger.ToString() }, new
+                {
+                    @class = "button primary",
+                    @style = "width: 300px"
+                })
+            </li>
+        }
+    </ul>
+</div>

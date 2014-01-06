@@ -1108,6 +1108,9 @@
     <Content Include="App_Data\MailTemplate\UpdateComissionFix.cshtml" />
     <Content Include="App_Data\MailTemplate\WaitIspolcom.cshtml" />
     <Content Include="App_Data\MailTemplate\OnIspolcom.cshtml" />
+    <Content Include="App_Data\MailTemplate\IspolcomFixNeeded.cshtml" />
+    <Content Include="App_Data\MailTemplate\UpdateIspolcomFix.cshtml" />
+    <Content Include="App_Data\MailTemplate\InMinEconomy.cshtml" />
     <None Include="Content\metro-ui\fonts\iconFont.eot" />
     <None Include="Content\metro-ui\fonts\iconFont.json" />
     <None Include="Content\metro-ui\fonts\iconFont.ttf" />
@@ -1187,7 +1190,7 @@
     <Content Include="Views\WorkflowActions\AddInvolvedOrganizations.cshtml" />
     <Content Include="Views\AdminActions\InvolvedReport.cshtml" />
     <Content Include="Views\AdminActions\Comission.cshtml" />
-    <Content Include="Views\WorkflowActions\AddComissionFix.cshtml" />
+    <Content Include="Views\WorkflowActions\AddFix.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

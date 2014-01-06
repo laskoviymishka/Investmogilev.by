@@ -1,2 +1,18 @@
-﻿@model Invest.Common.Model.Project.Project
+﻿@using Invest.Common.State
+@model Invest.Common.Model.Project.Project
 
+<h2>Проект находится на рассмотрении в министерстве экономики РБ</h2>
+<div>
+    <ul>
+        @foreach (ProjectWorkflow.Trigger trigger in ViewBag.AvaibleTriggers)
+        {
+            <li>
+                @Html.ActionLink(trigger.ToString(), "Triggers", new { projectId = Model._id, @trigger = trigger.ToString() }, new
+                {
+                    @class = "button primary",
+                    @style = "width: 300px"
+                })
+            </li>
+        }
+    </ul>
+</div>
