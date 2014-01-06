@@ -124,5 +124,29 @@ namespace BusinessLogic.Notification
                  .UsingTemplate(GetTemplate("ComissionFixNeeded"), project)
                  .Send();
         }
+
+
+        public void WaitIspolcom(Project project)
+        {
+            Email
+                 .From("laskoviymishka@gmail.com")
+                 .UsingClient(Client)
+                 .To(project.Responses[0].InvestorEmail)
+                 .Subject("Проект направлен на исполком " + project.Name)
+                 .UsingTemplate(GetTemplate("WaitIspolcom"), project)
+                 .Send();
+        }
+
+
+        public void OnIspolcom(Comission comission, Project project)
+        {
+            Email
+                 .From("laskoviymishka@gmail.com")
+                 .UsingClient(Client)
+                 .To(project.Responses[0].InvestorEmail)
+                 .Subject("Назначен исполком по проекту " + project.Name)
+                 .UsingTemplate(GetTemplate("OnIspolcom"), new { Project = project, Comission = comission })
+                 .Send();
+        }
     }
 }

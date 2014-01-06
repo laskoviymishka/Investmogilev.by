@@ -4,6 +4,12 @@
 <h2>Ожидается комиссия</h2>
 <div>
     <ul>
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                @Html.ActionLink("Созвать комиссию", "Comission", "AdminActions", null, new { @class = "button success", @style = "width: 150px" })
+            </li>
+        }
         @foreach (ProjectWorkflow.Trigger trigger in ViewBag.AvaibleTriggers)
         {
             <li>
@@ -16,7 +22,3 @@
         }
     </ul>
 </div>
-@if (User.IsInRole("Admin"))
-{
-    @Html.ActionLink("Созвать комиссию","Comission","AdminActions",null, new {@class = "button success"})
-}

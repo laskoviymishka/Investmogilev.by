@@ -1106,6 +1106,8 @@
     <Content Include="App_Data\MailTemplate\Comission.cshtml" />
     <Content Include="App_Data\MailTemplate\ComissionFixNeeded.cshtml" />
     <Content Include="App_Data\MailTemplate\UpdateComissionFix.cshtml" />
+    <Content Include="App_Data\MailTemplate\WaitIspolcom.cshtml" />
+    <Content Include="App_Data\MailTemplate\OnIspolcom.cshtml" />
     <None Include="Content\metro-ui\fonts\iconFont.eot" />
     <None Include="Content\metro-ui\fonts\iconFont.json" />
     <None Include="Content\metro-ui\fonts\iconFont.ttf" />

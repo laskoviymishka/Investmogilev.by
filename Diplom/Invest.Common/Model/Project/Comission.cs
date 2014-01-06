@@ -19,6 +19,8 @@ namespace Invest.Common.Model.Project
 
         public string Body { get; set; }
 
+        public ComissionType Type { get; set; }
+
         public DateTime CommissionTime { get; set; }
 
         public List<string> ProjectIds {

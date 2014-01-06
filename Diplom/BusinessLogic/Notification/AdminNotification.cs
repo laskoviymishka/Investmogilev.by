@@ -177,5 +177,41 @@ namespace BusinessLogic.Notification
                     .Send();
             }
         }
+
+
+        public void WaitIspolcom(Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Проект ожидает на исполком " + project.Name)
+                    .UsingTemplate(GetTemplate("WaitIspolcom"), project)
+                    .Send();
+            }
+        }
+
+
+        public void OnIspolcom(Comission comission, Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Проект направлен на исполком " + project.Name)
+                    .UsingTemplate(GetTemplate("OnIspolcom"), new { Project = project, Comission = comission })
+                    .Send();
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model Invest.Common.Model.Project.Comission
+﻿@using Invest.Common.Model.Project
+@model Comission
 
 @{
     ViewBag.Title = "Созыв комиссии";
@@ -7,9 +8,10 @@
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <style>
     .calendar-dropdown {
-        position: relative !important
+        position: relative !important;
     }
 </style>
+<script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
 <h2>Созыв комиссии</h2>
 
@@ -49,8 +51,14 @@
             </div>
             @Html.ValidationMessageFor(model => model.CommissionTime)
         </blockquote>
-
-        <p>
+        <small class="editor-label">
+            @Html.LabelFor(model => model.Type)
+        </small>
+        <blockquote class="editor-field">
+            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetNames(typeof(ComissionType))), new { id = "cznTypes" })
+            @Html.ValidationMessageFor(model => model.Type)
+        </blockquote>
+        <p style="margin: 10px">
             <input type="submit" value="Созвать комиссию" />
         </p>
     </fieldset>
@@ -61,6 +69,7 @@
         position: "bottom", // top or bottom
         format: "dd/mm/yyyy",
     });
+    $("#cznTypes").chosen();
 </script>
 <script> $(document).ready(function () { $("#editor").cleditor(); }); </script>
 

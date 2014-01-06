@@ -30,14 +30,17 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnOnComissionEntry()
         {
-            var comission = Repository.GetOne<Comission>(c => c.CommissionTime > DateTime.Now);
+            var comission = Repository.GetOne<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Comission);
             if (comission.ProjectIds == null)
             {
                 comission.ProjectIds = new List<string>();
             }
+            if (!comission.ProjectIds.Contains(CurrentProject._id))
+            {
+                comission.ProjectIds.Add(CurrentProject._id);
+                Repository.Update(comission);
+            }
 
-            comission.ProjectIds.Add(CurrentProject._id);
-            Repository.Update(comission);
             InvestorNotification.Comission(comission, CurrentProject);
             AdminNotification.Comission(comission, CurrentProject);
             ProcessMoving(ProjectWorkflow.State.OnComission, "Проект ожидает комиссию");

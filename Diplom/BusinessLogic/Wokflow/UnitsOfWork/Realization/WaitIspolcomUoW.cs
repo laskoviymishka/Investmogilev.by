@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
@@ -27,7 +28,6 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnWaitIspolcomExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnWaitIspolcomEntry()
@@ -39,7 +39,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public bool CouldToIspolcom()
         {
-            return true;
+            return Repository.GetOne<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Ispolcom) != null;
         }
     }
 }

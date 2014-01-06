@@ -209,5 +209,58 @@ namespace BusinessLogic.Managers
                 throw new InvalidOperationException("не могу провести операцию перевода в стадию на исправления после комиссии");
             }
         }
+
+        public void Ispolcom()
+        {
+            if (!_workflow.Move(ProjectWorkflow.Trigger.Ispolcom))
+            {
+                throw new InvalidOperationException("не могу провести операцию перевода в стадию на исправления после комиссии");
+            }
+        }
+
+        public void ToIspolcom()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ToIspolcomFix()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void IspolcomFixUpdate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ToMinEconomy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MinEconomyResponsed()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePlan()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ApprovePlan()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateRealization()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RejectDocument()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

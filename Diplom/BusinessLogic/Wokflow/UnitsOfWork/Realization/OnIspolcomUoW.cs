@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
+using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
@@ -26,17 +29,31 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnOnIspolcomExit()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void OnOnIspolcomEntry()
         {
-            throw new System.NotImplementedException();
+            var comission = Repository.GetOne<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Ispolcom);
+            if (comission.ProjectIds == null)
+            {
+                comission.ProjectIds = new List<string>();
+            }
+
+            if (!comission.ProjectIds.Contains(CurrentProject._id))
+            {
+                comission.ProjectIds.Add(CurrentProject._id);
+                Repository.Update(comission);
+            }
+
+            AdminNotification.OnIspolcom(comission, CurrentProject);
+            InvestorNotification.OnIspolcom(comission, CurrentProject);
+            ProcessMoving(ProjectWorkflow.State.OnIspolcom, "Переход в состояние на исполкоме");
         }
 
         public bool CouldToMinEconomy()
         {
-            return true;
+            return Roles.Contains("Admin");
         }
 
         public bool CouldToIspolcomFix()

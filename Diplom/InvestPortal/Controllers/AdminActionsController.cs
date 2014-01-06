@@ -222,7 +222,14 @@ namespace InvestPortal.Controllers
 
             foreach (var project in comission.Projects)
             {
-                ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).Comission();
+                if (comission.Type == ComissionType.Comission)
+                {
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).Comission();
+                }
+                else
+                {
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name)).Ispolcom();
+                }
             }
 
             return RedirectToAction("All", "BaseProject");

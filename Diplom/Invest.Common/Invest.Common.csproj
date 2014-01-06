@@ -62,6 +62,7 @@
     <Compile Include="Model\Common\LinkAdditionalInfo.cs" />
     <Compile Include="Model\Project\BrownField.cs" />
     <Compile Include="Model\Project\Comission.cs" />
+    <Compile Include="Model\Project\ComissionType.cs" />
     <Compile Include="Model\Project\Project.cs" />
     <Compile Include="Model\Project\ProjectTask.cs" />
     <Compile Include="Model\Project\Step.cs" />

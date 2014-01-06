@@ -39,7 +39,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public bool CouldComission()
         {
-            return Repository.GetOne<Comission>(c => c.CommissionTime > DateTime.Now) != null;
+            return Repository.GetOne<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Comission) != null;
         }
     }
 }

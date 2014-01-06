@@ -74,38 +74,58 @@ namespace InvestPortal.Controllers
                         Roles.GetRolesForUser(User.Identity.Name)).Comission();
                     break;
                 case ProjectWorkflow.Trigger.ComissionFix:
-                   ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
-                        Roles.GetRolesForUser(User.Identity.Name)).ComissionFix();
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                         Roles.GetRolesForUser(User.Identity.Name)).ComissionFix();
                     break;
                 case ProjectWorkflow.Trigger.ComissionFixUpdate:
                     ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
                         Roles.GetRolesForUser(User.Identity.Name)).ComissionFixUpdate();
                     break;
                 case ProjectWorkflow.Trigger.ToIspolcom:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                        Roles.GetRolesForUser(User.Identity.Name)).ToIspolcom();
                     break;
                 case ProjectWorkflow.Trigger.Ispolcom:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                       Roles.GetRolesForUser(User.Identity.Name)).Ispolcom();
                     break;
                 case ProjectWorkflow.Trigger.ToIspolcomFix:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                       Roles.GetRolesForUser(User.Identity.Name)).ToIspolcomFix();
                     break;
                 case ProjectWorkflow.Trigger.IspolcomFixUpdate:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                       Roles.GetRolesForUser(User.Identity.Name)).IspolcomFixUpdate();
                     break;
                 case ProjectWorkflow.Trigger.ToMinEconomy:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                       Roles.GetRolesForUser(User.Identity.Name)).ToMinEconomy();
                     break;
                 case ProjectWorkflow.Trigger.MinEconomyResponsed:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                       Roles.GetRolesForUser(User.Identity.Name)).MinEconomyResponsed();
                     break;
                 case ProjectWorkflow.Trigger.UpdatePlan:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                       Roles.GetRolesForUser(User.Identity.Name)).UpdatePlan();
                     break;
                 case ProjectWorkflow.Trigger.ApprovePlan:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                       Roles.GetRolesForUser(User.Identity.Name)).ApprovePlan();
                     break;
                 case ProjectWorkflow.Trigger.UpdateRealization:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                        Roles.GetRolesForUser(User.Identity.Name)).UpdateRealization();
                     break;
                 case ProjectWorkflow.Trigger.RejectDocument:
+                    ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+                         Roles.GetRolesForUser(User.Identity.Name)).RejectDocument();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            return RedirectToAction("Project", "BaseProject", new {id = project._id});
+            return RedirectToAction("Project", "BaseProject", new { id = project._id });
         }
 
         #endregion
@@ -136,7 +156,7 @@ namespace InvestPortal.Controllers
             response.IsVerified = true;
             RepositoryContext.Current.Update(project);
 
-            return RedirectToAction("Project", "BaseProject", new {id = projectId});
+            return RedirectToAction("Project", "BaseProject", new { id = projectId });
         }
 
         public ActionResult AddDocumentTask(string projectId)
@@ -210,7 +230,7 @@ namespace InvestPortal.Controllers
 
             RepositoryContext.Current.Update(project);
 
-            return RedirectToAction("Project", "BaseProject", new {id = model.PorjectId});
+            return RedirectToAction("Project", "BaseProject", new { id = model.PorjectId });
         }
 
         #endregion
@@ -288,12 +308,12 @@ namespace InvestPortal.Controllers
             RepositoryContext.Current.Update(project);
             ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
                 Roles.GetRolesForUser(User.Identity.Name)).DocumentUpdate();
-            return RedirectToAction("Project", "BaseProject", new {id = model.PorjectId});
+            return RedirectToAction("Project", "BaseProject", new { id = model.PorjectId });
         }
 
         public ActionResult FillInvolvedOrganization(Project project)
         {
-            return RedirectToAction("Project", "BaseProject", new {id = project._id});
+            return RedirectToAction("Project", "BaseProject", new { id = project._id });
         }
 
         #endregion
@@ -329,11 +349,11 @@ namespace InvestPortal.Controllers
             {
                 project.Tasks = new List<ProjectTask>();
             }
-            
+
             project.Tasks.Add(projectTask);
             RepositoryContext.Current.Update(project);
 
-            return RedirectToAction("Project", "BaseProject", new {id = projectTask.ProjectId});
+            return RedirectToAction("Project", "BaseProject", new { id = projectTask.ProjectId });
         }
 
         #endregion
