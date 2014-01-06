@@ -28,7 +28,6 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnInMinEconomyExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnInMinEconomyEntry()

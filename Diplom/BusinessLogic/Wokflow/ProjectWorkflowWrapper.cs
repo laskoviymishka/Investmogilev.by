@@ -128,9 +128,9 @@ namespace BusinessLogic.Wokflow
                 _unitsOfWork.PlanCreatingUoW.CouldApprovePlan;
 
             _workflow.GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization =
-                _unitsOfWork.RealizationUoW.CouldUpdateRealization;
-            _workflow.GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization =
                 _unitsOfWork.RealizationUoW.CouldUpdateRealizationAndLeave;
+            _workflow.GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization =
+                _unitsOfWork.RealizationUoW.CouldUpdateRealization;
 
             _workflow.GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate =
                 _unitsOfWork.ComissionFixesUoW.CouldUpdateComissionFix;

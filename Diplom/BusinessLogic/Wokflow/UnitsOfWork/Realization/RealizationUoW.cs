@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
+using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
@@ -26,22 +28,24 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnRealizationExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnRealizationEntry()
         {
-            throw new System.NotImplementedException();
+            InvestorNotification.Realization(CurrentProject);
+            AdminNotification.Realization(CurrentProject);
+
+            ProcessMoving(ProjectWorkflow.State.Realization, "Проект теперь реализуется");
         }
 
         public bool CouldUpdateRealization()
         {
-            return true;
+            return CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.Realization && !t.IsComplete);
         }
 
         public bool CouldUpdateRealizationAndLeave()
         {
-            return true;
+            return !CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.Realization && !t.IsComplete);
         }
     }
 }

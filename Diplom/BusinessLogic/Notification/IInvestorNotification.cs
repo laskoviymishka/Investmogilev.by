@@ -29,5 +29,11 @@ namespace BusinessLogic.Notification
         void UpdateIspolcomFix(Project project);
 
         void InMinEconomy(Project project);
+
+        void MinEconomyResponsed(Project project);
+
+        void Realization(Project project);
+
+        void Done(Project project);
     }
 }

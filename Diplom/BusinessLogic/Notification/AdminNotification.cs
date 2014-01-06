@@ -231,5 +231,59 @@ namespace BusinessLogic.Notification
                     .Send();
             }
         }
+
+
+        public void PlanCreatingUpdate(Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Обновления состояния дорожной карты проекта " + project.Name)
+                    .UsingTemplate(GetTemplate("PlanCreatingUpdate"), project)
+                    .Send();
+            }
+        }
+
+
+        public void Realization(Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Реализация проекта " + project.Name)
+                    .UsingTemplate(GetTemplate("Realization"), project)
+                    .Send();
+            }
+        }
+
+
+        public void Done(Project project)
+        {
+            var users = RoleProvider.GetUsersInRole("Admin");
+
+            foreach (string userName in users)
+            {
+                var user = Membership.GetUser(userName, false);
+                Email
+                    .From("laskoviymishka@gmail.com")
+                    .UsingClient(Client)
+                    .To(user.Email)
+                    .Subject("Проект завершен " + project.Name)
+                    .UsingTemplate(GetTemplate("Done"), project)
+                    .Send();
+            }
+        }
     }
 }

@@ -374,6 +374,7 @@
     <Compile Include="App_Start\MiniProfiler.cs" />
     <Compile Include="App_Start\ProfilingFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddRoadMapPointController.cs" />
     <Compile Include="Controllers\BaseProjectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvestorEntryController.cs" />
@@ -1111,6 +1112,10 @@
     <Content Include="App_Data\MailTemplate\IspolcomFixNeeded.cshtml" />
     <Content Include="App_Data\MailTemplate\UpdateIspolcomFix.cshtml" />
     <Content Include="App_Data\MailTemplate\InMinEconomy.cshtml" />
+    <Content Include="App_Data\MailTemplate\MinEconomyResponsed.cshtml" />
+    <Content Include="App_Data\MailTemplate\PlanCreatingUpdate.cshtml" />
+    <Content Include="App_Data\MailTemplate\Realization.cshtml" />
+    <Content Include="App_Data\MailTemplate\Done.cshtml" />
     <None Include="Content\metro-ui\fonts\iconFont.eot" />
     <None Include="Content\metro-ui\fonts\iconFont.json" />
     <None Include="Content\metro-ui\fonts\iconFont.ttf" />
@@ -1191,6 +1196,7 @@
     <Content Include="Views\AdminActions\InvolvedReport.cshtml" />
     <Content Include="Views\AdminActions\Comission.cshtml" />
     <Content Include="Views\WorkflowActions\AddFix.cshtml" />
+    <Content Include="Views\InvestorActions\AddRoadMapPoint.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

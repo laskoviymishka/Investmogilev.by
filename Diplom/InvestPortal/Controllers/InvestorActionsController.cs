@@ -8,6 +8,7 @@ using BusinessLogic.Managers;
 using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.Project;
+using Invest.Common.State;
 using MongoDB.Bson;
 
 namespace InvestPortal.Controllers
@@ -124,5 +125,43 @@ namespace InvestPortal.Controllers
         }
 
         #endregion
+
+        public ActionResult AddRoadMapPoint(string projectid)
+        {
+            return View(new ProjectTask
+            {
+                _id = ObjectId.GenerateNewId().ToString(),
+                CreationTime = DateTime.Now,
+                ProjectId = projectid,
+                Type = TaskTypes.Investor,
+                Step = ProjectWorkflow.State.Realization
+            });
+        }
+
+        [HttpPost]
+        public ActionResult AddRoadMapPoint(ProjectTask projectTask)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(projectTask);
+            }
+
+            if (projectTask.Milestone < DateTime.Now)
+            {
+                ModelState.AddModelError("Milestone", "Дата выполнения исправлений не может быть в прошлом");
+                return View(projectTask);
+            }
+
+            var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectTask.ProjectId);
+            if (project.Tasks == null)
+            {
+                project.Tasks = new List<ProjectTask>();
+            }
+
+            project.Tasks.Add(projectTask);
+            RepositoryContext.Current.Update(project);
+
+            return RedirectToAction("Project", "BaseProject", new { id = projectTask.ProjectId });
+        }
     }
 }

@@ -2,6 +2,7 @@
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
+using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
@@ -26,12 +27,14 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public void OnDoneExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnDoneEntry()
         {
-            throw new System.NotImplementedException();
+            AdminNotification.Done(CurrentProject);
+            InvestorNotification.Done(CurrentProject);
+
+            ProcessMoving(ProjectWorkflow.State.Done, "Проект завершен");
         }
     }
 }

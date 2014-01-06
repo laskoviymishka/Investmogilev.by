@@ -183,5 +183,41 @@ namespace BusinessLogic.Notification
                 .UsingTemplate(GetTemplate("InMinEconomy"), project)
                 .Send();
         }
+
+
+        public void MinEconomyResponsed(Project project)
+        {
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Проект одобрен в министерство экономики " + project.Name)
+                .UsingTemplate(GetTemplate("MinEconomyResponsed"), project)
+                .Send();
+        }
+
+
+        public void Realization(Project project)
+        {
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Реализация проекта " + project.Name)
+                .UsingTemplate(GetTemplate("Realization"), project)
+                .Send();
+        }
+
+
+        public void Done(Project project)
+        {
+            Email
+                .From("laskoviymishka@gmail.com")
+                .UsingClient(Client)
+                .To(project.Responses[0].InvestorEmail)
+                .Subject("Проект завершен " + project.Name)
+                .UsingTemplate(GetTemplate("Done"), project)
+                .Send();
+        }
     }
 }

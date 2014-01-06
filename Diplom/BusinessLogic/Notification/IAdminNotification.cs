@@ -25,5 +25,11 @@ namespace BusinessLogic.Notification
         void OnIspolcom(Comission comission, Project project);
 
         void UpdateIspolcomFix(Project project);
+
+        void Realization(Project project);
+
+        void PlanCreatingUpdate(Project project);
+
+        void Done(Project project);
     }
 }
