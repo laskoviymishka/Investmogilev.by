@@ -25,9 +25,12 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
            userName,
            roles)
         {
-            if (currentProject.Responses == null)
+            if (CurrentProject != null)
             {
-                currentProject.Responses = new List<InvestorResponse>();
+                if (currentProject.Responses == null)
+                {
+                    currentProject.Responses = new List<InvestorResponse>();
+                }
             }
         }
 
@@ -58,7 +61,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public bool FromInvestorApproveToDocument()
         {
-            return CurrentProject.Responses.Count(r => r.IsVerified) == 1;
+            return CurrentProject.Responses.Count(r => r.IsVerified) == 1 && CurrentProject.Tasks != null && CurrentProject.Tasks.Any();
         }
 
         public bool FromInvestorApproveToInvestorResponsed()

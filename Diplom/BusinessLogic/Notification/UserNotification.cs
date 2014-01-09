@@ -1,49 +1,25 @@
-﻿using System.Web.Security;
-using FluentEmail;
-using Invest.Common;
+﻿using Invest.Common;
+using Invest.Common.Model.Common;
 using Invest.Common.Model.Project;
+using Invest.Common.State;
 
 namespace BusinessLogic.Notification
 {
-    class UserNotification :BaseNotificate, IUserNotification
+    internal class UserNotification : BaseNotificate, IUserNotification
     {
         public UserNotification()
-            :base(RepositoryContext.Current)
+            : base(RepositoryContext.Current)
         {
         }
 
         public void NotificateOpen(Project currentProject)
         {
-            var users = RoleProvider.GetUsersInRole("User");
-
-            foreach (string userName in users)
-            {
-                var user = Membership.GetUser(userName, false);
-                var email = Email
-                            .From("laskoviymishka@gmail.com")
-                            .UsingClient(Client)
-                            .To(user.Email)
-                            .Subject("Проект открыт (Пользователь)")
-                            .UsingTemplate(GetTemplate("ProjectOpen"), currentProject);
-                email.Send();
-            }
+            SendMailFromDb(currentProject, currentProject, ProjectWorkflow.Trigger.ReOpen, UserType.User);
         }
 
         public void InvestorResponsed(Project currentProject)
         {
-            var users = RoleProvider.GetUsersInRole("User");
-
-            foreach (string userName in users)
-            {
-                var user = Membership.GetUser(userName, false);
-                var email = Email
-                            .From("laskoviymishka@gmail.com")
-                            .UsingClient(Client)
-                            .To(user.Email)
-                            .Subject("На проект получен отклик (Пользователь)")
-                            .UsingTemplate(GetTemplate("InvestorResponded"), currentProject);
-                email.Send();
-            }
+            SendMailFromDb(currentProject, currentProject, ProjectWorkflow.Trigger.InvestorResponsed, UserType.User);
         }
     }
 }

@@ -60,6 +60,8 @@
     <Compile Include="Model\Common\EditParametrViewModel.cs" />
     <Compile Include="Model\Common\ImageAdditionalInfo.cs" />
     <Compile Include="Model\Common\LinkAdditionalInfo.cs" />
+    <Compile Include="Model\Common\MailTemplate.cs" />
+    <Compile Include="Model\Common\UserType.cs" />
     <Compile Include="Model\Project\BrownField.cs" />
     <Compile Include="Model\Project\Comission.cs" />
     <Compile Include="Model\Project\ComissionType.cs" />

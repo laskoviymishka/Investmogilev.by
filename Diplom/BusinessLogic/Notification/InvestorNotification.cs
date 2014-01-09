@@ -1,8 +1,10 @@
-﻿using FluentEmail;
-using Invest.Common;
-using Invest.Common.Model.Project;
-using System;
+﻿using System;
 using System.Web.Security;
+using Invest.Common;
+using Invest.Common.Model.Common;
+using Invest.Common.Model.Project;
+using Invest.Common.State;
+
 namespace BusinessLogic.Notification
 {
     public class InvestorNotification : BaseNotificate, IInvestorNotification
@@ -14,210 +16,99 @@ namespace BusinessLogic.Notification
 
         public void InvestorResponsed(Project currentProject)
         {
-            if (currentProject.Responses.Count > 1)
-            {
-                foreach (var response in currentProject.Responses)
-                {
-                    Email
-                        .From("laskoviymishka@gmail.com")
-                        .UsingClient(Client)
-                        .To(response.InvestorEmail)
-                        .Subject("Ваш отклик на проект с несколькими заявками (Инвестор)")
-                        .UsingTemplate(GetTemplate("AdditionalResponseToInvestor"), currentProject)
-                        .Send();
-                }
-            }
-            else
-            {
-                Email
-                    .From("laskoviymishka@gmail.com")
-                    .UsingClient(Client)
-                    .To(currentProject.Responses[0].InvestorEmail)
-                    .Subject("Ваш отклик на проект (Инвестор)")
-                    .UsingTemplate(GetTemplate("FirstResponseToInvestor"), currentProject)
-                    .Send();
-            }
+            SendMailFromDb(currentProject, currentProject, ProjectWorkflow.Trigger.InvestorResponsed, UserType.Investor);
         }
 
         public void DocumentUpdate(Project project)
         {
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Обновления состояния документов по проекту " + project.Name)
-                .UsingTemplate(GetTemplate("DocumentUpdate"), project)
-                .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.InvestorResponsed, UserType.Investor);
         }
 
         public void ProjectAproved(Project project)
         {
-            var pass = Guid.NewGuid().ToString().Substring(0, 5);
-            var login = project.Responses.Find(i => i.IsVerified).InvestorEmail;
+            string pass = Guid.NewGuid().ToString().Substring(0, 5);
+            string login = project.Responses.Find(i => i.IsVerified).InvestorEmail;
             Membership.CreateAccount(login, pass);
             Roles.AddUserToRole(login, "Investor");
 
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Ваша заявка одобрена")
-                .UsingTemplate(GetTemplate("ProjectAproved"), new { Pass = pass, Login = login, Project = project })
-                .Send();
+            SendMailFromDb(project, new {Pass = pass, Login = login, Project = project},
+                ProjectWorkflow.Trigger.InvestorSelected, UserType.Investor);
         }
 
 
         public void InvolvedOrganizationUpdate(Project project)
         {
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Обновления состояния причастных лиц по проекту " + project.Name)
-                .UsingTemplate(GetTemplate("InvolvedOrganizationUpdate"), project)
-                .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.InvolvedOrganizationUpdate, UserType.Investor);
         }
 
 
         public void Comission(Comission comission, Project project)
         {
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Назначена комиссия по проекту " + project.Name)
-                .UsingTemplate(GetTemplate("Comission"), new { Project = project, Comission = comission })
-                .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.Comission, UserType.Investor);
         }
 
 
         public void WaitComission(Project project)
         {
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Ожидается комиссия по проекту " + project.Name)
-                .UsingTemplate(GetTemplate("WaitComission"), project)
-                .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.ToComission, UserType.Investor);
         }
 
 
         public void UpdateComissionFix(Project project)
         {
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Обновления состояния дороботок после комиссии " + project.Name)
-                .UsingTemplate(GetTemplate("UpdateComissionFix"), project)
-                .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.ComissionFixUpdate, UserType.Investor);
         }
 
         public void ComissionFixNeeded(Project project)
         {
-            Email
-                 .From("laskoviymishka@gmail.com")
-                 .UsingClient(Client)
-                 .To(project.Responses[0].InvestorEmail)
-                 .Subject("Комиссия одобрила проект с дороботками " + project.Name)
-                 .UsingTemplate(GetTemplate("ComissionFixNeeded"), project)
-                 .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.ComissionFix, UserType.Investor);
         }
 
 
         public void WaitIspolcom(Project project)
         {
-            Email
-                 .From("laskoviymishka@gmail.com")
-                 .UsingClient(Client)
-                 .To(project.Responses[0].InvestorEmail)
-                 .Subject("Проект направлен на исполком " + project.Name)
-                 .UsingTemplate(GetTemplate("WaitIspolcom"), project)
-                 .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.ToIspolcom, UserType.Investor);
         }
 
 
         public void OnIspolcom(Comission comission, Project project)
         {
-            Email
-                 .From("laskoviymishka@gmail.com")
-                 .UsingClient(Client)
-                 .To(project.Responses[0].InvestorEmail)
-                 .Subject("Назначен исполком по проекту " + project.Name)
-                 .UsingTemplate(GetTemplate("OnIspolcom"), new { Project = project, Comission = comission })
-                 .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.Ispolcom, UserType.Investor);
         }
 
 
         public void IspolcomFixNeeded(Project project)
         {
-            Email
-                 .From("laskoviymishka@gmail.com")
-                 .UsingClient(Client)
-                 .To(project.Responses[0].InvestorEmail)
-                 .Subject("Исполкому необходимы дороботи " + project.Name)
-                 .UsingTemplate(GetTemplate("IspolcomFixNeeded"), project)
-                 .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.ToIspolcomFix, UserType.Investor);
         }
 
         public void UpdateIspolcomFix(Project project)
         {
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Обновления состояния дороботок после исполкома " + project.Name)
-                .UsingTemplate(GetTemplate("UpdateIspolcomFix"), project)
-                .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.IspolcomFixUpdate, UserType.Investor);
         }
 
 
         public void InMinEconomy(Project project)
         {
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Проект направлен в министерство экономики " + project.Name)
-                .UsingTemplate(GetTemplate("InMinEconomy"), project)
-                .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.ToMinEconomy, UserType.Investor);
         }
 
 
         public void MinEconomyResponsed(Project project)
         {
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Проект одобрен в министерство экономики " + project.Name)
-                .UsingTemplate(GetTemplate("MinEconomyResponsed"), project)
-                .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.MinEconomyResponsed, UserType.Investor);
         }
 
 
         public void Realization(Project project)
         {
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Реализация проекта " + project.Name)
-                .UsingTemplate(GetTemplate("Realization"), project)
-                .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.UpdateRealization, UserType.Investor);
         }
 
 
         public void Done(Project project)
         {
-            Email
-                .From("laskoviymishka@gmail.com")
-                .UsingClient(Client)
-                .To(project.Responses[0].InvestorEmail)
-                .Subject("Проект завершен " + project.Name)
-                .UsingTemplate(GetTemplate("Done"), project)
-                .Send();
+            SendMailFromDb(project, project, ProjectWorkflow.Trigger.UpdateRealization, UserType.Investor);
         }
     }
 }

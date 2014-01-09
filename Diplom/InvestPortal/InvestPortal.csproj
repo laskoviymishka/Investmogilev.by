@@ -379,6 +379,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvestorEntryController.cs" />
     <Compile Include="Controllers\InvestProjectsController.cs" />
+    <Compile Include="Controllers\MailTemplateController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
@@ -1197,6 +1198,10 @@
     <Content Include="Views\AdminActions\Comission.cshtml" />
     <Content Include="Views\WorkflowActions\AddFix.cshtml" />
     <Content Include="Views\InvestorActions\AddRoadMapPoint.cshtml" />
+    <Content Include="Views\MailTemplate\Index.cshtml" />
+    <Content Include="Views\MailTemplate\Details.cshtml" />
+    <Content Include="Views\MailTemplate\Create.cshtml" />
+    <Content Include="Views\MailTemplate\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

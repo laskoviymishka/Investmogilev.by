@@ -54,6 +54,10 @@ namespace BusinessLogic.Managers
                 _adminNotificate,
                 _investorNotificate,
                 _currentUser, _roles);
+            if (_currentProject == null)
+            {
+                _currentProject = currentProject;
+            }
             if (string.IsNullOrEmpty(_currentProject._id))
             {
                 _currentProject._id = ObjectId.GenerateNewId().ToString();

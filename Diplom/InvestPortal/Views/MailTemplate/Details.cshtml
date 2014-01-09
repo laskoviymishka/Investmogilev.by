@@ -1,0 +1,44 @@
+﻿@model Invest.Common.Model.Common.MailTemplate
+@{
+    ViewBag.Title = "Подробная информация о шаблоне письма";
+}
+
+<h2>Подробная информация о шаблоне письма</h2>
+
+<p>
+    @Html.ActionLink("Назад к шаблонам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker" })
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model._id }, new { @class = "icon-pencil fg-darker" })
+</p>
+
+
+<fieldset>
+    <legend>Шаблон</legend>
+
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.Title)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </blockquote>
+
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.Body)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.Body)
+    </blockquote>
+
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.UserType)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.UserType)
+    </blockquote>
+
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.Trigger)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.Trigger)
+    </blockquote>
+</fieldset>
