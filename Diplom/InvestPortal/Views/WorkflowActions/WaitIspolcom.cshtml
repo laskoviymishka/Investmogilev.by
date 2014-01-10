@@ -2,23 +2,10 @@
 @model Invest.Common.Model.Project.Project
 
 <h2>Ожидается исполком</h2>
-<div>
-    <ul>
-        @if (User.IsInRole("Admin"))
-        {
-            <li>
-                @Html.ActionLink("Созвать исполком", "Comission", "AdminActions", null, new { @class = "button success", @style = "width: 150px" })
-            </li>
-        }
-        @foreach (ProjectWorkflow.Trigger trigger in ViewBag.AvaibleTriggers)
-        {
-            <li>
-                @Html.ActionLink(trigger.ToString(), "Triggers", new { projectId = Model._id, @trigger = trigger.ToString() }, new
-                {
-                    @class = "button primary",
-                    @style = "width: 150px"
-                })
-            </li>
-        }
-    </ul>
-</div>
+@if (User.IsInRole("Admin"))
+{
+    <div>
+        @Html.ActionLink("Созвать исполком", "Comission", "AdminActions", null, new { @class = "button success", @style = "width: 150px" })
+    </div>
+}
+@{Html.RenderPartial("AllowActions");}

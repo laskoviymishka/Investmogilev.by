@@ -58,6 +58,7 @@
     <Compile Include="Model\Common\AdditionalInfo.cs" />
     <Compile Include="Model\Common\DocumentAdditionalInfo.cs" />
     <Compile Include="Model\Common\EditParametrViewModel.cs" />
+    <Compile Include="Model\Common\EnumDescription.cs" />
     <Compile Include="Model\Common\ImageAdditionalInfo.cs" />
     <Compile Include="Model\Common\LinkAdditionalInfo.cs" />
     <Compile Include="Model\Common\MailTemplate.cs" />
@@ -109,12 +110,21 @@
     <Compile Include="Repository\ICacheService.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\MongoRepository.cs" />
+    <Compile Include="State\IStateMachineBuilder.cs" />
     <Compile Include="State\ProjectUpdateStateMachine.cs" />
     <Compile Include="State\ProjectWorkflow.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectWorkflow.stateless</DependentUpon>
     </Compile>
+    <Compile Include="State\StateAttributes\AttributeStateMachineBuilder.cs" />
+    <Compile Include="State\StateAttributes\BaseState.cs" />
+    <Compile Include="State\StateAttributes\IState.cs" />
+    <Compile Include="State\StateAttributes\IStateContext.cs" />
+    <Compile Include="State\StateAttributes\StateActivatorAttribute.cs" />
+    <Compile Include="State\StateAttributes\StateAttribute.cs" />
+    <Compile Include="State\StateAttributes\Transition.cs" />
+    <Compile Include="State\StateAttributes\TriggerAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

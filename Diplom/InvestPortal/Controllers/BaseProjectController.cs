@@ -205,24 +205,10 @@ namespace InvestPortal.Controllers
                 BindUsersAndRegions();
                 if (User.IsInRole("Investor"))
                 {
-                    return RepositoryContext.Current.All<Project>();
+                    return RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name);
                 }
-                return RepositoryContext.Current.All<Project>();
-            }
-        }
 
-        private List<InvestorResponse> InvestorResponses
-        {
-            get
-            {
-                IQueryable<Project> responsedProject =
-                    RepositoryContext.Current.All<Project>();
-                var model = new List<InvestorResponse>();
-                foreach (Project project in responsedProject)
-                {
-                    model.AddRange(project.Responses);
-                }
-                return model;
+                return RepositoryContext.Current.All<Project>();
             }
         }
 

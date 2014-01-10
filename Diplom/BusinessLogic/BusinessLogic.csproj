@@ -94,6 +94,7 @@
     <Compile Include="Providers\MongoProfileProvider.cs" />
     <Compile Include="Providers\MongoRoleProvider.cs" />
     <Compile Include="Wokflow\IUnitsOfWorkContainer.cs" />
+    <Compile Include="Wokflow\ProjectStateContext.cs" />
     <Compile Include="Wokflow\ProjectWorkflowWrapper.cs" />
     <Compile Include="Wokflow\UnitsOfWorkContainer.cs" />
     <Compile Include="Wokflow\UnitsOfWork\Realization\BaseProjectUoW.cs" />

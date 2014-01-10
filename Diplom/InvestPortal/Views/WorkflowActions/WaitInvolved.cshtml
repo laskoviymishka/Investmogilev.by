@@ -32,20 +32,11 @@
             }
         }
     </div>
-    <div>
-        <ul>
-            <li>@Html.ActionLink("Добавить причастных лиц", "AddInvolvedOrganizations", "WorkflowActions", new { @projectId = Model._id }, new { @class = "button info" })</li>
 
-            @foreach (ProjectWorkflow.Trigger trigger in ViewBag.AvaibleTriggers)
-            {
-                <li>@Html.ActionLink(trigger.ToString(), "Triggers", new {projectId = Model._id, @trigger = trigger.ToString()}, new {@class = "button primary"})</li>
-            }
-        </ul>
-    </div>
 }
 else
 {
-     <div class="listview small">
+    <div class="listview small">
         @foreach (var task in Model.Tasks.Where(t => t.Type == TaskTypes.InvolvedOrganiztion))
         {
             if (task.IsComplete)
@@ -75,3 +66,4 @@ else
         }
     </div>
 }
+@{Html.RenderPartial("AllowActions");}

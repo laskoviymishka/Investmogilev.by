@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using BusinessLogic.Notification;
 using BusinessLogic.Wokflow.UnitsOfWork;
 using BusinessLogic.Wokflow.UnitsOfWork.Realization;
 using Invest.Common.Model.Project;
 using Invest.Common.Notification;
 using Invest.Common.Repository;
+using Invest.Common.State.StateAttributes;
 
 namespace BusinessLogic.Wokflow
 {
@@ -151,6 +154,10 @@ namespace BusinessLogic.Wokflow
                 _investorNotification,
                 _userName,
                 _roles);
+
+            var dict = new Dictionary<Type, IState>();
+            dict.Add(OnMapUoW.GetType(),OnMapUoW);
+            AttributeStateMachineBuilder.InitializeStates(dict);
         }
 
         public IComissionFixesUoW ComissionFixesUoW { get; private set; }

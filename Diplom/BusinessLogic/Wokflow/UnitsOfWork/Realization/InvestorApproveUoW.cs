@@ -71,7 +71,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         public bool FromOnMapToInvestorApprove()
         {
-            return true;
+            return Roles == null || !Roles.Any() && string.IsNullOrEmpty(UserName);
         }
     }
 }

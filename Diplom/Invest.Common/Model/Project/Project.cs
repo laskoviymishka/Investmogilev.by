@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Invest.Common.Model.Project
 {
     [BsonIgnoreExtraElements]
-    [BsonKnownTypes(typeof(GreenField), typeof(UnUsedBuilding), typeof(BrownField))]
+    [BsonKnownTypes(typeof (GreenField), typeof (UnUsedBuilding), typeof (BrownField))]
     public class Project : IMongoEntity
     {
         [BsonRepresentation(BsonType.ObjectId)]
@@ -39,12 +39,16 @@ namespace Invest.Common.Model.Project
         [Display(Name = "Инвестор")]
         public string InvestorUser { get; set; }
 
+        [Display(Name = "Задачи")]
         public List<ProjectTask> Tasks { get; set; }
 
+        [Display(Name = "Шаги")]
         public List<Step> Steps { get; set; }
 
+        [Display(Name = "Под проекты")]
         public List<Project> SubProject { get; set; }
 
+        [Display(Name = "Состояние")]
         public Workflow WorkflowState { get; set; }
 
         [BsonIgnore]
@@ -57,16 +61,25 @@ namespace Invest.Common.Model.Project
         [BsonIgnore]
         public Comission ProjectComission
         {
-            get { return RepositoryContext.Current.GetOne<Comission>(c => c.ProjectIds.Contains(_id) && c.Type == ComissionType.Comission); }
+            get
+            {
+                return
+                    RepositoryContext.Current.GetOne<Comission>(
+                        c => c.ProjectIds.Contains(_id) && c.Type == ComissionType.Comission);
+            }
         }
 
         [BsonIgnore]
         public Comission ProjectIspolcom
         {
-            get { return RepositoryContext.Current.GetOne<Comission>(c => c.ProjectIds.Contains(_id) && c.Type == ComissionType.Ispolcom); }
+            get
+            {
+                return
+                    RepositoryContext.Current.GetOne<Comission>(
+                        c => c.ProjectIds.Contains(_id) && c.Type == ComissionType.Ispolcom);
+            }
         }
 
         public List<InvestorResponse> Responses { get; set; }
-
     }
 }

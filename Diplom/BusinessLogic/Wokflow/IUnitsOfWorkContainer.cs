@@ -1,4 +1,6 @@
-﻿using BusinessLogic.Wokflow.UnitsOfWork;
+﻿using System;
+using BusinessLogic.Wokflow.UnitsOfWork;
+using Invest.Common.State.StateAttributes;
 
 namespace BusinessLogic.Wokflow
 {

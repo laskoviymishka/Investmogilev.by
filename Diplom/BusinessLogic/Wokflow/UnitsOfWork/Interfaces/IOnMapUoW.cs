@@ -1,6 +1,8 @@
-﻿namespace BusinessLogic.Wokflow.UnitsOfWork
+﻿using Invest.Common.State.StateAttributes;
+
+namespace BusinessLogic.Wokflow.UnitsOfWork
 {
-    public interface IOnMapUoW
+    public interface IOnMapUoW : IState
     {
         void OnMapExit();
         void OnMapEntry();

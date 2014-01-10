@@ -1167,7 +1167,6 @@
     <Content Include="Views\Shared\_MINIPROFILER UPDATED Layout.cshtml" />
     <Content Include="Views\InvestorEntry\NewResponseToProject.cshtml" />
     <Content Include="Views\InvestorEntry\ExistingResponseToProject.cshtml" />
-    <Content Include="Views\WorkflowActions\CompletePlan.cshtml" />
     <Content Include="Views\Shared\_InvestorEntryLayout.cshtml" />
     <Content Include="Views\WorkflowActions\Open.cshtml" />
     <Content Include="Views\WorkflowActions\OnMap.cshtml" />
@@ -1202,6 +1201,7 @@
     <Content Include="Views\MailTemplate\Details.cshtml" />
     <Content Include="Views\MailTemplate\Create.cshtml" />
     <Content Include="Views\MailTemplate\Edit.cshtml" />
+    <Content Include="Views\WorkflowActions\AllowActions.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

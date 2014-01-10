@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Text;
+using BusinessLogic.Wokflow.UnitsOfWork.Realization;
 using Invest.Common;
 using Invest.Common.Model.User;
 using Invest.Common.Notification;
+using Invest.Common.Repository;
 using Invest.Common.State;
 using System;
 using System.Collections.Generic;
@@ -9,6 +12,7 @@ using System.Linq;
 using Invest.Common.Model;
 using BusinessLogic.Notification;
 using BusinessLogic.Wokflow;
+using Invest.Common.State.StateAttributes;
 using Moq;
 using Invest.Common.Model.Project;
 using System.Collections;
@@ -21,10 +25,10 @@ namespace Tester
     {
         private static Project _currentProject;
         private static IList _projects;
-        private static MockMongoRepository _repository;
-        private static Mock<IUserNotification> _userNotification;
-        private static Mock<IAdminNotification> _adminNotification;
-        private static Mock<IInvestorNotification> _investorNotification;
+        private static IRepository _repository = RepositoryContext.Current;
+        private static IUserNotification _userNotificationl;
+        private static IAdminNotification _adminNotificate;
+        private static IInvestorNotification _investorNotificate;
         private static string _userName;
         private static IEnumerable<string> _roles;
         private static ProjectWorkflowWrapper _workflow;
@@ -32,49 +36,38 @@ namespace Tester
 
         static void Main(string[] args)
         {
-            TaskTemplate template = new TaskTemplate();
+            var _currentUser = "";
+            _roles = new List<string>();
+            _investorNotificate = new InvestorNotification();
+            _adminNotificate = new AdminNotification();
+            _userNotificationl = new UserNotification();
+            _currentProject = new GreenField();
+            var _unitsOfWork = new UnitsOfWorkContainer(_currentProject,
+                 _repository,
+                 _userNotificationl,
+                 _adminNotificate,
+                 _investorNotificate,
+                 _currentUser, _roles);
+            
+            if (_currentProject.WorkflowState == null)
+            {
+                _currentProject.WorkflowState = new Workflow()
+                {
+                    CurrentState = ProjectWorkflow.State.Open
+                };
+            }
+            _workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
 
-            template.Title = "заявление о заключении инвестиционного договора";
-            template.Step = ProjectWorkflow.State.DocumentSending;
-            template.Type = TaskTypes.Document;
-            template._id = ObjectId.GenerateNewId().ToString();
-            template.Body = "заявление о заключении инвестиционного договора";
-            RepositoryContext.Current.Add(template);
-
-            template.Title = "проект инвестиционного договора";
-            template.Step = ProjectWorkflow.State.DocumentSending;
-            template.Type = TaskTypes.Document;
-            template._id = ObjectId.GenerateNewId().ToString();
-            template.Body = "проект инвестиционного договора, подписанный инвестором (инвесторами)";
-            RepositoryContext.Current.Add(template);
-
-            template.Title = "копия свидетельства о государственной регистрации";
-            template.Step = ProjectWorkflow.State.DocumentSending;
-            template.Type = TaskTypes.Document;
-            template._id = ObjectId.GenerateNewId().ToString();
-            template.Body = "копия свидетельства о государственной регистрации (для юридических лиц и индивидуальных предпринимателей - резидентов Республики Беларусь), легализованная выписка из торгового регистра страны учреждения (датированная не позднее одного года до подачи заявления) или иное эквивалентное доказательство юридического статуса инвестора (инвесторов) в соответствии с законодательством страны его учреждения (для юридических лиц - нерезидентов Республики Беларусь);";
-            RepositoryContext.Current.Add(template);
-
-            template.Title = "копия документа, удостоверяющего личность инвестора";
-            template.Step = ProjectWorkflow.State.DocumentSending;
-            template.Type = TaskTypes.Document;
-            template._id = ObjectId.GenerateNewId().ToString();
-            template.Body = "копия документа, удостоверяющего личность инвестора (для физических лиц - резидентов Республики Беларусь), копия документа, удостоверяющего личность инвестора, с переводом на русский язык и документ, подлинность подписи переводчика на котором засвидетельствована нотариально (для физических лиц - нерезидентов Республики Беларусь);";
-            RepositoryContext.Current.Add(template);
-
-            template.Title = "копия документа, подтверждающего полномочия лица";
-            template.Step = ProjectWorkflow.State.DocumentSending;
-            template.Type = TaskTypes.Document;
-            template._id = ObjectId.GenerateNewId().ToString();
-            template.Body = "копия документа, подтверждающего полномочия лица (лиц), подписавшего проект инвестиционного договора, на его подписание (для юридических лиц);";
-            RepositoryContext.Current.Add(template);
-
-            template.Title = "краткое финансово-экономическое обоснование";
-            template.Step = ProjectWorkflow.State.DocumentSending;
-            template.Type = TaskTypes.Document;
-            template._id = ObjectId.GenerateNewId().ToString();
-            template.Body = "краткое финансово-экономическое обоснование инвестиционного проекта, подготовленное в произвольной форме и содержащее указание объемов и источников инвестиций, срока реализации инвестиционного проекта, ожидаемого социально-экономического эффекта, а также иную информацию, характеризующую инвестиционный проект.";
-            RepositoryContext.Current.Add(template);
+            var builder = new AttributeStateMachineBuilder();
+            ProjectStateContext context = new ProjectStateContext();
+            context.AdminNotification = _adminNotificate;
+            context.CurrentProject = _currentProject;
+            context.InvestorNotification = _investorNotificate;
+            context.Repository = _repository;
+            context.Roles = _roles;
+            context.UserName = _currentUser;
+            context.UserNotification = _userNotificationl;
+            var statemachine = builder.BuilStateMachine("test", context);
         }
         //private static void GenerateDependendenciesValues()
         //{

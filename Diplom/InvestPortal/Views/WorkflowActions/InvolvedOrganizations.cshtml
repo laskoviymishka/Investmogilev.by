@@ -33,14 +33,6 @@
             }
         }
     </div>
-    <div>
-        <ul>
-            @foreach (ProjectWorkflow.Trigger trigger in ViewBag.AvaibleTriggers)
-            {
-                <li>@Html.ActionLink(trigger.ToString(), "Triggers", new { projectId = Model._id, @trigger = trigger.ToString() }, new { @class = "button primary" })</li>
-            }
-        </ul>
-    </div>
 }
 
 @if (User.IsInRole("Investor"))
@@ -75,3 +67,4 @@
         }
     </div>
 }
+@{Html.RenderPartial("AllowActions");}

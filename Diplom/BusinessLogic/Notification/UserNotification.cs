@@ -5,7 +5,7 @@ using Invest.Common.State;
 
 namespace BusinessLogic.Notification
 {
-    internal class UserNotification : BaseNotificate, IUserNotification
+    public class UserNotification : BaseNotificate, IUserNotification
     {
         public UserNotification()
             : base(RepositoryContext.Current)

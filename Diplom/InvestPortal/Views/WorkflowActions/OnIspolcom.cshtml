@@ -17,30 +17,18 @@
     }
 </div>
 
+
 <div>
-    <ul>
-        <li>
-            @Html.ActionLink("Добавить замечание по проекту", "AddFix",
+    @Html.ActionLink("Добавить замечание по проекту", "AddFix",
                 new
-                    {
-                        projectId = Model._id,
-                        state = ProjectWorkflow.State.WaitIspolcomFixes
-                    },
-                new
-                    {
-                        @class = "button danger",
-                        @style = "width: 300px"
-                    })
-        </li>
-        @foreach (ProjectWorkflow.Trigger trigger in ViewBag.AvaibleTriggers)
-        {
-            <li>
-                @Html.ActionLink(trigger.ToString(), "Triggers", new { projectId = Model._id, @trigger = trigger.ToString() }, new
                 {
-                    @class = "button primary",
+                    projectId = Model._id,
+                    state = ProjectWorkflow.State.WaitIspolcomFixes
+                },
+                new
+                {
+                    @class = "button danger",
                     @style = "width: 300px"
                 })
-            </li>
-        }
-    </ul>
 </div>
+@{Html.RenderPartial("AllowActions");}

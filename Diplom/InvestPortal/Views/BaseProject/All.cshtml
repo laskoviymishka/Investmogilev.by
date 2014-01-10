@@ -1,4 +1,5 @@
-﻿@using InvestPortal.Controllers
+﻿@using Invest.Common.Model.Common
+@using InvestPortal.Controllers
 @model IEnumerable<Invest.Common.Model.Project.Project>
 @{
     ViewBag.Title = "Все проекты";
@@ -69,7 +70,7 @@
                     @Html.DisplayFor(modelItem => item.ProjectType)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.WorkflowState)
+                    @EnumDescription.GetEnumDescription(item.WorkflowState.CurrentState)
                 </td>
                 <td>
                     <div>
