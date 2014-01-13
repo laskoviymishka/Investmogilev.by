@@ -70,56 +70,59 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
-            ProjectTriggersConstants.RejectDocument, "OnComission", "OnMap")]
+            ProjectTriggersConstants.RejectDocument, ProjectStatesConstants.OnComission, ProjectStatesConstants.OnMap)]
         public bool FromOnComissionToOnMap()
         {
             return IsAdmin;
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
-            ProjectTriggersConstants.RejectDocument, "OnIspolcom", "OnMap")]
+            ProjectTriggersConstants.RejectDocument, ProjectStatesConstants.OnIspolcom, ProjectStatesConstants.OnMap)]
         public bool FromOnIspolcomToOnMap()
         {
             return IsAdmin;
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
-            ProjectTriggersConstants.UpdateInformation, "OnMap", "OnMap")]
+            ProjectTriggersConstants.UpdateInformation, ProjectStatesConstants.OnMap, ProjectStatesConstants.OnMap)]
         public bool FromOnMapToOnMap()
         {
             return IsAdmin || IsUser;
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
-            ProjectTriggersConstants.RejectDocument, "WaitComissionFixes", "OnMap")]
+            ProjectTriggersConstants.RejectDocument, ProjectStatesConstants.WaitComissionFixes,
+            ProjectStatesConstants.OnMap)]
         public bool FromWaitComissionFixesToOnMap()
         {
             return IsAdmin;
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
-            ProjectTriggersConstants.RejectDocument, "WaitIspolcomFixes", "OnMap")]
+            ProjectTriggersConstants.RejectDocument, ProjectStatesConstants.WaitIspolcomFixes,
+            ProjectStatesConstants.OnMap)]
         public bool FromWaitIspolcomFixesToOnMap()
         {
             return IsAdmin;
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
-            ProjectTriggersConstants.FillInformation, "Open", "OnMap")]
+            ProjectTriggersConstants.FillInformation, ProjectStatesConstants.Open, ProjectStatesConstants.OnMap)]
         public bool FromOpenToOnMap()
         {
             return IsUser;
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
-            ProjectTriggersConstants.ReOpen, "OnMap", "Open")]
+            ProjectTriggersConstants.ReOpen, ProjectStatesConstants.OnMap, ProjectStatesConstants.Open)]
         public bool FromOnMapToOpen()
         {
             return IsAdmin;
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
-            ProjectTriggersConstants.InvestorResponsed, "OnMap", "InvestorApprove")]
+            ProjectTriggersConstants.InvestorResponsed, ProjectStatesConstants.OnMap,
+            ProjectStatesConstants.InvestorApprove)]
         public bool FromOnMapToInvestorApprove()
         {
             return true;

@@ -93,7 +93,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
-            ProjectTriggersConstants.FillInformation, ProjectStatesConstants.OnMap,
+            ProjectTriggersConstants.InvestorResponsed, ProjectStatesConstants.OnMap,
             ProjectStatesConstants.InvestorApprove)]
         public bool FromOnMapToInvestorApprove()
         {

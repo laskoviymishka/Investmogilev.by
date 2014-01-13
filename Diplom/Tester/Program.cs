@@ -67,7 +67,9 @@ namespace Tester
             context.Roles = _roles;
             context.UserName = _currentUser;
             context.UserNotification = _userNotificationl;
-            var statemachine = builder.BuilStateMachine<string,string>("test", context, "Open");
+            var statemachine = builder.BuilStateMachine<ProjectWorkflow.State, ProjectWorkflow.Trigger>("test", context, _currentProject.WorkflowState.CurrentState);
+            statemachine.CanFire(ProjectWorkflow.Trigger.FillInformation);
+            
         }
         //private static void GenerateDependendenciesValues()
         //{

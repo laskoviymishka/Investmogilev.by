@@ -4,6 +4,7 @@ using Invest.Common;
 using Invest.Common.Model.Common;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
+using Invest.Common.State;
 using Newtonsoft.Json;
 
 namespace InvestPortal.Controllers
@@ -56,7 +57,9 @@ namespace InvestPortal.Controllers
         [AllowAnonymous]
         public string ProjectGeoJson()
         {
-            return JsonConvert.SerializeObject(GenerateGeoJsonData(RepositoryContext.Current.All<Project>()));
+            return JsonConvert.SerializeObject(GenerateGeoJsonData(RepositoryContext.Current.All<Project>(
+                p => p.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap
+                    || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove)));
         }
 
         [AllowAnonymous]

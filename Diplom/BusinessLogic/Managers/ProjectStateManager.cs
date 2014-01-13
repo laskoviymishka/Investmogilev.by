@@ -71,8 +71,8 @@ namespace BusinessLogic.Managers
                         CurrentState = ProjectWorkflow.State.Open
                     };
             }
-            //_workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
-            ProjectStateContext context = new ProjectStateContext();
+            _workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
+            /*ProjectStateContext context = new ProjectStateContext();
             context.UserName = currentUser;
             context.CurrentProject = currentProject;
             context.Roles = roles;
@@ -82,7 +82,7 @@ namespace BusinessLogic.Managers
             var builder = new AttributeStateMachineBuilder();
             _workflow = new ProjectWorkflowWrapper(
                 new ProjectWorkflow(
-                    builder.BuilStateMachine<ProjectWorkflow.State,ProjectWorkflow.Trigger>("test", context,_currentProject.WorkflowState.CurrentState)));
+                    builder.BuilStateMachine<ProjectWorkflow.State,ProjectWorkflow.Trigger>("test", context,_currentProject.WorkflowState.CurrentState)));*/
         }
 
         #endregion
