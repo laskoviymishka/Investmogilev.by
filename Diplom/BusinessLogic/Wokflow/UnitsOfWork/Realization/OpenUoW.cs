@@ -3,10 +3,12 @@ using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
 using Invest.Common.State;
+using Invest.Common.State.StateAttributes;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    public class OpenUoW : BaseProjectUoW, IOpenUoW
+    [State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.OnMap)]
+    public class OpenUoW : BaseProjectUoW, IOpenUoW, IState
     {
         public OpenUoW(Project currentProject,
             IRepository repository,
@@ -15,14 +17,36 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             IInvestorNotification investorNotification,
             string userName,
             IEnumerable<string> roles)
-            : base(currentProject,
-           repository,
-           userNotification,
-           adminNotification,
-           investorNotification,
-           userName,
-           roles)
+            : this(new ProjectStateContext
+            {
+                UserNotification = userNotification,
+                AdminNotification = adminNotification,
+                InvestorNotification = investorNotification,
+                CurrentProject = currentProject,
+                Repository = repository,
+                Roles = roles,
+                UserName = userName
+            })
         {
+            if (CurrentProject != null)
+            {
+                if (currentProject.Responses == null)
+                {
+                    currentProject.Responses = new List<InvestorResponse>();
+                }
+            }
+        }
+
+        public OpenUoW(ProjectStateContext context)
+            : base(context.CurrentProject,
+                context.Repository,
+                context.UserNotification,
+                context.AdminNotification,
+                context.InvestorNotification,
+                context.UserName,
+                context.Roles)
+        {
+            Context = context;
         }
 
         public void OnOpenExit()
@@ -36,14 +60,30 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             AdminNotification.NotificateReOpen();
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.ReOpen, ProjectStatesConstants.OnMap, ProjectStatesConstants.Open)]
         public bool FromMapToOpen()
         {
             return IsAdmin;
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.FillInformation, ProjectStatesConstants.Open, ProjectStatesConstants.OnMap)]
         public bool FromOpenToMap()
         {
             return IsUser;
+        }
+
+        public IStateContext Context { get; set; }
+
+        public void OnEntry()
+        {
+            OnOpenExit();
+        }
+
+        public void OnExit()
+        {
+            OnOpenExit();
         }
     }
 }

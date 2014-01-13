@@ -165,6 +165,11 @@ namespace Invest.Common.State
         public GuardClauseDelegate GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization = null;
         public UnhandledTriggerDelegate OnUnhandledTrigger = null;
 
+        public ProjectWorkflow(StateMachine<State,Trigger> outerStateMachine )
+        {
+            stateMachine = outerStateMachine;
+        }
+
         public ProjectWorkflow(State currentState)
         {
             stateMachine = new StateMachine<State, Trigger>(currentState);

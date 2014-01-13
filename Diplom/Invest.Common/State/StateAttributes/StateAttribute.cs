@@ -5,21 +5,36 @@ namespace Invest.Common.State.StateAttributes
     [AttributeUsage(AttributeTargets.Class)]
     public class StateAttribute : Attribute
     {
-        public StateAttribute(Type classType, string stateMachineName, string state)
+        private readonly Type _stateType;
+        private readonly string _state;
+
+        public StateAttribute(string stateMachineName, string state)
         {
-            ClassType = classType;
             StateMachineName = stateMachineName;
-            State = state;
-            if (ClassType.GetInterface("IState") == null)
-            {
-                throw new Exception();
-            }
+            _state = state;
         }
 
-        public Type ClassType { get; private set; }
+        public StateAttribute(Type stateType, string stateMachineName, string state)
+        {
+            _stateType = stateType;
+            _state = state;
+            StateMachineName = stateMachineName;
+            _state = state;
+        }
 
         public string StateMachineName { get; private set; }
 
-        public string State { get; private set; }
+        public object State
+        {
+            get
+            {
+                if (_stateType != null && _stateType.IsEnum)
+                {
+                    return Enum.Parse(_stateType, _state);
+                }
+
+                return _state;
+            }
+        }
     }
 }

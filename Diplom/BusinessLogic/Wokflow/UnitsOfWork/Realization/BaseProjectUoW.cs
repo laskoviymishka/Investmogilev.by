@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
-using System;
 using Invest.Common.State;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
@@ -20,13 +20,13 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 
         #region Protected Fields
 
-        protected Project CurrentProject;
-        protected readonly IRepository Repository;
-        protected readonly IUserNotification UserNotification;
         protected readonly IAdminNotification AdminNotification;
         protected readonly IInvestorNotification InvestorNotification;
-        protected readonly string UserName;
+        protected readonly IRepository Repository;
         protected readonly IEnumerable<string> Roles;
+        protected readonly string UserName;
+        protected readonly IUserNotification UserNotification;
+        protected Project CurrentProject;
 
         #endregion
 
@@ -72,7 +72,8 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
         {
             get
             {
-                return CurrentProject.Tasks.Any(t => t.Step == CurrentProject.WorkflowState.CurrentState && !t.IsComplete);
+                return
+                    CurrentProject.Tasks.Any(t => t.Step == CurrentProject.WorkflowState.CurrentState && !t.IsComplete);
             }
         }
 
@@ -84,7 +85,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
         {
             if (CurrentProject == null)
             {
-                throw new ArgumentNullException("CurrentProject"); 
+                throw new ArgumentNullException("CurrentProject");
             }
         }
 
@@ -101,7 +102,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
                 CurrentProject.WorkflowState.History = new List<History>();
             }
 
-            CurrentProject.WorkflowState.History.Add(new History()
+            CurrentProject.WorkflowState.History.Add(new History
             {
                 EditingTime = DateTime.Now,
                 Editor = UserName,
@@ -111,7 +112,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             });
 
             CurrentProject.WorkflowState.CurrentState = initialState;
-            Repository.Update<Project>(CurrentProject);
+            Repository.Update(CurrentProject);
         }
 
         #endregion

@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
 using Invest.Common.State;
-using System;
 using Invest.Common.State.StateAttributes;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    [State(typeof(OnMapUoW) ,"test", "OnMap")]
+    [State(typeof (ProjectWorkflow.State), "test", "OnMap")]
     public class OnMapUoW : BaseProjectUoW, IOnMapUoW
     {
         public OnMapUoW(Project currentProject,
@@ -19,25 +18,36 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             IInvestorNotification investorNotification,
             string userName,
             IEnumerable<string> roles)
-            : base(currentProject,
-                repository,
-                userNotification,
-                adminNotification,
-                investorNotification,
-                userName,
-                roles)
+            : this(new ProjectStateContext
+            {
+                UserNotification = userNotification,
+                AdminNotification = adminNotification,
+                InvestorNotification = investorNotification,
+                CurrentProject = currentProject,
+                Repository = repository,
+                Roles = roles,
+                UserName = userName
+            })
         {
+            if (CurrentProject != null)
+            {
+                if (currentProject.Responses == null)
+                {
+                    currentProject.Responses = new List<InvestorResponse>();
+                }
+            }
         }
 
         public OnMapUoW(ProjectStateContext context)
-            :base(context.CurrentProject,
-            context.Repository,
-            context.UserNotification,
-            context.AdminNotification,
-            context.InvestorNotification,
-            context.UserName,
-            context.Roles)
+            : base(context.CurrentProject,
+                context.Repository,
+                context.UserNotification,
+                context.AdminNotification,
+                context.InvestorNotification,
+                context.UserName,
+                context.Roles)
         {
+            Context = context;
         }
 
         public void OnMapExit()
@@ -59,49 +69,57 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             }
         }
 
-        [Trigger("test", "Reject", "OnComission", "OnMap")]
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.RejectDocument, "OnComission", "OnMap")]
         public bool FromOnComissionToOnMap()
         {
             return IsAdmin;
         }
 
-        [Trigger("test", "Reject", "OnIspolcom", "OnMap")]
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.RejectDocument, "OnIspolcom", "OnMap")]
         public bool FromOnIspolcomToOnMap()
         {
             return IsAdmin;
         }
 
-        [Trigger("test", "FillProject", "OnMap", "OnMap")]
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.UpdateInformation, "OnMap", "OnMap")]
         public bool FromOnMapToOnMap()
         {
             return IsAdmin || IsUser;
         }
 
-        [Trigger("test", "Reject", "WaitComissionFixes", "OnMap")]
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.RejectDocument, "WaitComissionFixes", "OnMap")]
         public bool FromWaitComissionFixesToOnMap()
         {
             return IsAdmin;
         }
 
-        [Trigger("test", "Reject", "WaitIspolcomFixes", "OnMap")]
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.RejectDocument, "WaitIspolcomFixes", "OnMap")]
         public bool FromWaitIspolcomFixesToOnMap()
         {
             return IsAdmin;
         }
 
-        [Trigger("test", "FillProject", "Open", "OnMap")]
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.FillInformation, "Open", "OnMap")]
         public bool FromOpenToOnMap()
         {
             return IsUser;
         }
 
-        [Trigger("test", "ReOpen", "OnMap", "Open")]
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.ReOpen, "OnMap", "Open")]
         public bool FromOnMapToOpen()
         {
             return IsAdmin;
         }
 
-        [Trigger("test", "InvestorResponsed", "FromOnMap", "InvestorApprove")]
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.InvestorResponsed, "OnMap", "InvestorApprove")]
         public bool FromOnMapToInvestorApprove()
         {
             return true;
@@ -116,5 +134,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
         {
             OnMapExit();
         }
+
+        public IStateContext Context { get; set; }
     }
 }

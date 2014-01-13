@@ -4,10 +4,12 @@ using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
 using Invest.Common.State;
+using Invest.Common.State.StateAttributes;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    public class ComissionFixesUoW : BaseProjectUoW, IComissionFixesUoW
+    [State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.WaitComissionFixes)]
+    public class ComissionFixesUoW : BaseProjectUoW, IComissionFixesUoW, IState
     {
         public ComissionFixesUoW(Project currentProject,
             IRepository repository,
@@ -16,19 +18,40 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             IInvestorNotification investorNotification,
             string userName,
             IEnumerable<string> roles)
-            : base(currentProject,
-           repository,
-           userNotification,
-           adminNotification,
-           investorNotification,
-           userName,
-           roles)
+            : this(new ProjectStateContext
+            {
+                UserNotification = userNotification,
+                AdminNotification = adminNotification,
+                InvestorNotification = investorNotification,
+                CurrentProject = currentProject,
+                Repository = repository,
+                Roles = roles,
+                UserName = userName
+            })
         {
+            if (CurrentProject != null)
+            {
+                if (currentProject.Responses == null)
+                {
+                    currentProject.Responses = new List<InvestorResponse>();
+                }
+            }
+        }
+
+        public ComissionFixesUoW(ProjectStateContext context)
+            : base(context.CurrentProject,
+                context.Repository,
+                context.UserNotification,
+                context.AdminNotification,
+                context.InvestorNotification,
+                context.UserName,
+                context.Roles)
+        {
+            Context = context;
         }
 
         public void OnWaitComissionFixesExit()
         {
-
         }
 
         public void OnWaitComissionFixesEntry()
@@ -46,14 +69,32 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             ProcessMoving(ProjectWorkflow.State.WaitComissionFixes, "Обновление состояния");
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.ComissionFixUpdate, ProjectStatesConstants.WaitComissionFixes,
+            ProjectStatesConstants.WaitComissionFixes)]
         public bool CouldUpdateComissionFix()
         {
             return CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.WaitComissionFixes && !t.IsComplete);
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.ComissionFixUpdate, ProjectStatesConstants.WaitComissionFixes,
+            ProjectStatesConstants.WaitIspolcom)]
         public bool CouldUpdateComissionFixAndLeave()
         {
             return !CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.WaitComissionFixes && !t.IsComplete);
+        }
+
+        public IStateContext Context { get; set; }
+
+        public void OnEntry()
+        {
+            OnWaitComissionFixesEntry();
+        }
+
+        public void OnExit()
+        {
+            OnWaitComissionFixesExit();
         }
     }
 }

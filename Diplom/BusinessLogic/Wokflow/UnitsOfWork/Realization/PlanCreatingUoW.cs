@@ -4,10 +4,12 @@ using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
 using Invest.Common.State;
+using Invest.Common.State.StateAttributes;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    class PlanCreatingUoW : BaseProjectUoW, IPlanCreatingUoW
+    [State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.PlanCreating)]
+    internal class PlanCreatingUoW : BaseProjectUoW, IPlanCreatingUoW, IState
     {
         public PlanCreatingUoW(Project currentProject,
             IRepository repository,
@@ -16,14 +18,36 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             IInvestorNotification investorNotification,
             string userName,
             IEnumerable<string> roles)
-            : base(currentProject,
-           repository,
-           userNotification,
-           adminNotification,
-           investorNotification,
-           userName,
-           roles)
+            : this(new ProjectStateContext
+            {
+                UserNotification = userNotification,
+                AdminNotification = adminNotification,
+                InvestorNotification = investorNotification,
+                CurrentProject = currentProject,
+                Repository = repository,
+                Roles = roles,
+                UserName = userName
+            })
         {
+            if (CurrentProject != null)
+            {
+                if (currentProject.Responses == null)
+                {
+                    currentProject.Responses = new List<InvestorResponse>();
+                }
+            }
+        }
+
+        public PlanCreatingUoW(ProjectStateContext context)
+            : base(context.CurrentProject,
+                context.Repository,
+                context.UserNotification,
+                context.AdminNotification,
+                context.InvestorNotification,
+                context.UserName,
+                context.Roles)
+        {
+            Context = context;
         }
 
         public void OnPlanCreatingExit()
@@ -44,14 +68,33 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             ProcessMoving(ProjectWorkflow.State.PlanCreating, "проект перешел в стадию создания дорожной карты");
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.UpdatePlan, ProjectStatesConstants.PlanCreating,
+            ProjectStatesConstants.PlanCreating)]
         public bool CouldUpdatePlan()
         {
             return Roles.Contains("Investor");
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.ApprovePlan, ProjectStatesConstants.PlanCreating,
+            ProjectStatesConstants.Realization)]
         public bool CouldApprovePlan()
         {
-            return Roles.Contains("Admin") && CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.Realization && !t.IsComplete);
+            return Roles.Contains("Admin") &&
+                   CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.Realization && !t.IsComplete);
+        }
+
+        public IStateContext Context { get; set; }
+
+        public void OnEntry()
+        {
+            OnPlanCreatingEntry();
+        }
+
+        public void OnExit()
+        {
+            OnPlanCreatingExit();
         }
     }
 }

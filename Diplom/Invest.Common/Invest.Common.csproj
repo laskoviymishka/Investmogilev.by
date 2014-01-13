@@ -111,6 +111,8 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\MongoRepository.cs" />
     <Compile Include="State\IStateMachineBuilder.cs" />
+    <Compile Include="State\ProjectStatesConstants.cs" />
+    <Compile Include="State\ProjectTriggersConstants.cs" />
     <Compile Include="State\ProjectUpdateStateMachine.cs" />
     <Compile Include="State\ProjectWorkflow.cs">
       <AutoGen>True</AutoGen>

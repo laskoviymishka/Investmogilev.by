@@ -42,6 +42,11 @@ namespace BusinessLogic.Wokflow
             BindGuardMethods();
         }
 
+        public ProjectWorkflowWrapper(ProjectWorkflow workflow)
+        {
+            _workflow = workflow;
+        }
+
         #endregion
 
         #region Public Methods
@@ -161,11 +166,11 @@ namespace BusinessLogic.Wokflow
             _workflow.OnWaitComissionFixesExit = _unitsOfWork.ComissionFixesUoW.OnWaitComissionFixesExit;
             _workflow.OnWaitIspolcomExit = _unitsOfWork.WaitIspolcomUoW.OnWaitIspolcomExit;
             _workflow.OnOnIspolcomExit = _unitsOfWork.OnIspolcomUoW.OnOnIspolcomExit;
-            _workflow.OnWaitIspolcomFixesExit =_unitsOfWork.IspolcomFixesUoW.OnWaitIspolcomFixesExit;
-            _workflow.OnInMinEconomyExit =_unitsOfWork.MinEconomyUoW.OnInMinEconomyExit;
-            _workflow.OnPlanCreatingExit =_unitsOfWork.PlanCreatingUoW.OnPlanCreatingExit;
-            _workflow.OnRealizationExit =_unitsOfWork.RealizationUoW.OnRealizationExit;
-            _workflow.OnDoneExit =_unitsOfWork.DoneUoW.OnDoneExit;
+            _workflow.OnWaitIspolcomFixesExit = _unitsOfWork.IspolcomFixesUoW.OnWaitIspolcomFixesExit;
+            _workflow.OnInMinEconomyExit = _unitsOfWork.MinEconomyUoW.OnInMinEconomyExit;
+            _workflow.OnPlanCreatingExit = _unitsOfWork.PlanCreatingUoW.OnPlanCreatingExit;
+            _workflow.OnRealizationExit = _unitsOfWork.RealizationUoW.OnRealizationExit;
+            _workflow.OnDoneExit = _unitsOfWork.DoneUoW.OnDoneExit;
         }
 
         private void BindEntryMethods()

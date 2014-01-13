@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
-using System.Linq;
 using Invest.Common.Repository;
 using Invest.Common.State;
+using Invest.Common.State.StateAttributes;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    class DocumentSendingUoW : BaseProjectUoW, IDocumentSendingUoW
+    [State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.DocumentSending)]
+    internal class DocumentSendingUoW : BaseProjectUoW, IDocumentSendingUoW, IState
     {
         public DocumentSendingUoW(Project currentProject,
             IRepository repository,
@@ -16,14 +18,36 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             IInvestorNotification investorNotification,
             string userName,
             IEnumerable<string> roles)
-            : base(currentProject,
-           repository,
-           userNotification,
-           adminNotification,
-           investorNotification,
-           userName,
-           roles)
+            : this(new ProjectStateContext
+            {
+                UserNotification = userNotification,
+                AdminNotification = adminNotification,
+                InvestorNotification = investorNotification,
+                CurrentProject = currentProject,
+                Repository = repository,
+                Roles = roles,
+                UserName = userName
+            })
         {
+            if (CurrentProject != null)
+            {
+                if (currentProject.Responses == null)
+                {
+                    currentProject.Responses = new List<InvestorResponse>();
+                }
+            }
+        }
+
+        public DocumentSendingUoW(ProjectStateContext context)
+            : base(context.CurrentProject,
+                context.Repository,
+                context.UserNotification,
+                context.AdminNotification,
+                context.InvestorNotification,
+                context.UserName,
+                context.Roles)
+        {
+            Context = context;
         }
 
         public void OnDocumentSendingEntry()
@@ -47,15 +71,32 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             InvestorNotification.DocumentUpdate(CurrentProject);
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.DocumentUpdate, ProjectStatesConstants.DocumentSending,
+            ProjectStatesConstants.DocumentSending)]
         public bool CouldDocumentUpdate()
         {
             return CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.DocumentSending && !t.IsComplete);
         }
 
-
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.DocumentUpdate, ProjectStatesConstants.DocumentSending,
+            ProjectStatesConstants.WaitInvolved)]
         public bool CouldDocumentUpdateAndLeave()
         {
             return !CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.DocumentSending && !t.IsComplete);
+        }
+
+        public IStateContext Context { get; set; }
+
+        public void OnEntry()
+        {
+            OnDocumentSendingEntry();
+        }
+
+        public void OnExit()
+        {
+            OnDocumentSendingExit();
         }
     }
 }

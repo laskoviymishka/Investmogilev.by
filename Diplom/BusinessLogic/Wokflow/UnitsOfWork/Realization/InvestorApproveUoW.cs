@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
 using Invest.Common.State;
+using Invest.Common.State.StateAttributes;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    public class InvestorApproveUoW : BaseProjectUoW, IInvestorApproveUoW
+    [State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.InvestorApprove)]
+    public class InvestorApproveUoW : BaseProjectUoW, IInvestorApproveUoW, IState
     {
         public InvestorApproveUoW(Project currentProject,
             IRepository repository,
@@ -17,13 +18,16 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             IInvestorNotification investorNotification,
             string userName,
             IEnumerable<string> roles)
-            : base(currentProject,
-           repository,
-           userNotification,
-           adminNotification,
-           investorNotification,
-           userName,
-           roles)
+            : this(new ProjectStateContext
+            {
+                UserNotification = userNotification,
+                AdminNotification = adminNotification,
+                InvestorNotification = investorNotification,
+                CurrentProject = currentProject,
+                Repository = repository,
+                Roles = roles,
+                UserName = userName
+            })
         {
             if (CurrentProject != null)
             {
@@ -32,6 +36,18 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
                     currentProject.Responses = new List<InvestorResponse>();
                 }
             }
+        }
+
+        public InvestorApproveUoW(ProjectStateContext context)
+            : base(context.CurrentProject,
+                context.Repository,
+                context.UserNotification,
+                context.AdminNotification,
+                context.InvestorNotification,
+                context.UserName,
+                context.Roles)
+        {
+            Context = context;
         }
 
         public void OnInvestorApproveExit()
@@ -59,19 +75,41 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             }
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.InvestorSelected, ProjectStatesConstants.InvestorApprove,
+            ProjectStatesConstants.DocumentSending)]
         public bool FromInvestorApproveToDocument()
         {
-            return CurrentProject.Responses.Count(r => r.IsVerified) == 1 && CurrentProject.Tasks != null && CurrentProject.Tasks.Any();
+            return CurrentProject.Responses.Count(r => r.IsVerified) == 1 && CurrentProject.Tasks != null &&
+                   CurrentProject.Tasks.Any();
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.InvestorResponsed, ProjectStatesConstants.InvestorApprove,
+            ProjectStatesConstants.InvestorApprove)]
         public bool FromInvestorApproveToInvestorResponsed()
         {
             return CurrentProject.Responses.Any() && !CurrentProject.Responses.Any(r => r.IsVerified);
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.FillInformation, ProjectStatesConstants.OnMap,
+            ProjectStatesConstants.InvestorApprove)]
         public bool FromOnMapToInvestorApprove()
         {
             return Roles == null || !Roles.Any() && string.IsNullOrEmpty(UserName);
+        }
+
+        public IStateContext Context { get; set; }
+
+        public void OnEntry()
+        {
+            OnInvestorApproveEntry();
+        }
+
+        public void OnExit()
+        {
+            OnInvestorApproveExit();
         }
     }
 }

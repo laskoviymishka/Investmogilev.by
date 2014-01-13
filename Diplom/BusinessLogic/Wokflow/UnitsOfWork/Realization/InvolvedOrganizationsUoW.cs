@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
 using Invest.Common.State;
+using Invest.Common.State.StateAttributes;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    class InvolvedOrganizationsUoW : BaseProjectUoW, IInvolvedorganizationsUoW
+    [State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.InvestorApprove)]
+    internal class InvolvedOrganizationsUoW : BaseProjectUoW, IInvolvedorganizationsUoW, IState
     {
         public InvolvedOrganizationsUoW(Project currentProject,
             IRepository repository,
@@ -17,14 +18,36 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             IInvestorNotification investorNotification,
             string userName,
             IEnumerable<string> roles)
-            : base(currentProject,
-           repository,
-           userNotification,
-           adminNotification,
-           investorNotification,
-           userName,
-           roles)
+            : this(new ProjectStateContext
+            {
+                UserNotification = userNotification,
+                AdminNotification = adminNotification,
+                InvestorNotification = investorNotification,
+                CurrentProject = currentProject,
+                Repository = repository,
+                Roles = roles,
+                UserName = userName
+            })
         {
+            if (CurrentProject != null)
+            {
+                if (currentProject.Responses == null)
+                {
+                    currentProject.Responses = new List<InvestorResponse>();
+                }
+            }
+        }
+
+        public InvolvedOrganizationsUoW(ProjectStateContext context)
+            : base(context.CurrentProject,
+                context.Repository,
+                context.UserNotification,
+                context.AdminNotification,
+                context.InvestorNotification,
+                context.UserName,
+                context.Roles)
+        {
+            Context = context;
         }
 
         public void OnInvolvedOrganizationsExit()
@@ -38,14 +61,32 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             ProcessMoving(ProjectWorkflow.State.InvolvedOrganizations, "Обход заинтерисованных организаций");
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.InvolvedOrganizationUpdate, ProjectStatesConstants.InvolvedOrganizations,
+            ProjectStatesConstants.InvolvedOrganizations)]
         public bool CouldInvolvedOrganizationUpdate()
         {
             return CurrentProject.Tasks.Any(t => t.Type == TaskTypes.InvolvedOrganiztion && t.TaskReport == null);
         }
 
+        [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+            ProjectTriggersConstants.ToComission, ProjectStatesConstants.InvolvedOrganizations,
+            ProjectStatesConstants.WaitComission)]
         public bool CouldInvolvedOrganizationUpdateAndLeave()
         {
             return !CurrentProject.Tasks.Any(t => t.Type == TaskTypes.InvolvedOrganiztion && t.TaskReport == null);
+        }
+
+        public IStateContext Context { get; set; }
+
+        public void OnEntry()
+        {
+            OnInvolvedOrganizationsEntry();
+        }
+
+        public void OnExit()
+        {
+            OnInvolvedOrganizationsExit();
         }
     }
 }

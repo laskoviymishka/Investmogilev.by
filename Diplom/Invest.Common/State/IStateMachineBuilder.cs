@@ -7,6 +7,6 @@ namespace Invest.Common.State
 {
     public interface IStateMachineBuilder
     {
-        StateMachine<string, string> BuilStateMachine(string statemachineName, IStateContext activator);
+        StateMachine<TS, TT> BuilStateMachine<TS,TT>(string statemachineName, IStateContext activator, TS initialState);
     }
 }

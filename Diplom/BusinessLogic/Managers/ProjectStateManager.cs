@@ -9,6 +9,7 @@ using Invest.Common.Notification;
 using Invest.Common.Repository;
 using Invest.Common.State;
 using BusinessLogic.Notification;
+using Invest.Common.State.StateAttributes;
 using MongoDB.Bson;
 
 namespace BusinessLogic.Managers
@@ -70,7 +71,18 @@ namespace BusinessLogic.Managers
                         CurrentState = ProjectWorkflow.State.Open
                     };
             }
-            _workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
+            //_workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
+            ProjectStateContext context = new ProjectStateContext();
+            context.UserName = currentUser;
+            context.CurrentProject = currentProject;
+            context.Roles = roles;
+            context.InvestorNotification = _investorNotificate;
+            context.UserNotification = _userNotificationl;
+            context.AdminNotification = _adminNotificate;
+            var builder = new AttributeStateMachineBuilder();
+            _workflow = new ProjectWorkflowWrapper(
+                new ProjectWorkflow(
+                    builder.BuilStateMachine<ProjectWorkflow.State,ProjectWorkflow.Trigger>("test", context,_currentProject.WorkflowState.CurrentState)));
         }
 
         #endregion

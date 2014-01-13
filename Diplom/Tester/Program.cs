@@ -67,7 +67,7 @@ namespace Tester
             context.Roles = _roles;
             context.UserName = _currentUser;
             context.UserNotification = _userNotificationl;
-            var statemachine = builder.BuilStateMachine("test", context);
+            var statemachine = builder.BuilStateMachine<string,string>("test", context, "Open");
         }
         //private static void GenerateDependendenciesValues()
         //{

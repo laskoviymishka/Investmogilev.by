@@ -3,10 +3,12 @@ using BusinessLogic.Notification;
 using Invest.Common.Model.Project;
 using Invest.Common.Repository;
 using Invest.Common.State;
+using Invest.Common.State.StateAttributes;
 
 namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    class DoneUoW : BaseProjectUoW, IDoneUoW
+    [State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.Done)]
+    internal class DoneUoW : BaseProjectUoW, IDoneUoW, IState
     {
         public DoneUoW(Project currentProject,
             IRepository repository,
@@ -15,14 +17,36 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             IInvestorNotification investorNotification,
             string userName,
             IEnumerable<string> roles)
-            : base(currentProject,
-           repository,
-           userNotification,
-           adminNotification,
-           investorNotification,
-           userName,
-           roles)
+            : this(new ProjectStateContext
+            {
+                UserNotification = userNotification,
+                AdminNotification = adminNotification,
+                InvestorNotification = investorNotification,
+                CurrentProject = currentProject,
+                Repository = repository,
+                Roles = roles,
+                UserName = userName
+            })
         {
+            if (CurrentProject != null)
+            {
+                if (currentProject.Responses == null)
+                {
+                    currentProject.Responses = new List<InvestorResponse>();
+                }
+            }
+        }
+
+        public DoneUoW(ProjectStateContext context)
+            : base(context.CurrentProject,
+                context.Repository,
+                context.UserNotification,
+                context.AdminNotification,
+                context.InvestorNotification,
+                context.UserName,
+                context.Roles)
+        {
+            Context = context;
         }
 
         public void OnDoneExit()
@@ -35,6 +59,18 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             InvestorNotification.Done(CurrentProject);
 
             ProcessMoving(ProjectWorkflow.State.Done, "Проект завершен");
+        }
+
+        public IStateContext Context { get; set; }
+
+        public void OnEntry()
+        {
+            OnDoneEntry();
+        }
+
+        public void OnExit()
+        {
+            OnDoneExit();
         }
     }
 }
