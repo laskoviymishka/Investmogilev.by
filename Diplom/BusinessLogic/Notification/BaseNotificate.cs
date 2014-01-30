@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Web.Configuration;
 using System.Web.Security;
 using BusinessLogic.Providers;
 using Invest.Common.Model.Common;
@@ -28,8 +29,8 @@ namespace BusinessLogic.Notification
             Membership = new MongoMembership();
             var config = new NameValueCollection();
             config["applicationName"] = "InvestProject";
-            config["connectionString"] = "mongodb://tserakhau.cloudapp.net";
-            config["database"] = "Projects";
+			config["connectionString"] = WebConfigurationManager.AppSettings["mongoServer"];
+			config["database"] = WebConfigurationManager.AppSettings["mongoBase"];
             RoleProvider.Initialize("roles", config);
             Membership = new MongoMembership();
             Membership.Initialize("MongoMembership", config);
@@ -39,8 +40,8 @@ namespace BusinessLogic.Notification
                 Host = "smtp.gmail.com",
                 Port = 587,
                 EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
                 Credentials = new NetworkCredential("laskoviymishka@gmail.com", "p0iuytrewq")
             };
             Repository = repository;

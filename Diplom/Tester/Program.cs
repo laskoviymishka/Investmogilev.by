@@ -37,7 +37,7 @@ namespace Tester
         static void Main(string[] args)
         {
             var _currentUser = "";
-            _roles = new List<string>();
+            _roles = new List<string>(){"User"};
             _investorNotificate = new InvestorNotification();
             _adminNotificate = new AdminNotification();
             _userNotificationl = new UserNotification();
@@ -53,7 +53,7 @@ namespace Tester
             {
                 _currentProject.WorkflowState = new Workflow()
                 {
-                    CurrentState = ProjectWorkflow.State.Open
+                    CurrentState = ProjectWorkflow.State.OnMap
                 };
             }
             _workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
@@ -68,7 +68,7 @@ namespace Tester
             context.UserName = _currentUser;
             context.UserNotification = _userNotificationl;
             var statemachine = builder.BuilStateMachine<ProjectWorkflow.State, ProjectWorkflow.Trigger>("test", context, _currentProject.WorkflowState.CurrentState);
-            statemachine.CanFire(ProjectWorkflow.Trigger.FillInformation);
+            statemachine.CanFire(ProjectWorkflow.Trigger.UpdateInformation);
             
         }
         //private static void GenerateDependendenciesValues()

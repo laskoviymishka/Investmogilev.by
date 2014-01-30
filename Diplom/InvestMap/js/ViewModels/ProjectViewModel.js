@@ -5,33 +5,35 @@
 
     self.AllGeoJsonProjects = ko.observableArray();
     self.ShowingProjects = ko.observableArray();
+    self.Types = ko.observableArray();
     self.Tags = ko.observableArray();
-    self.Tags.push("BrownField");
-    self.Tags.push("GreenField");
-    self.Tags.push("UnUsedBuilding");
+    self.Types.push("BrownField");
+    self.Types.push("GreenField");
+    self.Types.push("UnUsedBuilding");
 
 
     // ProjectListViewModel initializer
     function SetDataAllGeoJson(argument) {
         if (argument.length > 0) {
             for (var i = 0; i < argument.length; i++) {
-                self.AddTags(argument[i].Tags)
+                self.AddTags(argument[i].Tags);
                 self.AllGeoJsonProjects.push(new GeoJsonProjectViewModel(argument[i]));
                 self.ShowingProjects.push(new GeoJsonProjectViewModel(argument[i]));
             }
-            mapViewModel.SetProjects(self.ShowingProjects())
+            mapViewModel.SetProjects(self.ShowingProjects());
         };
     }
 
     self.UpdateFilter = function (projectsFilterViewModel) {
-        self.ShowingProjects.removeAll()
+        self.ShowingProjects.removeAll();
         for (var j = 0; j < self.AllGeoJsonProjects().length; j++) {
-            if (self.IsProjectInFilter(self.AllGeoJsonProjects()[j], projectsFilterViewModel.SelectedTypes())) {
+            if (self.IsProjectInFilter(self.AllGeoJsonProjects()[j], projectsFilterViewModel.SelectedTags())
+                || self.IsProjectInFilter(self.AllGeoJsonProjects()[j], projectsFilterViewModel.SelectedTypes())) {
                 self.ShowingProjects.push(self.AllGeoJsonProjects()[j]);
             }
         };
-        mapViewModel.SetProjects(self.ShowingProjects())
-    }
+        mapViewModel.SetProjects(self.ShowingProjects());
+    };
 
     self.IsProjectInFilter = function (project, filters) {
         for (var j = 0; j < filters.length; j++) {
@@ -47,7 +49,7 @@
         }
 
         return false;
-    }
+    };
 
     self.AddTags = function (tags) {
         if (tags != null && tags.length > 0) {
@@ -57,7 +59,7 @@
                 }
             }
         }
-    }
+    };
 
     var checkIfExistInArray = function (tag, tags) {
         for (var j = 0; j < tags.length; j++) {
@@ -66,11 +68,11 @@
             }
         }
         return true;
-    }
+    };
 }
 
 function GeoJsonProjectViewModel(argument) {
-    var self = this
+    var self = this;
 
     // GeoJsonProjectViewModel properties
     self._id = ko.observable(argument._id)
@@ -90,17 +92,19 @@ function GeoJsonProjectViewModel(argument) {
 
 
 function ProjectsFilterViewModel(projectListViewModel) {
-    var self = this
-    var prlVM = projectListViewModel
+    var self = this;
+    var prlVm = projectListViewModel;
 
-    self.SelectedTypes = ko.observableArray()
-    self.AllTypes = ko.observableArray()
+    self.SelectedTypes = ko.observableArray();
+    self.AllTypes = ko.observableArray();
+    self.SelectedTags = ko.observableArray();
+    self.AllTags = ko.observableArray();
 
     self.FilterChanged = function (argument) {
-        prlVM.UpdateFilter(self)
-    }
+        prlVm.UpdateFilter(self);
+    };
 
-    self.ItemClick = function (argument) {
+    self.TypeClick = function (argument) {
         var match = ko.utils.arrayFirst(self.SelectedTypes(), function (item) {
             if (argument.Name() == item.Name()) {
                 return true;
@@ -112,37 +116,65 @@ function ProjectsFilterViewModel(projectListViewModel) {
         if (!match) {
             self.SelectedTypes.push(argument);
         } else {
-            self.SelectedTypes.remove(match)
+            self.SelectedTypes.remove(match);
         }
-    }
+    };
+
+    self.TagClick = function (argument) {
+        var match = ko.utils.arrayFirst(self.SelectedTypes(), function (item) {
+            if (argument.Name() == item.Name()) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        if (!match) {
+            self.SelectedTypes.push(argument);
+        } else {
+            self.SelectedTypes.remove(match);
+        }
+    };
 
     self.UpdateTags = function () {
+        self.SelectedTags.removeAll();
+        self.AllTags.removeAll();
+
+        for (var i = 0; i < prlVm.Tags().length; i++) {
+            self.SelectedTags.push(new FilterTypeViewModel(prlVm.Tags()[i], "button success", self));
+            self.AllTags.push(new FilterTypeViewModel(prlVm.Tags()[i], "button success", self));
+        }
+    };
+    self.UpdateTypes = function () {
         self.SelectedTypes.removeAll();
         self.AllTypes.removeAll();
 
-        for (var i = 0; i < prlVM.Tags().length; i++) {
-            self.SelectedTypes.push(new FilterViewModel(prlVM.Tags()[i], "button success", self))
-            self.AllTypes.push(new FilterViewModel(prlVM.Tags()[i], "button success", self))
+        for (var i = 0; i < prlVm.Types().length; i++) {
+            self.SelectedTypes.push(new FilterTypeViewModel(prlVm.Types()[i], "button success", self));
+            self.AllTypes.push(new FilterTypeViewModel(prlVm.Types()[i], "button success", self));
         }
-    }
+    };
 
-    prlVM.Tags.subscribe(self.UpdateTags);
+    prlVm.Tags.subscribe(self.UpdateTags);
+    prlVm.Types.subscribe(self.UpdateTypes);
     self.UpdateTags();
+    self.UpdateTypes();
     self.SelectedTypes.subscribe(self.FilterChanged);
+    self.SelectedTags.subscribe(self.FilterChanged);
 }
 
-function FilterViewModel(name, imgName, projectsFiletrs) {
-    var self = this
-    var parent = projectsFiletrs
-    self.Name = ko.observable(name)
-    self.checked = ko.observable(imgName)
+function FilterTypeViewModel(name, imgName, projectsFiletrs) {
+    var self = this;
+    var parent = projectsFiletrs;
+    self.Name = ko.observable(name);
+    self.checked = ko.observable(imgName);
 
-    self.FilterClick = function (argument) {
-        parent.ItemClick(self)
+    self.TypeClick = function (argument) {
+        parent.TypeClick(self);
         if (self.checked() == "button success") {
-            self.checked("button")
+            self.checked("button");
         } else {
-            self.checked("button success")
+            self.checked("button success");
         }
-    }
+    };
 }

@@ -71,7 +71,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             ProjectTriggersConstants.FillInformation, ProjectStatesConstants.Open, ProjectStatesConstants.OnMap)]
         public bool FromOpenToMap()
         {
-            return IsUser;
+            return IsUser || IsAdmin;
         }
 
         public IStateContext Context { get; set; }

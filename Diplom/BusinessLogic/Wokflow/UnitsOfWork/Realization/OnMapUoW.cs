@@ -110,7 +110,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
             ProjectTriggersConstants.FillInformation, ProjectStatesConstants.Open, ProjectStatesConstants.OnMap)]
         public bool FromOpenToOnMap()
         {
-            return IsUser;
+            return IsUser || IsAdmin;
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",

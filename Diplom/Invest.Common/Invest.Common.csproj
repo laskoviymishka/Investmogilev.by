@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -110,6 +111,7 @@
     <Compile Include="Repository\ICacheService.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\MongoRepository.cs" />
+    <Compile Include="State\IStateMachine.cs" />
     <Compile Include="State\IStateMachineBuilder.cs" />
     <Compile Include="State\ProjectStatesConstants.cs" />
     <Compile Include="State\ProjectTriggersConstants.cs" />

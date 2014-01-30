@@ -77,12 +77,12 @@
             return o;
         }
 
-        ctx.ready = function (o) {
+        ctx.ready = function(o) {
             if (typeof o.ready === 'function')
                 o.ready();
 
             return o;
-        }
+        };
 
         return ctx;
     },

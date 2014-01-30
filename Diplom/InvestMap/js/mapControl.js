@@ -3,7 +3,7 @@ var map
 var projects
 var selectedRegion = ''
     $.ajax({
-        url: 'http://investmogilev.azurewebsites.net/InvestProjects/ProjectGeoJson?callback=jQuery110205763436721172184_1381677318690&_=1381677318691',
+        url: linkToSite + '/InvestProjects/ProjectGeoJson?callback=jQuery110205763436721172184_1381677318690&_=1381677318691',
         dataType: 'html',
         success: function (data) {
             //$('#moduleProjecs').html(data);
@@ -48,7 +48,7 @@ var selectedRegion = ''
 
 function getProjectGeoData() {
     $.ajax({
-        url: 'http://tserakhau.cloudapp.net//InvestProjects/ProjectGeoJSON',
+        url: linkToSite + '/InvestProjects/ProjectGeoJSON',
         type: "GET",
         dataType: "json",
         success: function (data) {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using BusinessLogic.Managers;
 using BusinessLogic.Notification;
@@ -32,7 +33,7 @@ namespace InvestPortal.Controllers
         public MessageController()
         {
             _portalMessage = new PortalMessageHandler();
-            _userRepository = new MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
+			_userRepository = new MongoRepository(WebConfigurationManager.AppSettings["mongoServer"], WebConfigurationManager.AppSettings["mongoBase"]);
         }
 
         #endregion
