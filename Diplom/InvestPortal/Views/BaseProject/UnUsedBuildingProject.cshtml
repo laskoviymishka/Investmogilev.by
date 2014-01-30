@@ -1,7 +1,9 @@
-﻿@model Invest.Common.Model.Project.UnUsedBuilding
+﻿@using Invest.Common.Model.Project
+@model Invest.Common.Model.Project.UnUsedBuilding
 
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/MapMarkerInit.js"></script>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -17,6 +19,13 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Name)
             @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Tags)
+        </div>
+        <div class="editor-field">
+            @Html.ListBoxFor(model => model.Tags, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
+            @Html.ValidationMessageFor(model => model.Tags)
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Description)
@@ -95,4 +104,7 @@
 
 <script>
     $(document).ready(function () { $("#editor").cleditor(); });
+
+    $("#cznTags").chosen();
+    $('.chosen-container').css('width', '100%');
 </script>

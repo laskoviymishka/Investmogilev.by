@@ -23,7 +23,6 @@
   <ItemGroup>
     <Content Include="482.GIF" />
     <Content Include="app.css" />
-    <Content Include="app.js" />
     <Content Include="css\avgrund.css" />
     <Content Include="css\bootstrap-modal-bs3patch.css" />
     <Content Include="css\bootstrap-theme.css" />
@@ -42,7 +41,6 @@
     <Content Include="img\office-buildingClear.png" />
     <Content Include="img\oilpumpjack.png" />
     <Content Include="index.htm" />
-    <Content Include="index.html" />
     <Content Include="js\avgrund.js" />
     <Content Include="js\bootstrap-modal.js" />
     <Content Include="js\bootstrap.js" />

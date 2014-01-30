@@ -34,7 +34,7 @@ namespace Invest.Common.Model.Project
         public string Region { get; set; }
 
         [Display(Name = "Теги")]
-        public List<string> Tags { get; set; }
+        public List<Tag> Tags { get; set; }
 
         [Display(Name = "Инвестор")]
         public string InvestorUser { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using Invest.Common;
@@ -83,7 +84,7 @@ namespace InvestPortal.Controllers
 			{
 				if (project.Address.Lat != 1)
 				{
-					latLngs.Add(new LatLng
+					var latLng = new LatLng
 					{
 						Lat = project.Address.Lat,
 						Lng = project.Address.Lng,
@@ -91,8 +92,13 @@ namespace InvestPortal.Controllers
 						Description = project.Description,
 						_id = project._id,
 						Type = project.GetType().Name,
-						Tags = project.Tags
-					});
+						Tags = new List<string>()
+					};
+					foreach (var tag in project.Tags)
+					{
+						latLng.Tags.Add(tag.ToString());
+					}
+					latLngs.Add(latLng);
 				}
 			}
 

@@ -57,6 +57,7 @@ namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
         public void OnMapEntry()
         {
             GuardCurrentProjectNotNull();
+	        CurrentProject = Repository.GetOne<Project>(p => p._id == CurrentProject._id);
             if (CurrentProject.Address.Lat > 51 && CurrentProject.Address.Lat < 55 && CurrentProject.Address.Lng > 28 &&
                 CurrentProject.Address.Lng < 32)
             {

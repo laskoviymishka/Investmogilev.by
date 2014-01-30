@@ -7,7 +7,6 @@
     self.ShowingProjects = ko.observableArray();
     self.Types = ko.observableArray();
     self.Tags = ko.observableArray();
-    self.Types.push("BrownField");
     self.Types.push("GreenField");
     self.Types.push("UnUsedBuilding");
 
@@ -27,22 +26,22 @@
     self.UpdateFilter = function (projectsFilterViewModel) {
         self.ShowingProjects.removeAll();
         for (var j = 0; j < self.AllGeoJsonProjects().length; j++) {
-            if (self.IsProjectInFilter(self.AllGeoJsonProjects()[j], projectsFilterViewModel.SelectedTags())
-                || self.IsProjectInFilter(self.AllGeoJsonProjects()[j], projectsFilterViewModel.SelectedTypes())) {
+            if (self.IsProjectInFilter(self.AllGeoJsonProjects()[j], projectsFilterViewModel.SelectedTypes(), projectsFilterViewModel.SelectedTags())) {
                 self.ShowingProjects.push(self.AllGeoJsonProjects()[j]);
             }
         };
         mapViewModel.SetProjects(self.ShowingProjects());
     };
 
-    self.IsProjectInFilter = function (project, filters) {
-        for (var j = 0; j < filters.length; j++) {
-            if (project.Type().toLowerCase() == filters[j].Name().toLowerCase()) {
+    self.IsProjectInFilter = function (project, types, tags) {
+        for (var j = 0; j < types.length; j++) {
+            if (project.Type().toLowerCase() == types[j].Name().toLowerCase()) {
                 return true;
-            };
-
+            }
+        }
+        for (var j = 0; j < tags.length; j++) {
             for (var i = 0; i < project.Tags().length; i++) {
-                if (project.Tags()[i].toLowerCase() == filters[j].Name().toLowerCase()) {
+                if (project.Tags()[i].toLowerCase() == tags[j].Name().toLowerCase()) {
                     return true;
                 }
             }
@@ -121,7 +120,7 @@ function ProjectsFilterViewModel(projectListViewModel) {
     };
 
     self.TagClick = function (argument) {
-        var match = ko.utils.arrayFirst(self.SelectedTypes(), function (item) {
+        var match = ko.utils.arrayFirst(self.SelectedTags(), function (item) {
             if (argument.Name() == item.Name()) {
                 return true;
             } else {
@@ -130,19 +129,18 @@ function ProjectsFilterViewModel(projectListViewModel) {
         });
 
         if (!match) {
-            self.SelectedTypes.push(argument);
+            self.SelectedTags.push(argument);
         } else {
-            self.SelectedTypes.remove(match);
+            self.SelectedTags.remove(match);
         }
     };
 
     self.UpdateTags = function () {
         self.SelectedTags.removeAll();
         self.AllTags.removeAll();
-
         for (var i = 0; i < prlVm.Tags().length; i++) {
-            self.SelectedTags.push(new FilterTypeViewModel(prlVm.Tags()[i], "button success", self));
-            self.AllTags.push(new FilterTypeViewModel(prlVm.Tags()[i], "button success", self));
+            self.SelectedTags.push(new FilterTypeViewModel(prlVm.Tags()[i], "button success", self, true));
+            self.AllTags.push(new FilterTypeViewModel(prlVm.Tags()[i], "button success", self, true));
         }
     };
     self.UpdateTypes = function () {
@@ -150,8 +148,8 @@ function ProjectsFilterViewModel(projectListViewModel) {
         self.AllTypes.removeAll();
 
         for (var i = 0; i < prlVm.Types().length; i++) {
-            self.SelectedTypes.push(new FilterTypeViewModel(prlVm.Types()[i], "button success", self));
-            self.AllTypes.push(new FilterTypeViewModel(prlVm.Types()[i], "button success", self));
+            self.SelectedTypes.push(new FilterTypeViewModel(prlVm.Types()[i], "button success", self, false));
+            self.AllTypes.push(new FilterTypeViewModel(prlVm.Types()[i], "button success", self, false));
         }
     };
 
@@ -163,14 +161,18 @@ function ProjectsFilterViewModel(projectListViewModel) {
     self.SelectedTags.subscribe(self.FilterChanged);
 }
 
-function FilterTypeViewModel(name, imgName, projectsFiletrs) {
+function FilterTypeViewModel(name, imgName, projectsFiletrs, isTag) {
     var self = this;
     var parent = projectsFiletrs;
     self.Name = ko.observable(name);
     self.checked = ko.observable(imgName);
-
+    self.isTag = isTag;
     self.TypeClick = function (argument) {
-        parent.TypeClick(self);
+        if (self.isTag) {
+            parent.TagClick(self);
+        } else {
+            parent.TypeClick(self);
+        }
         if (self.checked() == "button success") {
             self.checked("button");
         } else {

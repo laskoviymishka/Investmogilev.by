@@ -105,6 +105,11 @@ namespace BusinessLogic.Managers
 				_repository.Update(filledProject);
 				_workflow.Move(ProjectWorkflow.Trigger.FillInformation);
 			}
+			else
+			{
+				_repository.Update(filledProject);
+			}
+
 		}
 
 		public void ResponsedOnProject(InvestorResponse response)
