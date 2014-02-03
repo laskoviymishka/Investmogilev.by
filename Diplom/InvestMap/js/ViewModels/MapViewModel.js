@@ -142,7 +142,6 @@
             }
         });
         google.maps.event.addListener(self.gLayer, 'click', function(e) {
-            alert(e.row.Name.value);
         });
     };
 }

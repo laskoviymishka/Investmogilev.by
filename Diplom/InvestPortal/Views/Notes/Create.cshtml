@@ -5,6 +5,9 @@
 <h2>
     Создание заметки
 </h2>
+<p>
+    @Html.ActionLink("Назад", "All", null, new { @class = "icon-arrow-left-3 fg-darker" })
+</p>
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
 @using (Html.BeginForm())
@@ -56,36 +59,28 @@
             @Html.ListBoxFor(model => model.RolesForView, new SelectList(new List<string>() { "Admin", "User", "Investor" }), new { id = "cznTags" })
             @Html.ValidationMessageFor(model => model.RolesForView)
         </blockquote>
-
-        <small class="editor-label">
-            Приложения
+        <small class="display-label">
+            @Html.DisplayNameFor(model => model.ProjectId)
         </small>
-        <div class="editor-field">
-            @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
-             .Save("Save", "Notes", new { id = Model._id })
-                 .Remove("Remove", "Notes", new { id = Model._id })
-            .AutoUpload(false)
-        ).Localizable("ru-RU")
-        </div>
-
+        <blockquote class="display-field">
+            @Html.ActionLink("К проекту", "Project", "BaseProject", new { Id = Model.ProjectId }, new { @class = "button info", style = "width:100px" })
+        </blockquote>
+        <hr />
         <p>
             <input type="submit" value="Создать" />
         </p>
     </fieldset>
 }
-<div>
-    @Html.ActionLink("Ко всем записям", "Index")
-    @Html.ActionLink("К записям по проекту", "Index")
-</div>
+<small class="editor-label">
+    Приложения
+</small>
+<hr />
+@Html.Action("CreateNoteAdditional", "AdditionalInfo", new { noteId = Model._id })
 <script>
     $(document).ready(function () { $("#editor").cleditor(); });
 </script>
 <script type="text/javascript">
     //<![CDATA[
-    jQuery(document).ready(function () {
-        if (!jQuery.telerik) jQuery.telerik = {};
-        jQuery('#attachments').tUpload({ async: { "saveUrl": "/Notes/Save/@Model._id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
-    });
     $("#cznTags").chosen();
     $('.chosen-container').css('width', '260px');
     //]]>

@@ -1,22 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Invest.Common.Model.Common;
 using Invest.Common.State;
 
 namespace Invest.Common.Model.Project
 {
-    public class ProjectTask : IMongoEntity
-    {
-        public string _id { get; set; }
-        public string ProjectId { get; set; }
-        public string Title { get; set; }
-        public List<Report> TaskReport { get; set; }
-        public TaskTypes Type { get; set; }
-        public ProjectWorkflow.State Step { get; set; } // Задача привязана к статусу проекта
-        public DateTime Milestone { get; set; }
-        public DateTime CreationTime { get; set; }
-        public DateTime CompleteTime { get; set; }
-        public bool IsComplete { get; set; }
-        public string Body { get; set; }
-    }
+	public class ProjectTask : IMongoEntity
+	{
+		[Display(Name = "Идентификатор задачи")]
+		public string _id { get; set; }
+
+		[Display(Name = "Идентификатор проекта")]
+		public string ProjectId { get; set; }
+
+		[Display(Name = "Заголовок")]
+		public string Title { get; set; }
+
+		[Display(Name = "Отчеты")]
+		public List<Report> TaskReport { get; set; }
+
+		[Display(Name = "Тип задачи")]
+		public TaskTypes Type { get; set; }
+
+		[Display(Name = "Статус проекта")]
+		public ProjectWorkflow.State Step { get; set; } // Задача привязана к статусу проекта
+
+		[Display(Name = "Необходимый срок выполнения")]
+		public DateTime Milestone { get; set; }
+
+		[Display(Name = "Время создания")]
+		public DateTime CreationTime { get; set; }
+
+		[Display(Name = "Время выполнения")]
+		public DateTime CompleteTime { get; set; }
+
+		[Display(Name = "Выполнена?")]
+		public bool IsComplete { get; set; }
+
+		[Display(Name = "Описание задачи")]
+		public string Body { get; set; }
+	}
 }

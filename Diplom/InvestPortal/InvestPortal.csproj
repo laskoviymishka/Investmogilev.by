@@ -374,6 +374,7 @@
     <Compile Include="App_Start\MiniProfiler.cs" />
     <Compile Include="App_Start\ProfilingFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdditionalInfoController.cs" />
     <Compile Include="Controllers\AddRoadMapPointController.cs" />
     <Compile Include="Controllers\BaseProjectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -627,6 +628,13 @@
     <Content Include="Content\metro-ui\fonts\iconFont.svg" />
     <Content Include="Content\Style.css" />
     <Content Include="Content\tagit.ui-zendesk.css" />
+    <Content Include="Content\uploadUI\demo-ie8.css" />
+    <Content Include="Content\uploadUI\demo.css" />
+    <Content Include="Content\uploadUI\jquery.fileupload-noscript.css" />
+    <Content Include="Content\uploadUI\jquery.fileupload-ui-noscript.css" />
+    <Content Include="Content\uploadUI\jquery.fileupload-ui.css" />
+    <Content Include="Content\uploadUI\jquery.fileupload.css" />
+    <Content Include="Content\uploadUI\style.css" />
     <Content Include="Global.asax" />
     <Content Include="images\1.jpg" />
     <Content Include="images\2.jpg" />
@@ -768,6 +776,17 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\tag-it.js" />
     <Content Include="Scripts\tag-it.min.js" />
+    <Content Include="Scripts\uploadUI\jquery.fileupload-angular.js" />
+    <Content Include="Scripts\uploadUI\jquery.fileupload-audio.js" />
+    <Content Include="Scripts\uploadUI\jquery.fileupload-image.js" />
+    <Content Include="Scripts\uploadUI\jquery.fileupload-jquery-ui.js" />
+    <Content Include="Scripts\uploadUI\jquery.fileupload-process.js" />
+    <Content Include="Scripts\uploadUI\jquery.fileupload-ui.js" />
+    <Content Include="Scripts\uploadUI\jquery.fileupload-validate.js" />
+    <Content Include="Scripts\uploadUI\jquery.fileupload-video.js" />
+    <Content Include="Scripts\uploadUI\jquery.fileupload.js" />
+    <Content Include="Scripts\uploadUI\jquery.iframe-transport.js" />
+    <Content Include="Scripts\uploadUI\jquery.ui.widget.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1203,6 +1222,9 @@
     <Content Include="Views\MailTemplate\Create.cshtml" />
     <Content Include="Views\MailTemplate\Edit.cshtml" />
     <Content Include="Views\WorkflowActions\AllowActions.cshtml" />
+    <Content Include="Views\AdditionalInfo\ShowAdditional.cshtml" />
+    <Content Include="Views\AdditionalInfo\CreateAdditional.cshtml" />
+    <Content Include="Views\AdditionalInfo\CreateNoteAdditional.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

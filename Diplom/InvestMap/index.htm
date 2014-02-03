@@ -48,55 +48,63 @@
             </nav>
         </nav>
         <div id="MainContainer">
-        <div style="width: 20%; float: left; margin-left: 20px; min-width: 220px">
-            <div id="LayerView">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Текущий слой карты</h3>
+            <div style="width: 20%; float: left; margin-left: 20px; min-width: 220px">
+                <div id="LayerView" data-hint="Слои карты | Слои отображают динамику развития региона. Чем интенсивнее цвет тем интенсивнее регион развивался в этой области за последние 7 лет."
+                     data-hint-position="right">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Текущий слой карты
+                            </h3>
+                        </div>
+                        <div class="panel-body" data-bind='style: { backgroundColor: SelectedLayerCss }, text: SelectedLayerName'
+                             style="color: #F0FFFF">
+                        </div>
                     </div>
-                    <div class="panel-body" data-bind='style: { backgroundColor: SelectedLayerCss }, text: SelectedLayerName'
-                        style="color: #F0FFFF">
+                    <div style="border: 1px #ccc solid;">
+                        <nav class="horizontal-menu">
+                            <ul data-bind="foreach: Layers">
+                                <li style="margin: 0px; width: 80%">
+                                    <a class="dropdown-toggle" data-bind='text: Name , click: SelectLayer'></a>
+                                    <ul class="dropdown-menu" data-show="hover" data-bind="foreach: Childs">
+                                        <li><a data-bind='text: Name, click: SelectLayer'></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
-                <div style="border: 1px #ccc solid;">
-                    <nav class="horizontal-menu">
-                        <ul data-bind="foreach: Layers">
-                            <li style="margin: 0px; width: 80%">
-                                <a class="dropdown-toggle" data-bind='text: Name , click: SelectLayer'></a>
-                                <ul class="dropdown-menu" data-show="hover" data-bind="foreach: Childs">
-                                    <li><a data-bind='text: Name, click: SelectLayer'></a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
+                <div data-hint="Фильтр проектов | Выберите интересующий вас тип проекта, на карте будут отображены все проекты где соответствует тип проекта либо один из выбранных тегов"
+                     data-hint-position="top">
+                    <div id="ProjectTypeFilterView" class="" style="width: 100%">
+                        <h3 class="">Отображаемые типы проектов</h3>
+                        <div data-bind="foreach: AllTypes" data-hint="Типы проектов | Различают 2 основных типа - неиспользуемое здание(UnUsedBuilding) и проект для реализации (GreenField)"
+                             data-hint-position="right">
+                            <div type="button" class="button success" style="border: 1px #ccc solid;" data-bind='text: Name, click: TypeClick, attr: { class: checked }'
+                                 style="width: 100%">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="ProjectTagFilterView" class="" style="width: 100%">
+                        <h3 class="">Отображаемые теги</h3>
+                        <div data-bind="foreach: AllTags" data-hint="Тэги проектов | Тэги по основным класифицирующим группам"
+                             data-hint-position="right">
+                            <div type="button" class="button success" style="border: 1px #ccc solid;" data-bind='text: Name, click: TypeClick, attr: { class: checked }'
+                                 style="width: 100%">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="ProjectTypeFilterView" class="" style="width: 100%">
-                <h3 class="">Отображаемые типы проектов</h3>
-                <div data-bind="foreach: AllTypes">
-                    <div type="button" class="button success" style="border: 1px #ccc solid;" data-bind='text: Name, click: TypeClick, attr: { class: checked }'
-                         style="width: 100%">
-                    </div>
-                </div>
-            </div>
-            <div id="ProjectTagFilterView" class="" style="width: 100%">
-                <h3 class="">Отображаемые теги</h3>
-                <div data-bind="foreach: AllTags">
-                    <div type="button" class="button success" style="border: 1px #ccc solid;" data-bind='text: Name, click: TypeClick, attr: { class: checked }'
-                         style="width: 100%">
+            <div style="width: 78%; float: right;">
+                <div id="MapView" data-bind="attr: { class: Css }">
+                    <div class="map-container" style="width: 100%; height: 718px">
+                        <div id="googft-mapCanvas" data-bind="attr: { class: MapViewVisible }" style="width: 100%; height:  718px">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div style="width: 78%; float: right;">
-            <div id="MapView" data-bind="attr: { class: Css }">
-                <div class="map-container" style="width: 100%;">
-                    <div id="googft-mapCanvas" data-bind="attr: { class: MapViewVisible }" style="width: 100%;">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
         <div id="RegionView" style="width:100%; height: 100%; display: none;">
             <iframe src="http://investmogilev.azurewebsites.net/InvestProjects/PartialTable" width="100%" height="100%"></iframe>
         </div>

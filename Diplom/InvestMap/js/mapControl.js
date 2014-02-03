@@ -69,10 +69,6 @@ function ShowRegion (argument) {
     $('#radioRegion').attr("class","icon-radio-checked");
 }
 $(window).resize(function(){
-    var height = window.innerHeight
-    $('#googft-mapCanvas').height(height-50);
 });
 $(window).load(function () {
-    var height = window.innerHeight
-    $('#googft-mapCanvas').height(height-50);
 });
