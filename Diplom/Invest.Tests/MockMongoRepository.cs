@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Invest.Common.Model.Common;
-using Invest.Common.Repository;
+using Investmogilev.Infrastructure.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.Repository;
 
 namespace Invest.Tests
 {

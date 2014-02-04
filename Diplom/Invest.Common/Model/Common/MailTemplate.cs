@@ -1,7 +1,7 @@
-﻿using Invest.Common.State;
+﻿using Investmogilev.Infrastructure.Common.State;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model.Common
+namespace Investmogilev.Infrastructure.Common.Model.Common
 {
     public class MailTemplate : IMongoEntity
     {

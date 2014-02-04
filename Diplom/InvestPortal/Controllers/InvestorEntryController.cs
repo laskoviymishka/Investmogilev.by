@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Security.Authentication;
 using System.Web.Mvc;
-using BusinessLogic.Managers;
-using Invest.Common;
-using Invest.Common.Model.Project;
-using InvestPortal.Models;
+using Investmogilev.Infrastructure.BusinessLogic.Managers;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.UI.Portal.Models;
 using MongoDB.Bson;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
     public class InvestorEntryController : Controller
     {

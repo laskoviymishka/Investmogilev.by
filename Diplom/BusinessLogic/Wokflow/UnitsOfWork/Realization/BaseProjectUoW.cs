@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BusinessLogic.Notification;
-using Invest.Common.Model.Project;
-using Invest.Common.Repository;
-using Invest.Common.State;
+using Investmogilev.Infrastructure.BusinessLogic.Notification;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.State;
 
-namespace BusinessLogic.Wokflow.UnitsOfWork.Realization
+namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
     public class BaseProjectUoW
     {

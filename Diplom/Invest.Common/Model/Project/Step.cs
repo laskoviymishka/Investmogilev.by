@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Invest.Common.Model.Project
+namespace Investmogilev.Infrastructure.Common.Model.Project
 {
     public class Step
     {

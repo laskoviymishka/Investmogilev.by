@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using BusinessLogic.Notification;
 using BusinessLogic.Wokflow.UnitsOfWork;
 using BusinessLogic.Wokflow.UnitsOfWork.Realization;
-using Invest.Common.State;
+using Investmogilev.Infrastructure.BusinessLogic.Notification;
+using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.State;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Invest.Common.Model.Project;
-using Invest.Common.Repository;
 using Invest.Common.Notification;
 using MongoDB.Bson;
 using Moq;
@@ -46,7 +47,7 @@ namespace Invest.Tests.Workflow.UnitsOfWork
                 Region = "testProjectRegion",
                 InvestorUser = "",
                 Address = new Address { Lat = 52, Lng = 53 },
-                WorkflowState = new Common.Model.Project.Workflow
+                WorkflowState = new Investmogilev.Infrastructure.Common.Model.Project.Workflow
                 {
                     History = new List<History>(),
                     CurrentState = ProjectWorkflow.State.Open

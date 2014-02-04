@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Invest.Common;
-using Invest.Common.Model.Common;
+﻿using System.Web.Mvc;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.Common;
 using MongoDB.Bson;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
     public class MailTemplateController : Controller
     {

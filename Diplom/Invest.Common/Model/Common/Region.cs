@@ -1,7 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model.Common
+namespace Investmogilev.Infrastructure.Common.Model.Common
 {
     public class Region : IMongoEntity
     {

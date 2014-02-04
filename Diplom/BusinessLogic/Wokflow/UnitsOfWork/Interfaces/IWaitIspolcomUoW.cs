@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Wokflow.UnitsOfWork
+﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
     public interface IWaitIspolcomUoW
     {

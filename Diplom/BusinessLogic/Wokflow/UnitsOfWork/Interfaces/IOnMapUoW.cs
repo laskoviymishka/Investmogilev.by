@@ -1,6 +1,6 @@
-﻿using Invest.Common.State.StateAttributes;
+﻿using Investmogilev.Infrastructure.Common.State.StateAttributes;
 
-namespace BusinessLogic.Wokflow.UnitsOfWork
+namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
     public interface IOnMapUoW : IState
     {

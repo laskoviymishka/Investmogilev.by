@@ -1,4 +1,4 @@
-﻿namespace Invest.Common.State
+﻿namespace Investmogilev.Infrastructure.Common.State
 {
     public class ProjectStatesConstants
     {

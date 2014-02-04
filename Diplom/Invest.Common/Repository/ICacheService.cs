@@ -1,5 +1,6 @@
 ﻿using System;
-namespace Invest.Common.Repository
+
+namespace Investmogilev.Infrastructure.Common.Repository
 {
     public interface ICacheService
     {

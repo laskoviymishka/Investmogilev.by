@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BusinessLogic.Notification;
-using BusinessLogic.Wokflow;
-using Invest.Common;
-using Invest.Common.Model.Project;
-using Invest.Common.Repository;
-using Invest.Common.State;
+using Investmogilev.Infrastructure.BusinessLogic.Notification;
+using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.State;
 using MongoDB.Bson;
 
-namespace BusinessLogic.Managers
+namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 {
 	public class ProjectStateManager
 	{

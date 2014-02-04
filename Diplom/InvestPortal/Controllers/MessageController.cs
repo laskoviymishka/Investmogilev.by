@@ -5,15 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using BusinessLogic.Managers;
-using BusinessLogic.Notification;
-using Invest.Common;
-using Invest.Common.Model.Common;
-using Invest.Common.Model.User;
-using Invest.Common.Repository;
+using Investmogilev.Infrastructure.BusinessLogic.Managers;
+using Investmogilev.Infrastructure.BusinessLogic.Notification;
+using Investmogilev.Infrastructure.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.Model.User;
+using Investmogilev.Infrastructure.Common.Repository;
 using MongoDB.Bson;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
     [Authorize]
     public class MessageController : Controller

@@ -8,8 +8,8 @@
     <ProjectGuid>{8F5582F4-1EAD-4FE3-990D-36D18FA234D8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Invest.Common</RootNamespace>
-    <AssemblyName>Invest.Common</AssemblyName>
+    <RootNamespace>Investmogilev.Infrastructure.Common</RootNamespace>
+    <AssemblyName>Investmogilev.Infrastructure.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,15 +45,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Common\AdditionalInfo.cs" />

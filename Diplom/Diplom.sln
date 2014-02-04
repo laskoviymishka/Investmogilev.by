@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{6394CFF5-CA05-4688-98F0-1D4239B59958}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Public", "Public", "{A817E7FB-CB51-4026-A997-C4604725B399}"
@@ -21,9 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestMap", "InvestMap\Inve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{F66BA572-1C99-4616-9D62-AB209E36D5C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{428DB588-80CB-47FF-BDDE-D8739CCCD8EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Investmogilev.Infrastructure.BusinessLogic", "BusinessLogic\Investmogilev.Infrastructure.BusinessLogic.csproj", "{428DB588-80CB-47FF-BDDE-D8739CCCD8EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestPortal", "InvestPortal\InvestPortal.csproj", "{24B51895-5956-4669-B874-8FF711DD2905}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Investmogilev.UI.Portal", "InvestPortal\Investmogilev.UI.Portal.csproj", "{24B51895-5956-4669-B874-8FF711DD2905}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestPortalTests", "InvestPortalTests\InvestPortalTests.csproj", "{CC481CDF-5CBB-4C66-BCBC-24B010D199D2}"
 EndProject
@@ -34,14 +36,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invest.Common", "Invest.Common\Invest.Common.csproj", "{8F5582F4-1EAD-4FE3-990D-36D18FA234D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Investmogilev.Infrastructure.Common", "Invest.Common\Investmogilev.Infrastructure.Common.csproj", "{8F5582F4-1EAD-4FE3-990D-36D18FA234D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invest.Tests", "Invest.Tests\Invest.Tests.csproj", "{33D3A500-9A46-434E-956C-5856FF1010BA}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Diplom.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -139,5 +138,8 @@ Global
 		{F66BA572-1C99-4616-9D62-AB209E36D5C9} = {078CDB8A-2564-426D-B4E1-CCE7F4D93258}
 		{CC481CDF-5CBB-4C66-BCBC-24B010D199D2} = {078CDB8A-2564-426D-B4E1-CCE7F4D93258}
 		{33D3A500-9A46-434E-956C-5856FF1010BA} = {078CDB8A-2564-426D-B4E1-CCE7F4D93258}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Diplom.vsmdi
 	EndGlobalSection
 EndGlobal

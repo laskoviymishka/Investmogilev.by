@@ -1,5 +1,7 @@
 ﻿@using Invest.Common.State
-@model Invest.Common.Model.Project.Project
+@using Investmogile.Infrastructure.Common.State
+@using Investmogilev.Infrastructure.Common.State
+@model Investmogilev.Infrastructure.Common.Model.Project.Project
 
 <h2>По проекту разрабатывается дорожная карта @Model.ProjectComission.CommissionTime.ToShortDateString()</h2>
 
@@ -21,15 +23,15 @@
 {
     <div>
         @Html.ActionLink("Добавить ключевую точку реализации", "AddRoadMapPoint", "InvestorActions",
-                    new
-                    {
-                        projectId = Model._id
-                    },
-                    new
-                    {
-                        @class = "button danger",
-                        @style = "width: 300px"
-                    })
+            new
+            {
+                projectId = Model._id
+            },
+            new
+            {
+                @class = "button danger",
+                @style = "width: 300px"
+            })
     </div>
 }
 @{Html.RenderPartial("AllowActions");}

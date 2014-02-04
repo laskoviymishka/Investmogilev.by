@@ -1,4 +1,4 @@
-﻿@model Invest.Common.Model.Common.PortalNotification
+﻿@model Investmogilev.Infrastructure.Common.Model.Common.PortalNotification
 <div>@User.Identity.Name</div>
 <script src="../../Scripts/2013.2.611/telerik.panelbar.min.js" type="text/javascript"></script>
 @if (User.Identity.IsAuthenticated)
@@ -88,4 +88,5 @@ else
 
     Html.RenderAction("Login", "Account");
 }
+
 @Html.ActionLink("Выйти","LogOff","Account")

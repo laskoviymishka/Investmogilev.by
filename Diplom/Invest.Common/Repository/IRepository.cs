@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Invest.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.Model.Common;
 
-namespace Invest.Common.Repository
+namespace Investmogilev.Infrastructure.Common.Repository
 {
     public interface IRepository
     {

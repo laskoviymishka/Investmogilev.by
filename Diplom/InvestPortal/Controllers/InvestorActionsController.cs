@@ -4,14 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BusinessLogic.Managers;
-using Invest.Common;
-using Invest.Common.Model.Common;
-using Invest.Common.Model.Project;
-using Invest.Common.State;
+using Investmogilev.Infrastructure.BusinessLogic.Managers;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.State;
 using MongoDB.Bson;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
     [Authorize(Roles = "Investor")]
     public class InvestorActionsController : Controller

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Invest.Common;
-using Invest.Common.Model.Common;
-using Invest.Common.Model.Project;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.Model.Project;
 
-namespace BusinessLogic.Managers
+namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 {
     public class ReportManager
     {

@@ -1,6 +1,6 @@
-﻿using Invest.Common.Model.Project;
+﻿using Investmogilev.Infrastructure.Common.Model.Project;
 
-namespace BusinessLogic.Notification
+namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 {
     public interface IUserNotification
     {

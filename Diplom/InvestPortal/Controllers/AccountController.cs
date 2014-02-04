@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using InvestPortal.Models;
+using Investmogilev.UI.Portal.Models;
 using WebMatrix.WebData;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
 	[Authorize]
 	public class AccountController : Controller

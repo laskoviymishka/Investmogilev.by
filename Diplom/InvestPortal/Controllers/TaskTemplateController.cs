@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
-using Invest.Common;
-using Invest.Common.Model.Project;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.Project;
 using MongoDB.Bson;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
     public class TaskTemplateController : Controller
     {

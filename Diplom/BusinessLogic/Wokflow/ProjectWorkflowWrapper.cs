@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using BusinessLogic.Notification;
-using Invest.Common.Model.Project;
-using Invest.Common.Notification;
-using Invest.Common.State;
+﻿using Investmogilev.Infrastructure.Common.State;
 
-namespace BusinessLogic.Wokflow
+namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow
 {
     public class ProjectWorkflowWrapper
     {

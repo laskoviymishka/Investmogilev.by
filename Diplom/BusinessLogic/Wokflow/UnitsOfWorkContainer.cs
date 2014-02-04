@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using BusinessLogic.Notification;
-using BusinessLogic.Wokflow.UnitsOfWork;
-using BusinessLogic.Wokflow.UnitsOfWork.Realization;
-using Invest.Common.Model.Project;
-using Invest.Common.Notification;
-using Invest.Common.Repository;
-using Invest.Common.State.StateAttributes;
+using Investmogilev.Infrastructure.BusinessLogic.Notification;
+using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces;
+using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.State.StateAttributes;
 
-namespace BusinessLogic.Wokflow
+namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow
 {
     public class UnitsOfWorkContainer : IUnitsOfWorkContainer
     {

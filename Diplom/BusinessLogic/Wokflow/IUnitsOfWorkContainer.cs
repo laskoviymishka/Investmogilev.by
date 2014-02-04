@@ -1,8 +1,6 @@
-﻿using System;
-using BusinessLogic.Wokflow.UnitsOfWork;
-using Invest.Common.State.StateAttributes;
+﻿using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces;
 
-namespace BusinessLogic.Wokflow
+namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow
 {
     public interface IUnitsOfWorkContainer
     {

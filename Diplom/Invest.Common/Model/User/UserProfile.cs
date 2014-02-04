@@ -1,4 +1,4 @@
-﻿namespace Invest.Common.Model.User
+﻿namespace Investmogilev.Infrastructure.Common.Model.User
 {
     public class UserProfile
     {

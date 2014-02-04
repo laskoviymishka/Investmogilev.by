@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
-using Invest.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.Model.Common;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
 using StackExchange.Profiling;
 
-namespace Invest.Common.Repository
+namespace Investmogilev.Infrastructure.Common.Repository
 {
     public class MongoRepository : IRepository
     {

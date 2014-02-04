@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using Invest.Common;
-using Invest.Common.Model.User;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.User;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
     public class NotificationController : Controller
     {

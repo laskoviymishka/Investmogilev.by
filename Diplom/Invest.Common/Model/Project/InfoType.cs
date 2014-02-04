@@ -1,4 +1,4 @@
-﻿namespace Invest.Common.Model.Project
+﻿namespace Investmogilev.Infrastructure.Common.Model.Project
 {
     public enum InfoType
     {

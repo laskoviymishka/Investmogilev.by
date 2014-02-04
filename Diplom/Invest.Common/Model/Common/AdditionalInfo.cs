@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model.Common
+namespace Investmogilev.Infrastructure.Common.Model.Common
 {
     [BsonKnownTypes(typeof(VideoAdditionalInfo),
         typeof(ImageAdditionalInfo),

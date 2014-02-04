@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Invest.Common.State.StateAttributes
+namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class StateAttribute : Attribute

@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using BusinessLogic.Managers;
-using Invest.Common;
-using Invest.Common.Model.Project;
-using Invest.Common.Model.User;
-using Invest.Common.Repository;
+using Investmogilev.Infrastructure.BusinessLogic.Managers;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Model.User;
+using Investmogilev.Infrastructure.Common.Repository;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
 	public class BaseProjectController : Controller
 	{

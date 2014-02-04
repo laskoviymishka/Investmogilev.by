@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using BusinessLogic.Notification;
 using BusinessLogic.Wokflow;
+using Investmogilev.Infrastructure.BusinessLogic.Notification;
+using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Invest.Common.Model.Project;
-using Invest.Common.Repository;
 using Invest.Common.Notification;
 using Moq;
 

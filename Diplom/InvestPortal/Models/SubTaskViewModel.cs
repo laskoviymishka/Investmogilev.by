@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace InvestPortal.Models
+namespace Investmogilev.UI.Portal.Models
 {
     public class SubTaskViewModel
     {

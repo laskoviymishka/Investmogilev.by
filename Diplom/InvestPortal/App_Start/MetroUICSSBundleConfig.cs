@@ -1,8 +1,9 @@
 using System.Web.Optimization;
+using Investmogilev.UI.Portal;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(InvestPortal.App_Start.MetroUICSSBundleConfig), "RegisterBundles")]
+[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(MetroUICSSBundleConfig), "RegisterBundles")]
 
-namespace InvestPortal.App_Start
+namespace Investmogilev.UI.Portal
 {
     public class MetroUICSSBundleConfig
     {

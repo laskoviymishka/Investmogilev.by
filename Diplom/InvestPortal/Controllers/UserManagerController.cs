@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using Invest.Common;
-using Invest.Common.Model.User;
-using Invest.Common.Repository;
-using InvestPortal.Models;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.User;
+using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.UI.Portal.Models;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
 	[Authorize(Roles = "Admin")]
 	public class UserManagerController : Controller

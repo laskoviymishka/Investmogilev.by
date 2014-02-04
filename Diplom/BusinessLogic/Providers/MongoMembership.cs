@@ -5,13 +5,13 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Security;
-using Invest.Common.Model.User;
+using Investmogilev.Infrastructure.Common.Model.User;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using WebMatrix.WebData;
 
-namespace BusinessLogic.Providers
+namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 {
     public class MongoMembership : ExtendedMembershipProvider
     {

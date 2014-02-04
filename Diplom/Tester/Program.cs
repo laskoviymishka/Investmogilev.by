@@ -1,23 +1,16 @@
 ﻿using System.Diagnostics;
 using System.Text;
-using BusinessLogic.Wokflow.UnitsOfWork.Realization;
-using Invest.Common;
-using Invest.Common.Model.User;
-using Invest.Common.Notification;
-using Invest.Common.Repository;
-using Invest.Common.State;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Invest.Common.Model;
-using BusinessLogic.Notification;
-using BusinessLogic.Wokflow;
-using Invest.Common.State.StateAttributes;
-using Moq;
-using Invest.Common.Model.Project;
 using System.Collections;
-using Invest.Tests;
-using MongoDB.Bson;
+using Investmogilev.Infrastructure.BusinessLogic.Notification;
+using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.State;
+using Investmogilev.Infrastructure.Common.State.StateAttributes;
 
 namespace Tester
 {

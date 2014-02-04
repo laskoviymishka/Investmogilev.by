@@ -1,6 +1,4 @@
-﻿using Invest.Common.Model;
-
-namespace Invest.Common.Notification
+﻿namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 {
     public interface INotification
     {

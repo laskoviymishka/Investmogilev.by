@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Invest.Common.Model.Common
+namespace Investmogilev.Infrastructure.Common.Model.Common
 {
     public class EnumDescription : Attribute
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using BusinessLogic.Notification;
-using Invest.Common.Model.Project;
-using Invest.Common.Repository;
-using Invest.Common.State.StateAttributes;
+using Investmogilev.Infrastructure.BusinessLogic.Notification;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.State.StateAttributes;
 
-namespace BusinessLogic.Wokflow
+namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow
 {
     public class ProjectStateContext : IStateContext
     {

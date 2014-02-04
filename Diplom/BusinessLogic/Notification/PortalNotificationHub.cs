@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BusinessLogic.Managers;
-using Invest.Common;
-using Invest.Common.Model.Common;
-using Invest.Common.Model.User;
-using MongoDB.Bson;
+﻿using System.Collections.Generic;
+using Investmogilev.Infrastructure.BusinessLogic.Managers;
+using Investmogilev.Infrastructure.Common.Model.Common;
 
-namespace BusinessLogic.Notification
+namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 {
     public class PortalNotificationHub
     {

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace InvestPortal.App_Start
+namespace Investmogilev.UI.Portal
 {
     public class DateTimeBinder : IModelBinder
     {

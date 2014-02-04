@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Configuration.Provider;
 using System.Linq;
-using System.Text;
 using System.Web.Hosting;
 using System.Web.Security;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 
-namespace BusinessLogic.Providers
+namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 {
     public class MongoRoleProvider : RoleProvider
     {

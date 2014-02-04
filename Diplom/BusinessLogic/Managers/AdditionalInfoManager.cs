@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace BusinessLogic.Managers
+namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 {
     public class AdditionalInfoManager
     {

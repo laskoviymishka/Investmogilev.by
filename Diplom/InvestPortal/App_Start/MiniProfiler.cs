@@ -1,11 +1,11 @@
-using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq;
+using Investmogilev.UI.Portal;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using StackExchange.Profiling;
 using StackExchange.Profiling.MVCHelpers;
-using Microsoft.Web.Infrastructure;
-using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+
 //using System.Data;
 //using System.Data.Entity;
 //using System.Data.Entity.Infrastructure;
@@ -13,13 +13,13 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 //using StackExchange.Profiling.Data.Linq2Sql;
 
 [assembly: WebActivator.PreApplicationStartMethod(
-    typeof(InvestPortal.App_Start.MiniProfilerPackage), "PreStart")]
+    typeof(MiniProfilerPackage), "PreStart")]
 
 [assembly: WebActivator.PostApplicationStartMethod(
-    typeof(InvestPortal.App_Start.MiniProfilerPackage), "PostStart")]
+    typeof(MiniProfilerPackage), "PostStart")]
 
 
-namespace InvestPortal.App_Start
+namespace Investmogilev.UI.Portal
 {
     public static class MiniProfilerPackage
     {

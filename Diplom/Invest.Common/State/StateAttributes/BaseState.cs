@@ -1,4 +1,4 @@
-﻿namespace Invest.Common.State.StateAttributes
+﻿namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
     public abstract class BaseState : IState
     {

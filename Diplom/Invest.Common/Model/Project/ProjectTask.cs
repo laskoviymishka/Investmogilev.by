@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Invest.Common.Model.Common;
-using Invest.Common.State;
+using Investmogilev.Infrastructure.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.State;
 
-namespace Invest.Common.Model.Project
+namespace Investmogilev.Infrastructure.Common.Model.Project
 {
 	public class ProjectTask : IMongoEntity
 	{

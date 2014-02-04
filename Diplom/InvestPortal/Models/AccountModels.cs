@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace InvestPortal.Models
+namespace Investmogilev.UI.Portal.Models
 {
 	public class LocalPasswordModel
 	{

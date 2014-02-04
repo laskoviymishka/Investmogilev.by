@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model.Project
+namespace Investmogilev.Infrastructure.Common.Model.Project
 {
     [BsonIgnoreExtraElements]
     public class UnUsedBuilding : Project

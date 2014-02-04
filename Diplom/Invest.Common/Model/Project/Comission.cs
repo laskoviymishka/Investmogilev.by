@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Invest.Common.Model.Common;
-using Invest.Common.State;
+using Investmogilev.Infrastructure.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.State;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Invest.Common.Model.Project
+namespace Investmogilev.Infrastructure.Common.Model.Project
 {
     public class Comission : IMongoEntity
     {

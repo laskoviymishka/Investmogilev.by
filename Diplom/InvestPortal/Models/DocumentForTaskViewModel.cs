@@ -1,5 +1,6 @@
-﻿using Invest.Common.Model.Common;
-namespace InvestPortal.Models
+﻿using Investmogilev.Infrastructure.Common.Model.Common;
+
+namespace Investmogilev.UI.Portal.Models
 {
     public class DocumentForTaskViewModel : DocumentAdditionalInfo
     {

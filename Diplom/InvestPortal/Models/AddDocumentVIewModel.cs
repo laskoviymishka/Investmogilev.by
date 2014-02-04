@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace InvestPortal.Models
+namespace Investmogilev.UI.Portal.Models
 {
     public class AddDocumentViewModel
     {

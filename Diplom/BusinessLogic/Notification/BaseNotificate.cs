@@ -2,18 +2,18 @@
 using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Web;
 using System.Web.Configuration;
 using System.Web.Security;
-using BusinessLogic.Providers;
-using Invest.Common.Model.Common;
-using Invest.Common.Model.Project;
-using Invest.Common.Repository;
-using Invest.Common.State;
-using WebMatrix.WebData;
-using System.Web;
 using FluentEmail;
+using Investmogilev.Infrastructure.BusinessLogic.Providers;
+using Investmogilev.Infrastructure.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.State;
+using WebMatrix.WebData;
 
-namespace BusinessLogic.Notification
+namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 {
     public class BaseNotificate
     {

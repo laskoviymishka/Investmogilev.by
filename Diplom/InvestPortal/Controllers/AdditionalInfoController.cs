@@ -4,14 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BusinessLogic.Managers;
-using BusinessLogic.Notification;
-using Invest.Common;
-using Invest.Common.Model.Common;
-using Invest.Common.Model.Project;
+using Investmogilev.Infrastructure.BusinessLogic.Managers;
+using Investmogilev.Infrastructure.BusinessLogic.Notification;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.Model.Project;
 using MongoDB.Bson;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
 	public class AdditionalInfoController : Controller
 	{

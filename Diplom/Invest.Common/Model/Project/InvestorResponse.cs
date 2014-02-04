@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Invest.Common.Model.Project
+namespace Investmogilev.Infrastructure.Common.Model.Project
 {
     public class InvestorResponse
     {

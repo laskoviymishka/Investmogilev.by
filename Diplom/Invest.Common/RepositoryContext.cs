@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Configuration;
 using System.Threading;
 using System.Web;
 using System.Web.Configuration;
-using Invest.Common.Repository;
+using Investmogilev.Infrastructure.Common.Repository;
 
-namespace Invest.Common
+namespace Investmogilev.Infrastructure.Common
 {
 	public static class RepositoryContext
 	{

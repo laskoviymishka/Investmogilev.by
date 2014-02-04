@@ -1,9 +1,7 @@
-﻿using System.Net.NetworkInformation;
-using System.Runtime.Remoting.Activation;
-using Invest.Common.State.StateAttributes;
+﻿using Investmogilev.Infrastructure.Common.State.StateAttributes;
 using Stateless;
 
-namespace Invest.Common.State
+namespace Investmogilev.Infrastructure.Common.State
 {
     public interface IStateMachineBuilder
     {

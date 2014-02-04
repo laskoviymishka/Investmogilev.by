@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Invest.Common.Model.Project;
+﻿using Investmogilev.Infrastructure.Common.Model.Project;
 using Stateless;
 
-namespace Invest.Common.State
+namespace Investmogilev.Infrastructure.Common.State
 {
     public class ProjectUpdateStateMachine
     {

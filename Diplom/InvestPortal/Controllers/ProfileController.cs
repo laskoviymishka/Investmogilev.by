@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
-using BusinessLogic.Notification;
-using Invest.Common.Model.Common;
+using Investmogilev.Infrastructure.BusinessLogic.Notification;
+using Investmogilev.Infrastructure.Common.Model.Common;
 
-namespace InvestPortal.Controllers
+namespace Investmogilev.UI.Portal.Controllers
 {
     public class ProfileController : Controller
     {
