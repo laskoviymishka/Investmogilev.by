@@ -1,9 +1,12 @@
 ﻿@model InvestPortal.Models.RegisterModel
 @{
-    ViewBag.Title = "CreateUser";
+    ViewBag.Title = "Создание пользователя";
 }
 <h2>
-    CreateUser</h2>
+    Создать пользователя</h2>
+<p>
+    @Html.ActionLink("Назад к пользователям", "Index", null, new { @class = "icon-arrow-left-3 fg-darker" })
+</p>
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)

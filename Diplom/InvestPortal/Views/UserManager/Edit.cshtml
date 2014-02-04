@@ -1,0 +1,45 @@
+﻿@model InvestPortal.Models.EditUserViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Редактировать</h2>
+<p>
+    @Html.ActionLink("Назад", "Index", null, new { @class = "icon-arrow-left-3 fg-darker" })
+</p>
+<script src="~/Scripts/chosen.jquery.min.js"></script>
+<link href="~/Content/chosen.min.css" rel="stylesheet" />
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>EditUserViewModel</legend>
+
+        <small class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </small>
+        <blockquote class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </blockquote>
+        <small class="editor-label">
+            @Html.LabelFor(model => model.Roles)
+        </small>
+        <blockquote class="editor-field">
+            @Html.ListBoxFor(model => model.Roles, new SelectList(new List<string>() { "Admin", "User", "Investor" }), new { id = "cznTags" })
+            @Html.ValidationMessageFor(model => model.Roles)
+        </blockquote>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<script type="text/javascript">
+    //<![CDATA[
+    $("#cznTags").chosen();
+    $('.chosen-container').css('width', '260px');
+    //]]>
+</script>

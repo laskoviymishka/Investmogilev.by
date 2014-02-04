@@ -10,102 +10,137 @@ using InvestPortal.Models;
 
 namespace InvestPortal.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class UserManagerController : Controller
-    {
-        #region Private Fields
+	[Authorize(Roles = "Admin")]
+	public class UserManagerController : Controller
+	{
+		#region Private Fields
 
-        private readonly IRepository _repository;
+		private readonly IRepository _repository;
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        public UserManagerController()
-        {
-            _repository = RepositoryContext.Current;
-        }
+		public UserManagerController()
+		{
+			_repository = RepositoryContext.Current;
+		}
 
-        #endregion
+		#endregion
 
-        #region Create User
+		#region Create Update User
 
-        public ActionResult CreateUser()
-        {
-            return View();
-        }
+		public ActionResult CreateUser()
+		{
+			return View();
+		}
 
-        [HttpPost]
-        public ActionResult CreateUser(RegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                Membership.CreateUser(model.UserName, model.Password, model.Email);
-                return RedirectToAction("Index", "Home");
-            }
-            return View(model);
-        }
+		[HttpPost]
+		public ActionResult CreateUser(RegisterModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				Membership.CreateUser(model.UserName, model.Password, model.Email);
+				return RedirectToAction("Index", "Home");
+			}
+			return View(model);
+		}
 
-        #endregion
+		public ActionResult Edit(string id)
+		{
+			var model = new EditUserViewModel
+				{
+					UserName = id,
+					Roles = Roles.GetRolesForUser(id).ToList()
+				};
+			return View(model);
+		}
 
-        #region Common user model
+		[HttpPost]
+		public ActionResult Edit(EditUserViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var roles = Roles.GetRolesForUser(model.UserName);
+				if(roles.Any(
+						role => !model.Roles.Contains(role)))
+				{
+					Roles.RemoveUserFromRoles(
+						model.UserName,
+						roles.Where(
+							role => !model.Roles.Contains(role)).ToArray());
+				}
+				if (model.Roles.Any(
+					role => !roles.Contains(role)))
+				{
+					Roles.AddUserToRoles(
+						model.UserName,
+						model.Roles.Where(
+							role => !roles.Contains(role)).ToArray());
+				}
 
-        public ActionResult Index()
-        {
-            return View(UserManagerViewModels);
-        }
+				return RedirectToAction("Index", "UserManager");
+			}
+			return View(model);
+		}
 
-        #endregion
+		#endregion
 
-        #region Private helpers
+		#region Common user model
 
-        private IList<UserManagerViewModel> UserManagerViewModels
-        {
-            get
-            {
-                IList<Users> users = _repository.All<Users>().ToList();
-                IList<UserManagerViewModel> model = new List<UserManagerViewModel>();
-                foreach (Users mongoUser in users)
-                {
-                    if (!Roles.IsUserInRole(mongoUser.Username, UserRoles.Admin.ToString()))
-                    {
-                        var vm = new UserManagerViewModel
-                        {
-                            _id = mongoUser._id,
-                            Username = mongoUser.Username,
-                            LoweredEmail = mongoUser.Email,
-                            CreationDate = mongoUser.CreationDate,
-                            IsLockedOut = mongoUser.IsLockedOut,
-                            Password = "not showing",
-                            PasswordQuestion = mongoUser.PasswordQuestion,
-                            PasswordAnswer = mongoUser.PasswordAnswer,
-                            IsApproved = mongoUser.IsApproved
-                        };
+		public ActionResult Index()
+		{
+			return View(UserManagerViewModels);
+		}
 
-                        vm.Roles = new List<UserRoles>();
-                        string[] userRoles = Roles.GetRolesForUser(vm.Username);
-                        if (userRoles.Length > 0)
-                        {
-                            foreach (string role in userRoles)
-                            {
-                                UserRoles roleEnum;
-                                Enum.TryParse(role, true, out roleEnum);
-                                vm.Roles.Add(roleEnum);
-                            }
-                        }
-                        else
-                        {
-                            Roles.AddUserToRole(mongoUser.Username, UserRoles.User.ToString());
-                            vm.Roles.Add(UserRoles.User);
-                        }
+		#endregion
 
-                        model.Add(vm);
-                    }
-                }
-                return model;
-            }
-        }
+		#region Private helpers
 
-        #endregion
-    }
+		private IList<UserManagerViewModel> UserManagerViewModels
+		{
+			get
+			{
+				IList<Users> users = _repository.All<Users>().ToList();
+				IList<UserManagerViewModel> model = new List<UserManagerViewModel>();
+				foreach (var mongoUser in users)
+				{
+					var vm = new UserManagerViewModel
+					{
+						_id = mongoUser._id,
+						Username = mongoUser.Username,
+						LoweredEmail = mongoUser.Email,
+						CreationDate = mongoUser.CreationDate,
+						IsLockedOut = mongoUser.IsLockedOut,
+						Password = "not showing",
+						PasswordQuestion = mongoUser.PasswordQuestion,
+						PasswordAnswer = mongoUser.PasswordAnswer,
+						IsApproved = mongoUser.IsApproved
+					};
+
+					vm.Roles = new List<UserRoles>();
+					var userRoles = Roles.GetRolesForUser(vm.Username);
+					if (userRoles.Length > 0)
+					{
+						foreach (string role in userRoles)
+						{
+							UserRoles roleEnum;
+							Enum.TryParse(role, true, out roleEnum);
+							vm.Roles.Add(roleEnum);
+						}
+					}
+					else
+					{
+						Roles.AddUserToRole(mongoUser.Username, UserRoles.User.ToString());
+						vm.Roles.Add(UserRoles.User);
+					}
+
+					model.Add(vm);
+				}
+				return model;
+			}
+		}
+
+		#endregion
+	}
 }

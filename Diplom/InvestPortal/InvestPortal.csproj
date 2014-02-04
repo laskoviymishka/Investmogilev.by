@@ -377,6 +377,7 @@
     <Compile Include="Controllers\AdditionalInfoController.cs" />
     <Compile Include="Controllers\AddRoadMapPointController.cs" />
     <Compile Include="Controllers\BaseProjectController.cs" />
+    <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvestorEntryController.cs" />
     <Compile Include="Controllers\InvestProjectsController.cs" />
@@ -1099,12 +1100,6 @@
     <Content Include="Views\InvestorEntry\ResponseToProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\UserManager\UnUsignedProject.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\UserManager\AssignUser.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\BaseProject\WorkFlowForProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1225,6 +1220,7 @@
     <Content Include="Views\AdditionalInfo\ShowAdditional.cshtml" />
     <Content Include="Views\AdditionalInfo\CreateAdditional.cshtml" />
     <Content Include="Views\AdditionalInfo\CreateNoteAdditional.cshtml" />
+    <Content Include="Views\UserManager\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

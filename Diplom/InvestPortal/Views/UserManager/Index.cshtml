@@ -2,13 +2,16 @@
 @using InvestPortal.Models
 @model IEnumerable<InvestPortal.Models.UserManagerViewModel>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Пользователи системы";
 }
 <h2>Пользователи системы</h2>
 <script src="~/Content/jquery.dataTables.min.js"></script>
 <link href="~/Content/demo_table.css" rel="stylesheet" />
 <link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
 <script src="~/Scripts/TableSetup.js"></script>
+<p>
+    @Html.ActionLink("Новый пользователь", "CreateUser")
+</p>
 <script>
     /* Table initialisation */
     $(document).ready(function () {
@@ -26,13 +29,11 @@
         });
     });
 </script>
-<h2>Все проекты</h2>
 <table id="main-table" class="table hovered">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Username)
-
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
@@ -71,7 +72,7 @@
                     @Html.DisplayFor(modelItem => item.Roles)
                 </td>
                 <td>
-                    @Html.ActionLink("Удалить", "_DeleteAjaxEditing", new { id = item._id })
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.Username })
                 </td>
             </tr>
         }
