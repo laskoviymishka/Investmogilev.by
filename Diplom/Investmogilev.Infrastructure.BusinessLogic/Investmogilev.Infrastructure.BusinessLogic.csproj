@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{428DB588-80CB-47FF-BDDE-D8739CCCD8EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Investmogilev.Infrastructure.BusinessLogic</RootNamespace>
+    <AssemblyName>Investmogilev.Infrastructure.BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentEmail">
+      <HintPath>..\packages\fluent-email.1.2.2\lib\net40\FluentEmail.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="Stateless">
+      <HintPath>..\packages\stateless-4.0.2.3.1.1\lib\net40\Stateless.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\..\visual studio 2010\Projects\Solution1\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Managers\AdditionalInfoManager.cs" />
+    <Compile Include="Managers\ProjectStateManager.cs" />
+    <Compile Include="Managers\ReportManager.cs" />
+    <Compile Include="Managers\TaskManager.cs" />
+    <Compile Include="Notification\AdminNotification.cs" />
+    <Compile Include="Notification\BaseNotificate.cs" />
+    <Compile Include="Notification\IAdminNotification.cs" />
+    <Compile Include="Notification\IInvestorNotification.cs" />
+    <Compile Include="Notification\INotification.cs" />
+    <Compile Include="Notification\InvestorNotification.cs" />
+    <Compile Include="Notification\IUserNotification.cs" />
+    <Compile Include="Notification\MailMessageHandler.cs" />
+    <Compile Include="Notification\PortalMessageHandler.cs" />
+    <Compile Include="Notification\PortalNotificationHub.cs" />
+    <Compile Include="Notification\UserNotification.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\MongoMembership.cs" />
+    <Compile Include="Providers\MongoProfileProvider.cs" />
+    <Compile Include="Providers\MongoRoleProvider.cs" />
+    <Compile Include="Wokflow\IUnitsOfWorkContainer.cs" />
+    <Compile Include="Wokflow\ProjectStateContext.cs" />
+    <Compile Include="Wokflow\ProjectWorkflowWrapper.cs" />
+    <Compile Include="Wokflow\UnitsOfWorkContainer.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\BaseProjectUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\ComissionFixesUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\DocumentSendingUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\DoneUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IComissionFixesUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IDocumentSendingUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IDoneUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IInvestorApproveUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IInvolvedorganizationsUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IIspolcomFixesUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IMinEconomyUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\InvestorApproveUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\InvolvedOrganizationsUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IOnComissionUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IOnIspolcomUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IOnMapUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IOpenUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IPlanCreatingUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IRealizationUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\IspolcomFixesUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IWaitComissionUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IWaitInvolvedUoW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Wokflow\UnitsOfWork\Interfaces\IWaitIspolcomUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\MinEconomyUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\OnComissionUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\OnIspolcomUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\OnMapUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\OpenUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\PlanCreatingUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\RealizationUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\WaitComissionUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\WaitInvolvedUoW.cs" />
+    <Compile Include="Wokflow\UnitsOfWork\Realization\WaitIspolcomUoW.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Views\Emails\FillInfomrationAdminMail.cshtml" />
+    <None Include="Views\Emails\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="razormachine.readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Investmogilev.Infrastructure.Common\Investmogilev.Infrastructure.Common.csproj">
+      <Project>{8f5582f4-1ead-4fe3-990d-36d18fa234d8}</Project>
+      <Name>Investmogilev.Infrastructure.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

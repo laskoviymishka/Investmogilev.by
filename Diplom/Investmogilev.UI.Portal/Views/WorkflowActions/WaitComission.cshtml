@@ -1,0 +1,10 @@
+﻿@model Investmogilev.Infrastructure.Common.Model.Project.Project
+
+<h2>Ожидается комиссия</h2>
+@if (User.IsInRole("Admin"))
+{
+    <div>
+        @Html.ActionLink("Созвать комиссию", "Comission", "AdminActions", null, new { @class = "button success", @style = "width: 150px" })
+    </div>
+}
+@{Html.RenderPartial("AllowActions");}

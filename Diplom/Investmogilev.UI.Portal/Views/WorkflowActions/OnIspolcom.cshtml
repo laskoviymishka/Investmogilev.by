@@ -1,0 +1,34 @@
+﻿@using Investmogilev.Infrastructure.Common.State
+@model Investmogilev.Infrastructure.Common.Model.Project.Project
+
+<h2>Проект направлен на комиссию @Model.ProjectIspolcom.CommissionTime.ToShortDateString()</h2>
+
+<div class="listview-outlook">
+    @foreach (var task in Model.Tasks.Where(t => t.Step == ProjectWorkflow.State.WaitIspolcomFixes && !t.IsComplete))
+    {
+        <a class="list">
+            <div class="list-content">
+                <span class="list-title">@task.Title</span>
+                <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
+                    Описание: @task.Body
+                </span>
+            </div>
+        </a>
+    }
+</div>
+
+
+<div>
+    @Html.ActionLink("Добавить замечание по проекту", "AddFix",
+                new
+                {
+                    projectId = Model._id,
+                    state = ProjectWorkflow.State.WaitIspolcomFixes
+                },
+                new
+                {
+                    @class = "button danger",
+                    @style = "width: 300px"
+                })
+</div>
+@{Html.RenderPartial("AllowActions");}

@@ -1,0 +1,89 @@
+﻿@using Investmogilev.Infrastructure.Common.Model.Project
+@model Investmogilev.Infrastructure.Common.Model.Project.ProjectTask
+
+@{
+    ViewBag.Title = "Замечания по проекту";
+}
+<div>
+    @Html.ActionLink("Назад к информации о проекте", "Project", "BaseProject", new { id = Model.ProjectId }, new { @class = "icon-arrow-left-3 fg-darker" })
+</div>
+<style>
+    .calendar-dropdown {
+        position: relative !important;
+    }
+</style>
+<script src="~/Scripts/chosen.jquery.min.js"></script>
+<link href="~/Content/chosen.min.css" rel="stylesheet" />
+<h2>Добавление замечания по проекту</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Замечание комиссии</legend>
+        @Html.HiddenFor(model => model._id)
+        @Html.HiddenFor(model => model.ProjectId)
+        @Html.HiddenFor(model => model.CreationTime)
+        @Html.HiddenFor(model => model.CompleteTime)
+        @Html.HiddenFor(model => model.Step)
+
+        <small class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </small>
+        <blockquote class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </blockquote>
+
+        <small class="editor-label">
+            @Html.LabelFor(model => model.Milestone)
+        </small>
+        <blockquote class="editor-field">
+            <div id="datepicker">
+                <input class="t-input"
+                       data-val="false"
+                       data-val-date="The field EstimateInvestDate must be a date."
+                       data-val-required="The EstimateInvestDate field is required."
+                       id="Milestone"
+                       name="Milestone"
+                       type="text"
+                       value="01/01/0001">
+            </div>
+            @Html.ValidationMessageFor(model => model.Milestone)
+        </blockquote>
+
+        <small class="editor-label">
+            @Html.LabelFor(model => model.Body)
+        </small>
+        <blockquote class="editor-field">
+            @Html.TextAreaFor(model => model.Body, new { @id = "editor" })
+            @Html.ValidationMessageFor(model => model.Body)
+        </blockquote>
+
+        <small class="editor-label">
+            @Html.LabelFor(model => model.Type)
+        </small>
+        <blockquote class="editor-field">
+            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetNames(typeof(TaskTypes))), new { id = "cznTypes" })
+            @Html.ValidationMessageFor(model => model.Type)
+        </blockquote>
+
+        <p style="margin: 10px">
+            <input type="submit" value="Сохранить" />
+        </p>
+    </fieldset>
+}
+
+<script>
+    $(document).ready(function () { $("#editor").cleditor(); });
+    $("#cznTypes").chosen();
+</script>
+<script>
+    $("#datepicker").datepicker({
+        effect: "slide", // none, slide, fade
+        position: "bottom", // top or bottom
+        format: "dd/mm/yyyy",
+    });
+</script>

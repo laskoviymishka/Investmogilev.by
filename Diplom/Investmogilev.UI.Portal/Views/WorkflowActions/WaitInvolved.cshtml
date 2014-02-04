@@ -1,0 +1,68 @@
+﻿@using Investmogilev.Infrastructure.Common.Model.Project
+@model Investmogilev.Infrastructure.Common.Model.Project.Project
+@if (User.IsInRole("Admin"))
+{
+    <div class="listview small">
+        @foreach (var task in Model.Tasks.Where(t => t.Type == TaskTypes.InvolvedOrganiztion))
+        {
+            if (task.IsComplete)
+            {
+                <a href="/ReportReview/Details?taskId=@task._id&projectId=@task.ProjectId" class="list selected">
+                    <div class="list-content">
+                        <img src="/images/word.png" class="icon">
+                        <div class="data">
+                            <span class="list-title">@task.Title</span>
+                            <span class="list-remark">@task.Body</span>
+                        </div>
+                    </div>
+                </a>
+            }
+            else
+            {
+                <a href="/ReportReview/Details?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                    <div class="list-content">
+                        <img src="/images/word.png" class="icon">
+                        <div class="data">
+                            <span class="list-title">@task.Title</span>
+                            <span class="list-remark">@task.Body</span>
+                        </div>
+                    </div>
+                </a>
+            }
+        }
+    </div>
+
+}
+else
+{
+    <div class="listview small">
+        @foreach (var task in Model.Tasks.Where(t => t.Type == TaskTypes.InvolvedOrganiztion))
+        {
+            if (task.IsComplete)
+            {
+                <a href="#" class="list selected">
+                    <div class="list-content">
+                        <img src="/images/word.png" class="icon">
+                        <div class="data">
+                            <span class="list-title">@task.Title</span>
+                            <span class="list-remark">@task.Body</span>
+                        </div>
+                    </div>
+                </a>
+            }
+            else
+            {
+                <a href="#" class="list">
+                    <div class="list-content">
+                        <img src="/images/word.png" class="icon">
+                        <div class="data">
+                            <span class="list-title">@task.Title</span>
+                            <span class="list-remark">@task.Body</span>
+                        </div>
+                    </div>
+                </a>
+            }
+        }
+    </div>
+}
+@{Html.RenderPartial("AllowActions");}

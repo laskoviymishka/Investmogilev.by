@@ -1,0 +1,11 @@
+﻿@using Investmogilev.Infrastructure.Common.Model.Common
+@using Investmogilev.Infrastructure.Common.State
+
+<div>
+    <ul>
+        @foreach (ProjectWorkflow.Trigger trigger in ViewBag.AvaibleTriggers)
+        {
+            <li>@Html.ActionLink(@EnumDescription.GetEnumDescription(trigger), "Triggers", new { projectId = Model._id, @trigger = trigger.ToString() }, new { @class = "button primary" })</li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,67 @@
+﻿@using Investmogilev.Infrastructure.Common.Model.Common
+@model Investmogilev.Infrastructure.Common.Model.Project.ProjectNotes
+@{
+    ViewBag.Title = "Заметка по проекту";
+}
+<h2>
+    Заметка по проекту
+</h2>
+<div>
+    @Html.ActionLink("К всем заметкам", "All", null, new { @class = "icon-arrow-left-3 fg-darker big" })
+</div>
+</br>
+<div class="balloon top" style="width:400px">
+    <p style="margin:20px">Дополнительные пометки по проекту</p>
+</div>
+
+<fieldset>
+    <legend>Заметка</legend>
+
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.NoteTitle)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.NoteTitle)
+    </blockquote>
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.NoteBody)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.NoteBody)
+    </blockquote>
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.CretorName)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.CretorName)
+    </blockquote>
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.CreatedTime)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.CreatedTime)
+    </blockquote>
+
+    <small class="display-label">
+        Приложения
+    </small>
+    <blockquote class="display-field">
+        @if (Model.NoteDocument != null)
+        {
+            foreach (var item in Model.NoteDocument)
+            {
+                <li>
+                    @Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
+                                              "Download",
+                                                new { noteId = Model._id, docId = item._id }, new { @class = "button success" })
+                </li>
+            }
+        }
+    </blockquote>
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.ProjectId)
+    </small>
+    <blockquote class="display-field">
+        @Html.ActionLink("К проекту", "Project", "BaseProject", new { Id = Model.ProjectId }, new { @class = "button info", style = "width:100px" })
+    </blockquote>
+</fieldset>

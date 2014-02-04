@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdditionalInfo_InfoValue_Описание" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="AdditionalInfo_InfoName_Имя" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="GreenField_InvestNumber_Инвестиционный_номер" xml:space="preserve">
+    <value>Инвестиционный номер</value>
+  </data>
+  <data name="GreenField_InvestNumber_Введите_инвестиционный_номер" xml:space="preserve">
+    <value>Введите инвестиционный номер</value>
+  </data>
+  <data name="GreenField_EstimateInvestDate_Примерная_дата_инвестирования" xml:space="preserve">
+    <value>Примерная дата инвестирования</value>
+  </data>
+  <data name="GreenField_Goal_Цель_проекта" xml:space="preserve">
+    <value>Цель проекта</value>
+  </data>
+  <data name="GreenField_Goal_Введите_цель_проекта" xml:space="preserve">
+    <value>Введите цель проекта</value>
+  </data>
+  <data name="GreenField_Area_Площадь_проекта" xml:space="preserve">
+    <value>Площадь проекта</value>
+  </data>
+  <data name="GreenField_Area_Введите_площадь_проекта" xml:space="preserve">
+    <value>Введите площадь проекта</value>
+  </data>
+  <data name="GreenField_CadastrValue_Кадастровая_стоимость_проекта" xml:space="preserve">
+    <value>Кадастровая стоимость проекта</value>
+  </data>
+  <data name="GreenField_CadastrValue_Введите_кадастровую_стоимость_проекта" xml:space="preserve">
+    <value>Введите кадастровую стоимость проекта</value>
+  </data>
+  <data name="GreenField_ThirdPartiePretender_Прочие_заинтересованные_лица_проекта" xml:space="preserve">
+    <value>Прочие заинтересованные лица проекта</value>
+  </data>
+  <data name="GreenField_Infrastructure_Имя_проекта" xml:space="preserve">
+    <value>Имя проекта</value>
+  </data>
+  <data name="GreenField_Infrastructure_Введите_имя_проекта" xml:space="preserve">
+    <value>Введите имя проекта</value>
+  </data>
+  <data name="GreenField_OwnerCity_Владелец_город_" xml:space="preserve">
+    <value>Владелец(город)</value>
+  </data>
+  <data name="GreenField_Owner_Владелец_организация_" xml:space="preserve">
+    <value>Владелец(организация)</value>
+  </data>
+  <data name="GreenField_Appendix_Прочая_информация_проекта" xml:space="preserve">
+    <value>Прочая информация проекта</value>
+  </data>
+  <data name="History_Editor_Кем_изменено" xml:space="preserve">
+    <value>Кем изменено</value>
+  </data>
+  <data name="History_From_Исходное_состояние" xml:space="preserve">
+    <value>Исходное состояние</value>
+  </data>
+  <data name="History_To_Конечное_состояние" xml:space="preserve">
+    <value>Конечное состояние</value>
+  </data>
+  <data name="History_Body_Дополнительная_информация" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="History_EditingTime_Дата_изменений" xml:space="preserve">
+    <value>Дата изменений</value>
+  </data>
+  <data name="InvestorResponse_ResponseDate_Дата_отклика" xml:space="preserve">
+    <value>Дата отклика</value>
+  </data>
+  <data name="InvestorResponse_InvestorFirstName_Имя" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="InvestorResponse_InvestorMiddleName_Отчество" xml:space="preserve">
+    <value>Отчество</value>
+  </data>
+  <data name="InvestorResponse_InvestorLastName_Фамилия" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="InvestorResponse_InvestorOrganizationName_Название_организации" xml:space="preserve">
+    <value>Название организации</value>
+  </data>
+  <data name="InvestorResponse_InvestorEmail_Адресс_электорнной_почты" xml:space="preserve">
+    <value>Адресс электорнной почты</value>
+  </data>
+  <data name="InvestorResponse_InvestorPhone_Телефон" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="InvestorResponse_AdditionalInfo_Прочая_информация" xml:space="preserve">
+    <value>Прочая информация</value>
+  </data>
+  <data name="Project_Name_Имя_проекта" xml:space="preserve">
+    <value>Имя проекта</value>
+  </data>
+  <data name="Project_Name_Введите_имя_проекта" xml:space="preserve">
+    <value>Введите имя проекта</value>
+  </data>
+  <data name="Project_Description_Описание_проекта" xml:space="preserve">
+    <value>Описание проекта</value>
+  </data>
+  <data name="Project_Description_Введите_описание_проекта" xml:space="preserve">
+    <value>Введите описание проекта</value>
+  </data>
+  <data name="Project_Address_Координаты" xml:space="preserve">
+    <value>Координаты</value>
+  </data>
+  <data name="Project_Address_Координаты_проекта_обязательны" xml:space="preserve">
+    <value>Координаты проекта обязательны</value>
+  </data>
+  <data name="Project_AddressName_Адрес" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="Project_AddressName_Введите_правильный_адрес" xml:space="preserve">
+    <value>Введите правильный адрес</value>
+  </data>
+  <data name="Project_Region_Регион" xml:space="preserve">
+    <value>Регион</value>
+  </data>
+  <data name="Project_Region_Введите_регион" xml:space="preserve">
+    <value>Введите регион</value>
+  </data>
+  <data name="Project_Tags_Теги" xml:space="preserve">
+    <value>Теги</value>
+  </data>
+  <data name="Project_InvestorUser_Инвестор" xml:space="preserve">
+    <value>Инвестор</value>
+  </data>
+  <data name="Project_Tasks_Задачи" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="Project_Steps_Шаги" xml:space="preserve">
+    <value>Шаги</value>
+  </data>
+  <data name="Project_SubProject_Под_проекты" xml:space="preserve">
+    <value>Под проекты</value>
+  </data>
+  <data name="Project_WorkflowState_Состояние" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="Project_ProjectType_Тип_проекта" xml:space="preserve">
+    <value>Тип проекта</value>
+  </data>
+  <data name="Project_Info_Дополнительная_информация" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="ProjectNotes_ProjectId_Проект" xml:space="preserve">
+    <value>Проект</value>
+  </data>
+  <data name="ProjectNotes_NoteTitle_Заголовок" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="ProjectNotes_NoteTitle_Введите_заголовок" xml:space="preserve">
+    <value>Введите заголовок</value>
+  </data>
+  <data name="ProjectNotes_NoteBody_Текст_заметки" xml:space="preserve">
+    <value>Текст заметки</value>
+  </data>
+  <data name="ProjectNotes_NoteBody_Введите_текст" xml:space="preserve">
+    <value>Введите текст</value>
+  </data>
+  <data name="ProjectNotes_CretorName_Автор" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="ProjectNotes_CreatedTime_Время_создания" xml:space="preserve">
+    <value>Время создания</value>
+  </data>
+  <data name="ProjectNotes_RolesForView_Доступна_для_ролей" xml:space="preserve">
+    <value>Доступна для ролей</value>
+  </data>
+  <data name="ProjectTask__id_Идентификатор_задачи" xml:space="preserve">
+    <value>Идентификатор задачи</value>
+  </data>
+  <data name="ProjectTask_ProjectId_Идентификатор_проекта" xml:space="preserve">
+    <value>Идентификатор проекта</value>
+  </data>
+  <data name="ProjectTask_Title_Заголовок" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+  <data name="ProjectTask_TaskReport_Отчеты" xml:space="preserve">
+    <value>Отчеты</value>
+  </data>
+  <data name="ProjectTask_Type_Тип_задачи" xml:space="preserve">
+    <value>Тип задачи</value>
+  </data>
+  <data name="ProjectTask_Step_Статус_проекта" xml:space="preserve">
+    <value>Статус проекта</value>
+  </data>
+  <data name="ProjectTask_Milestone_Необходимый_срок_выполнения" xml:space="preserve">
+    <value>Необходимый срок выполнения</value>
+  </data>
+  <data name="ProjectTask_CreationTime_Время_создания" xml:space="preserve">
+    <value>Время создания</value>
+  </data>
+  <data name="ProjectTask_CompleteTime_Время_выполнения" xml:space="preserve">
+    <value>Время выполнения</value>
+  </data>
+  <data name="ProjectTask_IsComplete_Выполнена_" xml:space="preserve">
+    <value>Выполнена?</value>
+  </data>
+  <data name="ProjectTask_Body_Описание_задачи" xml:space="preserve">
+    <value>Описание задачи</value>
+  </data>
+  <data name="Report_Body_Тело_отчета" xml:space="preserve">
+    <value>Тело отчета</value>
+  </data>
+  <data name="Report_ProjectId_Идентификатор_проекта" xml:space="preserve">
+    <value>Идентификатор проекта</value>
+  </data>
+  <data name="Report_TaskId_Идентификатор_задачи" xml:space="preserve">
+    <value>Идентификатор задачи</value>
+  </data>
+  <data name="Report_Info_Дополнительная_информация" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="Report_ReportResponse_Отклик" xml:space="preserve">
+    <value>Отклик</value>
+  </data>
+  <data name="Report_ReportTime_Время_созданя" xml:space="preserve">
+    <value>Время созданя</value>
+  </data>
+  <data name="Report__id_Идентификатор" xml:space="preserve">
+    <value>Идентификатор</value>
+  </data>
+  <data name="ReportResponse_Body_Тело_отклика" xml:space="preserve">
+    <value>Тело отклика</value>
+  </data>
+  <data name="ReportResponse_Info_Дополнительная_информация" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+</root>

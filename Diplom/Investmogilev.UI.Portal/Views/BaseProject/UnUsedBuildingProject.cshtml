@@ -1,0 +1,110 @@
+﻿@using Investmogilev.Infrastructure.Common.Model.Project
+@model Investmogilev.Infrastructure.Common.Model.Project.UnUsedBuilding
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/MapMarkerInit.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Проект - @Model.Name</legend>
+        @Html.HiddenFor(model => model._id)
+        @Html.HiddenFor(model => model.InvestorUser)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Tags)
+        </div>
+        <div class="editor-field">
+            @Html.ListBoxFor(model => model.Tags, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
+            @Html.ValidationMessageFor(model => model.Tags)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Description, new { @id = "editor" })
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AddressName)
+        </div>
+        <table class="table hovered">
+            <tr>
+                <td>
+                    <div id="map" style="height: 250px">
+                    </div>
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.AddressName)
+                    @Html.ValidationMessageFor(model => model.AddressName)
+                    <div class="button" onclick="CheckAddress()">
+                        Проверить адресс
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Area)</td>
+                <td>
+                    @Html.EditorFor(model => model.Area, new {@class = "k-textbox", data_val = false})
+                    @Html.ValidationMessageFor(model => model.Area)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.IsSell)</td>
+                <td>
+                    @Html.EditorFor(model => model.IsSell)
+                    @Html.ValidationMessageFor(model => model.IsSell)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.IsCommunicate)</td>
+                <td>
+                    @Html.EditorFor(model => model.IsCommunicate)
+                    @Html.ValidationMessageFor(model => model.IsCommunicate)
+                </td>
+            </tr>
+           
+            <tr>
+                <td> @Html.LabelFor(model => model.Region)</td>
+                <td>
+                    @Html.EditorFor(model => model.Region)
+                    @Html.ValidationMessageFor(model => model.Region)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.BalancePrice)</td>
+                <td>
+                    @Html.EditorFor(model => model.BalancePrice, new {@class = "k-textbox", data_val = false})
+                    @Html.ValidationMessageFor(model => model.BalancePrice)
+                </td>
+            </tr>
+        </table>
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+        <div style="visibility:hidden">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Address)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Address)
+            </div>
+        </div>
+    </fieldset>
+}
+
+<script>
+    $(document).ready(function () { $("#editor").cleditor(); });
+
+    $("#cznTags").chosen();
+    $('.chosen-container').css('width', '100%');
+</script>
