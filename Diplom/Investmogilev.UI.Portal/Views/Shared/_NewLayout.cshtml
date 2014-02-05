@@ -63,7 +63,15 @@
                             <span class="icon-cog"></span>
                         </a>
                         <ul class="dropdown-menu place-right" data-role="dropdown">
-                            <li><a href="/account/logoff">Выйти</a></li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li><a href="/account/logoff">Выйти</a></li>
+
+                            }
+                            else
+                            {
+                                <li><a href="/account/login">Войти</a></li>
+                            }
                         </ul>
                     </div>
                     <span class="element-divider place-right"></span>

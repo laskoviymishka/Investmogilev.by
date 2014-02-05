@@ -7,9 +7,8 @@
     <meta name="author" content="Терехов Андрей Юрьевич, Могилев. РБ">
 
     <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'></script>
-    <link href="app.css" rel="stylesheet" media="screen">
     <script>
-        var linkToSite = 'http://localhost/';
+        var linkToSite = '';
     </script>
     <link href="css/avgrund.css" rel="stylesheet" />
     <link href="css/metro-bootstrap.css" rel="stylesheet">
@@ -17,7 +16,6 @@
     <link href="css/docs.css" rel="stylesheet">
     <link href="js/prettify/prettify.css" rel="stylesheet">
     <!-- Load JavaScript Libraries -->
-    <script src="js/metro-ui/jquery.ui.widget.js" type="text/javascript"></script>
     <script src="js/jquery/jquery.min.js"></script>
     <script src="js/jquery/jquery.widget.min.js"></script>
     <script src="js/jquery/jquery.mousewheel.js"></script>
@@ -26,11 +24,25 @@
     <!-- Metro UI CSS JavaScript plugins -->
     <script src="js/metro/metro-loader.js"></script>
     <script src="js/metro/metro-dialog.js" type="text/javascript"></script>
-
-    <!-- Local JavaScript -->
-    <script src="js/docs.js"></script>
-    <script src="js/github.info.js"></script>
-
+    <script src="js/metro/metro-treeview.js" type="text/javascript"></script>
+    <script src="js/metro/metro-calendar.js" type="text/javascript"></script>
+    <script src="js/metro/metro-core.js" type="text/javascript"></script>
+    <script src="js/metro/metro-date-format.js" type="text/javascript"></script>
+    <script src="js/metro/metro-datepicker.js" type="text/javascript"></script>
+    <script src="js/metro/metro-dialog.js" type="text/javascript"></script>
+    <script src="js/metro/metro-dropdown.js" type="text/javascript"></script>
+    <script src="js/metro/metro-hint.js" type="text/javascript"></script>
+    <script src="js/metro/metro-input-control.js" type="text/javascript"></script>
+    <script src="js/metro/metro-listview.js" type="text/javascript"></script>
+    <script src="js/metro/metro-live-tile.js" type="text/javascript"></script>
+    <script src="js/metro/metro-notify.js" type="text/javascript"></script>
+    <script src="js/metro/metro-plugin-template.js" type="text/javascript"></script>
+    <script src="js/metro/metro-progressbar.js" type="text/javascript"></script>
+    <script src="js/metro/metro-stepper.js" type="text/javascript"></script>
+    <script src="js/metro/metro-tab-control.js" type="text/javascript"></script>
+    <script src="js/metro/metro-table.js" type="text/javascript"></script>
+    <script src="js/metro/metro-times.js" type="text/javascript"></script>
+    <script src="js/metro/metro-touch-handler.js" type="text/javascript"></script>
     <title>Инвестиционная карта могилевской области</title>
 </head>
 <body class="metro">
@@ -45,6 +57,7 @@
                     <span id="radioRegion" class="icon-radio-unchecked"></span>
                     Данные по регионам
                 </div>
+                <a class="element image-button image-left place-right" href="/account/login">Войти</a>
             </nav>
         </nav>
         <div id="MainContainer">
