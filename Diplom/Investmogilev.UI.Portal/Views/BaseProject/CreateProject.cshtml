@@ -6,7 +6,8 @@
     @Html.ActionLink("К всем проектам", "All", null, new { @class = "icon-arrow-left-3 fg-darker big button success" })
 </div>
 <br/>
-
+<script src="~/Scripts/chosen.jquery.min.js"></script>
+<link href="~/Content/chosen.min.css" rel="stylesheet" />
 <script>
     loadPolymorhCreate = function (type) {
         var link = '/BaseProject/Create' + type + 'Project/';

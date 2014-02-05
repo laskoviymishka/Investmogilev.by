@@ -22,12 +22,12 @@ var selectedRegion = ''
         heatmap: { enabled: false },
         query: {
             select: "col2",
-            from: "1EOvuz_bSq6mL7_FdZuzfLER0ZRJ32Jke3RRh2wA",
+            from: "1Kl6NI6pi4SuX8dF6NRUg3fLGoQJMrhmDQ2F-6aA",
             where: "col5 \x3e\x3d 1"
         },
         options: {
-            styleId: 2,
-            templateId: 2
+            styleId: 33,
+            templateId: 35
         },
         suppressInfoWindows: true
     });

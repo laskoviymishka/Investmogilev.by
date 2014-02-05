@@ -10,7 +10,6 @@ using Newtonsoft.Json;
 
 namespace Investmogilev.UI.Portal.Controllers
 {
-	[Authorize]
 	public class InvestProjectsController : Controller
 	{
 		#region Nested class

@@ -358,7 +358,7 @@ namespace Investmogilev.Infrastructure.Common.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Адрес.
+        ///   Looks up a localized string similar to Выбор месторасположения на карте.
         /// </summary>
         public static string Project_AddressName_Адрес {
             get {

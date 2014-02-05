@@ -80,8 +80,11 @@
         Действия
     </small>
     <blockquote class="display-field">
-        @Html.ActionLink("Создать заметку к проекту", "Create", "Notes", new { id = Model._id }, new { @class = "button info" })
-        @Html.ActionLink("Редактировать", "FillProject", new { id = Model._id }, new { @class = "button info" })
+        <div>
+            @Html.ActionLink("Создать заметку к проекту", "Create", "Notes", new { id = Model._id }, new { @class = "button info" })
+            @Html.ActionLink("Редактировать", "FillProject", new { id = Model._id }, new { @class = "button info" })
+        </div>
+        <br />
         <br />
         @if (User.IsInRole("Admin") || User.IsInRole("Investor"))
         {
@@ -90,5 +93,5 @@
     </blockquote>
 
 </fieldset>
-</br>
+<br/>
 

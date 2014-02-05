@@ -226,7 +226,7 @@
     <value>Координаты проекта обязательны</value>
   </data>
   <data name="Project_AddressName_Адрес" xml:space="preserve">
-    <value>Адрес</value>
+    <value>Выбор месторасположения на карте</value>
   </data>
   <data name="Project_AddressName_Введите_правильный_адрес" xml:space="preserve">
     <value>Введите правильный адрес</value>
