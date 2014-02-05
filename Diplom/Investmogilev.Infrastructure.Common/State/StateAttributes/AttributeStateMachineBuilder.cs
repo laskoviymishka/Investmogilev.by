@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.InteropServices;
 using Investmogilev.Infrastructure.StateMachine;
 
 namespace Investmogilev.Infrastructure.Common.State.StateAttributes
@@ -23,7 +22,7 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 		{
 			_context = context;
 			_stateMachineName = statemachineName;
-			List<Type> types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes().Where(t => Attribute.IsDefined(t, typeof(StateAttribute)))).ToList();
+			var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes().Where(t => Attribute.IsDefined(t, typeof(StateAttribute)))).ToList();
 
 			var machine = new StateMachine<TS, TT>(inititalState);
 			var getStates = new List<IState>();
@@ -54,10 +53,6 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 				}
 			}
 
-			TransitionComparer comparer = new TransitionComparer();
-			var pureTransitions = transitions.Distinct(comparer);
-
-			StateMachine<TS, TT>.StateConfiguration stateconfigure;
 			foreach (var state in getStates)
 			{
 				StateAttribute attribute = null;
@@ -66,8 +61,9 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 				{
 					attribute = attrs[0];
 				}
-				stateconfigure = machine.Configure((TS)attribute.State).OnEntry(state.OnEntry).OnExit(state.OnExit);
-				
+				if(attribute == null) throw new InvalidOperationException("cannot find attribute for state");
+
+				var stateconfigure = machine.Configure((TS)attribute.State).OnEntry(state.OnEntry).OnExit(state.OnExit);
 
 				var fromTransitions = transitions.Where(
 						t => t.From.ToString() == attribute.State.ToString()).ToArray();
@@ -148,7 +144,7 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 			return lambda.Compile();
 		}
 
-		class ComplexGuard
+		private class ComplexGuard
 		{
 			private readonly List<Func<bool>> _innerGuards = new List<Func<bool>>();
 
