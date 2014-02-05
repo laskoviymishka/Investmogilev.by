@@ -139,13 +139,13 @@
     <value>Введите цель проекта</value>
   </data>
   <data name="GreenField_Area_Площадь_проекта" xml:space="preserve">
-    <value>Площадь проекта</value>
+    <value>Площадь проекта (га)</value>
   </data>
   <data name="GreenField_Area_Введите_площадь_проекта" xml:space="preserve">
     <value>Введите площадь проекта</value>
   </data>
   <data name="GreenField_CadastrValue_Кадастровая_стоимость_проекта" xml:space="preserve">
-    <value>Кадастровая стоимость проекта</value>
+    <value>Кадастровая стоимость проекта (млрд. руб.)</value>
   </data>
   <data name="GreenField_CadastrValue_Введите_кадастровую_стоимость_проекта" xml:space="preserve">
     <value>Введите кадастровую стоимость проекта</value>
@@ -208,10 +208,10 @@
     <value>Прочая информация</value>
   </data>
   <data name="Project_Name_Имя_проекта" xml:space="preserve">
-    <value>Имя проекта</value>
+    <value>Название проекта</value>
   </data>
   <data name="Project_Name_Введите_имя_проекта" xml:space="preserve">
-    <value>Введите имя проекта</value>
+    <value>Введите название проекта</value>
   </data>
   <data name="Project_Description_Описание_проекта" xml:space="preserve">
     <value>Описание проекта</value>
@@ -238,7 +238,7 @@
     <value>Введите регион</value>
   </data>
   <data name="Project_Tags_Теги" xml:space="preserve">
-    <value>Теги</value>
+    <value>Отраслевая принадлежность</value>
   </data>
   <data name="Project_InvestorUser_Инвестор" xml:space="preserve">
     <value>Инвестор</value>
@@ -250,7 +250,7 @@
     <value>Шаги</value>
   </data>
   <data name="Project_SubProject_Под_проекты" xml:space="preserve">
-    <value>Под проекты</value>
+    <value>Подпроекты</value>
   </data>
   <data name="Project_WorkflowState_Состояние" xml:space="preserve">
     <value>Состояние</value>
@@ -344,5 +344,8 @@
   </data>
   <data name="ReportResponse_Info_Дополнительная_информация" xml:space="preserve">
     <value>Дополнительная информация</value>
+  </data>
+  <data name="GreenField_EstimateInvoiceAmount_Ожидаемая_сумма_инвестирования" xml:space="preserve">
+    <value>Ожидаемая сумма инвестирования  (млрд. руб.)</value>
   </data>
 </root>

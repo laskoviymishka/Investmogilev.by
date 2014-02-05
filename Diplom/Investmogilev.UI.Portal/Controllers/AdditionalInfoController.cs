@@ -35,7 +35,68 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult CreateProjectAdditional(string projectId)
 		{
-			return PartialView(new AdditionalInfo());
+			ViewBag.SaveUri = string.Format("/AdditionalInfo/SaveProject?projectId={0}", projectId);
+			return PartialView("CreateAdditional");
+		}
+
+		public ActionResult SaveProject(string projectId)
+		{
+			var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == projectId);
+			var result = new List<AdditionalInfo>();
+			if (project.Info != null)
+			{
+				result = project.Info.ToList();
+			}
+			else
+			{
+				project.Info = result;
+			}
+			var statuses = new List<ViewDataUploadFilesResult>();
+
+			for (int i = 0; i < Request.Files.Count; i++)
+			{
+				HttpPostedFileBase file = Request.Files[i];
+				string fileName = Path.GetFileName(file.FileName);
+				string physicalPath = Path.Combine(
+					Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name)),
+					fileName);
+
+				if (!Directory.Exists(
+					Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name))))
+				{
+					Directory.CreateDirectory(
+						Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name)));
+				}
+
+				file.SaveAs(physicalPath);
+				var document = new DocumentAdditionalInfo();
+				document.FilePath = physicalPath;
+				document.InfoName = fileName;
+				document._id = ObjectId.GenerateNewId().ToString();
+				result.Add(document);
+				statuses.Add(new ViewDataUploadFilesResult
+				{
+					name = fileName,
+					size = file.ContentLength,
+					type = file.ContentType,
+					url = "/AdditionalInfo/DownloadProjectInfo?projectId=" + projectId + "&docId=" + document._id,
+					thumbnail_url = @"data:image/png;base64," + EncodeFile(physicalPath),
+					delete_type = "GET",
+				});
+			}
+
+			project.Info = result;
+			RepositoryContext.Current.Update(project);
+
+			return Json(statuses);
+		}
+
+		public FileResult DownloadProjectInfo(string projectId, string docId)
+		{
+			var note = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
+			var doc = note.Info.FirstOrDefault(t => t._id == docId) as DocumentAdditionalInfo;
+			if (doc != null) return File(doc.FilePath, "application/doc", doc.InfoName);
+			return null;
 		}
 
 		#endregion
@@ -83,7 +144,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					name = fileName,
 					size = file.ContentLength,
 					type = file.ContentType,
-					url = "/AdditionalInfo/DownloadNotesInfo?noteId=" + noteId + "&docId=" + document._id,
+					url = "/AdditionalInfo/DownloadNotesInfo?projectId=" + noteId + "&docId=" + document._id,
 					thumbnail_url = @"data:image/png;base64," + EncodeFile(physicalPath),
 					delete_type = "GET",
 				});

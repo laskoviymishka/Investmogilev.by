@@ -3,7 +3,7 @@
 <link href="~/Content/uploadUI/jquery.fileupload.css" rel="stylesheet" />
 <span class="button button success fileinput-button">
     <i class="glyphicon glyphicon-plus"></i>
-    <span>Выберите фалы для загрузи</span>
+    <span>Выберите файлы для загрузи</span>
     <input id="fileupload" type="file" name="files[]" multiple>
 </span>
 <br>
@@ -31,7 +31,7 @@
             uploadButton = $('<button/>')
                 .addClass('btn btn-primary')
                 .prop('disabled', true)
-                .text('Processing...')
+                .text('обрабатывается...')
                 .on('click', function () {
                     var $this = $(this),
                         data = $this.data();

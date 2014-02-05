@@ -6,25 +6,16 @@
 
 <h2>Информация о проекте</h2>
 <div>
-    @Html.ActionLink("К всем проектам", "All", null, new { @class = "icon-arrow-left-3 fg-darker big" })
+    @Html.ActionLink("К всем проектам", "All", null, new { @class = "icon-arrow-left-3 fg-darker big button success" })
 </div>
 </br>
-<div class="balloon top" style="width:400px">
-    <p style="margin:20px">Основная информация по проекту</p>
-</div>
 <fieldset>
     <legend>Проект - @Model.Name</legend>
     <small class="display-label">
         @Html.DisplayNameFor(model => model.Description)
     </small>
     <blockquote class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </blockquote>
-    <small class="display-label">
-        @Html.DisplayNameFor(model => model.AddressName)
-    </small>
-    <blockquote class="display-field">
-        @Html.DisplayFor(model => model.AddressName)
+        @Html.Raw(HttpUtility.HtmlDecode(Model.Description))
     </blockquote>
     <small class="display-label">
         @Html.DisplayNameFor(model => model.Region)
@@ -32,7 +23,12 @@
     <blockquote class="display-field">
         @Html.DisplayFor(model => model.Region)
     </blockquote>
-
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.AddressName)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.AddressName)
+    </blockquote>
     <small class="display-label">
         @Html.DisplayNameFor(model => model.InvestorUser)
     </small>
@@ -52,17 +48,47 @@
     <blockquote class="display-field">
         @Html.DisplayFor(model => model.ProjectType)
     </blockquote>
-
-    <small class="display-label" data-hint="Системный статус | @Model.WorkflowState.CurrentState"
-           data-hint-position="left">
-        Статус
+    @if (Model.ProjectNotes != null && Model.ProjectNotes.Any())
+    {
+        <small class="display-label">
+            Пометки
+        </small>
+        <blockquote class="display-field">
+            @foreach (var note in Model.ProjectNotes)
+            {
+                <div style="display: block">
+                    @Html.ActionLink(note.NoteTitle, "Details", "Notes", new { id = note._id }, new { @class = "button info" })
+                </div>
+            }
+        </blockquote>
+    }
+    @if (Model.Info != null && Model.Info.Count > 0)
+    {
+        <small class="display-label">
+            Файлы
+        </small>
+        <blockquote class="display-field">
+            @foreach (var info in Model.Info)
+            {
+                <div>
+                    @Html.ActionLink(info.InfoName, "DownloadProjectInfo", "AdditionalInfo", new { projectId = Model._id, docId = info._id }, new { @class = "button info" })
+                </div>
+            }
+        </blockquote>
+    }
+    <small class="display-label">
+        Действия
     </small>
-    <blockquote class="display-field" >
-        @{Html.RenderAction("StatusInfo", "WorkflowActions", new { id = Model._id });}
+    <blockquote class="display-field">
+        @Html.ActionLink("Создать заметку к проекту", "Create", "Notes", new { id = Model._id }, new { @class = "button info" })
+        @Html.ActionLink("Редактировать", "FillProject", new { id = Model._id }, new { @class = "button info" })
+        <br />
+        @if (User.IsInRole("Admin") || User.IsInRole("Investor"))
+        {
+            Html.RenderAction("StatusInfo", "WorkflowActions", new { id = Model._id });
+        }
     </blockquote>
+
 </fieldset>
 </br>
-<p>
-    @Html.ActionLink("Создать заметку к проекту","Create", "Notes", new { id = Model._id }, new { @class = "button info" })
-    @Html.ActionLink("Редактировать", "FillProject", new { id = Model._id }, new { @class = "button info"})
-</p>
+

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Investmogilev.Infrastructure.Common.Localization;
 using Investmogilev.Infrastructure.Common.Model.Common;
 using MongoDB.Bson;
@@ -70,6 +71,17 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 				return
 					RepositoryContext.Current.GetOne<Comission>(
 						c => c.ProjectIds.Contains(_id) && c.Type == ComissionType.Comission);
+			}
+		}
+
+		[BsonIgnore]
+		public List<ProjectNotes> ProjectNotes
+		{
+			get
+			{
+				return
+					RepositoryContext.Current.All<ProjectNotes>(
+						c => c.ProjectId == _id && !string.IsNullOrEmpty(c.NoteTitle)).ToList();
 			}
 		}
 

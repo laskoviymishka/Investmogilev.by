@@ -1,31 +1,43 @@
 ﻿@model Investmogilev.Infrastructure.Common.Model.Project.UnUsedBuilding
 
-<fieldset>
+<fieldset style=" width: 600px; height: 600px; overflow-x:auto">
     <legend>Неиспользуемое здание</legend>
     <table class="table table-striped table-condensed">
         <tr>
-            <td>Название проекта</td>
+            <td style="width: 25%">Название проекта</td>
             <td>@Html.DisplayFor(model => model.Name)</td>
         </tr>
         <tr>
-            <td>Описание проекта</td>
+            <td style="width: 25%">Описание проекта</td>
             <td>@Html.Raw(HttpUtility.HtmlDecode(Model.Description))</td>
         </tr>
         <tr>
-            <td>Продажа</td>
+            <td style="width: 25%">Продажа</td>
             <td>@Html.DisplayFor(model => model.IsSell)</td>
         </tr>
         <tr>
-            <td>Коммуникации</td>
+            <td style="width: 25%">Коммуникации</td>
             <td>@Html.DisplayFor(model => model.IsCommunicate)</td>
         </tr>
         <tr>
-            <td>Балансовая стоимость</td>
+            <td style="width: 25%">Балансовая стоимость</td>
             <td>@Html.DisplayFor(model => model.BalancePrice) млрд. руб.</td>
         </tr>
-
+        @if (Model.Info != null && Model.Info.Count > 0)
+        {
+            <tr>
+                <td style="width: 25%">Примечания</td>
+                <td>
+                    @foreach (var info in Model.Info)
+                    {
+                        <div>
+                            @Html.ActionLink(info.InfoName, "DownloadProjectInfo", "AdditionalInfo", new { projectId = Model._id, docId = info._id }, new { @class = "button info" })
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
     </table>
-    <a id="popupLink" href="/InvestorEntry/ResponseToProject/@Model._id" class="button button info">Откликнуться на проект</a>
-
+    <a style="margin-left: 200px" id="popupLink" href="/InvestorEntry/ResponseToProject/@Model._id" class="button button info">Откликнуться на проект</a>
 </fieldset>
 

@@ -5,9 +5,10 @@
 <h2>
     Создание заметки
 </h2>
-<p>
-    @Html.ActionLink("Назад", "All", null, new { @class = "icon-arrow-left-3 fg-darker" })
-</p>
+<div>
+    @Html.ActionLink("К всем заметкам", "All", null, new { @class = "icon-arrow-left-3 fg-darker button success" })
+    @Html.ActionLink("К проекту", "Project", "BaseProject", new { Id = Model.ProjectId }, new { @class = "icon-arrow-down-3 fg-darker button success", style = "width:120px" })
+</div>
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
 @using (Html.BeginForm())

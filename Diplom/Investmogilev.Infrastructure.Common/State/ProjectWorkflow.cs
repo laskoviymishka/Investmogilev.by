@@ -8,292 +8,292 @@ using Stateless;
 
 namespace Investmogilev.Infrastructure.Common.State
 {
-    public class ProjectWorkflow
-    {
-        public delegate void UnhandledTriggerDelegate(State state, Trigger trigger);
-        public delegate void EntryExitDelegate();
-        public delegate bool GuardClauseDelegate();
+	public class ProjectWorkflow
+	{
+		public delegate void UnhandledTriggerDelegate(State state, Trigger trigger);
+		public delegate void EntryExitDelegate();
+		public delegate bool GuardClauseDelegate();
 
-        public enum Trigger
-        {
-            [EnumDescription("Заполнить информацию")]
-            FillInformation,
-            [EnumDescription("Обновить информацию")]
-            UpdateInformation,
-            [EnumDescription("Переоткрыть")]
-            ReOpen,
-            [EnumDescription("Откликнуться инвестору")]
-            InvestorResponsed,
-            [EnumDescription("Выбрать инвестора")]
-            InvestorSelected,
-            [EnumDescription("Обновить состояние документов")]
-            DocumentUpdate,
-            [EnumDescription("Заполнить причастных лиц")]
-            FillInvolvedOrganization,
-            [EnumDescription("Обновить состояние ответов причастных лиц")]
-            InvolvedOrganizationUpdate,
-            [EnumDescription("Направить на комиссию")]
-            ToComission,
-            [EnumDescription("На комиссию")]
-            Comission,
-            [EnumDescription("Уведомить о замечаниях вынесенных на комиссии")]
-            ComissionFix,
-            [EnumDescription("Обновить состояние замечаний вынесенных на комиссии")]
-            ComissionFixUpdate,
-            [EnumDescription("Направить на исполком")]
-            ToIspolcom,
-            [EnumDescription("На исполком")]
-            Ispolcom,
-            [EnumDescription("Уведомить о замечаниях вынесенных на исполкоме")]
-            ToIspolcomFix,
-            [EnumDescription("Обновить состояние замечаний вынесенных на исполкоме")]
-            IspolcomFixUpdate,
-            [EnumDescription("Направить в министерство экономики")]
-            ToMinEconomy,
-            [EnumDescription("Уведомить о одобрении министерства экономики")]
-            MinEconomyResponsed,
-            [EnumDescription("Обновить план реализации проекта")]
-            UpdatePlan,
-            [EnumDescription("Одобрить план реализации проекта")]
-            ApprovePlan,
-            [EnumDescription("Обновить состояние реализации проекта")]
-            UpdateRealization,
-            [EnumDescription("Отклонить реализацию проекта")]
-            RejectDocument,
-        }
+		public enum Trigger
+		{
+			[EnumDescription("Отобразить на карте")]
+			FillInformation,
+			[EnumDescription("Разослать информацию")]
+			UpdateInformation,
+			[EnumDescription("Убрать с карты")]
+			ReOpen,
+			[EnumDescription("Откликнуться инвестору")]
+			InvestorResponsed,
+			[EnumDescription("Выбрать инвестора")]
+			InvestorSelected,
+			[EnumDescription("Обновить состояние документов")]
+			DocumentUpdate,
+			[EnumDescription("Заполнить причастных лиц")]
+			FillInvolvedOrganization,
+			[EnumDescription("Обновить состояние ответов причастных лиц")]
+			InvolvedOrganizationUpdate,
+			[EnumDescription("Направить на комиссию")]
+			ToComission,
+			[EnumDescription("На комиссию")]
+			Comission,
+			[EnumDescription("Уведомить о замечаниях вынесенных на комиссии")]
+			ComissionFix,
+			[EnumDescription("Обновить состояние замечаний вынесенных на комиссии")]
+			ComissionFixUpdate,
+			[EnumDescription("Направить на исполком")]
+			ToIspolcom,
+			[EnumDescription("На исполком")]
+			Ispolcom,
+			[EnumDescription("Уведомить о замечаниях вынесенных на исполкоме")]
+			ToIspolcomFix,
+			[EnumDescription("Обновить состояние замечаний вынесенных на исполкоме")]
+			IspolcomFixUpdate,
+			[EnumDescription("Направить в министерство экономики")]
+			ToMinEconomy,
+			[EnumDescription("Уведомить о одобрении министерства экономики")]
+			MinEconomyResponsed,
+			[EnumDescription("Обновить план реализации проекта")]
+			UpdatePlan,
+			[EnumDescription("Одобрить план реализации проекта")]
+			ApprovePlan,
+			[EnumDescription("Обновить состояние реализации проекта")]
+			UpdateRealization,
+			[EnumDescription("Отклонить реализацию проекта")]
+			RejectDocument,
+		}
 
-        public enum State
-        {
-            [EnumDescription("Проект открыт")]
-            Open,
-            [EnumDescription("Проект находится на карте")]
-            OnMap,
-            [EnumDescription("Получен отклик")]
-            InvestorApprove,
-            [EnumDescription("Ожидает документы")]
-            DocumentSending,
-            [EnumDescription("Ожидает заполнение причастных лиц")]
-            WaitInvolved,
-            [EnumDescription("Ожидает ответов от причастных лиц")]
-            InvolvedOrganizations,
-            [EnumDescription("Ожидает созыва комиссии")]
-            WaitComission,
-            [EnumDescription("На комисии")]
-            OnComission,
-            [EnumDescription("Ожидает исправлений замечаний вынесеных на комиссии")]
-            WaitComissionFixes,
-            [EnumDescription("Ожидает исполком")]
-            WaitIspolcom,
-            [EnumDescription("На исполкоме")]
-            OnIspolcom,
-            [EnumDescription("Ожидает исправлений замечаний вынесенных на исполкоме")]
-            WaitIspolcomFixes,
-            [EnumDescription("Направлен в министерство экономики")]
-            InMinEconomy,
-            [EnumDescription("Разрабатывается план реализации")]
-            PlanCreating,
-            [EnumDescription("Реализация")]
-            Realization,
-            [EnumDescription("Проект завершен")]
-            Done,
-        }
+		public enum State
+		{
+			[EnumDescription("Проект редактируется")]
+			Open,
+			[EnumDescription("Проект находится на карте")]
+			OnMap,
+			[EnumDescription("Получен отклик")]
+			InvestorApprove,
+			[EnumDescription("Ожидает документы")]
+			DocumentSending,
+			[EnumDescription("Ожидает заполнение причастных лиц")]
+			WaitInvolved,
+			[EnumDescription("Ожидает ответов от причастных лиц")]
+			InvolvedOrganizations,
+			[EnumDescription("Ожидает созыва комиссии")]
+			WaitComission,
+			[EnumDescription("На комисии")]
+			OnComission,
+			[EnumDescription("Ожидает исправлений замечаний вынесеных на комиссии")]
+			WaitComissionFixes,
+			[EnumDescription("Ожидает исполком")]
+			WaitIspolcom,
+			[EnumDescription("На исполкоме")]
+			OnIspolcom,
+			[EnumDescription("Ожидает исправлений замечаний вынесенных на исполкоме")]
+			WaitIspolcomFixes,
+			[EnumDescription("Направлен в министерство экономики")]
+			InMinEconomy,
+			[EnumDescription("Разрабатывается план реализации")]
+			PlanCreating,
+			[EnumDescription("Реализация")]
+			Realization,
+			[EnumDescription("Проект завершен")]
+			Done,
+		}
 
-        private readonly StateMachine<State, Trigger> stateMachine = null;
+		private readonly StateMachine<State, Trigger> stateMachine = null;
 
-        public EntryExitDelegate OnOpenEntry = null;
-        public EntryExitDelegate OnOpenExit = null;
-        public EntryExitDelegate OnOnMapEntry = null;
-        public EntryExitDelegate OnOnMapExit = null;
-        public EntryExitDelegate OnInvestorApproveEntry = null;
-        public EntryExitDelegate OnInvestorApproveExit = null;
-        public EntryExitDelegate OnDocumentSendingEntry = null;
-        public EntryExitDelegate OnDocumentSendingExit = null;
-        public EntryExitDelegate OnWaitInvolvedEntry = null;
-        public EntryExitDelegate OnWaitInvolvedExit = null;
-        public EntryExitDelegate OnInvolvedOrganizationsEntry = null;
-        public EntryExitDelegate OnInvolvedOrganizationsExit = null;
-        public EntryExitDelegate OnWaitComissionEntry = null;
-        public EntryExitDelegate OnWaitComissionExit = null;
-        public EntryExitDelegate OnOnComissionEntry = null;
-        public EntryExitDelegate OnOnComissionExit = null;
-        public EntryExitDelegate OnWaitComissionFixesEntry = null;
-        public EntryExitDelegate OnWaitComissionFixesExit = null;
-        public EntryExitDelegate OnWaitIspolcomEntry = null;
-        public EntryExitDelegate OnWaitIspolcomExit = null;
-        public EntryExitDelegate OnOnIspolcomEntry = null;
-        public EntryExitDelegate OnOnIspolcomExit = null;
-        public EntryExitDelegate OnWaitIspolcomFixesEntry = null;
-        public EntryExitDelegate OnWaitIspolcomFixesExit = null;
-        public EntryExitDelegate OnInMinEconomyEntry = null;
-        public EntryExitDelegate OnInMinEconomyExit = null;
-        public EntryExitDelegate OnPlanCreatingEntry = null;
-        public EntryExitDelegate OnPlanCreatingExit = null;
-        public EntryExitDelegate OnRealizationEntry = null;
-        public EntryExitDelegate OnRealizationExit = null;
-        public EntryExitDelegate OnDoneEntry = null;
-        public EntryExitDelegate OnDoneExit = null;
-        public GuardClauseDelegate GuardClauseFromOpenToOnMapUsingTriggerFillInformation = null;
-        public GuardClauseDelegate GuardClauseFromOnMapToOnMapUsingTriggerUpdateInformation = null;
-        public GuardClauseDelegate GuardClauseFromOnMapToInvestorApproveUsingTriggerInvestorResponsed = null;
-        public GuardClauseDelegate GuardClauseFromOnMapToOpenUsingTriggerReOpen = null;
-        public GuardClauseDelegate GuardClauseFromInvestorApproveToInvestorApproveUsingTriggerInvestorResponsed = null;
-        public GuardClauseDelegate GuardClauseFromInvestorApproveToDocumentSendingUsingTriggerInvestorSelected = null;
-        public GuardClauseDelegate GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate = null;
-        public GuardClauseDelegate GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate = null;
-        public GuardClauseDelegate GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization = null;
-        public GuardClauseDelegate GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate = null;
-        public GuardClauseDelegate GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission = null;
-        public GuardClauseDelegate GuardClauseFromWaitComissionToOnComissionUsingTriggerComission = null;
-        public GuardClauseDelegate GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument = null;
-        public GuardClauseDelegate GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix = null;
-        public GuardClauseDelegate GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom = null;
-        public GuardClauseDelegate GuardClauseFromWaitComissionFixesToOnMapUsingTriggerRejectDocument = null;
-        public GuardClauseDelegate GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate = null;
-        public GuardClauseDelegate GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate = null;
-        public GuardClauseDelegate GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom = null;
-        public GuardClauseDelegate GuardClauseFromOnIspolcomToOnMapUsingTriggerRejectDocument = null;
-        public GuardClauseDelegate GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix = null;
-        public GuardClauseDelegate GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy = null;
-        public GuardClauseDelegate GuardClauseFromWaitIspolcomFixesToOnMapUsingTriggerRejectDocument = null;
-        public GuardClauseDelegate GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate = null;
-        public GuardClauseDelegate GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate = null;
-        public GuardClauseDelegate GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed = null;
-        public GuardClauseDelegate GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan = null;
-        public GuardClauseDelegate GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan = null;
-        public GuardClauseDelegate GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization = null;
-        public GuardClauseDelegate GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization = null;
-        public UnhandledTriggerDelegate OnUnhandledTrigger = null;
+		public EntryExitDelegate OnOpenEntry = null;
+		public EntryExitDelegate OnOpenExit = null;
+		public EntryExitDelegate OnOnMapEntry = null;
+		public EntryExitDelegate OnOnMapExit = null;
+		public EntryExitDelegate OnInvestorApproveEntry = null;
+		public EntryExitDelegate OnInvestorApproveExit = null;
+		public EntryExitDelegate OnDocumentSendingEntry = null;
+		public EntryExitDelegate OnDocumentSendingExit = null;
+		public EntryExitDelegate OnWaitInvolvedEntry = null;
+		public EntryExitDelegate OnWaitInvolvedExit = null;
+		public EntryExitDelegate OnInvolvedOrganizationsEntry = null;
+		public EntryExitDelegate OnInvolvedOrganizationsExit = null;
+		public EntryExitDelegate OnWaitComissionEntry = null;
+		public EntryExitDelegate OnWaitComissionExit = null;
+		public EntryExitDelegate OnOnComissionEntry = null;
+		public EntryExitDelegate OnOnComissionExit = null;
+		public EntryExitDelegate OnWaitComissionFixesEntry = null;
+		public EntryExitDelegate OnWaitComissionFixesExit = null;
+		public EntryExitDelegate OnWaitIspolcomEntry = null;
+		public EntryExitDelegate OnWaitIspolcomExit = null;
+		public EntryExitDelegate OnOnIspolcomEntry = null;
+		public EntryExitDelegate OnOnIspolcomExit = null;
+		public EntryExitDelegate OnWaitIspolcomFixesEntry = null;
+		public EntryExitDelegate OnWaitIspolcomFixesExit = null;
+		public EntryExitDelegate OnInMinEconomyEntry = null;
+		public EntryExitDelegate OnInMinEconomyExit = null;
+		public EntryExitDelegate OnPlanCreatingEntry = null;
+		public EntryExitDelegate OnPlanCreatingExit = null;
+		public EntryExitDelegate OnRealizationEntry = null;
+		public EntryExitDelegate OnRealizationExit = null;
+		public EntryExitDelegate OnDoneEntry = null;
+		public EntryExitDelegate OnDoneExit = null;
+		public GuardClauseDelegate GuardClauseFromOpenToOnMapUsingTriggerFillInformation = null;
+		public GuardClauseDelegate GuardClauseFromOnMapToOnMapUsingTriggerUpdateInformation = null;
+		public GuardClauseDelegate GuardClauseFromOnMapToInvestorApproveUsingTriggerInvestorResponsed = null;
+		public GuardClauseDelegate GuardClauseFromOnMapToOpenUsingTriggerReOpen = null;
+		public GuardClauseDelegate GuardClauseFromInvestorApproveToInvestorApproveUsingTriggerInvestorResponsed = null;
+		public GuardClauseDelegate GuardClauseFromInvestorApproveToDocumentSendingUsingTriggerInvestorSelected = null;
+		public GuardClauseDelegate GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate = null;
+		public GuardClauseDelegate GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate = null;
+		public GuardClauseDelegate GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization = null;
+		public GuardClauseDelegate GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate = null;
+		public GuardClauseDelegate GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission = null;
+		public GuardClauseDelegate GuardClauseFromWaitComissionToOnComissionUsingTriggerComission = null;
+		public GuardClauseDelegate GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument = null;
+		public GuardClauseDelegate GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix = null;
+		public GuardClauseDelegate GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom = null;
+		public GuardClauseDelegate GuardClauseFromWaitComissionFixesToOnMapUsingTriggerRejectDocument = null;
+		public GuardClauseDelegate GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate = null;
+		public GuardClauseDelegate GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate = null;
+		public GuardClauseDelegate GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom = null;
+		public GuardClauseDelegate GuardClauseFromOnIspolcomToOnMapUsingTriggerRejectDocument = null;
+		public GuardClauseDelegate GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix = null;
+		public GuardClauseDelegate GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy = null;
+		public GuardClauseDelegate GuardClauseFromWaitIspolcomFixesToOnMapUsingTriggerRejectDocument = null;
+		public GuardClauseDelegate GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate = null;
+		public GuardClauseDelegate GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate = null;
+		public GuardClauseDelegate GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed = null;
+		public GuardClauseDelegate GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan = null;
+		public GuardClauseDelegate GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan = null;
+		public GuardClauseDelegate GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization = null;
+		public GuardClauseDelegate GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization = null;
+		public UnhandledTriggerDelegate OnUnhandledTrigger = null;
 
-        public ProjectWorkflow(StateMachine<State,Trigger> outerStateMachine )
-        {
-            stateMachine = outerStateMachine;
-        }
+		public ProjectWorkflow(StateMachine<State, Trigger> outerStateMachine)
+		{
+			stateMachine = outerStateMachine;
+		}
 
-        public ProjectWorkflow(State currentState)
-        {
-            stateMachine = new StateMachine<State, Trigger>(currentState);
-            stateMachine.Configure(State.Open)
-              .OnEntry(() => { if (OnOpenEntry != null) OnOpenEntry(); })
-              .OnExit(() => { if (OnOpenExit != null) OnOpenExit(); })
-              .PermitIf(Trigger.FillInformation, State.OnMap, () => { if (GuardClauseFromOpenToOnMapUsingTriggerFillInformation != null) return GuardClauseFromOpenToOnMapUsingTriggerFillInformation(); return true; })
-            ;
-            stateMachine.Configure(State.OnMap)
-              .OnEntry(() => { if (OnOnMapEntry != null) OnOnMapEntry(); })
-              .OnExit(() => { if (OnOnMapExit != null) OnOnMapExit(); })
-              .PermitReentryIf(Trigger.UpdateInformation, () => { if (GuardClauseFromOnMapToOnMapUsingTriggerUpdateInformation != null) return GuardClauseFromOnMapToOnMapUsingTriggerUpdateInformation(); return true; })
-              .PermitIf(Trigger.InvestorResponsed, State.InvestorApprove, () => { if (GuardClauseFromOnMapToInvestorApproveUsingTriggerInvestorResponsed != null) return GuardClauseFromOnMapToInvestorApproveUsingTriggerInvestorResponsed(); return true; })
-              .PermitIf(Trigger.ReOpen, State.Open, () => { if (GuardClauseFromOnMapToOpenUsingTriggerReOpen != null) return GuardClauseFromOnMapToOpenUsingTriggerReOpen(); return true; })
-            ;
-            stateMachine.Configure(State.InvestorApprove)
-              .OnEntry(() => { if (OnInvestorApproveEntry != null) OnInvestorApproveEntry(); })
-              .OnExit(() => { if (OnInvestorApproveExit != null) OnInvestorApproveExit(); })
-              .PermitReentryIf(Trigger.InvestorResponsed, () => { if (GuardClauseFromInvestorApproveToInvestorApproveUsingTriggerInvestorResponsed != null) return GuardClauseFromInvestorApproveToInvestorApproveUsingTriggerInvestorResponsed(); return true; })
-              .PermitIf(Trigger.InvestorSelected, State.DocumentSending, () => { if (GuardClauseFromInvestorApproveToDocumentSendingUsingTriggerInvestorSelected != null) return GuardClauseFromInvestorApproveToDocumentSendingUsingTriggerInvestorSelected(); return true; })
-            ;
-            stateMachine.Configure(State.InvestorApprove)
-              .OnEntry(() => { if (OnInvestorApproveEntry != null) OnInvestorApproveEntry(); })
-              .OnExit(() => { if (OnInvestorApproveExit != null) OnInvestorApproveExit(); })
-            ;
-            stateMachine.Configure(State.DocumentSending)
-              .OnEntry(() => { if (OnDocumentSendingEntry != null) OnDocumentSendingEntry(); })
-              .OnExit(() => { if (OnDocumentSendingExit != null) OnDocumentSendingExit(); })
-              .PermitIf(Trigger.DocumentUpdate, State.WaitInvolved, () => { if (GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate != null) return GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate(); return true; })
-              .PermitReentryIf(Trigger.DocumentUpdate, () => { if (GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate != null) return GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate(); return true; })
-            ;
-            stateMachine.Configure(State.WaitInvolved)
-              .OnEntry(() => { if (OnWaitInvolvedEntry != null) OnWaitInvolvedEntry(); })
-              .OnExit(() => { if (OnWaitInvolvedExit != null) OnWaitInvolvedExit(); })
-              .PermitIf(Trigger.FillInvolvedOrganization, State.InvolvedOrganizations, () => { if (GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization != null) return GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization(); return true; })
-            ;
-            stateMachine.Configure(State.InvolvedOrganizations)
-              .OnEntry(() => { if (OnInvolvedOrganizationsEntry != null) OnInvolvedOrganizationsEntry(); })
-              .OnExit(() => { if (OnInvolvedOrganizationsExit != null) OnInvolvedOrganizationsExit(); })
-              .PermitReentryIf(Trigger.InvolvedOrganizationUpdate, () => { if (GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate != null) return GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate(); return true; })
-              .PermitIf(Trigger.ToComission, State.WaitComission, () => { if (GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission != null) return GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission(); return true; })
-            ;
-            stateMachine.Configure(State.WaitComission)
-              .OnEntry(() => { if (OnWaitComissionEntry != null) OnWaitComissionEntry(); })
-              .OnExit(() => { if (OnWaitComissionExit != null) OnWaitComissionExit(); })
-              .PermitIf(Trigger.Comission, State.OnComission, () => { if (GuardClauseFromWaitComissionToOnComissionUsingTriggerComission != null) return GuardClauseFromWaitComissionToOnComissionUsingTriggerComission(); return true; })
-            ;
-            stateMachine.Configure(State.OnComission)
-              .OnEntry(() => { if (OnOnComissionEntry != null) OnOnComissionEntry(); })
-              .OnExit(() => { if (OnOnComissionExit != null) OnOnComissionExit(); })
-              .PermitIf(Trigger.RejectDocument, State.OnMap, () => { if (GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument(); return true; })
-              .PermitIf(Trigger.ComissionFix, State.WaitComissionFixes, () => { if (GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix != null) return GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix(); return true; })
-              .PermitIf(Trigger.ToIspolcom, State.WaitIspolcom, () => { if (GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom != null) return GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom(); return true; })
-            ;
-            stateMachine.Configure(State.WaitComissionFixes)
-              .OnEntry(() => { if (OnWaitComissionFixesEntry != null) OnWaitComissionFixesEntry(); })
-              .OnExit(() => { if (OnWaitComissionFixesExit != null) OnWaitComissionFixesExit(); })
-              .PermitIf(Trigger.RejectDocument, State.OnMap, () => { if (GuardClauseFromWaitComissionFixesToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromWaitComissionFixesToOnMapUsingTriggerRejectDocument(); return true; })
-              .PermitReentryIf(Trigger.ComissionFixUpdate, () => { if (GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate != null) return GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate(); return true; })
-              .PermitIf(Trigger.ComissionFixUpdate, State.WaitIspolcom, () => { if (GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate != null) return GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate(); return true; })
-            ;
-            stateMachine.Configure(State.WaitIspolcom)
-              .OnEntry(() => { if (OnWaitIspolcomEntry != null) OnWaitIspolcomEntry(); })
-              .OnExit(() => { if (OnWaitIspolcomExit != null) OnWaitIspolcomExit(); })
-              .PermitIf(Trigger.Ispolcom, State.OnIspolcom, () => { if (GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom != null) return GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom(); return true; })
-            ;
-            stateMachine.Configure(State.OnIspolcom)
-              .OnEntry(() => { if (OnOnIspolcomEntry != null) OnOnIspolcomEntry(); })
-              .OnExit(() => { if (OnOnIspolcomExit != null) OnOnIspolcomExit(); })
-              .PermitIf(Trigger.RejectDocument, State.OnMap, () => { if (GuardClauseFromOnIspolcomToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromOnIspolcomToOnMapUsingTriggerRejectDocument(); return true; })
-              .PermitIf(Trigger.ToIspolcomFix, State.WaitIspolcomFixes, () => { if (GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix != null) return GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix(); return true; })
-              .PermitIf(Trigger.ToMinEconomy, State.InMinEconomy, () => { if (GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy != null) return GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy(); return true; })
-            ;
-            stateMachine.Configure(State.WaitIspolcomFixes)
-              .OnEntry(() => { if (OnWaitIspolcomFixesEntry != null) OnWaitIspolcomFixesEntry(); })
-              .OnExit(() => { if (OnWaitIspolcomFixesExit != null) OnWaitIspolcomFixesExit(); })
-              .PermitIf(Trigger.RejectDocument, State.OnMap, () => { if (GuardClauseFromWaitIspolcomFixesToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromWaitIspolcomFixesToOnMapUsingTriggerRejectDocument(); return true; })
-              .PermitReentryIf(Trigger.IspolcomFixUpdate, () => { if (GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate != null) return GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate(); return true; })
-              .PermitIf(Trigger.IspolcomFixUpdate, State.WaitIspolcom, () => { if (GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate != null) return GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate(); return true; })
-            ;
-            stateMachine.Configure(State.InMinEconomy)
-              .OnEntry(() => { if (OnInMinEconomyEntry != null) OnInMinEconomyEntry(); })
-              .OnExit(() => { if (OnInMinEconomyExit != null) OnInMinEconomyExit(); })
-              .PermitIf(Trigger.MinEconomyResponsed, State.PlanCreating, () => { if (GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed != null) return GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed(); return true; })
-            ;
-            stateMachine.Configure(State.PlanCreating)
-              .OnEntry(() => { if (OnPlanCreatingEntry != null) OnPlanCreatingEntry(); })
-              .OnExit(() => { if (OnPlanCreatingExit != null) OnPlanCreatingExit(); })
-              .PermitReentryIf(Trigger.UpdatePlan, () => { if (GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan != null) return GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan(); return true; })
-              .PermitIf(Trigger.ApprovePlan, State.Realization, () => { if (GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan != null) return GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan(); return true; })
-            ;
-            stateMachine.Configure(State.Realization)
-              .OnEntry(() => { if (OnRealizationEntry != null) OnRealizationEntry(); })
-              .OnExit(() => { if (OnRealizationExit != null) OnRealizationExit(); })
-              .PermitReentryIf(Trigger.UpdateRealization, () => { if (GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization != null) return GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization(); return true; })
-              .PermitIf(Trigger.UpdateRealization, State.Done, () => { if (GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization != null) return GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization(); return true; })
-            ;
-            stateMachine.Configure(State.Done)
-              .OnEntry(() => { if (OnDoneEntry != null) OnDoneEntry(); })
-              .OnExit(() => { if (OnDoneExit != null) OnDoneExit(); })
-            ;
-            stateMachine.OnUnhandledTrigger((state, trigger) => { if (OnUnhandledTrigger != null) OnUnhandledTrigger(state, trigger); });
-        }
+		public ProjectWorkflow(State currentState)
+		{
+			stateMachine = new StateMachine<State, Trigger>(currentState);
+			stateMachine.Configure(State.Open)
+			  .OnEntry(() => { if (OnOpenEntry != null) OnOpenEntry(); })
+			  .OnExit(() => { if (OnOpenExit != null) OnOpenExit(); })
+			  .PermitIf(Trigger.FillInformation, State.OnMap, () => { if (GuardClauseFromOpenToOnMapUsingTriggerFillInformation != null) return GuardClauseFromOpenToOnMapUsingTriggerFillInformation(); return true; })
+			;
+			stateMachine.Configure(State.OnMap)
+			  .OnEntry(() => { if (OnOnMapEntry != null) OnOnMapEntry(); })
+			  .OnExit(() => { if (OnOnMapExit != null) OnOnMapExit(); })
+			  .PermitReentryIf(Trigger.UpdateInformation, () => { if (GuardClauseFromOnMapToOnMapUsingTriggerUpdateInformation != null) return GuardClauseFromOnMapToOnMapUsingTriggerUpdateInformation(); return true; })
+			  .PermitIf(Trigger.InvestorResponsed, State.InvestorApprove, () => { if (GuardClauseFromOnMapToInvestorApproveUsingTriggerInvestorResponsed != null) return GuardClauseFromOnMapToInvestorApproveUsingTriggerInvestorResponsed(); return true; })
+			  .PermitIf(Trigger.ReOpen, State.Open, () => { if (GuardClauseFromOnMapToOpenUsingTriggerReOpen != null) return GuardClauseFromOnMapToOpenUsingTriggerReOpen(); return true; })
+			;
+			stateMachine.Configure(State.InvestorApprove)
+			  .OnEntry(() => { if (OnInvestorApproveEntry != null) OnInvestorApproveEntry(); })
+			  .OnExit(() => { if (OnInvestorApproveExit != null) OnInvestorApproveExit(); })
+			  .PermitReentryIf(Trigger.InvestorResponsed, () => { if (GuardClauseFromInvestorApproveToInvestorApproveUsingTriggerInvestorResponsed != null) return GuardClauseFromInvestorApproveToInvestorApproveUsingTriggerInvestorResponsed(); return true; })
+			  .PermitIf(Trigger.InvestorSelected, State.DocumentSending, () => { if (GuardClauseFromInvestorApproveToDocumentSendingUsingTriggerInvestorSelected != null) return GuardClauseFromInvestorApproveToDocumentSendingUsingTriggerInvestorSelected(); return true; })
+			;
+			stateMachine.Configure(State.InvestorApprove)
+			  .OnEntry(() => { if (OnInvestorApproveEntry != null) OnInvestorApproveEntry(); })
+			  .OnExit(() => { if (OnInvestorApproveExit != null) OnInvestorApproveExit(); })
+			;
+			stateMachine.Configure(State.DocumentSending)
+			  .OnEntry(() => { if (OnDocumentSendingEntry != null) OnDocumentSendingEntry(); })
+			  .OnExit(() => { if (OnDocumentSendingExit != null) OnDocumentSendingExit(); })
+			  .PermitIf(Trigger.DocumentUpdate, State.WaitInvolved, () => { if (GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate != null) return GuardClauseFromDocumentSendingToWaitInvolvedUsingTriggerDocumentUpdate(); return true; })
+			  .PermitReentryIf(Trigger.DocumentUpdate, () => { if (GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate != null) return GuardClauseFromDocumentSendingToDocumentSendingUsingTriggerDocumentUpdate(); return true; })
+			;
+			stateMachine.Configure(State.WaitInvolved)
+			  .OnEntry(() => { if (OnWaitInvolvedEntry != null) OnWaitInvolvedEntry(); })
+			  .OnExit(() => { if (OnWaitInvolvedExit != null) OnWaitInvolvedExit(); })
+			  .PermitIf(Trigger.FillInvolvedOrganization, State.InvolvedOrganizations, () => { if (GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization != null) return GuardClauseFromWaitInvolvedToInvolvedOrganizationsUsingTriggerFillInvolvedOrganization(); return true; })
+			;
+			stateMachine.Configure(State.InvolvedOrganizations)
+			  .OnEntry(() => { if (OnInvolvedOrganizationsEntry != null) OnInvolvedOrganizationsEntry(); })
+			  .OnExit(() => { if (OnInvolvedOrganizationsExit != null) OnInvolvedOrganizationsExit(); })
+			  .PermitReentryIf(Trigger.InvolvedOrganizationUpdate, () => { if (GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate != null) return GuardClauseFromInvolvedOrganizationsToInvolvedOrganizationsUsingTriggerInvolvedOrganizationUpdate(); return true; })
+			  .PermitIf(Trigger.ToComission, State.WaitComission, () => { if (GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission != null) return GuardClauseFromInvolvedOrganizationsToWaitComissionUsingTriggerToComission(); return true; })
+			;
+			stateMachine.Configure(State.WaitComission)
+			  .OnEntry(() => { if (OnWaitComissionEntry != null) OnWaitComissionEntry(); })
+			  .OnExit(() => { if (OnWaitComissionExit != null) OnWaitComissionExit(); })
+			  .PermitIf(Trigger.Comission, State.OnComission, () => { if (GuardClauseFromWaitComissionToOnComissionUsingTriggerComission != null) return GuardClauseFromWaitComissionToOnComissionUsingTriggerComission(); return true; })
+			;
+			stateMachine.Configure(State.OnComission)
+			  .OnEntry(() => { if (OnOnComissionEntry != null) OnOnComissionEntry(); })
+			  .OnExit(() => { if (OnOnComissionExit != null) OnOnComissionExit(); })
+			  .PermitIf(Trigger.RejectDocument, State.OnMap, () => { if (GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument(); return true; })
+			  .PermitIf(Trigger.ComissionFix, State.WaitComissionFixes, () => { if (GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix != null) return GuardClauseFromOnComissionToWaitComissionFixesUsingTriggerComissionFix(); return true; })
+			  .PermitIf(Trigger.ToIspolcom, State.WaitIspolcom, () => { if (GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom != null) return GuardClauseFromOnComissionToWaitIspolcomUsingTriggerToIspolcom(); return true; })
+			;
+			stateMachine.Configure(State.WaitComissionFixes)
+			  .OnEntry(() => { if (OnWaitComissionFixesEntry != null) OnWaitComissionFixesEntry(); })
+			  .OnExit(() => { if (OnWaitComissionFixesExit != null) OnWaitComissionFixesExit(); })
+			  .PermitIf(Trigger.RejectDocument, State.OnMap, () => { if (GuardClauseFromWaitComissionFixesToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromWaitComissionFixesToOnMapUsingTriggerRejectDocument(); return true; })
+			  .PermitReentryIf(Trigger.ComissionFixUpdate, () => { if (GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate != null) return GuardClauseFromWaitComissionFixesToWaitComissionFixesUsingTriggerComissionFixUpdate(); return true; })
+			  .PermitIf(Trigger.ComissionFixUpdate, State.WaitIspolcom, () => { if (GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate != null) return GuardClauseFromWaitComissionFixesToWaitIspolcomUsingTriggerComissionFixUpdate(); return true; })
+			;
+			stateMachine.Configure(State.WaitIspolcom)
+			  .OnEntry(() => { if (OnWaitIspolcomEntry != null) OnWaitIspolcomEntry(); })
+			  .OnExit(() => { if (OnWaitIspolcomExit != null) OnWaitIspolcomExit(); })
+			  .PermitIf(Trigger.Ispolcom, State.OnIspolcom, () => { if (GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom != null) return GuardClauseFromWaitIspolcomToOnIspolcomUsingTriggerIspolcom(); return true; })
+			;
+			stateMachine.Configure(State.OnIspolcom)
+			  .OnEntry(() => { if (OnOnIspolcomEntry != null) OnOnIspolcomEntry(); })
+			  .OnExit(() => { if (OnOnIspolcomExit != null) OnOnIspolcomExit(); })
+			  .PermitIf(Trigger.RejectDocument, State.OnMap, () => { if (GuardClauseFromOnIspolcomToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromOnIspolcomToOnMapUsingTriggerRejectDocument(); return true; })
+			  .PermitIf(Trigger.ToIspolcomFix, State.WaitIspolcomFixes, () => { if (GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix != null) return GuardClauseFromOnIspolcomToWaitIspolcomFixesUsingTriggerToIspolcomFix(); return true; })
+			  .PermitIf(Trigger.ToMinEconomy, State.InMinEconomy, () => { if (GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy != null) return GuardClauseFromOnIspolcomToInMinEconomyUsingTriggerToMinEconomy(); return true; })
+			;
+			stateMachine.Configure(State.WaitIspolcomFixes)
+			  .OnEntry(() => { if (OnWaitIspolcomFixesEntry != null) OnWaitIspolcomFixesEntry(); })
+			  .OnExit(() => { if (OnWaitIspolcomFixesExit != null) OnWaitIspolcomFixesExit(); })
+			  .PermitIf(Trigger.RejectDocument, State.OnMap, () => { if (GuardClauseFromWaitIspolcomFixesToOnMapUsingTriggerRejectDocument != null) return GuardClauseFromWaitIspolcomFixesToOnMapUsingTriggerRejectDocument(); return true; })
+			  .PermitReentryIf(Trigger.IspolcomFixUpdate, () => { if (GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate != null) return GuardClauseFromWaitIspolcomFixesToWaitIspolcomFixesUsingTriggerIspolcomFixUpdate(); return true; })
+			  .PermitIf(Trigger.IspolcomFixUpdate, State.WaitIspolcom, () => { if (GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate != null) return GuardClauseFromWaitIspolcomFixesToWaitIspolcomUsingTriggerIspolcomFixUpdate(); return true; })
+			;
+			stateMachine.Configure(State.InMinEconomy)
+			  .OnEntry(() => { if (OnInMinEconomyEntry != null) OnInMinEconomyEntry(); })
+			  .OnExit(() => { if (OnInMinEconomyExit != null) OnInMinEconomyExit(); })
+			  .PermitIf(Trigger.MinEconomyResponsed, State.PlanCreating, () => { if (GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed != null) return GuardClauseFromInMinEconomyToPlanCreatingUsingTriggerMinEconomyResponsed(); return true; })
+			;
+			stateMachine.Configure(State.PlanCreating)
+			  .OnEntry(() => { if (OnPlanCreatingEntry != null) OnPlanCreatingEntry(); })
+			  .OnExit(() => { if (OnPlanCreatingExit != null) OnPlanCreatingExit(); })
+			  .PermitReentryIf(Trigger.UpdatePlan, () => { if (GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan != null) return GuardClauseFromPlanCreatingToPlanCreatingUsingTriggerUpdatePlan(); return true; })
+			  .PermitIf(Trigger.ApprovePlan, State.Realization, () => { if (GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan != null) return GuardClauseFromPlanCreatingToRealizationUsingTriggerApprovePlan(); return true; })
+			;
+			stateMachine.Configure(State.Realization)
+			  .OnEntry(() => { if (OnRealizationEntry != null) OnRealizationEntry(); })
+			  .OnExit(() => { if (OnRealizationExit != null) OnRealizationExit(); })
+			  .PermitReentryIf(Trigger.UpdateRealization, () => { if (GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization != null) return GuardClauseFromRealizationToRealizationUsingTriggerUpdateRealization(); return true; })
+			  .PermitIf(Trigger.UpdateRealization, State.Done, () => { if (GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization != null) return GuardClauseFromRealizationToDoneUsingTriggerUpdateRealization(); return true; })
+			;
+			stateMachine.Configure(State.Done)
+			  .OnEntry(() => { if (OnDoneEntry != null) OnDoneEntry(); })
+			  .OnExit(() => { if (OnDoneExit != null) OnDoneExit(); })
+			;
+			stateMachine.OnUnhandledTrigger((state, trigger) => { if (OnUnhandledTrigger != null) OnUnhandledTrigger(state, trigger); });
+		}
 
-        public bool TryFireTrigger(Trigger trigger)
-        {
-            if (!stateMachine.CanFire(trigger))
-            {
-                return false;
-            }
-            stateMachine.Fire(trigger);
-            return true;
-        }
+		public bool TryFireTrigger(Trigger trigger)
+		{
+			if (!stateMachine.CanFire(trigger))
+			{
+				return false;
+			}
+			stateMachine.Fire(trigger);
+			return true;
+		}
 
-        public bool CanFire(Trigger trigger)
-        {
-            return stateMachine.CanFire(trigger);
-        }
+		public bool CanFire(Trigger trigger)
+		{
+			return stateMachine.CanFire(trigger);
+		}
 
-        public State GetState
-        {
-            get
-            {
-                return stateMachine.State;
-            }
-        }
-    }
+		public State GetState
+		{
+			get
+			{
+				return stateMachine.State;
+			}
+		}
+	}
 }

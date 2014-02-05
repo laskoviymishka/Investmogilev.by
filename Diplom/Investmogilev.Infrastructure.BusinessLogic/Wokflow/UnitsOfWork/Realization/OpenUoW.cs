@@ -72,7 +72,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
             ProjectTriggersConstants.FillInformation, ProjectStatesConstants.Open, ProjectStatesConstants.OnMap)]
         public bool FromOpenToMap()
         {
-            return IsUser || IsAdmin;
+            return IsAdmin;
         }
 
         public IStateContext Context { get; set; }

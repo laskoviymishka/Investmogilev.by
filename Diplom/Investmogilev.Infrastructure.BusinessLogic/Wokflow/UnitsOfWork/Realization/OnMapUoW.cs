@@ -89,7 +89,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
             ProjectTriggersConstants.UpdateInformation, ProjectStatesConstants.OnMap, ProjectStatesConstants.OnMap)]
         public bool FromOnMapToOnMap()
         {
-            return IsAdmin || IsUser;
+            return IsAdmin;
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
@@ -112,7 +112,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
             ProjectTriggersConstants.FillInformation, ProjectStatesConstants.Open, ProjectStatesConstants.OnMap)]
         public bool FromOpenToOnMap()
         {
-            return IsUser || IsAdmin;
+            return IsAdmin;
         }
 
         [Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",

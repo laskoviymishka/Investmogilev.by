@@ -97,7 +97,7 @@ namespace Investmogilev.Infrastructure.Common.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Площадь проекта.
+        ///   Looks up a localized string similar to Площадь проекта (га).
         /// </summary>
         public static string GreenField_Area_Площадь_проекта {
             get {
@@ -115,7 +115,7 @@ namespace Investmogilev.Infrastructure.Common.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Кадастровая стоимость проекта.
+        ///   Looks up a localized string similar to Кадастровая стоимость проекта (млрд. руб.).
         /// </summary>
         public static string GreenField_CadastrValue_Кадастровая_стоимость_проекта {
             get {
@@ -129,6 +129,15 @@ namespace Investmogilev.Infrastructure.Common.Localization {
         public static string GreenField_EstimateInvestDate_Примерная_дата_инвестирования {
             get {
                 return ResourceManager.GetString("GreenField_EstimateInvestDate_Примерная_дата_инвестирования", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ожидаемая сумма инвестирования  (млрд. руб.).
+        /// </summary>
+        public static string GreenField_EstimateInvoiceAmount_Ожидаемая_сумма_инвестирования {
+            get {
+                return ResourceManager.GetString("GreenField_EstimateInvoiceAmount_Ожидаемая_сумма_инвестирования", resourceCulture);
             }
         }
         
@@ -403,7 +412,7 @@ namespace Investmogilev.Infrastructure.Common.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Введите имя проекта.
+        ///   Looks up a localized string similar to Введите название проекта.
         /// </summary>
         public static string Project_Name_Введите_имя_проекта {
             get {
@@ -412,7 +421,7 @@ namespace Investmogilev.Infrastructure.Common.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Имя проекта.
+        ///   Looks up a localized string similar to Название проекта.
         /// </summary>
         public static string Project_Name_Имя_проекта {
             get {
@@ -457,7 +466,7 @@ namespace Investmogilev.Infrastructure.Common.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Под проекты.
+        ///   Looks up a localized string similar to Подпроекты.
         /// </summary>
         public static string Project_SubProject_Под_проекты {
             get {
@@ -466,7 +475,7 @@ namespace Investmogilev.Infrastructure.Common.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Теги.
+        ///   Looks up a localized string similar to Отраслевая принадлежность.
         /// </summary>
         public static string Project_Tags_Теги {
             get {

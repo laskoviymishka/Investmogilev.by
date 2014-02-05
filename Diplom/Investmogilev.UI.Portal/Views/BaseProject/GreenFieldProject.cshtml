@@ -21,13 +21,6 @@
             @Html.ValidationMessageFor(model => model.Name)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.Tags)
-        </div>
-        <div class="editor-field">
-            @Html.ListBoxFor(model => model.Tags, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
-            @Html.ValidationMessageFor(model => model.Tags)
-        </div>
-        <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
@@ -49,28 +42,10 @@
                 </td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.InvestNumber)</td>
+                <td>@Html.LabelFor(model => model.Tags)</td>
                 <td>
-                    @Html.EditorFor(model => model.InvestNumber)
-                    @Html.ValidationMessageFor(model => model.InvestNumber)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.EstimateInvestDate)</td>
-                <td>
-                    <div id="datepicker" class="input-control text">
-                        <input class="t-input" data-val="false" data-val-date="The field EstimateInvestDate must be a date."
-                               data-val-required="The EstimateInvestDate field is required." id="EstimateInvestDate" name="EstimateInvestDate"
-                               type="text" value="@Model.EstimateInvestDate.ToString("d")">
-                    </div>
-                    @Html.ValidationMessageFor(model => model.EstimateInvestDate)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Goal)</td>
-                <td>
-                    @Html.EditorFor(model => model.Goal)
-                    @Html.ValidationMessageFor(model => model.Goal)
+                    @Html.DropDownListFor(model => model.Tags, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
+                    @Html.ValidationMessageFor(model => model.Tags)
                 </td>
             </tr>
             <tr>
@@ -88,44 +63,16 @@
                 </td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.ThirdPartiePretender)</td>
+                <td>@Html.LabelFor(model => model.EstimateInvoiceAmount)</td>
                 <td>
-                    @Html.EditorFor(model => model.ThirdPartiePretender)
-                    @Html.ValidationMessageFor(model => model.ThirdPartiePretender)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Infrastructure)</td>
-                <td>
-                    @Html.EditorFor(model => model.Infrastructure)
-                    @Html.ValidationMessageFor(model => model.Infrastructure)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.OwnerCity)</td>
-                <td>
-                    @Html.EditorFor(model => model.OwnerCity)
-                    @Html.ValidationMessageFor(model => model.OwnerCity)
-                </td>
-            </tr>
-            <tr>
-                <td>@Html.LabelFor(model => model.Owner)</td>
-                <td>
-                    @Html.EditorFor(model => model.Owner)
-                    @Html.ValidationMessageFor(model => model.Owner)
-                </td>
-            </tr>
-            <tr>
-                <td> @Html.LabelFor(model => model.Appendix)</td>
-                <td>
-                    @Html.EditorFor(model => model.Appendix)
-                    @Html.ValidationMessageFor(model => model.Appendix)
+                    @Html.EditorFor(model => model.EstimateInvoiceAmount)
+                    @Html.ValidationMessageFor(model => model.EstimateInvoiceAmount)
                 </td>
             </tr>
             <tr>
                 <td> @Html.LabelFor(model => model.Region)</td>
                 <td>
-                    @Html.EditorFor(model => model.Region)
+                    @Html.DropDownListFor(model => model.Region, new SelectList(Enum.GetNames(typeof(Regions))), new { id = "cznRegions" })
                     @Html.ValidationMessageFor(model => model.Region)
                 </td>
             </tr>
@@ -133,7 +80,7 @@
         <p>
             <input type="submit" value="Сохранить" />
         </p>
-        <div style="visibility:hidden">
+        <div hidden="true" style="width: 10px; height:10px">
             <div class="editor-label">
                 @Html.LabelFor(model => model.Address)
             </div>
@@ -144,13 +91,7 @@
     </fieldset>
 }
 <script>
-    $("#datepicker").datepicker({
-        effect: "slide", // none, slide, fade
-        position: "bottom", // top or bottom
-        format: "dd/mm/yyyy",
-    });
     $(document).ready(function () { $("#editor").cleditor(); });
-
+    $("#cznRegions").chosen();
     $("#cznTags").chosen();
-    $('.chosen-container').css('width', '100%');
 </script>
