@@ -40,7 +40,6 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1312.1622\lib\net40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Stateless, Version=2.3.1.1, Culture=neutral, PublicKeyToken=93038f0927583c9a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -70,6 +69,10 @@
     <ProjectReference Include="..\Investmogilev.Infrastructure.Common\Investmogilev.Infrastructure.Common.csproj">
       <Project>{8f5582f4-1ead-4fe3-990d-36d18fa234d8}</Project>
       <Name>Investmogilev.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Investmogilev.Infrastructure.StateMachine\Investmogilev.Infrastructure.StateMachine.csproj">
+      <Project>{a15eec02-60ec-4705-a58b-a6ecd55a9628}</Project>
+      <Name>Investmogilev.Infrastructure.StateMachine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

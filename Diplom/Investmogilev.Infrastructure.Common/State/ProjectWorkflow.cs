@@ -4,7 +4,7 @@
 // http://statelessdesigner.codeplex.com/
 
 using Investmogilev.Infrastructure.Common.Model.Common;
-using Stateless;
+using Investmogilev.Infrastructure.StateMachine;
 
 namespace Investmogilev.Infrastructure.Common.State
 {

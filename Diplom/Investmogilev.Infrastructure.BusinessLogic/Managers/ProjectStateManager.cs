@@ -7,6 +7,7 @@ using Investmogilev.Infrastructure.Common;
 using Investmogilev.Infrastructure.Common.Model.Project;
 using Investmogilev.Infrastructure.Common.Repository;
 using Investmogilev.Infrastructure.Common.State;
+using Investmogilev.Infrastructure.Common.State.StateAttributes;
 using MongoDB.Bson;
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Managers
@@ -68,18 +69,21 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 					CurrentState = ProjectWorkflow.State.Open
 				};
 			}
-			_workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
-			/*ProjectStateContext context = new ProjectStateContext();
-			context.UserName = currentUser;
-			context.CurrentProject = currentProject;
-			context.Roles = roles;
-			context.InvestorNotification = _investorNotificate;
-			context.UserNotification = _userNotificationl;
-			context.AdminNotification = _adminNotificate;
+			//_workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
+			var context = new ProjectStateContext
+			{
+				UserName = currentUser,
+				CurrentProject = currentProject,
+				Roles = roles,
+				InvestorNotification = _investorNotificate,
+				UserNotification = _userNotificationl,
+				AdminNotification = _adminNotificate,
+				Repository = _repository
+			};
 			var builder = new AttributeStateMachineBuilder();
 			_workflow = new ProjectWorkflowWrapper(
 				new ProjectWorkflow(
-					builder.BuilStateMachine<ProjectWorkflow.State,ProjectWorkflow.Trigger>("test", context,_currentProject.WorkflowState.CurrentState)));*/
+					builder.BuilStateMachine<ProjectWorkflow.State,ProjectWorkflow.Trigger>("test", context,_currentProject.WorkflowState.CurrentState)));
 		}
 
 		#endregion

@@ -1,5 +1,5 @@
 ﻿using Investmogilev.Infrastructure.Common.Model.Project;
-using Stateless;
+using Investmogilev.Infrastructure.StateMachine;
 
 namespace Investmogilev.Infrastructure.Common.State
 {

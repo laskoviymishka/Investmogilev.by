@@ -12,7 +12,6 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfa
         bool FromOnMapToOnMap();
         bool FromWaitComissionFixesToOnMap();
         bool FromWaitIspolcomFixesToOnMap();
-        bool FromOpenToOnMap();
         bool FromOnMapToOpen();
         bool FromOnMapToInvestorApprove();
     }

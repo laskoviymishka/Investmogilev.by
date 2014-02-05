@@ -59,6 +59,10 @@
       <Project>{8f5582f4-1ead-4fe3-990d-36d18fa234d8}</Project>
       <Name>Investmogilev.Infrastructure.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Investmogilev.Infrastructure.StateMachine\Investmogilev.Infrastructure.StateMachine.csproj">
+      <Project>{A15EEC02-60EC-4705-A58B-A6ECD55A9628}</Project>
+      <Name>Investmogilev.Infrastructure.StateMachine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

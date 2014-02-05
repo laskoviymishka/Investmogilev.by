@@ -3,7 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Stateless;
+using System.Runtime.InteropServices;
+using Investmogilev.Infrastructure.StateMachine;
 
 namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
@@ -54,8 +55,9 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 			}
 
 			TransitionComparer comparer = new TransitionComparer();
+			var pureTransitions = transitions.Distinct(comparer);
 
-			StateMachine<TS, TT>.StateConfiguration stateconfigure = null;
+			StateMachine<TS, TT>.StateConfiguration stateconfigure;
 			foreach (var state in getStates)
 			{
 				StateAttribute attribute = null;
@@ -65,9 +67,38 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 					attribute = attrs[0];
 				}
 				stateconfigure = machine.Configure((TS)attribute.State).OnEntry(state.OnEntry).OnExit(state.OnExit);
+				
+
+				var fromTransitions = transitions.Where(
+						t => t.From.ToString() == attribute.State.ToString()).ToArray();
+
+				var couples = new Dictionary<KeyValuePair<object, object>, HashSet<Transition>>();
+
+				for (int i = 0; i < fromTransitions.Length; i++)
+				{
+					for (int j = 0; j < fromTransitions.Length; j++)
+					{
+						if (i != j && fromTransitions[i].To.ToString() == fromTransitions[j].To.ToString()
+							&& fromTransitions[i].Trigger.ToString() == fromTransitions[j].Trigger.ToString())
+						{
+							var couple = new KeyValuePair<object, object>(fromTransitions[i].To, fromTransitions[i].Trigger);
+
+							if (!couples.ContainsKey(couple))
+							{
+								couples.Add(couple, new HashSet<Transition>());
+							}
+
+							couples[couple].Add(fromTransitions[i]);
+						}
+					}
+				}
+
 				var stateTransitions =
 					transitions.Where(
-						t => t.From.ToString() == attribute.State.ToString() && t.To.ToString() != attribute.State.ToString()).Distinct(comparer);
+						t => t.From.ToString() == attribute.State.ToString() && t.To.ToString() != attribute.State.ToString()
+						&& !couples.ContainsKey(new KeyValuePair<object, object>(t.To,t.Trigger)));
+
+
 				foreach (var transition in stateTransitions)
 				{
 					stateconfigure.PermitIf((TT)transition.Trigger, (TS)transition.To, transition.Guard);
@@ -76,6 +107,23 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 				foreach (var transition in transitions.Where(t => t.From.ToString() == attribute.State.ToString() && t.To.ToString() == attribute.State.ToString()))
 				{
 					stateconfigure.PermitReentryIf((TT)transition.Trigger, transition.Guard);
+				}
+
+				foreach (var key in couples.Keys)
+				{
+					var complexGuard = new ComplexGuard();
+					foreach (var transiotion in couples[key])
+					{
+						complexGuard.AddGuard(transiotion.Guard);
+					}
+					if (key.Key.ToString() != attribute.State.ToString())
+					{
+						stateconfigure.PermitIf((TT)key.Value, (TS)key.Key, complexGuard.CheckComplex);
+					}
+					else
+					{
+						stateconfigure.PermitReentryIf((TT)key.Value, complexGuard.CheckComplex);
+					}
 				}
 			}
 
@@ -98,6 +146,21 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 			var lambda = (Expression<Func<T>>)Expression.Lambda(callRef);
 
 			return lambda.Compile();
+		}
+
+		class ComplexGuard
+		{
+			private readonly List<Func<bool>> _innerGuards = new List<Func<bool>>();
+
+			public void AddGuard(Func<bool> guard)
+			{
+				_innerGuards.Add(guard);
+			}
+
+			public bool CheckComplex()
+			{
+				return _innerGuards.All(innerGuard => innerGuard());
+			}
 		}
 	}
 }

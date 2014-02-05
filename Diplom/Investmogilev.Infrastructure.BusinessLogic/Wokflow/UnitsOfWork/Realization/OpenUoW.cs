@@ -8,7 +8,7 @@ using Investmogilev.Infrastructure.Common.State.StateAttributes;
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    [State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.OnMap)]
+    [State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.Open)]
     public class OpenUoW : BaseProjectUoW, IOpenUoW, IState
     {
         public OpenUoW(Project currentProject,
@@ -79,7 +79,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 
         public void OnEntry()
         {
-            OnOpenExit();
+            OnOpenEntry();
         }
 
         public void OnExit()

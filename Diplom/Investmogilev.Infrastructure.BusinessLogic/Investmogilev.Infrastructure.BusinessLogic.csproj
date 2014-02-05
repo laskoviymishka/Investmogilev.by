@@ -41,9 +41,6 @@
     <Reference Include="MongoDB.Driver, Version=1.8.3.9, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <HintPath>..\packages\mongocsharpdriver.1.8.3\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
-    <Reference Include="Stateless">
-      <HintPath>..\packages\stateless-4.0.2.3.1.1\lib\net40\Stateless.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -142,6 +139,10 @@
     <ProjectReference Include="..\Investmogilev.Infrastructure.Common\Investmogilev.Infrastructure.Common.csproj">
       <Project>{8f5582f4-1ead-4fe3-990d-36d18fa234d8}</Project>
       <Name>Investmogilev.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Investmogilev.Infrastructure.StateMachine\Investmogilev.Infrastructure.StateMachine.csproj">
+      <Project>{a15eec02-60ec-4705-a58b-a6ecd55a9628}</Project>
+      <Name>Investmogilev.Infrastructure.StateMachine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -158,20 +158,6 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
 		}
 
 		/// <summary>
-		///     A test for FromOpenToOnMap
-		/// </summary>
-		[TestMethod]
-		public void FromOpenToOnMapTest()
-		{
-			OnMapUoW target = CreateUoW();
-
-			Assert.IsFalse(target.FromOpenToOnMap());
-			_roles = new[] {"User"};
-			target = CreateUoW();
-			Assert.IsTrue(target.FromOpenToOnMap());
-		}
-
-		/// <summary>
 		///     A test for FromWaitComissionFixesToOnMap
 		/// </summary>
 		[TestMethod]

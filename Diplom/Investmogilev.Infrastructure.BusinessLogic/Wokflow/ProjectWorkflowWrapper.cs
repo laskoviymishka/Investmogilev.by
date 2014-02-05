@@ -71,7 +71,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow
             _workflow.GuardClauseFromOnMapToOpenUsingTriggerReOpen =
                 () => _unitsOfWork.OpenUoW.FromMapToOpen() && _unitsOfWork.OnMapUoW.FromOnMapToOpen();
             _workflow.GuardClauseFromOpenToOnMapUsingTriggerFillInformation =
-                () => _unitsOfWork.OpenUoW.FromOpenToMap() && _unitsOfWork.OnMapUoW.FromOpenToOnMap();
+                () => _unitsOfWork.OpenUoW.FromOpenToMap();
 
             _workflow.GuardClauseFromOnComissionToOnMapUsingTriggerRejectDocument =
                 _unitsOfWork.OnMapUoW.FromOnComissionToOnMap;
