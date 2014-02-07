@@ -656,6 +656,7 @@
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\chosen.proto.min.js" />
     <Content Include="Scripts\gmaps.js" />
+    <Content Include="Scripts\jquery.cleditor.table.js" />
     <Content Include="Scripts\MapMarkerInit.js" />
     <Content Include="Scripts\TableSetup.js" />
     <Content Include="Scripts\jquery-1.10.2-vsdoc.js" />

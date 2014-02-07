@@ -73,7 +73,8 @@
 				</td>
 				<td>
 					<div>
-						@Html.ActionLink("Подробнее", "Project", "BaseProject", new { Id = item._id }, new { @class = "button info", style = "width:100%" })
+						@Html.ActionLink("Подробнее", "Project", "BaseProject", new { Id = item._id }, new { @class = "button info", style = "width:45%" })
+                        @Html.ActionLink("Удалить", "Delete", "BaseProject", new { Id = item._id }, new { @class = "button danger", style = "width:45%" })
 					</div>
 				</td>
 			</tr>

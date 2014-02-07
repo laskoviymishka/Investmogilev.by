@@ -13,6 +13,8 @@ namespace Investmogilev.UI.Portal.Controllers
 	{
 		#region Private Fields
 
+		private readonly string _descriptionTemplate = @"<p><span style='font-weight: bold; font-size: large;'>Инженерная и транспортная инфраструктура:</span></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Водоснабжение:</span><br><br></p><hr style='font-size: 10pt;'><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Водоотведение:</span><br><br></p><hr style='font-size: 10pt;'><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Электроснабжение:</span><br></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'><br></span></p><hr style='font-size: 10pt;'><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Газоснабжение:</span><br><br></p><hr style='font-size: 10pt;'><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Подъездные пути:</span><br><br></p><hr style='font-size: 10pt;'><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Телефонизация:</span><br><br></p><hr style='font-size: 10pt;'><p><span style='font-weight: bold; font-size: large;'>Характеристики площадки:</span></p><p style='font-size: 10pt;'></p><div><p style='font-size: 10pt;'><span style='text-decoration: underline; font-size: 10pt;'>Категория и вид земельного участка:</span></p><p style='font-size: 10pt;'><br></p><hr style='font-size: 10pt;'><p><span style='font-size: small; text-decoration: underline;'>Наличие на территории зданий и сооружений:<br><br></span></p><hr><p style='font-size: 10pt;'></p><p style='font-size: 10pt;'></p></div>";
+
 		private readonly IRepository _mongoRepository;
 
 		#endregion
@@ -45,7 +47,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult CreateGreenFieldProject()
 		{
-			return PartialView();
+			return PartialView(new GreenField{Description = _descriptionTemplate});
 		}
 
 		[HttpPost]
@@ -176,6 +178,12 @@ namespace Investmogilev.UI.Portal.Controllers
 		public ActionResult Project(string id)
 		{
 			return View(RepositoryContext.Current.GetOne<Project>(p => p._id == id));
+		}
+
+		public ActionResult Delete(string id)
+		{
+			RepositoryContext.Current.Delete<Project>(p => p._id == id);
+			return RedirectToAction("All", "BaseProject");
 		}
 
 		#endregion
