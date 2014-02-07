@@ -22,6 +22,10 @@ namespace Investmogilev.UI.Portal.Controllers
 		[AllowAnonymous]
 		public ActionResult Login(string returnUrl)
 		{
+			if (User.Identity.IsAuthenticated)
+			{
+				return RedirectToAction("All", "BaseProject");
+			}
 			ViewBag.ReturnUrl = returnUrl;
 			return View();
 		}

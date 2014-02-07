@@ -88,6 +88,8 @@
                 $.Dialog({
                     shadow: true,
                     overlay: true,
+                    width: 600,
+                    flat: true,
                     icon: '<span class="icon-floppy"></span>',
                     title: 'Информация о проекте',
                     content: $('#project-popup').html()
