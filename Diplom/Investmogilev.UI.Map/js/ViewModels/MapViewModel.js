@@ -4,8 +4,8 @@
     // MapViewModel properties
     self.Css = ko.observable("col-md-9");
     self.FusionTableFrom = ko.observable("1Kl6NI6pi4SuX8dF6NRUg3fLGoQJMrhmDQ2F-6aA");
-    self.FusionTableStyleId = ko.observable(3);
-    self.FusionTableTemlateId = ko.observable(5);
+    self.FusionTableStyleId = ko.observable(33);
+    self.FusionTableTemlateId = ko.observable(35);
     self.ProjectList = ko.observableArray();
     self.Markers = ko.observableArray();
     self.Layer = ko.observable();
@@ -116,7 +116,7 @@
 
         var lastValidCenter = map.getCenter();
         var newLat, newLng;
-        google.maps.event.addListener(map, 'center_changed', function() {
+        google.maps.event.addListener(map, 'center_changed', function () {
             center = map.getCenter();
             if (allowedBounds.contains(center)) {
                 // still within valid bounds, so save the last valid position
@@ -134,14 +134,14 @@
             map.panTo(new google.maps.LatLng(newLat, newLng));
         });
         var lastValidZoom = 7;
-        google.maps.event.addListener(map, 'zoom_changed', function() {
+        google.maps.event.addListener(map, 'zoom_changed', function () {
             if (map.getZoom() < 7) {
                 map.setZoom(lastValidZoom);
             } else {
                 lastValidZoom = map.getZoom();
             }
         });
-        google.maps.event.addListener(self.gLayer, 'click', function(e) {
+        google.maps.event.addListener(self.gLayer, 'click', function (e) {
         });
     };
 }

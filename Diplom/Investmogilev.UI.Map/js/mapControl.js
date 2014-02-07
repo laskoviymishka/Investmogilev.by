@@ -68,7 +68,18 @@ function ShowRegion (argument) {
     $('#radioMap').attr("class","icon-radio-unchecked");
     $('#radioRegion').attr("class","icon-radio-checked");
 }
-$(window).resize(function(){
+$(window).resize(function () {
 });
 $(window).load(function () {
 });
+
+var fixSize = function() {
+    var divs = $('.gm-style div > img').parent();
+    var imgs = $('.gm-style div > img');
+    for (var i = 0; i < divs.length; i++) {
+        if (imgs[i].style.width == '256px') {
+            divs[i].style.width = imgs[i].style.width;
+        }
+    }
+};
+window.setInterval(fixSize, 500);
