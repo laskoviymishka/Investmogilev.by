@@ -60,13 +60,16 @@ namespace Investmogilev.UI.Portal
 		protected void Application_BeginRequest()
 		{
 			MiniProfiler.Start();
-			Logger.Info("Application_BeginRequest");
+			var log = string.Format("{0}, Request.UrlReferrer: {1}, Request.HttpMethod: {2}",
+				"Application_BeginRequest",
+				Request.UrlReferrer,
+				Request.HttpMethod);
+			Logger.Info(log);
 		}
 
 		protected void Application_EndRequest()
 		{
 			MiniProfiler.Stop();
-			Logger.Info("Application_EndRequest");
 		}
 	}
 }

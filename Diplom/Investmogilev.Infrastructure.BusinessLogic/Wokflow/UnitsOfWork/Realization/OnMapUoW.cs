@@ -59,8 +59,8 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 		{
 			GuardCurrentProjectNotNull();
 			CurrentProject = Repository.GetOne<Project>(p => p._id == CurrentProject._id);
-			if (CurrentProject.Address.Lat > 51 && CurrentProject.Address.Lat < 55 && CurrentProject.Address.Lng > 28 &&
-				CurrentProject.Address.Lng < 32)
+			if (CurrentProject.Address.Lat > 50 && CurrentProject.Address.Lat < 56 && CurrentProject.Address.Lng > 27 &&
+				CurrentProject.Address.Lng < 33)
 			{
 				ProcessMoving(ProjectWorkflow.State.OnMap, "Проект перещел в состояние НА КАРТЕ");
 				AdminNotification.MapEntryNotificate();
