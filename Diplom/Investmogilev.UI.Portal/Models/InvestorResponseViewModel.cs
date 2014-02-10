@@ -21,7 +21,7 @@ namespace Investmogilev.UI.Portal.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Повторите пароль")]
-        [Compare("Password", ErrorMessage = "Пароли должны совпадать.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Пароли должны совпадать.")]
         public string ConfirmPassword { get; set; }
     }
 }
