@@ -8,7 +8,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			ViewBag.Message = "Welcome to ASP.NET MVC!";
 
-			return View();
+			return Redirect("/map");
 		}
 
 		public ActionResult About()
