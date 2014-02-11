@@ -6,6 +6,9 @@
 <h2>
     Сообщение
 </h2>
+<div>
+    @Html.ActionLink("Назад", "Index", null, new { @class = "icon-arrow-left-3 fg-darker button success" })
+</div>
 <fieldset>
     <legend>Сообщение</legend>
     <small class="display-label">
@@ -54,7 +57,3 @@
         }
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "EditMessage", new { id = Model._id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

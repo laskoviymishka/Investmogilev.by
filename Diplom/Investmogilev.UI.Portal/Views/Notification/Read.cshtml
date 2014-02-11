@@ -1,0 +1,33 @@
+﻿@using Investmogilev.Infrastructure.Common.Model.Common
+@model Investmogilev.Infrastructure.Common.Model.User.NotificationQueue
+@{
+    ViewBag.Title = "ReadMessage";
+}
+<div>
+    @Html.ActionLink("Назад", "All", null, new { @class = "icon-arrow-left-3 fg-darker button success" })
+</div>
+<h2>Прочитать сообщение</h2>
+<fieldset>
+    <legend>Сообщение</legend>
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.NotificationTitle)
+    </small>
+    <blockquote class=" left">
+        @Html.DisplayFor(model => model.NotificationTitle)
+    </blockquote>
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.NotigicationBody)
+    </small>
+    <blockquote class=" left">
+        <div style="min-height:200px">
+            @Html.Raw(HttpUtility.HtmlDecode(Model.NotigicationBody))
+        </div>
+    </blockquote>
+    <small class="display-label">
+        @Html.DisplayNameFor(model => model.NotificationTime)
+    </small>
+    <blockquote class=" left">
+        @Html.DisplayFor(model => model.NotificationTime)
+    </blockquote>
+</fieldset>
+

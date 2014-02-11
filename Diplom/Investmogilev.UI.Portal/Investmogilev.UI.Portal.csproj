@@ -1160,6 +1160,7 @@
     <Content Include="Views\AdditionalInfo\CreateNoteAdditional.cshtml" />
     <Content Include="Views\UserManager\Edit.cshtml" />
     <Content Include="Views\Feedback\CreateIssue.cshtml" />
+    <Content Include="Views\Notification\Read.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Investmogilev.Infrastructure.BusinessLogic\Investmogilev.Infrastructure.BusinessLogic.csproj">

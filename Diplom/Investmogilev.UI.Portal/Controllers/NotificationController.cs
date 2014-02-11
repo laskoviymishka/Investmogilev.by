@@ -19,5 +19,13 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			return View(RepositoryContext.Current.All<NotificationQueue>(q => q.UserName == User.Identity.Name));
 		}
+
+		public ActionResult Read(string id)
+		{
+			var model = RepositoryContext.Current.GetOne<NotificationQueue>(q => q._id == id);
+			model.IsRead = true;
+			RepositoryContext.Current.Update(model);
+			return View(model);
+		}
 	}
 }
