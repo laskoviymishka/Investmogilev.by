@@ -3,7 +3,7 @@ using Investmogilev.Infrastructure.StateMachine.Localization;
 
 namespace Investmogilev.Infrastructure.StateMachine
 {
-	static class ParameterConversion
+	internal static class ParameterConversion
 	{
 		public static object Unpack(object[] args, Type argType, int index)
 		{
@@ -13,7 +13,7 @@ namespace Investmogilev.Infrastructure.StateMachine
 				throw new ArgumentException(
 					string.Format(StateMachineResources.ArgOfTypeRequiredInPosition, argType, index));
 
-			var arg = args[index];
+			object arg = args[index];
 
 			if (arg != null && !argType.IsAssignableFrom(arg.GetType()))
 				throw new ArgumentException(
@@ -24,7 +24,7 @@ namespace Investmogilev.Infrastructure.StateMachine
 
 		public static TArg Unpack<TArg>(object[] args, int index)
 		{
-			return (TArg)Unpack(args, typeof(TArg), index);
+			return (TArg) Unpack(args, typeof (TArg), index);
 		}
 
 		public static void Validate(object[] args, Type[] expected)

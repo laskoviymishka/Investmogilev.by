@@ -1,8 +1,8 @@
 ﻿namespace Investmogilev.Infrastructure.Common.Model.Project
 {
-    public class Address
-    {
-        public double Lat { get; set; }
-        public double Lng { get; set; }
-    }
+	public class Address
+	{
+		public double Lat { get; set; }
+		public double Lng { get; set; }
+	}
 }

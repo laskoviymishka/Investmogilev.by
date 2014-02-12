@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using Investmogilev.Infrastructure.StateMachine;
 
 namespace Investmogilev.Infrastructure.Common.State.StateAttributes
@@ -10,42 +11,40 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 	public class AttributeStateMachineBuilder : IStateMachineBuilder
 	{
 		private static ConcurrentDictionary<Type, IState> _states;
-		private string _stateMachineName;
 		private IStateContext _context;
-
-		public static void InitializeStates(Dictionary<Type, IState> container)
-		{
-			_states = new ConcurrentDictionary<Type, IState>(container);
-		}
+		private string _stateMachineName;
 
 		public StateMachine<TS, TT> BuilStateMachine<TS, TT>(string statemachineName, IStateContext context, TS inititalState)
 		{
 			_context = context;
 			_stateMachineName = statemachineName;
-			var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes().Where(t => Attribute.IsDefined(t, typeof(StateAttribute)))).ToList();
+			List<Type> types =
+				AppDomain.CurrentDomain.GetAssemblies()
+					.SelectMany(assembly => assembly.GetTypes().Where(t => Attribute.IsDefined(t, typeof (StateAttribute))))
+					.ToList();
 
 			var machine = new StateMachine<TS, TT>(inititalState);
 			var getStates = new List<IState>();
 			var transitions = new List<Transition>();
 
-			foreach (var type in types)
+			foreach (Type type in types)
 			{
 				var state = Activator.CreateInstance(type, _context) as IState;
 				getStates.Add(state);
-				foreach (var method in type.GetMethods())
+				foreach (MethodInfo method in type.GetMethods())
 				{
-					var attributes = method.GetCustomAttributes(typeof(TriggerAttribute), true) as TriggerAttribute[];
+					var attributes = method.GetCustomAttributes(typeof (TriggerAttribute), true) as TriggerAttribute[];
 					if (attributes != null && attributes.Length > 0)
 					{
-						var attribute = attributes.First(a => a.WorkflowName == _stateMachineName);
+						TriggerAttribute attribute = attributes.First(a => a.WorkflowName == _stateMachineName);
 
 						if (attribute != null && type.GetInterface("IState") != null)
 						{
 							transitions.Add(new Transition
 							{
-								From = (TS)attribute.From,
-								To = (TS)attribute.To,
-								Trigger = (TT)attribute.TriggerName,
+								From = (TS) attribute.From,
+								To = (TS) attribute.To,
+								Trigger = (TT) attribute.TriggerName,
 								Guard = GetReturningFunc<bool>(state, method.Name)
 							});
 						}
@@ -53,20 +52,21 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 				}
 			}
 
-			foreach (var state in getStates)
+			foreach (IState state in getStates)
 			{
 				StateAttribute attribute = null;
-				var attrs = state.GetType().GetCustomAttributes(typeof(StateAttribute), false) as StateAttribute[];
+				var attrs = state.GetType().GetCustomAttributes(typeof (StateAttribute), false) as StateAttribute[];
 				if (attrs != null && attrs.Length > 0)
 				{
 					attribute = attrs[0];
 				}
-				if(attribute == null) throw new InvalidOperationException("cannot find attribute for state");
+				if (attribute == null) throw new InvalidOperationException("cannot find attribute for state");
 
-				var stateconfigure = machine.Configure((TS)attribute.State).OnEntry(state.OnEntry).OnExit(state.OnExit);
+				StateMachine<TS, TT>.StateConfiguration stateconfigure =
+					machine.Configure((TS) attribute.State).OnEntry(state.OnEntry).OnExit(state.OnExit);
 
-				var fromTransitions = transitions.Where(
-						t => t.From.ToString() == attribute.State.ToString()).ToArray();
+				Transition[] fromTransitions = transitions.Where(
+					t => t.From.ToString() == attribute.State.ToString()).ToArray();
 
 				var couples = new Dictionary<KeyValuePair<object, object>, HashSet<Transition>>();
 
@@ -75,7 +75,7 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 					for (int j = 0; j < fromTransitions.Length; j++)
 					{
 						if (i != j && fromTransitions[i].To.ToString() == fromTransitions[j].To.ToString()
-							&& fromTransitions[i].Trigger.ToString() == fromTransitions[j].Trigger.ToString())
+						    && fromTransitions[i].Trigger.ToString() == fromTransitions[j].Trigger.ToString())
 						{
 							var couple = new KeyValuePair<object, object>(fromTransitions[i].To, fromTransitions[i].Trigger);
 
@@ -89,36 +89,39 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 					}
 				}
 
-				var stateTransitions =
+				IEnumerable<Transition> stateTransitions =
 					transitions.Where(
 						t => t.From.ToString() == attribute.State.ToString() && t.To.ToString() != attribute.State.ToString()
-						&& !couples.ContainsKey(new KeyValuePair<object, object>(t.To,t.Trigger)));
+						     && !couples.ContainsKey(new KeyValuePair<object, object>(t.To, t.Trigger)));
 
 
-				foreach (var transition in stateTransitions)
+				foreach (Transition transition in stateTransitions)
 				{
-					stateconfigure.PermitIf((TT)transition.Trigger, (TS)transition.To, transition.Guard);
+					stateconfigure.PermitIf((TT) transition.Trigger, (TS) transition.To, transition.Guard);
 				}
 
-				foreach (var transition in transitions.Where(t => t.From.ToString() == attribute.State.ToString() && t.To.ToString() == attribute.State.ToString()))
+				foreach (
+					Transition transition in
+						transitions.Where(
+							t => t.From.ToString() == attribute.State.ToString() && t.To.ToString() == attribute.State.ToString()))
 				{
-					stateconfigure.PermitReentryIf((TT)transition.Trigger, transition.Guard);
+					stateconfigure.PermitReentryIf((TT) transition.Trigger, transition.Guard);
 				}
 
 				foreach (var key in couples.Keys)
 				{
 					var complexGuard = new ComplexGuard();
-					foreach (var transiotion in couples[key])
+					foreach (Transition transiotion in couples[key])
 					{
 						complexGuard.AddGuard(transiotion.Guard);
 					}
 					if (key.Key.ToString() != attribute.State.ToString())
 					{
-						stateconfigure.PermitIf((TT)key.Value, (TS)key.Key, complexGuard.CheckComplex);
+						stateconfigure.PermitIf((TT) key.Value, (TS) key.Key, complexGuard.CheckComplex);
 					}
 					else
 					{
-						stateconfigure.PermitReentryIf((TT)key.Value, complexGuard.CheckComplex);
+						stateconfigure.PermitReentryIf((TT) key.Value, complexGuard.CheckComplex);
 					}
 				}
 			}
@@ -126,20 +129,25 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 			return machine;
 		}
 
+		public static void InitializeStates(Dictionary<Type, IState> container)
+		{
+			_states = new ConcurrentDictionary<Type, IState>(container);
+		}
+
 		private static Func<T> GetReturningFunc<T>(object x, string methodName)
 		{
-			var methodInfo = x.GetType().GetMethod(methodName);
+			MethodInfo methodInfo = x.GetType().GetMethod(methodName);
 
 			if (methodInfo == null ||
-				methodInfo.ReturnType != typeof(T) ||
-				methodInfo.GetParameters().Length != 0)
+			    methodInfo.ReturnType != typeof (T) ||
+			    methodInfo.GetParameters().Length != 0)
 			{
 				throw new ArgumentException();
 			}
 
-			var xRef = Expression.Constant(x);
-			var callRef = Expression.Call(xRef, methodInfo);
-			var lambda = (Expression<Func<T>>)Expression.Lambda(callRef);
+			ConstantExpression xRef = Expression.Constant(x);
+			MethodCallExpression callRef = Expression.Call(xRef, methodInfo);
+			var lambda = (Expression<Func<T>>) Expression.Lambda(callRef);
 
 			return lambda.Compile();
 		}

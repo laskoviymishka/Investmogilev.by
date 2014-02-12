@@ -10,29 +10,31 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 
 		public string ResponseId { get; set; }
 
-		[Display(ResourceType = typeof(LocalizationResource), Name = "InvestorResponse_ResponseDate_Дата_отклика")]
+		[Display(ResourceType = typeof (LocalizationResource), Name = "InvestorResponse_ResponseDate_Дата_отклика")]
 		public DateTime ResponseDate { get; set; }
 
-		[Display(ResourceType = typeof(LocalizationResource), Name = "InvestorResponse_InvestorFirstName_Имя")]
+		[Display(ResourceType = typeof (LocalizationResource), Name = "InvestorResponse_InvestorFirstName_Имя")]
 		public string InvestorFirstName { get; set; }
 
-		[Display(ResourceType = typeof(LocalizationResource), Name = "InvestorResponse_InvestorMiddleName_Отчество")]
+		[Display(ResourceType = typeof (LocalizationResource), Name = "InvestorResponse_InvestorMiddleName_Отчество")]
 		public string InvestorMiddleName { get; set; }
 
-		[Display(ResourceType = typeof(LocalizationResource), Name = "InvestorResponse_InvestorLastName_Фамилия")]
+		[Display(ResourceType = typeof (LocalizationResource), Name = "InvestorResponse_InvestorLastName_Фамилия")]
 		public string InvestorLastName { get; set; }
 
-		[Display(ResourceType = typeof(LocalizationResource), Name = "InvestorResponse_InvestorOrganizationName_Название_организации")]
+		[Display(ResourceType = typeof (LocalizationResource),
+			Name = "InvestorResponse_InvestorOrganizationName_Название_организации")]
 		public string InvestorOrganizationName { get; set; }
 
 		[Required]
-		[Display(ResourceType = typeof(LocalizationResource), Name = "InvestorResponse_InvestorEmail_Адресс_электорнной_почты")]
+		[Display(ResourceType = typeof (LocalizationResource),
+			Name = "InvestorResponse_InvestorEmail_Адресс_электорнной_почты")]
 		public string InvestorEmail { get; set; }
 
-		[Display(ResourceType = typeof(LocalizationResource), Name = "InvestorResponse_InvestorPhone_Телефон")]
+		[Display(ResourceType = typeof (LocalizationResource), Name = "InvestorResponse_InvestorPhone_Телефон")]
 		public string InvestorPhone { get; set; }
 
-		[Display(ResourceType = typeof(LocalizationResource), Name = "InvestorResponse_AdditionalInfo_Прочая_информация")]
+		[Display(ResourceType = typeof (LocalizationResource), Name = "InvestorResponse_AdditionalInfo_Прочая_информация")]
 		public string AdditionalInfo { get; set; }
 
 		public string ExistingUser { get; set; }

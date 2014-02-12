@@ -1,8 +1,8 @@
 ﻿namespace Investmogilev.Infrastructure.Common.Model.User
 {
-    public enum MessageType
-    {
-        Portal,
-        Mail
-    }
+	public enum MessageType
+	{
+		Portal,
+		Mail
+	}
 }

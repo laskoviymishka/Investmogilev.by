@@ -19,9 +19,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		[Display(Name = "Время отклика")]
 		public DateTime ResponseTime { get; set; }
 
-		[Display(Name = "Идентификатор отклика")]
-		public string _id { get; set; }
-
 		[Display(Name = "Идентификатор проекта")]
 		public string ProjectId { get; set; }
 
@@ -33,5 +30,8 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 
 		[Display(Name = "Создатель отклика")]
 		public string ResponseUser { get; set; }
+
+		[Display(Name = "Идентификатор отклика")]
+		public string _id { get; set; }
 	}
 }

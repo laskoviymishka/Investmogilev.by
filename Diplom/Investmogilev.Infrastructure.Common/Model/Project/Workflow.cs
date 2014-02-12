@@ -6,18 +6,18 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
-    [BsonIgnoreExtraElements]
-    public class Workflow
-    {
-        [Display(Name = "История изменения")]
-        public List<History> History { get; set; }
+	[BsonIgnoreExtraElements]
+	public class Workflow
+	{
+		[Display(Name = "История изменения")]
+		public List<History> History { get; set; }
 
-        [Display(Name = "Текущее состояние")]
-        public ProjectWorkflow.State CurrentState { get; set; }
+		[Display(Name = "Текущее состояние")]
+		public ProjectWorkflow.State CurrentState { get; set; }
 
-        public override string ToString()
-        {
-            return EnumDescription.GetEnumDescription(CurrentState);
-        }
-    }
+		public override string ToString()
+		{
+			return EnumDescription.GetEnumDescription(CurrentState);
+		}
+	}
 }

@@ -9,9 +9,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 {
 	public class ProjectTask : IMongoEntity
 	{
-		[Display(ResourceType = typeof (LocalizationResource), Name = "ProjectTask__id_Идентификатор_задачи")]
-		public string _id { get; set; }
-
 		[Display(ResourceType = typeof (LocalizationResource), Name = "ProjectTask_ProjectId_Идентификатор_проекта")]
 		public string ProjectId { get; set; }
 
@@ -41,5 +38,8 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 
 		[Display(ResourceType = typeof (LocalizationResource), Name = "ProjectTask_Body_Описание_задачи")]
 		public string Body { get; set; }
+
+		[Display(ResourceType = typeof (LocalizationResource), Name = "ProjectTask__id_Идентификатор_задачи")]
+		public string _id { get; set; }
 	}
 }

@@ -12,170 +12,166 @@ using StackExchange.Profiling;
 
 namespace Investmogilev.Infrastructure.Common.Repository
 {
-    public class MongoRepository : IRepository
-    {
-        #region Private Fields
+	public class MongoRepository : IRepository
+	{
+		#region Private Fields
 
-        private readonly MongoClient _client;
+		private readonly MongoDatabase _db;
 
-        private readonly MongoServer _server;
+		private volatile Dictionary<string, bool> _cacheExpired;
 
-        private readonly MongoDatabase _db;
+		#endregion
 
-        private volatile Dictionary<string, bool> _cacheExpired;
+		#region Constructor
 
-        #endregion
+		public MongoRepository(string connectionString, string dbName)
+		{
+			var client = new MongoClient(new MongoUrl(connectionString));
+			var server = client.GetServer();
+			_db = server.GetDatabase(dbName);
+			_cacheExpired = new Dictionary<string, bool>();
+		}
 
-        #region Constructor
+		#endregion
 
-        public MongoRepository(string connectionString, string dbName)
-        {
-            _client = new MongoClient(new MongoUrl(connectionString));
-            _server = _client.GetServer();
-            _db = _server.GetDatabase(dbName);
-            _cacheExpired = new Dictionary<string, bool>();
-        }
+		#region Delete
 
-        #endregion
+		public void Delete<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
+		{
+			IQueryable<T> items = All<T>().Where(expression);
+			foreach (T item in items)
+			{
+				Delete(item);
+			}
+		}
 
-        #region Delete
+		public void Delete<T>(T item) where T : IMongoEntity
+		{
+			ExpireCacheToken<T>();
+			_db.GetCollection(typeof (T).Name).Remove(Query.EQ("_id", new ObjectId(item._id)));
+		}
 
-        public void Delete<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
-        {
-            var items = All<T>().Where(expression);
-            foreach (T item in items)
-            {
-                Delete(item);
-            }
-        }
+		public void DeleteAll<T>() where T : IMongoEntity
+		{
+			throw new NotImplementedException();
+		}
 
-        public void Delete<T>(T item) where T : IMongoEntity
-        {
-            ExpireCacheToken<T>();
-            _db.GetCollection(typeof(T).Name).Remove(Query.EQ("_id", new ObjectId(item._id)));
-        }
+		#endregion
 
-        public void DeleteAll<T>() where T : IMongoEntity
-        {
-            throw new NotImplementedException();
-        }
+		#region Selector
 
-        #endregion
+		public T GetOne<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
+		{
+			MiniProfiler profiler = MiniProfiler.Current;
+			using (profiler.Step(string.Format("select table {0} query getone {1}", typeof (T).Name, expression)))
+			{
+				return All<T>().Where(expression).SingleOrDefault();
+			}
+		}
 
-        #region Selector
+		public IQueryable<T> All<T>() where T : IMongoEntity
+		{
+			MiniProfiler profiler = MiniProfiler.Current;
+			using (profiler.Step(string.Format("select table {0} query {1}", typeof (T).Name, "all")))
+			{
+				return Get(typeof (T).Name, _db.GetCollection(typeof (T).Name).AsQueryable<T>);
+			}
+		}
 
-        public T GetOne<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
-        {
-            var profiler = MiniProfiler.Current;
-            using (profiler.Step(string.Format("select table {0} query getone {1}", typeof(T).Name, expression)))
-            {
-                return All<T>().Where(expression).SingleOrDefault();
-            }
-        }
+		public IQueryable<T> All<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
+		{
+			MiniProfiler profiler = MiniProfiler.Current;
+			using (profiler.Step(string.Format("select table {0} query All {1}", typeof (T).Name, expression)))
+			{
+				return All<T>().Where(expression);
+			}
+		}
 
-        public IQueryable<T> All<T>() where T : IMongoEntity
-        {
-            var profiler = MiniProfiler.Current;
-            using (profiler.Step(string.Format("select table {0} query {1}", typeof(T).Name, "all")))
-            {
-                return Get<IQueryable<T>>(typeof(T).Name, _db.GetCollection(typeof(T).Name).AsQueryable<T>);
-            }
-        }
+		#endregion
 
-        public IQueryable<T> All<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
-        {
-            var profiler = MiniProfiler.Current;
-            using (profiler.Step(string.Format("select table {0} query All {1}", typeof(T).Name, expression.ToString())))
-            {
-                return All<T>().Where(expression);
-            }
-        }
+		#region Inster
 
-        #endregion
+		public void Add<T>(T item) where T : IMongoEntity
+		{
+			ExpireCacheToken<T>();
+			_db.GetCollection(typeof (T).Name).Save(item);
+		}
 
-        #region Inster
+		public void Add<T>(IEnumerable<T> items) where T : IMongoEntity
+		{
+			foreach (T item in items)
+			{
+				Add(item);
+			}
+		}
 
-        public void Add<T>(T item) where T : IMongoEntity
-        {
-            ExpireCacheToken<T>();
-            _db.GetCollection(typeof(T).Name).Save(item);
-        }
+		#endregion
 
-        public void Add<T>(IEnumerable<T> items) where T : IMongoEntity
-        {
-            foreach (T item in items)
-            {
-                Add(item);
-            }
-        }
+		#region Update
 
-        #endregion
+		public void Update<T>(T item) where T : IMongoEntity
+		{
+			if (GetOne<T>(t => t._id == item._id) != null)
+			{
+				ExpireCacheToken<T>();
+				_db.GetCollection(typeof (T).Name).Save(item);
+			}
+		}
 
-        #region Update
+		#endregion
 
-        public void Update<T>(T item) where T : IMongoEntity
-        {
-            if (this.GetOne<T>(t => t._id == item._id) != null)
-            {
-                ExpireCacheToken<T>();
-                _db.GetCollection(typeof(T).Name).Save<T>(item);
-            }
-        }
+		#region Cache
 
-        #endregion
+		private TC Get<TC>(string cacheId, Func<TC> getItemCallback) where TC : class
+		{
+			var item = HttpRuntime.Cache.Get(cacheId) as TC;
+			if (item == null)
+			{
+				item = getItemCallback();
+				HttpContext.Current.Cache.Insert(cacheId, item);
+				if (!_cacheExpired.ContainsKey(cacheId))
+				{
+					_cacheExpired.Add(cacheId, false);
+				}
+				else
+				{
+					_cacheExpired[cacheId] = false;
+				}
+			}
+			else
+			{
+				if (_cacheExpired.ContainsKey(cacheId))
+				{
+					if (!_cacheExpired[cacheId])
+					{
+						return item;
+					}
 
-        #region Cache
+					item = getItemCallback();
+					HttpContext.Current.Cache.Insert(cacheId, item);
+					_cacheExpired[cacheId] = false;
+				}
+				else
+				{
+					_cacheExpired.Add(cacheId, true);
+				}
+			}
 
-        TC Get<TC>(string cacheId, Func<TC> getItemCallback) where TC : class
-        {
-            var item = HttpRuntime.Cache.Get(cacheId) as TC;
-            if (item == null)
-            {
-                item = getItemCallback();
-                HttpContext.Current.Cache.Insert(cacheId, item);
-                if (!_cacheExpired.ContainsKey(cacheId))
-                {
-                    _cacheExpired.Add(cacheId, false);
-                }
-                else
-                {
-                    _cacheExpired[cacheId] = false;
-                }
-            }
-            else
-            {
-                if (_cacheExpired.ContainsKey(cacheId))
-                {
-                    if (!_cacheExpired[cacheId])
-                    {
-                        return item;
-                    }
+			return getItemCallback();
+		}
 
-                    item = getItemCallback();
-                    HttpContext.Current.Cache.Insert(cacheId, item);
-                    _cacheExpired[cacheId] = false;
-                }
-                else
-                {
-                    _cacheExpired.Add(cacheId, true);
-                }
-            }
+		private void ExpireCacheToken<T>() where T : IMongoEntity
+		{
+			if (!_cacheExpired.ContainsKey(typeof (T).Name))
+			{
+				_cacheExpired.Add(typeof (T).Name, true);
+			}
+			else
+			{
+				_cacheExpired[typeof (T).Name] = true;
+			}
+		}
 
-            return getItemCallback();
-        }
-
-        private void ExpireCacheToken<T>() where T : IMongoEntity
-        {
-            if (!_cacheExpired.ContainsKey(typeof(T).Name))
-            {
-                _cacheExpired.Add(typeof(T).Name, true);
-            }
-            else
-            {
-                _cacheExpired[typeof(T).Name] = true;
-            }
-        }
-
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -2,8 +2,8 @@
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
-    [BsonIgnoreExtraElements]
-    public class BrownField : Project
-    {
-    }
+	[BsonIgnoreExtraElements]
+	public class BrownField : Project
+	{
+	}
 }

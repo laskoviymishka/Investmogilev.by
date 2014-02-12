@@ -9,30 +9,32 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
 	[BsonIgnoreExtraElements]
-	[BsonKnownTypes(typeof(GreenField), typeof(UnUsedBuilding), typeof(BrownField))]
+	[BsonKnownTypes(typeof (GreenField), typeof (UnUsedBuilding), typeof (BrownField))]
 	public class Project : IMongoEntity
 	{
-		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id { get; set; }
-
 		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_Name_Имя_проекта")]
-		[Required(ErrorMessageResourceType = typeof (LocalizationResource), ErrorMessageResourceName = "Project_Name_Введите_имя_проекта")]
+		[Required(ErrorMessageResourceType = typeof (LocalizationResource),
+			ErrorMessageResourceName = "Project_Name_Введите_имя_проекта")]
 		public string Name { get; set; }
 
 		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_Description_Описание_проекта")]
-		[Required(ErrorMessageResourceType = typeof (LocalizationResource), ErrorMessageResourceName = "Project_Description_Введите_описание_проекта")]
+		[Required(ErrorMessageResourceType = typeof (LocalizationResource),
+			ErrorMessageResourceName = "Project_Description_Введите_описание_проекта")]
 		public string Description { get; set; }
 
 		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_Address_Координаты")]
-		[Required(ErrorMessageResourceType = typeof (LocalizationResource), ErrorMessageResourceName = "Project_Address_Координаты_проекта_обязательны")]
+		[Required(ErrorMessageResourceType = typeof (LocalizationResource),
+			ErrorMessageResourceName = "Project_Address_Координаты_проекта_обязательны")]
 		public Address Address { get; set; }
 
 		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_AddressName_Адрес")]
-		[Required(ErrorMessageResourceType = typeof (LocalizationResource), ErrorMessageResourceName = "Project_AddressName_Введите_правильный_адрес")]
+		[Required(ErrorMessageResourceType = typeof (LocalizationResource),
+			ErrorMessageResourceName = "Project_AddressName_Введите_правильный_адрес")]
 		public string AddressName { get; set; }
 
 		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_Region_Регион")]
-		[Required(ErrorMessageResourceType = typeof (LocalizationResource), ErrorMessageResourceName = "Project_Region_Введите_регион")]
+		[Required(ErrorMessageResourceType = typeof (LocalizationResource),
+			ErrorMessageResourceName = "Project_Region_Введите_регион")]
 		public string Region { get; set; }
 
 		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_Tags_Теги")]
@@ -97,5 +99,8 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		}
 
 		public List<InvestorResponse> Responses { get; set; }
+
+		[BsonRepresentation(BsonType.ObjectId)]
+		public string _id { get; set; }
 	}
 }
