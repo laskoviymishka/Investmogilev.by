@@ -19,12 +19,12 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 {
 	public class BaseNotificate
 	{
+		protected const string PassToViews = "~/App_Data/MailTemplate/{0}.cshtml";
+		protected readonly SmtpClient Client;
+		protected readonly ExtendedMembershipProvider Membership;
 		protected readonly IRepository Repository;
 		protected readonly RoleProvider RoleProvider;
-		protected readonly ExtendedMembershipProvider Membership;
 		private readonly PortalNotificationHub _protalNotification;
-		protected readonly SmtpClient Client;
-		protected const string PassToViews = "~/App_Data/MailTemplate/{0}.cshtml";
 
 		protected BaseNotificate(IRepository repository)
 		{
@@ -52,7 +52,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 
 		protected static string GetTemplate(string mailName)
 		{
-			using (var sr = new StreamReader(string.Format(HttpContext.Current.Server.MapPath(PassToViews).ToString(), mailName)))
+			using (var sr = new StreamReader(string.Format(HttpContext.Current.Server.MapPath(PassToViews), mailName)))
 			{
 				return sr.ReadToEnd();
 			}
@@ -76,11 +76,11 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 
 			if (template.UserType == UserType.Admin)
 			{
-				var users = RoleProvider.GetUsersInRole("Admin");
+				string[] users = RoleProvider.GetUsersInRole("Admin");
 
 				foreach (string userName in users)
 				{
-					var user = Membership.GetUser(userName, false);
+					MembershipUser user = Membership.GetUser(userName, false);
 					if (user != null)
 					{
 						Email
@@ -123,11 +123,11 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 
 			if (template.UserType == UserType.User)
 			{
-				var users = RoleProvider.GetUsersInRole("User");
+				string[] users = RoleProvider.GetUsersInRole("User");
 
 				foreach (string userName in users)
 				{
-					var user = Membership.GetUser(userName, false);
+					MembershipUser user = Membership.GetUser(userName, false);
 					if (user != null)
 					{
 						Email

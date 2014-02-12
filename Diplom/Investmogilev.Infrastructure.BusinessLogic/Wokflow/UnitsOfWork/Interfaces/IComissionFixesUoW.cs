@@ -1,14 +1,13 @@
 ﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
-    public interface IComissionFixesUoW
-    {
+	public interface IComissionFixesUoW
+	{
+		void OnWaitComissionFixesExit();
 
-        void OnWaitComissionFixesExit();
+		void OnWaitComissionFixesEntry();
 
-        void OnWaitComissionFixesEntry();
+		bool CouldUpdateComissionFix();
 
-        bool CouldUpdateComissionFix();
-
-        bool CouldUpdateComissionFixAndLeave();
-    }
+		bool CouldUpdateComissionFixAndLeave();
+	}
 }

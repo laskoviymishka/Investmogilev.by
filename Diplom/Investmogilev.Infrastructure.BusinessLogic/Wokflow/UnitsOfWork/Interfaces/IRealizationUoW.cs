@@ -1,14 +1,13 @@
 ﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
-    public interface IRealizationUoW
-    {
+	public interface IRealizationUoW
+	{
+		void OnRealizationExit();
 
-        void OnRealizationExit();
+		void OnRealizationEntry();
 
-        void OnRealizationEntry();
+		bool CouldUpdateRealization();
 
-        bool CouldUpdateRealization();
-
-        bool CouldUpdateRealizationAndLeave();
-    }
+		bool CouldUpdateRealizationAndLeave();
+	}
 }

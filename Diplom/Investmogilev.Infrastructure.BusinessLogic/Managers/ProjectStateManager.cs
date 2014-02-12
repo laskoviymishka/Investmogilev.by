@@ -7,7 +7,6 @@ using Investmogilev.Infrastructure.Common;
 using Investmogilev.Infrastructure.Common.Model.Project;
 using Investmogilev.Infrastructure.Common.Repository;
 using Investmogilev.Infrastructure.Common.State;
-using Investmogilev.Infrastructure.Common.State.StateAttributes;
 using MongoDB.Bson;
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Managers
@@ -113,7 +112,6 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 			{
 				_repository.Update(filledProject);
 			}
-
 		}
 
 		public void ResponsedOnProject(InvestorResponse response)

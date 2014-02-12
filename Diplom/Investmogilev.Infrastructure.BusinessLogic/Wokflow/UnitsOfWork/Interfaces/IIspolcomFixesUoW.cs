@@ -1,14 +1,13 @@
 ﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
-    public interface IIspolcomFixesUoW
-    {
+	public interface IIspolcomFixesUoW
+	{
+		void OnWaitIspolcomFixesExit();
 
-        void OnWaitIspolcomFixesExit();
+		void OnWaitIspolcomFixesEntry();
 
-        void OnWaitIspolcomFixesEntry();
+		bool CouldIspolcomFixUpdate();
 
-        bool CouldIspolcomFixUpdate();
-
-        bool CouldIspolcomFixUpdateAndLeave();
-    }
+		bool CouldIspolcomFixUpdateAndLeave();
+	}
 }

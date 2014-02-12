@@ -1,10 +1,9 @@
 ﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
-    public interface IDoneUoW
-    {
+	public interface IDoneUoW
+	{
+		void OnDoneExit();
 
-        void OnDoneExit();
-
-        void OnDoneEntry();
-    }
+		void OnDoneEntry();
+	}
 }

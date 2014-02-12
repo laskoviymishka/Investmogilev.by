@@ -9,7 +9,7 @@ using Investmogilev.Infrastructure.Common.State.StateAttributes;
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-	[State(typeof(ProjectWorkflow.State), "test", ProjectStatesConstants.OnMap)]
+	[State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.OnMap)]
 	public class OnMapUoW : BaseProjectUoW, IOnMapUoW
 	{
 		public OnMapUoW(Project currentProject,
@@ -60,7 +60,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			GuardCurrentProjectNotNull();
 			CurrentProject = Repository.GetOne<Project>(p => p._id == CurrentProject._id);
 			if (CurrentProject.Address.Lat > 50 && CurrentProject.Address.Lat < 56 && CurrentProject.Address.Lng > 27 &&
-				CurrentProject.Address.Lng < 33)
+			    CurrentProject.Address.Lng < 33)
 			{
 				ProcessMoving(ProjectWorkflow.State.OnMap, "Проект перещел в состояние НА КАРТЕ");
 				AdminNotification.MapEntryNotificate();
@@ -71,35 +71,28 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			}
 		}
 
-		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
+		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
 			ProjectTriggersConstants.RejectDocument, ProjectStatesConstants.OnComission, ProjectStatesConstants.OnMap)]
 		public bool FromOnComissionToOnMap()
 		{
 			return IsAdmin;
 		}
 
-		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
+		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
 			ProjectTriggersConstants.RejectDocument, ProjectStatesConstants.OnIspolcom, ProjectStatesConstants.OnMap)]
 		public bool FromOnIspolcomToOnMap()
 		{
 			return IsAdmin;
 		}
 
-		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
-			ProjectTriggersConstants.FillInformation, ProjectStatesConstants.Open, ProjectStatesConstants.OnMap)]
-		public bool FromOpenToOnMap()
-		{
-			return IsAdmin;
-		}
-
-		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
+		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
 			ProjectTriggersConstants.UpdateInformation, ProjectStatesConstants.OnMap, ProjectStatesConstants.OnMap)]
 		public bool FromOnMapToOnMap()
 		{
 			return IsAdmin;
 		}
 
-		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
+		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
 			ProjectTriggersConstants.RejectDocument, ProjectStatesConstants.WaitComissionFixes,
 			ProjectStatesConstants.OnMap)]
 		public bool FromWaitComissionFixesToOnMap()
@@ -107,7 +100,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			return IsAdmin;
 		}
 
-		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
+		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
 			ProjectTriggersConstants.RejectDocument, ProjectStatesConstants.WaitIspolcomFixes,
 			ProjectStatesConstants.OnMap)]
 		public bool FromWaitIspolcomFixesToOnMap()
@@ -115,14 +108,14 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			return IsAdmin;
 		}
 
-		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
+		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
 			ProjectTriggersConstants.ReOpen, ProjectStatesConstants.OnMap, ProjectStatesConstants.Open)]
 		public bool FromOnMapToOpen()
 		{
 			return IsAdmin;
 		}
 
-		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
+		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
 			ProjectTriggersConstants.InvestorResponsed, ProjectStatesConstants.OnMap,
 			ProjectStatesConstants.InvestorApprove)]
 		public bool FromOnMapToInvestorApprove()
@@ -141,5 +134,12 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 		}
 
 		public IStateContext Context { get; set; }
+
+		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+			ProjectTriggersConstants.FillInformation, ProjectStatesConstants.Open, ProjectStatesConstants.OnMap)]
+		public bool FromOpenToOnMap()
+		{
+			return IsAdmin;
+		}
 	}
 }

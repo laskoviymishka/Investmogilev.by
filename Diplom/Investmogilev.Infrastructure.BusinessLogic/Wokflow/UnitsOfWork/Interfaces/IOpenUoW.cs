@@ -1,11 +1,11 @@
 ﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
-    public interface IOpenUoW
-    {
-        void OnOpenExit();
-        void OnOpenEntry();
+	public interface IOpenUoW
+	{
+		void OnOpenExit();
+		void OnOpenEntry();
 
-        bool FromMapToOpen();
-        bool FromOpenToMap();
-    }
+		bool FromMapToOpen();
+		bool FromOpenToMap();
+	}
 }

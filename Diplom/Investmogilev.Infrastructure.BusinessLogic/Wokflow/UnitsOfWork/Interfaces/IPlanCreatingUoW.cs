@@ -1,14 +1,13 @@
 ﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
-    public interface IPlanCreatingUoW
-    {
+	public interface IPlanCreatingUoW
+	{
+		void OnPlanCreatingExit();
 
-        void OnPlanCreatingExit();
+		void OnPlanCreatingEntry();
 
-        void OnPlanCreatingEntry();
+		bool CouldUpdatePlan();
 
-        bool CouldUpdatePlan();
-
-        bool CouldApprovePlan();
-    }
+		bool CouldApprovePlan();
+	}
 }

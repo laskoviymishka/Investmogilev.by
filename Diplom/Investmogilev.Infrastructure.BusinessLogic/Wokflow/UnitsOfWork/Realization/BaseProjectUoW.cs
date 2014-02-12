@@ -8,113 +8,113 @@ using Investmogilev.Infrastructure.Common.State;
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
-    public class BaseProjectUoW
-    {
-        #region Protected const
+	public class BaseProjectUoW
+	{
+		#region Protected const
 
-        protected const string ADMIN_ROLE = "Admin";
-        protected const string INVESTOR_ROLE = "Investor";
-        protected const string RAYON_ROLE = "User";
+		protected const string ADMIN_ROLE = "Admin";
+		protected const string INVESTOR_ROLE = "Investor";
+		protected const string RAYON_ROLE = "User";
 
-        #endregion
+		#endregion
 
-        #region Protected Fields
+		#region Protected Fields
 
-        protected readonly IAdminNotification AdminNotification;
-        protected readonly IInvestorNotification InvestorNotification;
-        protected readonly IRepository Repository;
-        protected readonly IEnumerable<string> Roles;
-        protected readonly string UserName;
-        protected readonly IUserNotification UserNotification;
-        protected Project CurrentProject;
+		protected readonly IAdminNotification AdminNotification;
+		protected readonly IInvestorNotification InvestorNotification;
+		protected readonly IRepository Repository;
+		protected readonly IEnumerable<string> Roles;
+		protected readonly string UserName;
+		protected readonly IUserNotification UserNotification;
+		protected Project CurrentProject;
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        protected BaseProjectUoW(Project currentProject,
-            IRepository repository,
-            IUserNotification userNotification,
-            IAdminNotification adminNotification,
-            IInvestorNotification investorNotification,
-            string userName,
-            IEnumerable<string> roles)
-        {
-            CurrentProject = currentProject;
-            Repository = repository;
-            UserNotification = userNotification;
-            AdminNotification = adminNotification;
-            InvestorNotification = investorNotification;
-            UserName = userName;
-            Roles = roles;
-        }
+		protected BaseProjectUoW(Project currentProject,
+			IRepository repository,
+			IUserNotification userNotification,
+			IAdminNotification adminNotification,
+			IInvestorNotification investorNotification,
+			string userName,
+			IEnumerable<string> roles)
+		{
+			CurrentProject = currentProject;
+			Repository = repository;
+			UserNotification = userNotification;
+			AdminNotification = adminNotification;
+			InvestorNotification = investorNotification;
+			UserName = userName;
+			Roles = roles;
+		}
 
-        #endregion
+		#endregion
 
-        #region Protected Fields
+		#region Protected Fields
 
-        protected bool IsProjectInvestor
-        {
-            get { return CurrentProject.InvestorUser == UserName && Roles.Any(r => r == INVESTOR_ROLE); }
-        }
+		protected bool IsProjectInvestor
+		{
+			get { return CurrentProject.InvestorUser == UserName && Roles.Any(r => r == INVESTOR_ROLE); }
+		}
 
-        protected bool IsAdmin
-        {
-            get { return Roles.Any(r => r == ADMIN_ROLE); }
-        }
+		protected bool IsAdmin
+		{
+			get { return Roles.Any(r => r == ADMIN_ROLE); }
+		}
 
-        protected bool IsUser
-        {
-            get { return Roles.Any(r => r == RAYON_ROLE); }
-        }
+		protected bool IsUser
+		{
+			get { return Roles.Any(r => r == RAYON_ROLE); }
+		}
 
-        protected bool IsAllTaskForStepComplete
-        {
-            get
-            {
-                return
-                    CurrentProject.Tasks.Any(t => t.Step == CurrentProject.WorkflowState.CurrentState && !t.IsComplete);
-            }
-        }
+		protected bool IsAllTaskForStepComplete
+		{
+			get
+			{
+				return
+					CurrentProject.Tasks.Any(t => t.Step == CurrentProject.WorkflowState.CurrentState && !t.IsComplete);
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Guard
+		#region Guard
 
-        protected void GuardCurrentProjectNotNull()
-        {
-            if (CurrentProject == null)
-            {
-                throw new ArgumentNullException("CurrentProject");
-            }
-        }
+		protected void GuardCurrentProjectNotNull()
+		{
+			if (CurrentProject == null)
+			{
+				throw new ArgumentNullException("CurrentProject");
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Protected Helpers
+		#region Protected Helpers
 
-        protected void ProcessMoving(ProjectWorkflow.State initialState, string bodyMessage)
-        {
-            GuardCurrentProjectNotNull();
+		protected void ProcessMoving(ProjectWorkflow.State initialState, string bodyMessage)
+		{
+			GuardCurrentProjectNotNull();
 
-            if (CurrentProject.WorkflowState.History == null)
-            {
-                CurrentProject.WorkflowState.History = new List<History>();
-            }
+			if (CurrentProject.WorkflowState.History == null)
+			{
+				CurrentProject.WorkflowState.History = new List<History>();
+			}
 
-            CurrentProject.WorkflowState.History.Add(new History
-            {
-                EditingTime = DateTime.Now,
-                Editor = UserName,
-                To = initialState,
-                From = CurrentProject.WorkflowState.CurrentState,
-                Body = bodyMessage
-            });
+			CurrentProject.WorkflowState.History.Add(new History
+			{
+				EditingTime = DateTime.Now,
+				Editor = UserName,
+				To = initialState,
+				From = CurrentProject.WorkflowState.CurrentState,
+				Body = bodyMessage
+			});
 
-            CurrentProject.WorkflowState.CurrentState = initialState;
-            Repository.Update(CurrentProject);
-        }
+			CurrentProject.WorkflowState.CurrentState = initialState;
+			Repository.Update(CurrentProject);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

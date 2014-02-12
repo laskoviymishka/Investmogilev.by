@@ -57,7 +57,6 @@
     <Compile Include="Managers\AdditionalInfoManager.cs" />
     <Compile Include="Managers\ProjectStateManager.cs" />
     <Compile Include="Managers\ReportManager.cs" />
-    <Compile Include="Managers\TaskManager.cs" />
     <Compile Include="Notification\AdminNotification.cs" />
     <Compile Include="Notification\BaseNotificate.cs" />
     <Compile Include="Notification\IAdminNotification.cs" />
@@ -129,8 +128,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Views\Emails\FillInfomrationAdminMail.cshtml" />
-    <None Include="Views\Emails\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="razormachine.readme.txt" />

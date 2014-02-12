@@ -1,14 +1,13 @@
 ﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
-    public interface IOnComissionUoW
-    {
+	public interface IOnComissionUoW
+	{
+		void OnOnComissionExit();
 
-        void OnOnComissionExit();
+		void OnOnComissionEntry();
 
-        void OnOnComissionEntry();
+		bool CouldComissionFix();
 
-        bool CouldComissionFix();
-
-        bool CouldToIspolcom();
-    }
+		bool CouldToIspolcom();
+	}
 }

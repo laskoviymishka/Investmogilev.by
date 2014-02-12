@@ -1,12 +1,11 @@
 ﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
-    public interface IMinEconomyUoW
-    {
+	public interface IMinEconomyUoW
+	{
+		void OnInMinEconomyExit();
 
-        void OnInMinEconomyExit();
+		void OnInMinEconomyEntry();
 
-        void OnInMinEconomyEntry();
-
-        bool CouldMinEconomyResponsed();
-    }
+		bool CouldMinEconomyResponsed();
+	}
 }

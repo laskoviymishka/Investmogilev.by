@@ -1,12 +1,11 @@
 ﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
-    public interface IWaitInvolvedUoW
-    {
+	public interface IWaitInvolvedUoW
+	{
+		void OnWaitInvolvedExit();
 
-        void OnWaitInvolvedExit();
+		void OnWaitInvolvedEntry();
 
-        void OnWaitInvolvedEntry();
-
-        bool CouldFillInvolvedOrganization();
-    }
+		bool CouldFillInvolvedOrganization();
+	}
 }
