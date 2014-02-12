@@ -5,8 +5,8 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 	[AttributeUsage(AttributeTargets.Class)]
 	public class StateAttribute : Attribute
 	{
-		private readonly Type _stateType;
 		private readonly string _state;
+		private readonly Type _stateType;
 
 		public StateAttribute(string stateMachineName, string state)
 		{

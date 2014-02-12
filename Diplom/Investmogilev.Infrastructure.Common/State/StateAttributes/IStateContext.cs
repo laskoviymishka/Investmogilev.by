@@ -1,6 +1,6 @@
 ﻿namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
-    public interface IStateContext
-    {
-    }
+	public interface IStateContext
+	{
+	}
 }

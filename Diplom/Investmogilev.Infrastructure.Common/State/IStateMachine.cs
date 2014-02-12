@@ -2,10 +2,9 @@
 {
 	public interface IStateMachine<TS> where TS : class
 	{
+		TS GetState { get; }
 		bool TryFireTrigger(string trigger);
 
 		bool CanFire(string trigger);
-
-		TS GetState { get; }
 	}
 }

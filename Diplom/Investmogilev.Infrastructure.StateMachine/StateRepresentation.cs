@@ -9,21 +9,46 @@ namespace Investmogilev.Infrastructure.StateMachine
 	{
 		internal class StateRepresentation
 		{
-			readonly TState _state;
+			private readonly ICollection<Action<Transition, object[]>> _entryActions = new List<Action<Transition, object[]>>();
+			private readonly ICollection<Action<Transition>> _exitActions = new List<Action<Transition>>();
+			private readonly TState _state;
 
-			readonly IDictionary<TTrigger, ICollection<TriggerBehaviour>> _triggerBehaviours =
+			private readonly ICollection<StateRepresentation> _substates = new List<StateRepresentation>();
+
+			private readonly IDictionary<TTrigger, ICollection<TriggerBehaviour>> _triggerBehaviours =
 				new Dictionary<TTrigger, ICollection<TriggerBehaviour>>();
 
-			readonly ICollection<Action<Transition, object[]>> _entryActions = new List<Action<Transition, object[]>>();
-			readonly ICollection<Action<Transition>> _exitActions = new List<Action<Transition>>();
-
-			StateRepresentation _superstate; // null
-
-			readonly ICollection<StateRepresentation> _substates = new List<StateRepresentation>();
+			private StateRepresentation _superstate; // null
 
 			public StateRepresentation(TState state)
 			{
 				_state = state;
+			}
+
+			public StateRepresentation Superstate
+			{
+				get { return _superstate; }
+				set { _superstate = value; }
+			}
+
+			public TState UnderlyingState
+			{
+				get { return _state; }
+			}
+
+			public IEnumerable<TTrigger> PermittedTriggers
+			{
+				get
+				{
+					IEnumerable<TTrigger> result = _triggerBehaviours
+						.Where(t => t.Value.Any(a => a.IsGuardConditionMet))
+						.Select(t => t.Key);
+
+					if (Superstate != null)
+						result = result.Union(Superstate.PermittedTriggers);
+
+					return result.ToArray();
+				}
 			}
 
 			public bool CanHandle(TTrigger trigger)
@@ -35,10 +60,10 @@ namespace Investmogilev.Infrastructure.StateMachine
 			public bool TryFindHandler(TTrigger trigger, out TriggerBehaviour handler)
 			{
 				return (TryFindLocalHandler(trigger, out handler) ||
-					(Superstate != null && Superstate.TryFindHandler(trigger, out handler)));
+				        (Superstate != null && Superstate.TryFindHandler(trigger, out handler)));
 			}
 
-			bool TryFindLocalHandler(TTrigger trigger, out TriggerBehaviour handler)
+			private bool TryFindLocalHandler(TTrigger trigger, out TriggerBehaviour handler)
 			{
 				ICollection<TriggerBehaviour> possible;
 				if (!_triggerBehaviours.TryGetValue(trigger, out possible))
@@ -47,12 +72,12 @@ namespace Investmogilev.Infrastructure.StateMachine
 					return false;
 				}
 
-				var actual = possible.Where(at => at.IsGuardConditionMet).ToArray();
+				TriggerBehaviour[] actual = possible.Where(at => at.IsGuardConditionMet).ToArray();
 
 				if (actual.Count() > 1)
 					throw new InvalidOperationException(
 						string.Format(StateMachineResources.MultipleTransitionsPermitted,
-						trigger, _state));
+							trigger, _state));
 
 				handler = actual.FirstOrDefault();
 				return handler != null;
@@ -111,7 +136,7 @@ namespace Investmogilev.Infrastructure.StateMachine
 				}
 			}
 
-			void ExecuteEntryActions(Transition transition, object[] entryArgs)
+			private void ExecuteEntryActions(Transition transition, object[] entryArgs)
 			{
 				Enforce.ArgumentNotNull(transition, "transtion");
 				Enforce.ArgumentNotNull(entryArgs, "entryArgs");
@@ -119,7 +144,7 @@ namespace Investmogilev.Infrastructure.StateMachine
 					action(transition, entryArgs);
 			}
 
-			void ExecuteExitActions(Transition transition)
+			private void ExecuteExitActions(Transition transition)
 			{
 				Enforce.ArgumentNotNull(transition, "transtion");
 				foreach (var action in _exitActions)
@@ -135,26 +160,6 @@ namespace Investmogilev.Infrastructure.StateMachine
 					_triggerBehaviours.Add(triggerBehaviour.Trigger, allowed);
 				}
 				allowed.Add(triggerBehaviour);
-			}
-
-			public StateRepresentation Superstate
-			{
-				get
-				{
-					return _superstate;
-				}
-				set
-				{
-					_superstate = value;
-				}
-			}
-
-			public TState UnderlyingState
-			{
-				get
-				{
-					return _state;
-				}
 			}
 
 			public void AddSubstate(StateRepresentation substate)
@@ -173,21 +178,6 @@ namespace Investmogilev.Infrastructure.StateMachine
 				return
 					_state.Equals(state) ||
 					(_superstate != null && _superstate.IsIncludedIn(state));
-			}
-
-			public IEnumerable<TTrigger> PermittedTriggers
-			{
-				get
-				{
-					var result = _triggerBehaviours
-						.Where(t => t.Value.Any(a => a.IsGuardConditionMet))
-						.Select(t => t.Key);
-
-					if (Superstate != null)
-						result = result.Union(Superstate.PermittedTriggers);
-
-					return result.ToArray();
-				}
 			}
 		}
 	}

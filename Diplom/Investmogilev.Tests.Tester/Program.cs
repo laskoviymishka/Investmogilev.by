@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Investmogilev.Infrastructure.BusinessLogic.Notification;
 using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
 using Investmogilev.Infrastructure.Common;
 using Investmogilev.Infrastructure.Common.Model.Project;
 using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.Repository.EF;
 using Investmogilev.Infrastructure.Common.State;
 using Investmogilev.Infrastructure.Common.State.StateAttributes;
+using MongoDB.Bson;
 
 namespace Investmogilev.Tests.Tester
 {
@@ -26,43 +29,46 @@ namespace Investmogilev.Tests.Tester
 
 		static void Main(string[] args)
 		{
-			var _currentUser = "";
-			_roles = new List<string>() { "Admin" };
-			_investorNotificate = new InvestorNotification();
-			_adminNotificate = new AdminNotification();
-			_userNotificationl = new UserNotification();
-			_currentProject = new GreenField();
-			var _unitsOfWork = new UnitsOfWorkContainer(_currentProject,
-				  new MongoRepository("mongodb://178.124.129.147/", "Projects"),
-				 _userNotificationl,
-				 _adminNotificate,
-				 _investorNotificate,
-				 _currentUser, _roles);
+			//var _currentUser = "";
+			//_roles = new List<string>() { "Admin" };
+			//_investorNotificate = new InvestorNotification();
+			//_adminNotificate = new AdminNotification();
+			//_userNotificationl = new UserNotification();
+			//_currentProject = new GreenField();
+			//var _unitsOfWork = new UnitsOfWorkContainer(_currentProject,
+			//	  new MongoRepository("mongodb://178.124.129.147/", "Projects"),
+			//	 _userNotificationl,
+			//	 _adminNotificate,
+			//	 _investorNotificate,
+			//	 _currentUser, _roles);
 
-			if (_currentProject.WorkflowState == null)
-			{
-				_currentProject.WorkflowState = new Workflow()
-				{
-					CurrentState = ProjectWorkflow.State.Open
-				};
-			}
-			//_workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
-			//_workflow.IsMoveablde(ProjectWorkflow.Trigger.FillInformation);
-			var builder = new AttributeStateMachineBuilder();
-			ProjectStateContext context = new ProjectStateContext();
-			context.AdminNotification = _adminNotificate;
-			context.CurrentProject = _currentProject;
-			context.InvestorNotification = _investorNotificate;
-			context.Repository = _repository;
-			context.Roles = _roles;
-			context.UserName = _currentUser;
-			context.UserNotification = _userNotificationl;
-			var statemachine = builder
-				.BuilStateMachine<ProjectWorkflow.State, ProjectWorkflow.Trigger>(
-					"test",
-					context,
-					_currentProject.WorkflowState.CurrentState);
-			Console.Write(statemachine.CanFire(ProjectWorkflow.Trigger.FillInformation));
+			//if (_currentProject.WorkflowState == null)
+			//{
+			//	_currentProject.WorkflowState = new Workflow()
+			//	{
+			//		CurrentState = ProjectWorkflow.State.Open
+			//	};
+			//}
+			////_workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
+			////_workflow.IsMoveablde(ProjectWorkflow.Trigger.FillInformation);
+			//var builder = new AttributeStateMachineBuilder();
+			//ProjectStateContext context = new ProjectStateContext();
+			//context.AdminNotification = _adminNotificate;
+			//context.CurrentProject = _currentProject;
+			//context.InvestorNotification = _investorNotificate;
+			//context.Repository = _repository;
+			//context.Roles = _roles;
+			//context.UserName = _currentUser;
+			//context.UserNotification = _userNotificationl;
+			//var statemachine = builder
+			//	.BuilStateMachine<ProjectWorkflow.State, ProjectWorkflow.Trigger>(
+			//		"test",
+			//		context,
+			//		_currentProject.WorkflowState.CurrentState);
+			//Console.Write(statemachine.CanFire(ProjectWorkflow.Trigger.FillInformation));
+			ProjectDataContext db = new ProjectDataContext();
+			db.Projects.Add(new GreenField() {_id = ObjectId.GenerateNewId().ToString()});
+			db.SaveChanges();
 		}
 		//private static void GenerateDependendenciesValues()
 		//{

@@ -3,65 +3,59 @@ using Investmogilev.Infrastructure.StateMachine;
 
 namespace Investmogilev.Infrastructure.Common.State
 {
-    public class ProjectUpdateStateMachine
-    {
-        #region PrivateFields
+	public class ProjectUpdateStateMachine
+	{
+		#region PrivateFields
 
-        private readonly StateMachine<ProjectUpdatedStates, ProjectUpdatedTriggers> _stateMachine;
-        private readonly string _userName;
-        private readonly string[] _userRole;
-        private readonly Project _currentProject;
+		private readonly Project _currentProject;
+		private readonly StateMachine<ProjectUpdatedStates, ProjectUpdatedTriggers> _stateMachine;
+		private readonly string _userName;
+		private readonly string[] _userRole;
 
-        #endregion
+		#endregion
 
-        #region Configure
+		#region Configure
 
-        public ProjectUpdateStateMachine()
-        {
+		#endregion
 
-        }
+		#region OnEntry Methods
 
-        #endregion
+		#endregion
 
-        #region OnEntry Methods
+		#region Guard Methods
 
-        #endregion
+		#endregion
 
-        #region Guard Methods
+		#region Configure
 
-        #endregion
+		private void Configure()
+		{
+		}
 
-        #region Configure
+		#endregion
+	}
 
-        private void Configure()
-        {
+	#region Project State Enums
 
-        }
+	public enum ProjectUpdatedStates
+	{
+		Proposed = 0,
+		OnMap = 1,
+		InvestorResponsed = 2,
+		InvestorApprove = 3,
+		RequestPassing = 4,
+		MileStonePassing = 5,
+		Done = 6
+	}
 
-        #endregion
-    }
+	public enum ProjectUpdatedTriggers
+	{
+		FillProject = 0,
+		InvestorResponse = 1,
+		InvestorApprove = 2,
+		RequestUpdate = 3,
+		MilestoneUpdate = 4
+	}
 
-    #region Project State Enums
-
-    public enum ProjectUpdatedStates
-    {
-        Proposed = 0,
-        OnMap = 1,
-        InvestorResponsed = 2,
-        InvestorApprove = 3,
-        RequestPassing = 4,
-        MileStonePassing = 5,
-        Done = 6
-    }
-
-    public enum ProjectUpdatedTriggers
-    {
-        FillProject = 0,
-        InvestorResponse = 1,
-        InvestorApprove = 2,
-        RequestUpdate = 3,
-        MilestoneUpdate = 4
-    }
-
-    #endregion
+	#endregion
 }

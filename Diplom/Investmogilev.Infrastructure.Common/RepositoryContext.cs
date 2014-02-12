@@ -39,7 +39,8 @@ namespace Investmogilev.Infrastructure.Common
 			IRepository session = GetSession();
 			if (session == null)
 			{
-				session = new MongoRepository(WebConfigurationManager.AppSettings["mongoServer"], WebConfigurationManager.AppSettings["mongoBase"]);
+				session = new MongoRepository(WebConfigurationManager.AppSettings["mongoServer"],
+					WebConfigurationManager.AppSettings["mongoBase"]);
 
 				SaveSession(session);
 			}
@@ -53,26 +54,20 @@ namespace Investmogilev.Infrastructure.Common
 			{
 				if (HttpContext.Current.Items.Contains(HTTPCONTEXTKEY))
 				{
-					return (IRepository)HttpContext.Current.Items[HTTPCONTEXTKEY];
+					return (IRepository) HttpContext.Current.Items[HTTPCONTEXTKEY];
 				}
 
 				return null;
 			}
-			else
+			Thread thread = Thread.CurrentThread;
+			if (string.IsNullOrEmpty(thread.Name))
 			{
-				Thread thread = Thread.CurrentThread;
-				if (string.IsNullOrEmpty(thread.Name))
-				{
-					thread.Name = Guid.NewGuid().ToString();
-					return null;
-				}
-				else
-				{
-					lock (_threads.SyncRoot)
-					{
-						return (IRepository)_threads[Thread.CurrentThread.Name];
-					}
-				}
+				thread.Name = Guid.NewGuid().ToString();
+				return null;
+			}
+			lock (_threads.SyncRoot)
+			{
+				return (IRepository) _threads[Thread.CurrentThread.Name];
 			}
 		}
 

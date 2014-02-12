@@ -1,10 +1,6 @@
 ﻿namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
-    public class StateActivatorAttribute
-    {
-        public StateActivatorAttribute()
-        {
-
-        }
-    }
+	public class StateActivatorAttribute
+	{
+	}
 }

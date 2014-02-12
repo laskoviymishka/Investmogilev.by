@@ -1,16 +1,16 @@
 ﻿namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
-    public abstract class BaseState : IState
-    {
-        protected BaseState(IStateContext context)
-        {
-            Context = context;
-        }
+	public abstract class BaseState : IState
+	{
+		protected BaseState(IStateContext context)
+		{
+			Context = context;
+		}
 
-        public abstract void OnEntry();
+		public abstract void OnEntry();
 
-        public abstract void OnExit();
+		public abstract void OnExit();
 
-        public IStateContext Context { get; set; }
-    }
+		public IStateContext Context { get; set; }
+	}
 }

@@ -317,7 +317,6 @@
     <Compile Include="App_Start\DoubleBinder.cs" />
     <Compile Include="App_Start\MetroUICSSBundleConfig.cs" />
     <Compile Include="App_Start\MiniProfiler.cs" />
-    <Compile Include="App_Start\ProfilingFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdditionalInfoController.cs" />
     <Compile Include="Controllers\BaseProjectController.cs" />
