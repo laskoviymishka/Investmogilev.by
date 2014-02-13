@@ -6,7 +6,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Security;
+using Investmogilev.Infrastructure.Common;
 using Investmogilev.Infrastructure.Common.Model.User;
+using Investmogilev.Infrastructure.Common.Repository;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
@@ -18,6 +20,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 	{
 		#region Private Fields
 
+		private readonly IRepository _repository;
 		private bool enablePasswordReset;
 		private bool enablePasswordRetrieval;
 		private int maxInvalidPasswordAttempts;
@@ -29,6 +32,15 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 		private string passwordStrengthRegularExpression;
 		private bool requiresQuestionAndAnswer;
 		private bool requiresUniqueEmail;
+
+		#endregion
+
+		#region Constructor
+
+		public MongoMembership()
+		{
+			_repository = RepositoryContext.Current;
+		}
 
 		#endregion
 
@@ -92,11 +104,9 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override bool ChangePassword(string username, string oldPassword, string newPassword)
 		{
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.EQ("LoweredUsername", username.ToLowerInvariant()));
-			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
-
-			if (!VerifyPassword(bsonDocument, oldPassword))
+			var user =
+				_repository.GetOne<Users>(u => u.ApplicationName == ApplicationName && u.LoweredUsername == username.ToLower());
+			if (!VerifyPassword(user, oldPassword))
 			{
 				return false;
 			}
@@ -109,28 +119,28 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 				throw new MembershipPasswordException(validatePasswordEventArgs.FailureInformation.Message);
 			}
 
-			UpdateBuilder update = Update.Set("LastPasswordChangedDate", DateTime.UtcNow)
-				.Set("Password", EncodePassword(newPassword, PasswordFormat, bsonDocument["Salt"].AsString));
-			mongoCollection.Update(query, update);
-
+			user.LastPasswordChangedDate = DateTime.UtcNow;
+			user.Password = EncodePassword(newPassword, PasswordFormat, user.Salt);
+			_repository.Update(user);
 			return true;
 		}
 
 		public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion,
 			string newPasswordAnswer)
 		{
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.EQ("LoweredUsername", username.ToLowerInvariant()));
-			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
+			var user =
+				_repository.GetOne<Users>(u => u.ApplicationName == ApplicationName && u.LoweredUsername == username.ToLower());
 
-			if (!VerifyPassword(bsonDocument, password))
+			if (!VerifyPassword(user, password))
 			{
 				return false;
 			}
 
-			UpdateBuilder update = Update.Set("PasswordQuestion", newPasswordQuestion)
-				.Set("PasswordAnswer", EncodePassword(newPasswordAnswer, PasswordFormat, bsonDocument["Salt"].AsString));
-			return mongoCollection.Update(query, update).Ok;
+			user.PasswordQuestion = newPasswordQuestion;
+			user.PasswordAnswer = EncodePassword(newPasswordAnswer, PasswordFormat, user.Salt);
+
+			_repository.Update(user);
+			return true;
 		}
 
 		public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion,
@@ -188,65 +198,64 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 			DateTime creationDate = DateTime.UtcNow;
 
-			var bsonDocument = new BsonDocument
+			var user = new Users
 			{
-				{"ID", new ObjectId()},
-				{"ApplicationName", ApplicationName},
-				{"CreationDate", creationDate},
-				{"Email", email},
-				{"FailedPasswordAnswerAttemptCount", 0},
-				{"FailedPasswordAnswerAttemptWindowStart", creationDate},
-				{"FailedPasswordAttemptCount", 0},
-				{"FailedPasswordAttemptWindowStart", creationDate},
-				{"IsApproved", isApproved},
-				{"IsLockedOut", false},
-				{"LastActivityDate", creationDate},
-				{"LastLockoutDate", new DateTime(1970, 1, 1)},
-				{"LastLoginDate", creationDate},
-				{"LastPasswordChangedDate", creationDate},
-				{"LoweredEmail", email != null ? email.ToLowerInvariant() : null},
-				{"LoweredUsername", username.ToLowerInvariant()},
-				{"Password", EncodePassword(password, PasswordFormat, salt)},
-				{"PasswordAnswer", EncodePassword(passwordAnswer, PasswordFormat, salt)},
-				{"PasswordQuestion", passwordQuestion},
-				{"Salt", salt},
-				{"Username", username}
+				Id = ObjectId.GenerateNewId().ToString(),
+				ApplicationName = ApplicationName,
+				CreationDate = creationDate,
+				Email = email,
+				FailedPasswordAnswerAttemptCount = 0,
+				FailedPasswordAnswerAttemptWindowStart = creationDate,
+				FailedPasswordAttemptCount = 0,
+				FailedPasswordAttemptWindowStart = creationDate,
+				IsApproved = isApproved,
+				IsLockedOut = false,
+				LastActivityDate = creationDate,
+				LastLockoutDate = new DateTime(1970, 1, 1),
+				LastLoginDate = creationDate,
+				LastPasswordChangedDate = creationDate,
+				LoweredEmail = email != null ? email.ToLowerInvariant() : null,
+				LoweredUsername = username.ToLowerInvariant(),
+				Password = EncodePassword(password, PasswordFormat, salt),
+				PasswordAnswer = EncodePassword(passwordAnswer, PasswordFormat, salt),
+				PasswordQuestion = passwordQuestion,
+				Salt = salt,
+				Username = username
 			};
-
-			mongoCollection.Insert(bsonDocument);
+			_repository.Add(user);
 			status = MembershipCreateStatus.Success;
 			return GetUser(username, false);
 		}
 
 		public override bool DeleteUser(string username, bool deleteAllRelatedData)
 		{
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.EQ("LoweredUsername", username.ToLowerInvariant()));
-
-			WriteConcernResult writeConcernResult = mongoCollection.Remove(query, WriteConcern.Acknowledged);
-
-			if (writeConcernResult != null)
+			try
 			{
-				return writeConcernResult.DocumentsAffected >= 1;
+				_repository.Delete<Users>(u => u.LoweredUsername == username && u.ApplicationName == ApplicationName);
+				return true;
 			}
-
-			return false;
+			catch
+			{
+				return false;
+			}
 		}
 
 		public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize,
 			out int totalRecords)
 		{
 			var membershipUsers = new MembershipUserCollection();
-
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.Matches("LoweredEmail", emailToMatch.ToLowerInvariant()));
-			totalRecords = (int) mongoCollection.FindAs<BsonDocument>(query).Count();
+			totalRecords =
+				_repository.All<Users>(
+					u => u.ApplicationName == ApplicationName && u.LoweredEmail == emailToMatch.ToLowerInvariant()).Count();
 
 			foreach (
-				BsonDocument bsonDocument in
-					mongoCollection.FindAs<BsonDocument>(query).SetSkip(pageIndex*pageSize).SetLimit(pageSize))
+				Users userToConvert in
+					_repository.All<Users>(
+						u => u.ApplicationName == ApplicationName && u.LoweredEmail == emailToMatch.ToLowerInvariant())
+						.Skip(pageIndex*pageSize)
+						.Take(pageSize))
 			{
-				membershipUsers.Add(ToMembershipUser(bsonDocument));
+				membershipUsers.Add(ToMembershipUser(userToConvert));
 			}
 
 			return membershipUsers;
@@ -256,17 +265,20 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 			out int totalRecords)
 		{
 			var membershipUsers = new MembershipUserCollection();
-
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.Matches("LoweredUsername", usernameToMatch.ToLowerInvariant()));
-			totalRecords = (int) mongoCollection.FindAs<BsonDocument>(query).Count();
+			totalRecords =
+				_repository.All<Users>(
+					u => u.ApplicationName == ApplicationName && u.LoweredUsername == usernameToMatch.ToLowerInvariant()).Count();
 
 			foreach (
-				BsonDocument bsonDocument in
-					mongoCollection.FindAs<BsonDocument>(query).SetSkip(pageIndex*pageSize).SetLimit(pageSize))
+				Users userToConvert in
+					_repository.All<Users>(
+						u => u.ApplicationName == ApplicationName && u.LoweredUsername == usernameToMatch.ToLowerInvariant())
+						.Skip(pageIndex*pageSize)
+						.Take(pageSize))
 			{
-				membershipUsers.Add(ToMembershipUser(bsonDocument));
+				membershipUsers.Add(ToMembershipUser(userToConvert));
 			}
+
 
 			return membershipUsers;
 		}
@@ -274,15 +286,18 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 		public override MembershipUserCollection GetAllUsers(int pageIndex, int pageSize, out int totalRecords)
 		{
 			var membershipUsers = new MembershipUserCollection();
-
-			IMongoQuery query = Query.EQ("ApplicationName", ApplicationName);
-			totalRecords = (int) mongoCollection.FindAs<BsonDocument>(query).Count();
+			totalRecords =
+				_repository.All<Users>(
+					u => u.ApplicationName == ApplicationName).Count();
 
 			foreach (
-				BsonDocument bsonDocument in
-					mongoCollection.FindAs<BsonDocument>(query).SetSkip(pageIndex*pageSize).SetLimit(pageSize))
+				Users userToConvert in
+					_repository.All<Users>(
+						u => u.ApplicationName == ApplicationName)
+						.Skip(pageIndex*pageSize)
+						.Take(pageSize))
 			{
-				membershipUsers.Add(ToMembershipUser(bsonDocument));
+				membershipUsers.Add(ToMembershipUser(userToConvert));
 			}
 
 			return membershipUsers;
@@ -291,10 +306,8 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 		public override int GetNumberOfUsersOnline()
 		{
 			TimeSpan timeSpan = TimeSpan.FromMinutes(Membership.UserIsOnlineTimeWindow);
-			return
-				(int)
-					mongoCollection.Count(Query.And(Query.EQ("ApplicationName", ApplicationName),
-						Query.GT("LastActivityDate", DateTime.UtcNow.Subtract(timeSpan))));
+			return _repository.All<Users>(
+				u => u.ApplicationName == ApplicationName && u.LastActivityDate > DateTime.UtcNow.Subtract(timeSpan)).Count();
 		}
 
 		public override string GetPassword(string username, string answer)
@@ -304,55 +317,51 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 				throw new NotSupportedException("This Membership Provider has not been configured to support password retrieval.");
 			}
 
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.EQ("LoweredUsername", username.ToLowerInvariant()));
-			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
+			var user = _repository.GetOne<Users>(u => u.ApplicationName == ApplicationName && u.LoweredUsername == username.ToLowerInvariant());
 
-			if (RequiresQuestionAndAnswer && !VerifyPasswordAnswer(bsonDocument, answer))
+			if (RequiresQuestionAndAnswer && !VerifyPasswordAnswer(user, answer))
 			{
 				throw new MembershipPasswordException("The password-answer supplied is invalid.");
 			}
 
-			return DecodePassword(bsonDocument["Password"].AsString, PasswordFormat);
+			return DecodePassword(user.Password, PasswordFormat);
 		}
 
 		public override MembershipUser GetUser(string username, bool userIsOnline)
 		{
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.EQ("LoweredUsername", username.ToLowerInvariant()));
-			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
-
-			if (bsonDocument == null)
+			var user =
+				_repository.GetOne<Users>(
+					u => u.LoweredUsername == username.ToLowerInvariant() && u.ApplicationName == ApplicationName);
+			if (user == null)
 			{
 				return null;
 			}
 
 			if (userIsOnline)
 			{
-				UpdateBuilder update = Update.Set("LastActivityDate", DateTime.UtcNow);
-				mongoCollection.Update(query, update);
+				user.LastActivityDate = DateTime.UtcNow;
+				_repository.Update(user);
 			}
 
-			return ToMembershipUser(bsonDocument);
+			return ToMembershipUser(user);
 		}
 
 		public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
 		{
-			IMongoQuery query = Query.EQ("ID", GenerateObjectId(providerUserKey));
-			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
+			var user = _repository.GetOne<Users>(u => u.Id == providerUserKey);
 
-			if (bsonDocument == null)
+			if (user == null)
 			{
 				return null;
 			}
 
 			if (userIsOnline)
 			{
-				UpdateBuilder update = Update.Set("LastActivityDate", DateTime.UtcNow);
-				mongoCollection.Update(query, update);
+				user.LastActivityDate = DateTime.UtcNow;
+				_repository.Update(user);
 			}
 
-			return ToMembershipUser(bsonDocument);
+			return ToMembershipUser(user);
 		}
 
 		private static ObjectId GenerateObjectId(object providerUserKey)
@@ -368,11 +377,8 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 			{
 				return null;
 			}
-
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.EQ("LoweredEmail", email.ToLowerInvariant()));
-			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
-			return bsonDocument != null ? bsonDocument["Username"].AsString : null;
+			var user = _repository.GetOne<Users>(u => u.LoweredEmail == email.ToLowerInvariant());
+			return user != null ? user.Username : null;
 		}
 
 		public override void Initialize(string name, NameValueCollection config)
@@ -414,78 +420,68 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 				throw new NotSupportedException(
 					"This provider is not configured to allow password resets. To enable password reset, set enablePasswordReset to \"true\" in the configuration file.");
 			}
+			var user = _repository.GetOne<Users>(u => u.LoweredUsername == username.ToLowerInvariant());
 
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.EQ("LoweredUsername", username.ToLowerInvariant()));
-			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
-
-			if (RequiresQuestionAndAnswer && !VerifyPasswordAnswer(bsonDocument, answer))
+			if (RequiresQuestionAndAnswer && !VerifyPasswordAnswer(user, answer))
 			{
 				throw new MembershipPasswordException("The password-answer supplied is invalid.");
 			}
 
 			string password = Membership.GeneratePassword(MinRequiredPasswordLength, MinRequiredNonAlphanumericCharacters);
-			UpdateBuilder update = Update.Set("LastPasswordChangedDate", DateTime.UtcNow)
-				.Set("Password", EncodePassword(password, PasswordFormat, bsonDocument["Salt"].AsString));
-			mongoCollection.Update(query, update);
 
+			user.LastPasswordChangedDate = DateTime.UtcNow;
+			user.Password = EncodePassword(password, PasswordFormat, user.Salt);
+			_repository.Update(user);
 			return password;
 		}
 
 		public override bool UnlockUser(string username)
 		{
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.EQ("LoweredUsername", username.ToLowerInvariant()));
-			UpdateBuilder update =
-				Update.Set("FailedPasswordAttemptCount", 0)
-					.Set("FailedPasswordAttemptWindowStart", new DateTime(1970, 1, 1))
-					.Set("FailedPasswordAnswerAttemptCount", 0)
-					.Set("FailedPasswordAnswerAttemptWindowStart", new DateTime(1970, 1, 1))
-					.Set("IsLockedOut", false)
-					.Set("LastLockoutDate", new DateTime(1970, 1, 1));
-			return mongoCollection.Update(query, update).Ok;
+			var user = _repository.GetOne<Users>(u => u.LoweredUsername == username.ToLowerInvariant() && u.ApplicationName == ApplicationName);
+			user.FailedPasswordAnswerAttemptCount = 0;
+			user.FailedPasswordAttemptCount = 0;
+			user.FailedPasswordAnswerAttemptWindowStart = new DateTime(1970, 1, 1);
+			user.FailedPasswordAttemptWindowStart = new DateTime(1970, 1, 1);
+			user.IsLockedOut = false;
+			user.LastLockoutDate = new DateTime(1970, 1, 1);
+			_repository.Update(user);
+			return true;
 		}
 
 		public override void UpdateUser(MembershipUser user)
 		{
-			IMongoQuery query = Query.EQ("ID", GenerateObjectId(user.ProviderUserKey));
-			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
-
-			if (bsonDocument == null)
+			var userToUpdate = _repository.GetOne<Users>(u => u.Id == user.ProviderUserKey.ToString());
+			if (userToUpdate == null)
 			{
 				throw new ProviderException("The user was not found.");
 			}
-
-			UpdateBuilder update = Update.Set("ApplicationName", ApplicationName)
-				.Set("Comment", user.Comment)
-				.Set("Email", user.Email)
-				.Set("IsApproved", user.IsApproved)
-				.Set("LastActivityDate", user.LastActivityDate.ToUniversalTime())
-				.Set("LastLoginDate", user.LastLoginDate.ToUniversalTime())
-				.Set("LoweredEmail", user.Email.ToLowerInvariant());
-
-			mongoCollection.Update(query, update);
+			userToUpdate.Comment = user.Comment;
+			userToUpdate.Email = user.Email;
+			userToUpdate.IsApproved = user.IsApproved;
+			userToUpdate.LastActivityDate = user.LastActivityDate;
+			userToUpdate.LastLoginDate = user.LastLoginDate;
+			userToUpdate.LoweredEmail = user.Email.ToLowerInvariant();
+			_repository.Update(userToUpdate);
 		}
 
 		public override bool ValidateUser(string username, string password)
 		{
-			IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName),
-				Query.EQ("LoweredUsername", username.ToLowerInvariant()));
-			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
+			var user = _repository.GetOne<Users>(u => u.LoweredUsername == username.ToLowerInvariant() && u.ApplicationName == ApplicationName);
 
-			if (bsonDocument == null || !bsonDocument["IsApproved"].AsBoolean || bsonDocument["IsLockedOut"].AsBoolean)
+			if (user == null || !user.IsApproved || user.IsLockedOut)
 			{
 				return false;
 			}
 
-			if (VerifyPassword(bsonDocument, password))
+			if (VerifyPassword(user, password))
 			{
-				mongoCollection.Update(query, Update.Set("LastLoginDate", DateTime.UtcNow));
+				user.LastLoginDate = DateTime.UtcNow;
+				_repository.Update(user);
 				return true;
 			}
-
-			mongoCollection.Update(query,
-				Update.Inc("FailedPasswordAttemptCount", 1).Set("FailedPasswordAttemptWindowStart", DateTime.UtcNow));
+			user.FailedPasswordAttemptCount++;
+			user.FailedPasswordAttemptWindowStart = DateTime.UtcNow;
+			_repository.Update(user);
 			return false;
 		}
 
@@ -535,39 +531,37 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 			return Convert.ToBase64String(EncryptPassword(allBytes));
 		}
 
-		private MembershipUser ToMembershipUser(BsonDocument bsonDocument)
+		private MembershipUser ToMembershipUser(Users userToConvert)
 		{
-			if (bsonDocument == null)
+			if (userToConvert == null)
 			{
 				return null;
 			}
 
-			string email = bsonDocument.Contains("Email") ? bsonDocument["Email"].AsString : null;
-			string passwordQuestion = "";
-			var user = new Users();
+			string email = userToConvert.Email;
 			return new MembershipUser(Name,
-				bsonDocument["Username"].AsString,
-				bsonDocument["ID"].AsObjectId,
+				userToConvert.Username,
+				userToConvert.Id,
 				email,
-				passwordQuestion,
-				"",
-				bsonDocument["IsApproved"].AsBoolean,
-				bsonDocument["IsLockedOut"].AsBoolean,
-				bsonDocument["CreationDate"].ToUniversalTime(),
-				bsonDocument["LastLoginDate"].ToUniversalTime(),
-				bsonDocument["LastActivityDate"].ToUniversalTime(),
-				bsonDocument["LastPasswordChangedDate"].ToUniversalTime(),
-				bsonDocument["LastLockoutDate"].ToUniversalTime());
+				userToConvert.PasswordQuestion,
+				userToConvert.Comment,
+				userToConvert.IsApproved,
+				userToConvert.IsLockedOut,
+				userToConvert.CreationDate,
+				userToConvert.LastLoginDate,
+				userToConvert.LastActivityDate,
+				userToConvert.LastPasswordChangedDate,
+				userToConvert.LastLockoutDate);
 		}
 
-		private bool VerifyPassword(BsonDocument user, string password)
+		private bool VerifyPassword(Users user, string password)
 		{
-			return user["Password"].AsString == EncodePassword(password, PasswordFormat, user["Salt"].AsString);
+			return user.Password == EncodePassword(password, PasswordFormat, user.Salt);
 		}
 
-		private bool VerifyPasswordAnswer(BsonDocument user, string passwordAnswer)
+		private bool VerifyPasswordAnswer(Users user, string passwordAnswer)
 		{
-			return user["PasswordAnswer"].AsString == EncodePassword(passwordAnswer, PasswordFormat, user["Salt"].AsString);
+			return user.PasswordAnswer == EncodePassword(passwordAnswer, PasswordFormat, user.Salt);
 		}
 
 		#endregion
