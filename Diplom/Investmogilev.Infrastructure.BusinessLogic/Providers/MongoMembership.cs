@@ -244,14 +244,15 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 			out int totalRecords)
 		{
 			var membershipUsers = new MembershipUserCollection();
+			emailToMatch = emailToMatch.ToLowerInvariant();
 			totalRecords =
 				_repository.All<Users>(
-					u => u.ApplicationName == ApplicationName && u.LoweredEmail == emailToMatch.ToLowerInvariant()).Count();
+					u => u.ApplicationName == ApplicationName && u.LoweredEmail == emailToMatch).Count();
 
 			foreach (
 				Users userToConvert in
 					_repository.All<Users>(
-						u => u.ApplicationName == ApplicationName && u.LoweredEmail == emailToMatch.ToLowerInvariant())
+						u => u.ApplicationName == ApplicationName && u.LoweredEmail == emailToMatch)
 						.Skip(pageIndex*pageSize)
 						.Take(pageSize))
 			{
@@ -265,14 +266,15 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 			out int totalRecords)
 		{
 			var membershipUsers = new MembershipUserCollection();
+			usernameToMatch = usernameToMatch.ToLowerInvariant();
 			totalRecords =
 				_repository.All<Users>(
-					u => u.ApplicationName == ApplicationName && u.LoweredUsername == usernameToMatch.ToLowerInvariant()).Count();
+					u => u.ApplicationName == ApplicationName && u.LoweredUsername == usernameToMatch).Count();
 
 			foreach (
 				Users userToConvert in
 					_repository.All<Users>(
-						u => u.ApplicationName == ApplicationName && u.LoweredUsername == usernameToMatch.ToLowerInvariant())
+						u => u.ApplicationName == ApplicationName && u.LoweredUsername == usernameToMatch)
 						.Skip(pageIndex*pageSize)
 						.Take(pageSize))
 			{
@@ -312,12 +314,13 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override string GetPassword(string username, string answer)
 		{
+			username = username.ToLowerInvariant();
 			if (!EnablePasswordRetrieval)
 			{
 				throw new NotSupportedException("This Membership Provider has not been configured to support password retrieval.");
 			}
 
-			var user = _repository.GetOne<Users>(u => u.ApplicationName == ApplicationName && u.LoweredUsername == username.ToLowerInvariant());
+			var user = _repository.GetOne<Users>(u => u.ApplicationName == ApplicationName && u.LoweredUsername == username);
 
 			if (RequiresQuestionAndAnswer && !VerifyPasswordAnswer(user, answer))
 			{
@@ -329,9 +332,10 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override MembershipUser GetUser(string username, bool userIsOnline)
 		{
+			username = username.ToLowerInvariant();
 			var user =
 				_repository.GetOne<Users>(
-					u => u.LoweredUsername == username.ToLowerInvariant() && u.ApplicationName == ApplicationName);
+					u => u.LoweredUsername == username && u.ApplicationName == ApplicationName);
 			if (user == null)
 			{
 				return null;
@@ -373,11 +377,12 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override string GetUserNameByEmail(string email)
 		{
+			email = email.ToLowerInvariant();
 			if (string.IsNullOrWhiteSpace(email))
 			{
 				return null;
 			}
-			var user = _repository.GetOne<Users>(u => u.LoweredEmail == email.ToLowerInvariant());
+			var user = _repository.GetOne<Users>(u => u.LoweredEmail == email);
 			return user != null ? user.Username : null;
 		}
 
@@ -415,12 +420,13 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override string ResetPassword(string username, string answer)
 		{
+			username = username.ToLowerInvariant();
 			if (!EnablePasswordReset)
 			{
 				throw new NotSupportedException(
 					"This provider is not configured to allow password resets. To enable password reset, set enablePasswordReset to \"true\" in the configuration file.");
 			}
-			var user = _repository.GetOne<Users>(u => u.LoweredUsername == username.ToLowerInvariant());
+			var user = _repository.GetOne<Users>(u => u.LoweredUsername == username);
 
 			if (RequiresQuestionAndAnswer && !VerifyPasswordAnswer(user, answer))
 			{
@@ -437,7 +443,8 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override bool UnlockUser(string username)
 		{
-			var user = _repository.GetOne<Users>(u => u.LoweredUsername == username.ToLowerInvariant() && u.ApplicationName == ApplicationName);
+			username = username.ToLowerInvariant();
+			var user = _repository.GetOne<Users>(u => u.LoweredUsername == username && u.ApplicationName == ApplicationName);
 			user.FailedPasswordAnswerAttemptCount = 0;
 			user.FailedPasswordAttemptCount = 0;
 			user.FailedPasswordAnswerAttemptWindowStart = new DateTime(1970, 1, 1);
@@ -466,7 +473,8 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override bool ValidateUser(string username, string password)
 		{
-			var user = _repository.GetOne<Users>(u => u.LoweredUsername == username.ToLowerInvariant() && u.ApplicationName == ApplicationName);
+			username = username.ToLowerInvariant();
+			var user = _repository.GetOne<Users>(u => u.LoweredUsername == username && u.ApplicationName == ApplicationName);
 
 			if (user == null || !user.IsApproved || user.IsLockedOut)
 			{
