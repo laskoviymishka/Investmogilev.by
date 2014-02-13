@@ -34,8 +34,6 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		[BsonIgnore]
 		public string FromUserId { get; set; }
 
-		public IList<string> Cc { get; set; }
-
 		[Required]
 		[Display(Name = "Отправить получателю?")]
 		public bool IsSended { get; set; }

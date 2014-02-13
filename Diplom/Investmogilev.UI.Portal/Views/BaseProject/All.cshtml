@@ -68,9 +68,9 @@
 				<td>
 					@Html.DisplayFor(modelItem => item.ProjectType)
 				</td>
-				<td>
-					@EnumDescription.GetEnumDescription(item.WorkflowState.CurrentState)
-				</td>
+			    <td>
+			        @EnumDescription.GetEnumDescription(item.WorkflowState.CurrentState)
+			    </td>
 				<td>
 					<div>
 						@Html.ActionLink("Подробнее", "Project", "BaseProject", new { Id = item.Id }, new { @class = "button info", style = "width:45%" })

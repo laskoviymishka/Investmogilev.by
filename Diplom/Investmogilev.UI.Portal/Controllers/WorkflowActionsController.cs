@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -18,7 +19,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult StatusInfo(string id)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == id);
+			var project = RepositoryContext.Current.All<Project>(p => p.Id == id).Include(p => p.WorkflowState).FirstOrDefault();
 			if (project == null)
 			{
 				return HttpNotFound("проект не найден");

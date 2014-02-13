@@ -21,7 +21,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			foreach (Project project in RepositoryContext.Current.All<Project>())
 			{
 				model.AddRange(
-					RepositoryContext.Current.All<ProjectNotes>(n => project != null && n.ProjectId == project.Id));
+					RepositoryContext.Current.All<ProjectNotes>(n => n.ProjectId == project.Id));
 			}
 
 			model.AddRange(RepositoryContext.Current.All<ProjectNotes>(n => n.CretorName == User.Identity.Name));
@@ -29,8 +29,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			foreach (string role in Roles.GetRolesForUser(User.Identity.Name))
 			{
 				model.AddRange(
-					RepositoryContext.Current.All<ProjectNotes>(
-						n => role != null && (n.RolesForView != null && n.RolesForView.Contains(role))));
+					RepositoryContext.Current.All<ProjectNotes>());
 			}
 
 			return View(model.GroupBy(cust => cust.Id).Select(grp => grp.First()));
@@ -47,10 +46,13 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			var note = new ProjectNotes
 			{
-				ProjectId = id,
 				CretorName = User.Identity.Name,
 				Id = ObjectId.GenerateNewId().ToString(),
-				CreatedTime = DateTime.Now
+				CreatedTime = DateTime.Now,
+				Project = RepositoryContext.Current.GetOne<Project>(p => p.Id == id),
+				NoteTitle = "empty",
+				NoteBody = "empty",
+				RolesForView = new string[] { "Admin", "Investor", "User" }
 			};
 			RepositoryContext.Current.Add(note);
 			return View(note);
@@ -62,8 +64,6 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				model.NoteDocument =
-					RepositoryContext.Current.GetOne<ProjectNotes>(p => p.Id == model.Id).NoteDocument;
 				RepositoryContext.Current.Update(model);
 				return RedirectToAction("All");
 			}

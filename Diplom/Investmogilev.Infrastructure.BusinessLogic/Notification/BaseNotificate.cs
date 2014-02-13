@@ -13,6 +13,7 @@ using Investmogilev.Infrastructure.Common.Model.Project;
 using Investmogilev.Infrastructure.Common.Model.User;
 using Investmogilev.Infrastructure.Common.Repository;
 using Investmogilev.Infrastructure.Common.State;
+using MongoDB.Bson;
 using WebMatrix.WebData;
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Notification
@@ -92,11 +93,13 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 							.Send();
 						_protalNotification.PushNotificate(new NotificationQueue
 						{
+							Id = ObjectId.GenerateNewId().ToString(),
 							IsRead = false,
 							NotificationTime = DateTime.Now,
 							NotificationTitle = template.Title,
 							NotigicationBody = template.Body,
-							UserName = user.UserName
+							UserName = user.UserName,
+							User = Repository.GetOne<Users>(u => u.LoweredUsername == user.UserName)
 						});
 					}
 				}
@@ -113,11 +116,13 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 					.Send();
 				_protalNotification.PushNotificate(new NotificationQueue
 				{
+					Id = ObjectId.GenerateNewId().ToString(),
 					IsRead = false,
 					NotificationTime = DateTime.Now,
 					NotificationTitle = template.Title,
 					NotigicationBody = template.Body,
-					UserName = project.Responses[0].InvestorEmail
+					UserName = project.Responses[0].InvestorEmail,
+					User = project.Investor
 				});
 			}
 
@@ -139,11 +144,13 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 							.Send();
 						_protalNotification.PushNotificate(new NotificationQueue
 						{
+							Id = ObjectId.GenerateNewId().ToString(),
 							IsRead = false,
 							NotificationTime = DateTime.Now,
 							NotificationTitle = template.Title,
 							NotigicationBody = template.Body,
-							UserName = user.UserName
+							UserName = user.UserName,
+							User = Repository.GetOne<Users>(u => u.LoweredUsername == user.UserName)
 						});
 					}
 				}

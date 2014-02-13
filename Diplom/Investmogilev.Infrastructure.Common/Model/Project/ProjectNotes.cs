@@ -33,7 +33,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public DateTime CreatedTime { get; set; }
 
 		[Display(ResourceType = typeof (LocalizationResource), Name = "ProjectNotes_RolesForView_Доступна_для_ролей")]
-		public List<string> RolesForView { get; set; }
+		public string[] RolesForView { get; set; }
 
 		public IEnumerable<AdditionalInfo> NoteDocument { get; set; }
 

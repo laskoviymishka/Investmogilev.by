@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>FluentEmail.Markdown</id>
+    <version>1.1.0</version>
+    <title>Markdown template rendering engine for FluentEmail</title>
+    <authors>LyphTEC</authors>
+    <owners>LyphTEC</owners>
+    <projectUrl>https://github.com/lyphtec/FluentEmail.Markdown</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides Markdown template support to FluentEmail (https://github.com/lukencode/FluentEmail).
+      More information about custom template renderers support in FluentEmail can be found at http://lukencode.com/2012/06/10/fluent-email-now-supporting-custom-template-renderers/.</description>
+    <summary>Markdown template rendering engine for FluentEmail</summary>
+    <releaseNotes />
+    <copyright>Copyright © 2012-2013. LyphTEC (lyphtec@gmail.com)</copyright>
+    <language>en-AU</language>
+    <tags>lyphtec fluentemail markdown system.net.mail</tags>
+    <dependencies>
+      <dependency id="fluent-email" />
+      <dependency id="ServiceStack" />
+    </dependencies>
+  </metadata>
+</package>

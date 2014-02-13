@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Security;
 using Investmogilev.Infrastructure.BusinessLogic.Managers;
@@ -38,7 +39,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		public ActionResult All()
 		{
 			BindUsersAndRegions();
-			return View(RepositoryContext.Current.All<Project>());
+			return View(RepositoryContext.Current.All<Project>().Include(project => project.WorkflowState));
 		}
 
 		#endregion
@@ -211,10 +212,10 @@ namespace Investmogilev.UI.Portal.Controllers
 				BindUsersAndRegions();
 				if (User.IsInRole("Investor"))
 				{
-					return RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name);
+					return RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name).Include(project => project.WorkflowState);
 				}
 
-				return RepositoryContext.Current.All<Project>();
+				return RepositoryContext.Current.All<Project>().Include(project => project.WorkflowState);
 			}
 		}
 
