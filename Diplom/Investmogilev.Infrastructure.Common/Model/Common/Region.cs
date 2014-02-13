@@ -15,6 +15,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Common
 		public IList<Parametrs> Parametrs { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

@@ -10,7 +10,7 @@
 
     <fieldset>
         <legend>Редактировать сообщение</legend>
-        @Html.HiddenFor(model => model._id)
+        @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.From)
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
@@ -55,7 +55,7 @@
         </div>
         <div class="editor-field">
             @Html.Telerik().Upload().Name("attachments").ShowFileList(true).Multiple(true).Async(async => async
-                .Save("Save", "Message", new { id = Model._id })
+                .Save("Save", "Message", new { id = Model.Id })
                 .AutoUpload(false)).Localizable("ru-RU")
 
         </div>
@@ -73,7 +73,7 @@
     //<![CDATA[
     jQuery(document).ready(function () {
         if (!jQuery.telerik) jQuery.telerik = {};
-        jQuery('#attachments').tUpload({ async: { "saveUrl": "/Message/Save/@Model._id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
+        jQuery('#attachments').tUpload({ async: { "saveUrl": "/Message/Save/@Model.Id", "autoUpload": false }, localization: { "cancel": "Отмена", "retry": "Повторить", "select": "Выбрать...", "remove": "Удалить", "uploadSelectedFiles": "Загрузить файлы", "dropFilesHere": "перетащите сюда файлы для загрузки", "statusFailed": "неудачно", "statusUploaded": "загружено", "statusUploading": "загружается" } });
     });
     //]]>
 </script>

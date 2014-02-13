@@ -60,9 +60,9 @@
                     @Html.DisplayFor(modelItem => item.UserType)
                 </td>
                 <td style="width: 150px">
-                    @Html.ActionLink("Редактировать", "Edit", new { id = item._id }, new { @class = "button success", style = "width: 90%" })
-                    @Html.ActionLink("Подробнее", "Details", new { id = item._id }, new { @class = "button info", style = "width: 90%" })
-                    @Html.ActionLink("Удалить", "Delete", new { id = item._id }, new { @class = "button danger", style = "width: 90%" })
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, new { @class = "button success", style = "width: 90%" })
+                    @Html.ActionLink("Подробнее", "Details", new { id = item.Id }, new { @class = "button info", style = "width: 90%" })
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "button danger", style = "width: 90%" })
                 </td>
             </tr>
         }

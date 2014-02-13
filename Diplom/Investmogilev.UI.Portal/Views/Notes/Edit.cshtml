@@ -17,7 +17,7 @@
     <fieldset>
         <legend>Заметка</legend>
         @Html.HiddenFor(model => model.ProjectId)
-        @Html.HiddenFor(model => model._id)
+        @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.CretorName)
         @Html.HiddenFor(model => model.CreatedTime)
         <small class="editor-label">
@@ -77,7 +77,7 @@
     Приложения
 </small>
 <hr />
-@Html.Action("CreateNoteAdditional", "AdditionalInfo", new { noteId = Model._id })
+@Html.Action("CreateNoteAdditional", "AdditionalInfo", new { noteId = Model.Id })
 <script>
     $(document).ready(function () { $("#editor").cleditor(); });
 </script>

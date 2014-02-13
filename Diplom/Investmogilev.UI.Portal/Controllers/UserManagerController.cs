@@ -107,7 +107,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				{
 					var vm = new UserManagerViewModel
 					{
-						_id = mongoUser._id,
+						_id = mongoUser.Id,
 						Username = mongoUser.Username,
 						LoweredEmail = mongoUser.Email,
 						CreationDate = mongoUser.CreationDate,

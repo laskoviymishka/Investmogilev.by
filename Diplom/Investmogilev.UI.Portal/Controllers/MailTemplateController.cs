@@ -17,7 +17,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Details(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<MailTemplate>(t => t._id == id));
+			return View(RepositoryContext.Current.GetOne<MailTemplate>(t => t.Id == id));
 		}
 
 		//
@@ -25,7 +25,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Create()
 		{
-			return View(new MailTemplate {_id = ObjectId.GenerateNewId().ToString()});
+			return View(new MailTemplate {Id = ObjectId.GenerateNewId().ToString()});
 		}
 
 		//
@@ -55,7 +55,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Edit(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<MailTemplate>(t => t._id == id));
+			return View(RepositoryContext.Current.GetOne<MailTemplate>(t => t.Id == id));
 		}
 
 		//
@@ -82,7 +82,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Delete(string id)
 		{
-			RepositoryContext.Current.Delete<MailTemplate>(t => t._id == id);
+			RepositoryContext.Current.Delete<MailTemplate>(t => t.Id == id);
 			return RedirectToAction("Index");
 		}
 	}

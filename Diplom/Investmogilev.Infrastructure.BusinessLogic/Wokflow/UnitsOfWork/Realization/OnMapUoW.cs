@@ -58,7 +58,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 		public void OnMapEntry()
 		{
 			GuardCurrentProjectNotNull();
-			CurrentProject = Repository.GetOne<Project>(p => p._id == CurrentProject._id);
+			CurrentProject = Repository.GetOne<Project>(p => p.Id == CurrentProject.Id);
 			if (CurrentProject.Address.Lat > 50 && CurrentProject.Address.Lat < 56 && CurrentProject.Address.Lng > 27 &&
 			    CurrentProject.Address.Lng < 33)
 			{

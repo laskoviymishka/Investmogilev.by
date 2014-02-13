@@ -88,14 +88,59 @@ namespace Investmogilev.Tests.BusinessLogic
 
         public void Update<T>(T item) where T : IMongoEntity
         {
-            if (GetOne<T>(t => t._id == item._id) != null)
+            if (GetOne<T>(t => t.Id == item.Id) != null)
             {
-                T elem = GetOne<T>(t => t._id == item._id);
+                T elem = GetOne<T>(t => t.Id == item.Id);
                 Delete<T>(item);
                 Add<T>(item);
             }
         }
 
         #endregion
-    }
+
+		void IRepository.Delete<T>(Expression<Func<T, bool>> expression)
+		{
+			throw new NotImplementedException();
+		}
+
+		void IRepository.Delete<T>(T item)
+		{
+			throw new NotImplementedException();
+		}
+
+		void IRepository.DeleteAll<T>()
+		{
+			throw new NotImplementedException();
+		}
+
+		T IRepository.GetOne<T>(Expression<Func<T, bool>> expression)
+		{
+			throw new NotImplementedException();
+		}
+
+		IQueryable<T> IRepository.All<T>(Expression<Func<T, bool>> expression)
+		{
+			throw new NotImplementedException();
+		}
+
+		IQueryable<T> IRepository.All<T>()
+		{
+			throw new NotImplementedException();
+		}
+
+		void IRepository.Add<T>(T item)
+		{
+			throw new NotImplementedException();
+		}
+
+		void IRepository.Add<T>(IEnumerable<T> items)
+		{
+			throw new NotImplementedException();
+		}
+
+		void IRepository.Update<T>(T item)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

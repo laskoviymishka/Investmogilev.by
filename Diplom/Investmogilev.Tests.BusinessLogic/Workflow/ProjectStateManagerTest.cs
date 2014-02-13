@@ -37,7 +37,7 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow
         {
             _currentProject = new Project
                 {
-                    _id = ObjectId.GenerateNewId().ToString(),
+                    Id = ObjectId.GenerateNewId().ToString(),
                     Name = "testProjectName",
                     Region = "testProjectRegion",
                     InvestorUser = "",

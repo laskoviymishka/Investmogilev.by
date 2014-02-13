@@ -8,8 +8,14 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 {
 	public class NotificationQueue : IMongoEntity
 	{
+		[BsonIgnore]
+		public string UserId { get; set; }
+
 		[Display(Name = "Автор")]
 		public string UserName { get; set; }
+
+		[BsonIgnore]
+		public Users User { get; set; }
 
 		[Display(Name = "Заголовок")]
 		public string NotificationTitle { get; set; }
@@ -24,6 +30,6 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		public DateTime NotificationTime { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

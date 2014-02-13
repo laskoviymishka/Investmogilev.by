@@ -2,6 +2,6 @@
 {
 	public interface IMongoEntity
 	{
-		string _id { get; set; }
+		string Id { get; set; }
 	}
 }

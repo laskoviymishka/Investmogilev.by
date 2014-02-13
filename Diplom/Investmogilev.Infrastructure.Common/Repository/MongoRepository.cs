@@ -36,7 +36,7 @@ namespace Investmogilev.Infrastructure.Common.Repository
 
 		#region Delete
 
-		public void Delete<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
+		public void Delete<T>(Expression<Func<T, bool>> expression) where T : class, IMongoEntity
 		{
 			IQueryable<T> items = All<T>().Where(expression);
 			foreach (T item in items)
@@ -45,13 +45,13 @@ namespace Investmogilev.Infrastructure.Common.Repository
 			}
 		}
 
-		public void Delete<T>(T item) where T : IMongoEntity
+		public void Delete<T>(T item) where T : class, IMongoEntity
 		{
 			ExpireCacheToken<T>();
-			_db.GetCollection(typeof (T).Name).Remove(Query.EQ("_id", new ObjectId(item._id)));
+			_db.GetCollection(typeof (T).Name).Remove(Query.EQ("ID", new ObjectId(item.Id)));
 		}
 
-		public void DeleteAll<T>() where T : IMongoEntity
+		public void DeleteAll<T>() where T : class, IMongoEntity
 		{
 			throw new NotImplementedException();
 		}
@@ -60,7 +60,7 @@ namespace Investmogilev.Infrastructure.Common.Repository
 
 		#region Selector
 
-		public T GetOne<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
+		public T GetOne<T>(Expression<Func<T, bool>> expression) where T : class,IMongoEntity
 		{
 			MiniProfiler profiler = MiniProfiler.Current;
 			using (profiler.Step(string.Format("select table {0} query getone {1}", typeof (T).Name, expression)))
@@ -69,7 +69,7 @@ namespace Investmogilev.Infrastructure.Common.Repository
 			}
 		}
 
-		public IQueryable<T> All<T>() where T : IMongoEntity
+		public IQueryable<T> All<T>() where T : class, IMongoEntity
 		{
 			MiniProfiler profiler = MiniProfiler.Current;
 			using (profiler.Step(string.Format("select table {0} query {1}", typeof (T).Name, "all")))
@@ -78,7 +78,7 @@ namespace Investmogilev.Infrastructure.Common.Repository
 			}
 		}
 
-		public IQueryable<T> All<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
+		public IQueryable<T> All<T>(Expression<Func<T, bool>> expression) where T : class, IMongoEntity
 		{
 			MiniProfiler profiler = MiniProfiler.Current;
 			using (profiler.Step(string.Format("select table {0} query All {1}", typeof (T).Name, expression)))
@@ -91,13 +91,13 @@ namespace Investmogilev.Infrastructure.Common.Repository
 
 		#region Inster
 
-		public void Add<T>(T item) where T : IMongoEntity
+		public void Add<T>(T item) where T : class,IMongoEntity
 		{
 			ExpireCacheToken<T>();
 			_db.GetCollection(typeof (T).Name).Save(item);
 		}
 
-		public void Add<T>(IEnumerable<T> items) where T : IMongoEntity
+		public void Add<T>(IEnumerable<T> items) where T : class,IMongoEntity
 		{
 			foreach (T item in items)
 			{
@@ -109,9 +109,9 @@ namespace Investmogilev.Infrastructure.Common.Repository
 
 		#region Update
 
-		public void Update<T>(T item) where T : IMongoEntity
+		public void Update<T>(T item) where T : class, IMongoEntity
 		{
-			if (GetOne<T>(t => t._id == item._id) != null)
+			if (GetOne<T>(t => t.Id == item.Id) != null)
 			{
 				ExpireCacheToken<T>();
 				_db.GetCollection(typeof (T).Name).Save(item);
@@ -124,43 +124,10 @@ namespace Investmogilev.Infrastructure.Common.Repository
 
 		private TC Get<TC>(string cacheId, Func<TC> getItemCallback) where TC : class
 		{
-			var item = HttpRuntime.Cache.Get(cacheId) as TC;
-			if (item == null)
-			{
-				item = getItemCallback();
-				HttpContext.Current.Cache.Insert(cacheId, item);
-				if (!_cacheExpired.ContainsKey(cacheId))
-				{
-					_cacheExpired.Add(cacheId, false);
-				}
-				else
-				{
-					_cacheExpired[cacheId] = false;
-				}
-			}
-			else
-			{
-				if (_cacheExpired.ContainsKey(cacheId))
-				{
-					if (!_cacheExpired[cacheId])
-					{
-						return item;
-					}
-
-					item = getItemCallback();
-					HttpContext.Current.Cache.Insert(cacheId, item);
-					_cacheExpired[cacheId] = false;
-				}
-				else
-				{
-					_cacheExpired.Add(cacheId, true);
-				}
-			}
-
 			return getItemCallback();
 		}
 
-		private void ExpireCacheToken<T>() where T : IMongoEntity
+		private void ExpireCacheToken<T>() where T : class, IMongoEntity
 		{
 			if (!_cacheExpired.ContainsKey(typeof (T).Name))
 			{

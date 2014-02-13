@@ -9,6 +9,8 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 	[BsonIgnoreExtraElements]
 	public class Workflow
 	{
+		public int ID { get; set; }
+
 		[Display(Name = "История изменения")]
 		public List<History> History { get; set; }
 

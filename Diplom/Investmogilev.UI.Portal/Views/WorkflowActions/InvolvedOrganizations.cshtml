@@ -9,7 +9,7 @@
         {
             if (task.TaskReport != null)
             {
-                <a href="/ReportReview/InvolvedReport?taskId=@task._id&projectId=@task.ProjectId" class="list selected">
+                <a href="/ReportReview/InvolvedReport?taskId=@task.Id&projectId=@task.ProjectId" class="list selected">
                     <div class="list-content">
                         <img src="/images/word.png" class="icon">
                         <div class="data">
@@ -21,7 +21,7 @@
             }
             else
             {
-                <a href="/ReportReview/InvolvedReport?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                <a href="/ReportReview/InvolvedReport?taskId=@task.Id&projectId=@task.ProjectId" class="list">
                     <div class="list-content">
                         <img src="/images/word.png" class="icon">
                         <div class="data">

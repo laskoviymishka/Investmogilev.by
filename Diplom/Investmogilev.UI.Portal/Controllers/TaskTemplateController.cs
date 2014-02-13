@@ -14,12 +14,12 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Details(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<TaskTemplate>(t => t._id == id));
+			return View(RepositoryContext.Current.GetOne<TaskTemplate>(t => t.Id == id));
 		}
 
 		public ActionResult Create()
 		{
-			return View(new TaskTemplate {_id = ObjectId.GenerateNewId().ToString()});
+			return View(new TaskTemplate {Id = ObjectId.GenerateNewId().ToString()});
 		}
 
 		[HttpPost]
@@ -36,7 +36,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Edit(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<TaskTemplate>(t => t._id == id));
+			return View(RepositoryContext.Current.GetOne<TaskTemplate>(t => t.Id == id));
 		}
 
 		[HttpPost]
@@ -52,7 +52,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Delete(string id)
 		{
-			RepositoryContext.Current.Delete<TaskTemplate>(t => t._id == id);
+			RepositoryContext.Current.Delete<TaskTemplate>(t => t.Id == id);
 			return RedirectToAction("Index");
 		}
 	}

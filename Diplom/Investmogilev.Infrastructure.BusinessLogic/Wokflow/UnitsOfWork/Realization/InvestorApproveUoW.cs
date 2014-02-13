@@ -57,7 +57,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 
 		public void OnInvestorApproveEntry()
 		{
-			CurrentProject = Repository.GetOne<Project>(p => p._id == CurrentProject._id);
+			CurrentProject = Repository.GetOne<Project>(p => p.Id == CurrentProject.Id);
 			if (CurrentProject.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap)
 			{
 				InvestorNotification.InvestorResponsed(CurrentProject);

@@ -87,7 +87,7 @@
 .t-tile .t-folder{background-image:url('MetroGreen/imagebrowser.png')}
 .t-tile em,.t-tile .t-filesize{color:#6e6659}
 .t-tile-empty strong{color:#9e9e9e}
-/*Window,Editor*/html div.t-window{border-width:1px}
+/*Window,EditorId*/html div.t-window{border-width:1px}
 :root div.t-window{border-width:1px}
 .t-window-actions .t-state-hover,.t-editor-button .t-state-hover{border-color:#fff;background-color:transparent}
 .t-editor-button .t-state-active{border-color:#fff;background-color:#57b5df}

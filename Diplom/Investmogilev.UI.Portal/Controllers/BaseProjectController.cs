@@ -58,7 +58,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				ProjectStateManager.StateManagerFactory(model, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
-				return RedirectToAction("Project", "BaseProject", new {id = model._id});
+				return RedirectToAction("Project", "BaseProject", new {id = model.Id});
 			}
 
 			return View(model);
@@ -77,7 +77,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				ProjectStateManager.StateManagerFactory(model, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
-				return RedirectToAction("Project", "BaseProject", new {id = model._id});
+				return RedirectToAction("Project", "BaseProject", new {id = model.Id});
 			}
 
 			return View(model);
@@ -94,7 +94,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult GreenFieldProject(string id)
 		{
-			return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as GreenField);
+			return PartialView(RepositoryContext.Current.GetOne<Project>(p => p.Id == id) as GreenField);
 		}
 
 		[HttpPost]
@@ -103,7 +103,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var initial = RepositoryContext.Current.GetOne<Project>(t => t._id == model._id);
+				var initial = RepositoryContext.Current.GetOne<Project>(t => t.Id == model.Id);
 				initial.Name = model.Name;
 				initial.Description = model.Description;
 				initial.AddressName = model.AddressName;
@@ -113,7 +113,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new {id = model._id});
+				return RedirectToAction("Project", "BaseProject", new {id = model.Id});
 			}
 
 			return View(model);
@@ -121,7 +121,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult UnUsedBuildingProject(string id)
 		{
-			return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as UnUsedBuilding);
+			return PartialView(RepositoryContext.Current.GetOne<Project>(p => p.Id == id) as UnUsedBuilding);
 		}
 
 		[HttpPost]
@@ -130,7 +130,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var initial = RepositoryContext.Current.GetOne<Project>(t => t._id == model._id) as UnUsedBuilding;
+				var initial = RepositoryContext.Current.GetOne<Project>(t => t.Id == model.Id) as UnUsedBuilding;
 				initial.Name = model.Name;
 				initial.Description = model.Description;
 				initial.AddressName = model.AddressName;
@@ -143,7 +143,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.Tags = model.Tags;
 				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new {id = model._id});
+				return RedirectToAction("Project", "BaseProject", new {id = model.Id});
 			}
 
 			return View(model);
@@ -151,7 +151,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult FillProject(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<Project>(p => p._id == id));
+			return View(RepositoryContext.Current.GetOne<Project>(p => p.Id == id));
 		}
 
 		[HttpPost]
@@ -160,7 +160,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var initial = RepositoryContext.Current.GetOne<Project>(t => t._id == model._id);
+				var initial = RepositoryContext.Current.GetOne<Project>(t => t.Id == model.Id);
 				initial.Name = model.Name;
 				initial.Description = model.Description;
 				initial.AddressName = model.AddressName;
@@ -169,7 +169,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.Tags = model.Tags;
 				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new {id = model._id});
+				return RedirectToAction("Project", "BaseProject", new {id = model.Id});
 			}
 
 			return View(model);
@@ -177,12 +177,12 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Project(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<Project>(p => p._id == id));
+			return View(RepositoryContext.Current.GetOne<Project>(p => p.Id == id));
 		}
 
 		public ActionResult Delete(string id)
 		{
-			RepositoryContext.Current.Delete<Project>(p => p._id == id);
+			RepositoryContext.Current.Delete<Project>(p => p.Id == id);
 			return RedirectToAction("All", "BaseProject");
 		}
 
@@ -192,12 +192,12 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult WorkFlowForProject(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));
+			return View(RepositoryContext.Current.GetOne<Project>(pr => pr.Id == id));
 		}
 
 		public ActionResult WorkFlowForProjectPartial(string id)
 		{
-			return PartialView(RepositoryContext.Current.GetOne<Project>(pr => pr._id == id));
+			return PartialView(RepositoryContext.Current.GetOne<Project>(pr => pr.Id == id));
 		}
 
 		#endregion

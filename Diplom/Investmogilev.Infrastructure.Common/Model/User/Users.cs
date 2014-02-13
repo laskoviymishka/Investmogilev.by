@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Investmogilev.Infrastructure.Common.Model.Common;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -51,10 +52,16 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 
 		public string Comment { get; set; }
 
-		public UserProfile Profile { get; set; }
+		public List<MessageQueue> Messages { get; set; }
+		public List<NotificationQueue> Notifications { get; set; }
+		public List<Role> Roles { get; set; }
+
+		public List<Project.Project> Projects { get; set; }
+
+		public List<Project.ReportResponse> ReportResponses { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id
+		public string Id
 		{
 			get { return _objectId.ToString(); }
 			set { _objectId = ObjectId.Parse(value); }

@@ -29,8 +29,8 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 			_taskId = taskId;
 			_reportId = reportId;
 			_projectId = projectId;
-			_currentProject = RepositoryContext.Current.GetOne<Project>(p => p._id == _projectId);
-			_currentTask = _currentProject.Tasks.Find(t => t._id == _taskId);
+			_currentProject = RepositoryContext.Current.GetOne<Project>(p => p.Id == _projectId);
+			_currentTask = _currentProject.Tasks.Find(t => t.Id == _taskId);
 			if (_currentTask.TaskReport == null || !_currentTask.TaskReport.Any())
 			{
 				_currentTask.TaskReport = new List<Report>();
@@ -62,10 +62,10 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 
 		public void CreateReport(Report report)
 		{
-			_currentReport = _currentTask.TaskReport.Find(t => t._id == report._id);
+			_currentReport = _currentTask.TaskReport.Find(t => t.Id == report.Id);
 			if (_currentReport != null)
 			{
-				report = _currentTask.TaskReport.Find(t => t._id == report._id);
+				report = _currentTask.TaskReport.Find(t => t.Id == report.Id);
 				report.Body = report.Body;
 				report.ReportTime = report.ReportTime;
 			}
@@ -81,13 +81,13 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 
 		public void AddDocumentToReport(AdditionalInfo document)
 		{
-			if (_currentTask.TaskReport.Find(t => t._id == _reportId) != null)
+			if (_currentTask.TaskReport.Find(t => t.Id == _reportId) != null)
 			{
-				_currentReport = _currentTask.TaskReport.Find(t => t._id == _reportId);
+				_currentReport = _currentTask.TaskReport.Find(t => t.Id == _reportId);
 			}
 			else
 			{
-				_currentReport = new Report {ProjectId = _projectId, _id = _reportId, TaskId = _taskId};
+				_currentReport = new Report {ProjectId = _projectId, Id = _reportId, TaskId = _taskId};
 				_currentTask.TaskReport.Add(_currentReport);
 			}
 
@@ -119,7 +119,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 
 		public AdditionalInfo GetReportAdditionalInfo(string infoId)
 		{
-			return _currentReport.Info.Find(i => i._id == infoId);
+			return _currentReport.Info.Find(i => i.Id == infoId);
 		}
 
 		#endregion
@@ -128,7 +128,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 
 		public void CreateReportResponse(ReportResponse reportResponse)
 		{
-			_currentReport = _currentTask.TaskReport.Find(t => t._id == reportResponse.ReportId);
+			_currentReport = _currentTask.TaskReport.Find(t => t.Id == reportResponse.ReportId);
 
 			if (_currentReport.ReportResponse == null)
 			{
@@ -152,9 +152,9 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 
 		public void AddDocumentToReportResponse(string reposponseId, AdditionalInfo document)
 		{
-			if (_currentTask.TaskReport.Find(t => t._id == _reportId) != null)
+			if (_currentTask.TaskReport.Find(t => t.Id == _reportId) != null)
 			{
-				_currentReport = _currentTask.TaskReport.Find(t => t._id == _reportId);
+				_currentReport = _currentTask.TaskReport.Find(t => t.Id == _reportId);
 			}
 			else
 			{
@@ -165,7 +165,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 			{
 				_currentReport.ReportResponse = new ReportResponse
 				{
-					_id = reposponseId,
+					Id = reposponseId,
 					ProjectId = _projectId,
 					TaskId = _taskId,
 					ReportId = _reportId,
@@ -196,7 +196,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 
 		public AdditionalInfo GetReportResponseAdditionalInfo(string infoId)
 		{
-			return _currentReport.ReportResponse.Info.Find(i => i._id == infoId);
+			return _currentReport.ReportResponse.Info.Find(i => i.Id == infoId);
 		}
 
 		#endregion

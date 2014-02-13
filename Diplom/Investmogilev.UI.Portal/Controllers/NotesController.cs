@@ -21,7 +21,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			foreach (Project project in RepositoryContext.Current.All<Project>())
 			{
 				model.AddRange(
-					RepositoryContext.Current.All<ProjectNotes>(n => project != null && n.ProjectId == project._id));
+					RepositoryContext.Current.All<ProjectNotes>(n => project != null && n.ProjectId == project.Id));
 			}
 
 			model.AddRange(RepositoryContext.Current.All<ProjectNotes>(n => n.CretorName == User.Identity.Name));
@@ -33,7 +33,7 @@ namespace Investmogilev.UI.Portal.Controllers
 						n => role != null && (n.RolesForView != null && n.RolesForView.Contains(role))));
 			}
 
-			return View(model.GroupBy(cust => cust._id).Select(grp => grp.First()));
+			return View(model.GroupBy(cust => cust.Id).Select(grp => grp.First()));
 		}
 
 		public ActionResult Index(string id)
@@ -49,7 +49,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				ProjectId = id,
 				CretorName = User.Identity.Name,
-				_id = ObjectId.GenerateNewId().ToString(),
+				Id = ObjectId.GenerateNewId().ToString(),
 				CreatedTime = DateTime.Now
 			};
 			RepositoryContext.Current.Add(note);
@@ -63,7 +63,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			if (ModelState.IsValid)
 			{
 				model.NoteDocument =
-					RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == model._id).NoteDocument;
+					RepositoryContext.Current.GetOne<ProjectNotes>(p => p.Id == model.Id).NoteDocument;
 				RepositoryContext.Current.Update(model);
 				return RedirectToAction("All");
 			}
@@ -73,7 +73,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Edit(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == id));
+			return View(RepositoryContext.Current.GetOne<ProjectNotes>(p => p.Id == id));
 		}
 
 		[HttpPost]
@@ -83,7 +83,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			if (ModelState.IsValid)
 			{
 				model.NoteDocument =
-					RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == model._id).NoteDocument;
+					RepositoryContext.Current.GetOne<ProjectNotes>(p => p.Id == model.Id).NoteDocument;
 				RepositoryContext.Current.Update(model);
 				return RedirectToAction("All");
 			}
@@ -93,20 +93,20 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Delete(string id)
 		{
-			var note = RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == id);
+			var note = RepositoryContext.Current.GetOne<ProjectNotes>(p => p.Id == id);
 			RepositoryContext.Current.Delete(note);
 			return RedirectToAction("All");
 		}
 
 		public ActionResult Details(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == id));
+			return View(RepositoryContext.Current.GetOne<ProjectNotes>(p => p.Id == id));
 		}
 
 		public ActionResult Save(string id, IEnumerable<HttpPostedFileBase> attachments)
 		{
-			var note = RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == id);
-			var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == note.ProjectId);
+			var note = RepositoryContext.Current.GetOne<ProjectNotes>(p => p.Id == id);
+			var project = RepositoryContext.Current.GetOne<Project>(pr => pr.Id == note.ProjectId);
 			var result = new List<AdditionalInfo>();
 			if (note.NoteDocument != null)
 			{
@@ -136,7 +136,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				var document = new DocumentAdditionalInfo();
 				document.FilePath = physicalPath;
 				document.InfoName = fileName;
-				document._id = ObjectId.GenerateNewId().ToString();
+				document.Id = ObjectId.GenerateNewId().ToString();
 				result.Add(document);
 			}
 
@@ -148,8 +148,8 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public FileResult Download(string noteId, string docId)
 		{
-			var note = RepositoryContext.Current.GetOne<ProjectNotes>(p => p._id == noteId);
-			var doc = note.NoteDocument.FirstOrDefault(t => t._id == docId) as DocumentAdditionalInfo;
+			var note = RepositoryContext.Current.GetOne<ProjectNotes>(p => p.Id == noteId);
+			var doc = note.NoteDocument.FirstOrDefault(t => t.Id == docId) as DocumentAdditionalInfo;
 			if (doc != null) return File(doc.FilePath, "application/doc", doc.InfoName);
 			return null;
 		}

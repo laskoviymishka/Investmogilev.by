@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Investmogilev.Infrastructure.Common.Localization;
 using Investmogilev.Infrastructure.Common.Model.Common;
 using MongoDB.Bson;
@@ -10,6 +11,8 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 {
 	public class ProjectNotes : IMongoEntity
 	{
+		private Project _project;
+
 		[Display(ResourceType = typeof (LocalizationResource), Name = "ProjectNotes_ProjectId_Проект")]
 		public string ProjectId { get; set; }
 
@@ -35,6 +38,9 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public IEnumerable<AdditionalInfo> NoteDocument { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id { get; set; }
+		public string Id { get; set; }
+
+		[BsonIgnore]
+		public Project Project { get; set; }
 	}
 }

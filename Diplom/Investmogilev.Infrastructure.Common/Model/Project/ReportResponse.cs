@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Investmogilev.Infrastructure.Common.Model.Common;
+using Investmogilev.Infrastructure.Common.Model.User;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
@@ -29,9 +32,21 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string TaskId { get; set; }
 
 		[Display(Name = "Создатель отклика")]
-		public string ResponseUser { get; set; }
+		public string ResponseUserId { get; set; }
+
+		[BsonIgnore]
+		public Users ResponseUser { get; set; }
+
+		[BsonIgnore]
+		public virtual Project Project { get; set; }
+
+		[BsonIgnore]
+		public virtual Report Report { get; set; }
+
+		[BsonIgnore]
+		public virtual ProjectTask Task { get; set; }
 
 		[Display(Name = "Идентификатор отклика")]
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

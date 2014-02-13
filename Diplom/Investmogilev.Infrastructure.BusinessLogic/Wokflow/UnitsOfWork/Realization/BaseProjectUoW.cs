@@ -105,7 +105,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			CurrentProject.WorkflowState.History.Add(new History
 			{
 				EditingTime = DateTime.Now,
-				Editor = UserName,
+				EditorId = UserName,
 				To = initialState,
 				From = CurrentProject.WorkflowState.CurrentState,
 				Body = bodyMessage

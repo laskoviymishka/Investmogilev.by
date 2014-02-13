@@ -10,7 +10,7 @@ namespace Investmogilev.UI.Portal.Models
 
         public DocumentForTaskViewModel(DocumentAdditionalInfo info)
         {
-            _id = info._id;
+            Id = info.Id;
             FilePath = info.FilePath;
             InfoName = info.InfoName;
             InfoValue = info.InfoValue;

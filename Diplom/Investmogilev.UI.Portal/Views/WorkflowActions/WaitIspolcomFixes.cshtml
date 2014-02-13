@@ -24,7 +24,7 @@
                 {
                     if (User.IsInRole("Admin"))
                     {
-                        <a href="/AdminActions/Details?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                        <a href="/AdminActions/Details?taskId=@task.Id&projectId=@task.ProjectId" class="list">
                             <div class="list-content">
                                 <span class="list-title">@task.Title</span>
                                 <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
@@ -37,7 +37,7 @@
                     {
                         if (User.IsInRole("Investor"))
                         {
-                            <a href="/InvestorActions/CreateReport?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                            <a href="/InvestorActions/CreateReport?taskId=@task.Id&projectId=@task.ProjectId" class="list">
                                 <div class="list-content">
                                     <span class="list-title">@task.Title</span>
                                     <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
@@ -71,7 +71,7 @@
                 {
                     if (User.IsInRole("Admin"))
                     {
-                        <a href="/AdminActions/InvolvedReport?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                        <a href="/AdminActions/InvolvedReport?taskId=@task.Id&projectId=@task.ProjectId" class="list">
                             <div class="list-content">
                                 <span class="list-title">@task.Title</span>
                                 <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
@@ -84,7 +84,7 @@
                     {
                         if (User.IsInRole("Investor"))
                         {
-                            <a href="/InvestorActions/Details?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                            <a href="/InvestorActions/Details?taskId=@task.Id&projectId=@task.ProjectId" class="list">
                                 <div class="list-content">
                                     <span class="list-title">@task.Title</span>
                                     <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">

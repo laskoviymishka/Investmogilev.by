@@ -31,7 +31,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 						Project project in
 							RepositoryContext.Current.All<Project>(p => p.WorkflowState.CurrentState == ProjectWorkflow.State.WaitComission))
 					{
-						_projectIdList.Add(project._id);
+						_projectIdList.Add(project.Id);
 					}
 				}
 
@@ -41,12 +41,9 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		}
 
 		[BsonIgnore]
-		public List<Project> Projects
-		{
-			get { return RepositoryContext.Current.All<Project>(p => ProjectIds.Contains(p._id)).ToList(); }
-		}
+		public List<Project> Projects { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

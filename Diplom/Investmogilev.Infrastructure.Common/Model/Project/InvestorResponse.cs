@@ -1,11 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Investmogilev.Infrastructure.Common.Localization;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
 	public class InvestorResponse
 	{
+		private Project _project;
+
 		public string ProjectId { get; set; }
 
 		public string ResponseId { get; set; }
@@ -40,5 +44,8 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string ExistingUser { get; set; }
 
 		public bool IsVerified { get; set; }
+
+		[BsonIgnore]
+		public Project Project { get; set; }
 	}
 }

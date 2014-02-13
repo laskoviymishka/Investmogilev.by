@@ -30,10 +30,10 @@
     }
 </div>
 
-<div>@Html.ActionLink("Добавить необходимыe документы", "AddDocumentTask", "WorkflowActions", new { @projectId = Model._id }, new { @class = "button info" })</div>
+<div>@Html.ActionLink("Добавить необходимыe документы", "AddDocumentTask", "WorkflowActions", new { @projectId = Model.Id }, new { @class = "button info" })</div>
 @{Html.RenderPartial("AllowActions");}
 <script>
     var InvestorSelected = function (responseId) {
-        window.location.href = '/WorkflowActions/SelectUser?responseId=' + responseId + '&projectId=@Model._id';
+        window.location.href = '/WorkflowActions/SelectUser?responseId=' + responseId + '&projectId=@Model.Id';
     }
 </script>

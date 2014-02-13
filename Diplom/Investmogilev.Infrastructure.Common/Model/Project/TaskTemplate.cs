@@ -10,6 +10,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public ProjectWorkflow.State Step { get; set; }
 		public string Body { get; set; }
 		public AdditionalInfo Info { get; set; }
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

@@ -29,6 +29,11 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		[Display(Name = "Отправитель")]
 		public string From { get; set; }
 
+		[BsonIgnore]
+		public Users FromUser { get; set; }
+		[BsonIgnore]
+		public string FromUserId { get; set; }
+
 		public IList<string> Cc { get; set; }
 
 		[Required]
@@ -43,12 +48,17 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		[Display(Name = "Адресат")]
 		public string To { get; set; }
 
+		[BsonIgnore]
+		public Users ToUser { get; set; }
+		[BsonIgnore]
+		public string ToUserId { get; set; }
+
 		[Required]
 		[Display(Name = "Тип сообщения")]
 		public MessageType Type { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id
+		public string Id
 		{
 			get { return _objectId.ToString(); }
 			set { _objectId = ObjectId.Parse(value); }

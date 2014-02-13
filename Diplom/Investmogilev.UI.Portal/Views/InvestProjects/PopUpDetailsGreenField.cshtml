@@ -27,12 +27,12 @@
                     @foreach (var info in Model.Info)
                     {
                         <div>
-                            @Html.ActionLink(info.InfoName, "DownloadProjectInfo", "AdditionalInfo", new { projectId = Model._id, docId = info._id }, new { @class = "button info" })
+                            @Html.ActionLink(info.InfoName, "DownloadProjectInfo", "AdditionalInfo", new { projectId = Model.Id, docId = info.Id }, new { @class = "button info" })
                         </div>
                     }
                 </td>
             </tr>
         }
     </table>
-    <a style="margin-left: 200px" id="popupLink" href="/InvestorEntry/ResponseToProject/@Model._id" class="button button success">Откликнуться на проект</a>
+    <a style="margin-left: 200px" id="popupLink" href="/InvestorEntry/ResponseToProject/@Model.Id" class="button button success">Откликнуться на проект</a>
 </fieldset>

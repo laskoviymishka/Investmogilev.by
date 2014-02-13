@@ -20,7 +20,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		[AllowAnonymous]
 		public ActionResult ResponseToProject(string id)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == id);
+			var project = RepositoryContext.Current.GetOne<Project>(pr => pr.Id == id);
 			if (project != null)
 			{
 				ViewBag.ProjectId = id;
@@ -32,7 +32,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		[AllowAnonymous]
 		public ActionResult NewResponseToProject(string id)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == id);
+			var project = RepositoryContext.Current.GetOne<Project>(pr => pr.Id == id);
 			if (project != null)
 			{
 				var responseViewModel = new InvestorResponse();
@@ -60,7 +60,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		[AllowAnonymous]
 		public ActionResult ExistingResponseToProject(string id)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == id);
+			var project = RepositoryContext.Current.GetOne<Project>(pr => pr.Id == id);
 			if (project != null)
 			{
 				var viewModel = new ExistingResponseViewModel();

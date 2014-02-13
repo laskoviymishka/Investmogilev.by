@@ -5,6 +5,7 @@ using Investmogilev.Infrastructure.Common;
 using Investmogilev.Infrastructure.Common.Model.Common;
 using Investmogilev.Infrastructure.Common.Model.Project;
 using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.Repository.EF;
 using Investmogilev.Infrastructure.Common.State;
 using Newtonsoft.Json;
 
@@ -32,7 +33,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		[AllowAnonymous]
 		public ActionResult PopUpDetailsGreenField(string id)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as GreenField;
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == id) as GreenField;
 
 			if (project == null)
 			{
@@ -45,7 +46,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		[AllowAnonymous]
 		public ActionResult PopUpDetailsUnUsedBuilding(string id)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as UnUsedBuilding;
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == id) as UnUsedBuilding;
 			if (project == null)
 			{
 				return null;
@@ -67,8 +68,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			ViewBag.StartYear = 2005;
 			ViewBag.EndYear = 2012;
-			IRepository repository = new MongoRepository(WebConfigurationManager.AppSettings["mongoServer"],
-				WebConfigurationManager.AppSettings["mongoBase"]);
+			IRepository repository = new ProjectRepository(new ProjectDataContext());
 			return PartialView(repository.All<Region>());
 		}
 
@@ -89,7 +89,7 @@ namespace Investmogilev.UI.Portal.Controllers
 						Lng = project.Address.Lng,
 						Name = project.Name,
 						Description = project.Description,
-						_id = project._id,
+						_id = project.Id,
 						Type = project.GetType().Name,
 						Tags = new List<string>()
 					};

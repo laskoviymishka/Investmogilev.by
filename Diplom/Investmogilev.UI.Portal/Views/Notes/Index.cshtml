@@ -7,7 +7,7 @@
 <table class="table hovered">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model._id)
+            @Html.DisplayNameFor(model => model.Id)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ProjectId)
@@ -31,7 +31,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item._id)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProjectId)
@@ -49,9 +49,9 @@
                 @Html.DisplayFor(modelItem => item.CreatedTime)
             </td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item._id }) |
-                @Html.ActionLink("Подробнее", "Details", new { id = item._id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item._id })
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

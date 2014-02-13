@@ -14,7 +14,7 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Новое сообщение</legend>
-        @Html.HiddenFor(model => model._id)
+        @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.From)
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
@@ -59,7 +59,7 @@
         </div>
         <div class="editor-field">
             @Html.Telerik().Upload().Name("attachments").ShowFileList(true).Multiple(true).Async(async => async
-                .Save("Save", "Message", new {id = Model._id})
+                .Save("Save", "Message", new {id = Model.Id})
                 .AutoUpload(false)).Localizable("ru-RU")
 
         </div>
@@ -81,7 +81,7 @@
         {
             async:
                 {
-                    "saveUrl": "/Message/Save/@Model._id",
+                    "saveUrl": "/Message/Save/@Model.Id",
                     "autoUpload": false
                 },
             localization:
