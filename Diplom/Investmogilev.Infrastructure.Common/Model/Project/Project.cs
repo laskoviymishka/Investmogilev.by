@@ -55,6 +55,9 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_WorkflowState_Состояние")]
 		public Workflow WorkflowState { get; set; }
 
+		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_IsInList_Находится_в_перечне_")]
+		public bool IsInList { get; set; }
+
 		[BsonIgnore]
 		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_ProjectType_Тип_проекта")]
 		public string ProjectType

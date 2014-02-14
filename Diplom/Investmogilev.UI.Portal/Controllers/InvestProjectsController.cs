@@ -20,6 +20,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			public double? Lng { get; set; }
 			public string Name { get; set; }
 			public string _id { get; set; }
+			public bool Perechen { get; set; }
 			public string Description { get; set; }
 			public string Type { get; set; }
 			public List<string> Tags { get; set; }
@@ -91,6 +92,7 @@ namespace Investmogilev.UI.Portal.Controllers
 						Description = project.Description,
 						_id = project._id,
 						Type = project.GetType().Name,
+						Perechen = project.IsInList,
 						Tags = new List<string>()
 					};
 					foreach (Tag tag in project.Tags)

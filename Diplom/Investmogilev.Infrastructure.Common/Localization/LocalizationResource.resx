@@ -348,4 +348,7 @@
   <data name="GreenField_EstimateInvoiceAmount_Ожидаемая_сумма_инвестирования" xml:space="preserve">
     <value>Ожидаемая сумма инвестирования  (млрд. руб.)</value>
   </data>
+  <data name="Project_IsInList_Находится_в_перечне_" xml:space="preserve">
+    <value>Находится в перечне?</value>
+  </data>
 </root>

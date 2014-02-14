@@ -195,10 +195,14 @@ var plvm = new ProjectListViewModel(pr, mapvm);
 var layerListViewModel = new LayerListViewModel(dataForLayers, mapvm);
 var tags = new ProjectsFilterViewModel(plvm);
 var types = new ProjectsFilterViewModel(plvm);
+var perechen = new ProjectsFilterViewModel(plvm);
+
 
 mapvm.Initialize();
 ko.applyBindings(mapvm, document.getElementById("MapView"));
 ko.applyBindings(layerListViewModel, document.getElementById("LayerView"));
 ko.applyBindings(tags, document.getElementById("ProjectTypeFilterView"));
 ko.applyBindings(tags, document.getElementById("ProjectTagFilterView"));
+ko.applyBindings(tags, document.getElementById("ProjectPerechenFilterView"));
+
 

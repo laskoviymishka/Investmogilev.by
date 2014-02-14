@@ -8,7 +8,7 @@
 
     <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'></script>
     <script>
-        var linkToSite = '';
+        var linkToSite = 'http://investmogilev.by/';
     </script>
     <link href="css/avgrund.css" rel="stylesheet" />
     <link href="css/metro-bootstrap.css" rel="stylesheet">
@@ -89,6 +89,15 @@
                 </div>
                 <div data-hint="Фильтр проектов | Выберите интересующий вас тип проекта, на карте будут отображены все проекты где соответствует тип проекта либо один из выбранных тегов"
                      data-hint-position="top">
+                    <div id="ProjectPerechenFilterView" class="" style="width: 100%">
+                        <h3 class="">Отображать проекты из перечня</h3>
+                        <div data-bind="foreach: AllPerechen" data-hint="Типы проектов | Различают 2 основных типа - неиспользуемое здание(UnUsedBuilding) и проект для реализации (GreenField)"
+                             data-hint-position="right">
+                            <div type="button" class="button success" style="border: 1px #ccc solid;" data-bind='text: Name, click: TypeClick, attr: { class: checked }'
+                                 style="width: 100%">
+                            </div>
+                        </div>
+                    </div>
                     <div id="ProjectTypeFilterView" class="" style="width: 100%">
                         <h3 class="">Отображаемые типы проектов</h3>
                         <div data-bind="foreach: AllTypes" data-hint="Типы проектов | Различают 2 основных типа - неиспользуемое здание(UnUsedBuilding) и проект для реализации (GreenField)"
@@ -99,8 +108,8 @@
                         </div>
                     </div>
                     <div id="ProjectTagFilterView" class="" style="width: 100%">
-                        <h3 class="">Отображаемые теги</h3>
-                        <div data-bind="foreach: AllTags" data-hint="Тэги проектов | Тэги по основным класифицирующим группам"
+                        <h3 class="">Отображаемая отраслевая принадлежность</h3>
+                        <div data-bind="foreach: AllTags" data-hint="Отраслевая принадлежность проектов | Отраслевая принадлежность по основным класифицирующим группам"
                              data-hint-position="right">
                             <div type="button" class="button success" style="border: 1px #ccc solid;" data-bind='text: Name, click: TypeClick, attr: { class: checked }'
                                  style="width: 100%">
@@ -119,7 +128,6 @@
             </div>
         </div>
         <div id="RegionView" style="width:100%; height: 100%; display: none;">
-            <iframe src="http://investmogilev.azurewebsites.net/InvestProjects/PartialTable" width="100%" height="100%"></iframe>
         </div>
     </div>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>

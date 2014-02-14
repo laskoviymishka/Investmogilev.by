@@ -412,6 +412,15 @@ namespace Investmogilev.Infrastructure.Common.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Находится в перечне?.
+        /// </summary>
+        public static string Project_IsInList_Находится_в_перечне_ {
+            get {
+                return ResourceManager.GetString("Project_IsInList_Находится_в_перечне_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введите название проекта.
         /// </summary>
         public static string Project_Name_Введите_имя_проекта {
