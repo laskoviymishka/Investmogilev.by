@@ -19,7 +19,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult StatusInfo(string id)
 		{
-			var project = RepositoryContext.Current.All<Project>(p => p.Id == id).Include(p => p.WorkflowState).FirstOrDefault();
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == id);
 			if (project == null)
 			{
 				return HttpNotFound("проект не найден");

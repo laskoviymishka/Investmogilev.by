@@ -40,6 +40,7 @@ namespace Investmogilev.Infrastructure.Common.Repository.EF
 				.WithOptional(c => c.ProjectIspolcom)
 				.HasForeignKey(c => c.ProjectIspolcomId);
 			modelBuilder.ComplexType<Address>();
+			modelBuilder.ComplexType<Workflow>();
 			modelBuilder.ComplexType<MessageBody>();
 			modelBuilder.ComplexType<UserProfile>();
 			modelBuilder.Entity<Report>()
@@ -69,6 +70,7 @@ namespace Investmogilev.Infrastructure.Common.Repository.EF
 				.HasForeignKey(n => n.InvestorUser);
 
 			modelBuilder.Entity<Users>().HasMany(u => u.Roles).WithMany(r => r.User);
+			Configuration.LazyLoadingEnabled = false;
 		}
 
 		public DbSet<T> GetDbSet<T>() where T : class, IMongoEntity

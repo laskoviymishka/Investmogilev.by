@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Investmogilev.Infrastructure.Common.Model.Common;
 
@@ -57,7 +58,15 @@ namespace Investmogilev.Infrastructure.Common.Repository.EF
 
 		public void Update<T>(T item) where T :class, IMongoEntity
 		{
-			_context.SaveChanges();
+			try
+			{
+				_context.SaveChanges();
+			}
+			catch (Exception ex)
+			{
+				var store = ex;
+				throw;
+			}
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using Investmogilev.Infrastructure.BusinessLogic.Managers;
@@ -39,7 +40,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		public ActionResult All()
 		{
 			BindUsersAndRegions();
-			return View(RepositoryContext.Current.All<Project>().Include(project => project.WorkflowState));
+			return View(RepositoryContext.Current.All<Project>());
 		}
 
 		#endregion
@@ -95,7 +96,8 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult GreenFieldProject(string id)
 		{
-			return PartialView(RepositoryContext.Current.GetOne<Project>(p => p.Id == id) as GreenField);
+			var model = RepositoryContext.Current.GetOne<Project>(p => p.Id == id) as GreenField;
+			return PartialView(model);
 		}
 
 		[HttpPost]
@@ -178,7 +180,14 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Project(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<Project>(p => p.Id == id));
+			return View(RepositoryContext.Current.All<Project>(p => p.Id == id)
+				.Include(p => p.ProjectComission)
+				.Include(p => p.ProjectIspolcom)
+				.Include(p => p.ProjectNotes)
+				.Include(p => p.Responses)
+				.Include(p => p.SubProject)
+				.Include(p => p.Info)
+				.Include(p => p.Tasks).FirstOrDefault());
 		}
 
 		public ActionResult Delete(string id)
@@ -212,10 +221,10 @@ namespace Investmogilev.UI.Portal.Controllers
 				BindUsersAndRegions();
 				if (User.IsInRole("Investor"))
 				{
-					return RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name).Include(project => project.WorkflowState);
+					return RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name);
 				}
 
-				return RepositoryContext.Current.All<Project>().Include(project => project.WorkflowState);
+				return RepositoryContext.Current.All<Project>();
 			}
 		}
 
