@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Investmogilev.Infrastructure.BusinessLogic.Notification;
 using Investmogilev.Infrastructure.BusinessLogic.Wokflow;

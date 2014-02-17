@@ -15,11 +15,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Common
 		[Display(ResourceType = typeof (LocalizationResource), Name = "AdditionalInfo_InfoName_Имя")]
 		public string InfoName { get; set; }
 
-
-		[Required]
-		[Display(ResourceType = typeof (LocalizationResource), Name = "AdditionalInfo_InfoValue_Описание")]
-		public string InfoValue { get; set; }
-
 		[BsonRepresentation(BsonType.ObjectId)]
 		public string Id { get; set; }
 	}

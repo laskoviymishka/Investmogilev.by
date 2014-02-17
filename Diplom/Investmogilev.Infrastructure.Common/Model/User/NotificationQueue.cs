@@ -8,8 +8,14 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 {
 	public class NotificationQueue : IMongoEntity
 	{
+		[BsonIgnore]
+		public string UserId { get; set; }
+
 		[Display(Name = "Автор")]
 		public string UserName { get; set; }
+
+		[BsonIgnore]
+		public virtual Users User { get; set; }
 
 		[Display(Name = "Заголовок")]
 		public string NotificationTitle { get; set; }

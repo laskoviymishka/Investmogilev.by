@@ -10,6 +10,7 @@ using Investmogilev.Infrastructure.BusinessLogic.Notification;
 using Investmogilev.Infrastructure.Common.Model.Common;
 using Investmogilev.Infrastructure.Common.Model.User;
 using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.Repository.EF;
 using MongoDB.Bson;
 
 namespace Investmogilev.UI.Portal.Controllers
@@ -31,8 +32,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		public MessageController()
 		{
 			_portalMessage = new PortalMessageHandler();
-			_userRepository = new MongoRepository(WebConfigurationManager.AppSettings["mongoServer"],
-				WebConfigurationManager.AppSettings["mongoBase"]);
+			_userRepository = new ProjectRepository(new ProjectDataContext());
 		}
 
 		#endregion

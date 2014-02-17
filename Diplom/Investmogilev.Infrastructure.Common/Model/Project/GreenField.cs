@@ -11,10 +11,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		[Display(ResourceType = typeof (LocalizationResource), Name = "GreenField_InvestNumber_Инвестиционный_номер")]
 		public string InvestNumber { get; set; }
 
-		[Display(ResourceType = typeof (LocalizationResource),
-			Name = "GreenField_EstimateInvestDate_Примерная_дата_инвестирования")]
-		public DateTime EstimateInvestDate { get; set; }
-
 		[Display(ResourceType = typeof (LocalizationResource), Name = "GreenField_Goal_Цель_проекта")]
 		public string Goal { get; set; }
 

@@ -185,7 +185,7 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
 				p => p.Id == _currentProject.Id)
 				.WorkflowState.History.Find(
 					h =>
-						h.Editor == _userName
+						h.EditorId == _userName
 						&& h.From == ProjectWorkflow.State.OnMap
 						&& h.To == ProjectWorkflow.State.InvestorApprove) != null);
 		}

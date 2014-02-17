@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Investmogilev.Infrastructure.BusinessLogic.Notification;
 using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
 using Investmogilev.Infrastructure.Common;
 using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Model.User;
 using Investmogilev.Infrastructure.Common.Repository;
 using Investmogilev.Infrastructure.Common.Repository.EF;
 using Investmogilev.Infrastructure.Common.State;
@@ -66,6 +68,14 @@ namespace Investmogilev.Tests.Tester
 					context,
 					_currentProject.WorkflowState.CurrentState);
 			Console.Write(statemachine.CanFire(ProjectWorkflow.Trigger.FillInformation));
+
+
+			MongoRepository mongo = new MongoRepository("mongodb://178.124.129.147/", "Projects");
+			var user = mongo.All<Users>().FirstOrDefault();
+
+			ProjectRepository sql = new ProjectRepository(new ProjectDataContext());
+			sql.Add(user);
+
 		}
 		//private static void GenerateDependendenciesValues()
 		//{

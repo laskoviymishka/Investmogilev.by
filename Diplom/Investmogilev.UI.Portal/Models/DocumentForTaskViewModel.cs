@@ -13,7 +13,6 @@ namespace Investmogilev.UI.Portal.Models
             Id = info.Id;
             FilePath = info.FilePath;
             InfoName = info.InfoName;
-            InfoValue = info.InfoValue;
         }
 
         public string ProjectId { get; set; }

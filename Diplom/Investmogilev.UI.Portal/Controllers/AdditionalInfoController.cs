@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -93,7 +94,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public FileResult DownloadProjectInfo(string projectId, string docId)
 		{
-			var note = RepositoryContext.Current.GetOne<Project>(p => p.Id == projectId);
+			var note = RepositoryContext.Current.All<Project>(p => p.Id == projectId).Include(p => p.Info).FirstOrDefault();
 			var doc = note.Info.FirstOrDefault(t => t.Id == docId) as DocumentAdditionalInfo;
 			if (doc != null) return File(doc.FilePath, "application/doc", doc.InfoName);
 			return null;

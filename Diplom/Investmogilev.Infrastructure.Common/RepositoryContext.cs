@@ -4,6 +4,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.Repository.EF;
 
 namespace Investmogilev.Infrastructure.Common
 {
@@ -39,8 +40,7 @@ namespace Investmogilev.Infrastructure.Common
 			IRepository session = GetSession();
 			if (session == null)
 			{
-				session = new MongoRepository(WebConfigurationManager.AppSettings["mongoServer"],
-					WebConfigurationManager.AppSettings["mongoBase"]);
+				session = new ProjectRepository(new ProjectDataContext());
 
 				SaveSession(session);
 			}

@@ -41,10 +41,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		}
 
 		[BsonIgnore]
-		public List<Project> Projects
-		{
-			get { return RepositoryContext.Current.All<Project>(p => ProjectIds.Contains(p.Id)).ToList(); }
-		}
+		public virtual List<Project> Projects { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
 		public string Id { get; set; }

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using Investmogilev.Infrastructure.BusinessLogic.Managers;
@@ -94,7 +96,8 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult GreenFieldProject(string id)
 		{
-			return PartialView(RepositoryContext.Current.GetOne<Project>(p => p.Id == id) as GreenField);
+			var model = RepositoryContext.Current.GetOne<Project>(p => p.Id == id) as GreenField;
+			return PartialView(model);
 		}
 
 		[HttpPost]
@@ -178,7 +181,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Project(string id)
 		{
-			return View(RepositoryContext.Current.GetOne<Project>(p => p.Id == id));
+			return View(RepositoryContext.Current.All<Project>(p => p.Id == id).FirstOrDefault());
 		}
 
 		public ActionResult Delete(string id)

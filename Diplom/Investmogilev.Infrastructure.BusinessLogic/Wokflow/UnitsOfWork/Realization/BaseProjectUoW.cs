@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Investmogilev.Infrastructure.BusinessLogic.Notification;
 using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Model.User;
 using Investmogilev.Infrastructure.Common.Repository;
 using Investmogilev.Infrastructure.Common.State;
 
@@ -105,7 +106,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			CurrentProject.WorkflowState.History.Add(new History
 			{
 				EditingTime = DateTime.Now,
-				Editor = UserName,
+				Editor = Repository.GetOne<Users>(u => u.Username == UserName),
 				To = initialState,
 				From = CurrentProject.WorkflowState.CurrentState,
 				Body = bodyMessage

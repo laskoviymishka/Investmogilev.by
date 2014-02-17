@@ -5,6 +5,7 @@ using Investmogilev.Infrastructure.Common;
 using Investmogilev.Infrastructure.Common.Model.Common;
 using Investmogilev.Infrastructure.Common.Model.Project;
 using Investmogilev.Infrastructure.Common.Repository;
+using Investmogilev.Infrastructure.Common.Repository.EF;
 using Investmogilev.Infrastructure.Common.State;
 using Newtonsoft.Json;
 
@@ -68,8 +69,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			ViewBag.StartYear = 2005;
 			ViewBag.EndYear = 2012;
-			IRepository repository = new MongoRepository(WebConfigurationManager.AppSettings["mongoServer"],
-				WebConfigurationManager.AppSettings["mongoBase"]);
+			IRepository repository = new ProjectRepository(new ProjectDataContext());
 			return PartialView(repository.All<Region>());
 		}
 

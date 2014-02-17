@@ -47,21 +47,21 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 		{
 			return
 				RepositoryContext.Current.All<MessageQueue>(
-					m => (m.To == userName || m.Cc.Contains(userName)) && m.IsSended && m.Type == MessageType.Portal);
+					m => (m.To == userName) && m.IsSended && m.Type == MessageType.Portal);
 		}
 
 		public IEnumerable<MessageQueue> Unread(string userName)
 		{
 			return
 				RepositoryContext.Current.All<MessageQueue>(
-					m => (m.To == userName || m.Cc.Contains(userName)) && !m.IsReaded && m.IsSended && m.Type == MessageType.Portal);
+					m => (m.To == userName) && !m.IsReaded && m.IsSended && m.Type == MessageType.Portal);
 		}
 
 		public IEnumerable<MessageQueue> Readed(string userName)
 		{
 			return
 				RepositoryContext.Current.All<MessageQueue>(
-					m => (m.To == userName || m.Cc.Contains(userName)) && !m.IsReaded && m.IsSended && m.Type == MessageType.Portal);
+					m => (m.To == userName) && !m.IsReaded && m.IsSended && m.Type == MessageType.Portal);
 		}
 
 		public IEnumerable<MessageQueue> SendedUnread(string userName)
@@ -97,7 +97,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 			else
 			{
 				message = RepositoryContext.Current.GetOne<MessageQueue>(
-					m => m.Cc.Contains(userName) && m.Id == id && m.Type == MessageType.Portal && m.IsSended);
+					m =>  m.Id == id && m.Type == MessageType.Portal && m.IsSended);
 			}
 			return message;
 		}

@@ -29,7 +29,10 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		[Display(Name = "Отправитель")]
 		public string From { get; set; }
 
-		public IList<string> Cc { get; set; }
+		[BsonIgnore]
+		public virtual Users FromUser { get; set; }
+		[BsonIgnore]
+		public string FromUserId { get; set; }
 
 		[Required]
 		[Display(Name = "Отправить получателю?")]
@@ -42,6 +45,11 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		[Required]
 		[Display(Name = "Адресат")]
 		public string To { get; set; }
+
+		[BsonIgnore]
+		public virtual Users ToUser { get; set; }
+		[BsonIgnore]
+		public string ToUserId { get; set; }
 
 		[Required]
 		[Display(Name = "Тип сообщения")]

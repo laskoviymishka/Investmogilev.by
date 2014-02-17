@@ -10,7 +10,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 	public class Workflow
 	{
 		[Display(Name = "История изменения")]
-		public List<History> History { get; set; }
+		public virtual List<History> History { get; set; }
 
 		[Display(Name = "Текущее состояние")]
 		public ProjectWorkflow.State CurrentState { get; set; }
