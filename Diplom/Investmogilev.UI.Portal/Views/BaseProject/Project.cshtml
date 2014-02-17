@@ -18,6 +18,12 @@
         @Html.Raw(HttpUtility.HtmlDecode(Model.Description))
     </blockquote>
     <small class="display-label">
+        @Html.DisplayNameFor(model => model.IsInList)
+    </small>
+    <blockquote class="display-field">
+        @Html.DisplayFor(model => model.IsInList)
+    </blockquote>
+    <small class="display-label">
         @Html.DisplayNameFor(model => model.Region)
     </small>
     <blockquote class="display-field">

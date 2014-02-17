@@ -8,7 +8,7 @@
 
     <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'></script>
     <script>
-        var linkToSite = 'http://investmogilev.by/';
+        var linkToSite = 'http://localhost:55798/';
     </script>
     <link href="css/avgrund.css" rel="stylesheet" />
     <link href="css/metro-bootstrap.css" rel="stylesheet">
@@ -66,9 +66,9 @@
                      data-hint-position="right">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title">
+                            <div class="displayTitle">
                                 Текущий слой карты
-                            </h3>
+                            </div>
                         </div>
                         <div class="panel-body" data-bind='style: { backgroundColor: SelectedLayerCss }, text: SelectedLayerName'
                              style="color: #F0FFFF">
@@ -89,26 +89,24 @@
                 </div>
                 <div data-hint="Фильтр проектов | Выберите интересующий вас тип проекта, на карте будут отображены все проекты где соответствует тип проекта либо один из выбранных тегов"
                      data-hint-position="top">
-                    <div id="ProjectPerechenFilterView" class="" style="width: 100%">
-                        <h3 class="">Отображать проекты из перечня</h3>
-                        <div data-bind="foreach: AllPerechen" data-hint="Типы проектов | Различают 2 основных типа - неиспользуемое здание(UnUsedBuilding) и проект для реализации (GreenField)"
-                             data-hint-position="right">
-                            <div type="button" class="button success" style="border: 1px #ccc solid;" data-bind='text: Name, click: TypeClick, attr: { class: checked }'
-                                 style="width: 100%">
-                            </div>
-                        </div>
-                    </div>
                     <div id="ProjectTypeFilterView" class="" style="width: 100%">
-                        <h3 class="">Отображаемые типы проектов</h3>
+                        <div class="displayTitle">Типы проектов</div>
                         <div data-bind="foreach: AllTypes" data-hint="Типы проектов | Различают 2 основных типа - неиспользуемое здание(UnUsedBuilding) и проект для реализации (GreenField)"
                              data-hint-position="right">
                             <div type="button" class="button success" style="border: 1px #ccc solid;" data-bind='text: Name, click: TypeClick, attr: { class: checked }'
                                  style="width: 100%">
                             </div>
                         </div>
+                        <div id="ProjectPerechenFilterView">
+                            <div data-bind="foreach: AllPerechen">
+                                <div type="button" class="button success" style="border: 1px #ccc solid;" data-bind='text: Name, click: TypeClick, attr: { class: checked }'
+                                     style="width: 100%">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="ProjectTagFilterView" class="" style="width: 100%">
-                        <h3 class="">Отображаемая отраслевая принадлежность</h3>
+                        <div class="displayTitle">Отраслевая принадлежность</div>
                         <div data-bind="foreach: AllTags" data-hint="Отраслевая принадлежность проектов | Отраслевая принадлежность по основным класифицирующим группам"
                              data-hint-position="right">
                             <div type="button" class="button success" style="border: 1px #ccc solid;" data-bind='text: Name, click: TypeClick, attr: { class: checked }'

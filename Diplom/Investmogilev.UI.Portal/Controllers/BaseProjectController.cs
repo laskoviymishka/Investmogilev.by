@@ -107,6 +107,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.Name = model.Name;
 				initial.Description = model.Description;
 				initial.AddressName = model.AddressName;
+				initial.IsInList = model.IsInList;
 				initial.Region = model.Region;
 				initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
 				initial.Tags = model.Tags;
