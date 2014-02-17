@@ -41,9 +41,7 @@
                     for (var i = 0; i < project.Tags().length; i++) {
                         if (project.Tags()[i].toLowerCase() == tags[j].Name().toLowerCase()) {
                             if (isPerechen) {
-                                if (project.Perechen == true) {
-                                    return true;
-                                }
+                                return !project.Perechen();
                             } else {
                                 return true;
                             }
@@ -108,7 +106,7 @@ function ProjectsFilterViewModel(projectListViewModel) {
     self.SelectedPerechen = ko.observableArray();
     self.AllPerechen = ko.observableArray();
 
-    self.FilterChanged = function (argument) {
+    self.FilterChanged = function () {
         prlVm.UpdateFilter(self);
     };
 
@@ -162,8 +160,8 @@ function ProjectsFilterViewModel(projectListViewModel) {
     };
 
     self.UpdatePerechen = function () {
-        self.SelectedPerechen.push(new FilterTypeViewModel("perechen", "Проекты из перечня", "button success", self, false, true));
-        self.AllPerechen.push(new FilterTypeViewModel("perechen", "Проекты из перечня", "button success", self, false, true));
+        self.SelectedPerechen.push(new FilterTypeViewModel("perechen", "Проекты вне перечня", "button success", self, false, true));
+        self.AllPerechen.push(new FilterTypeViewModel("perechen", "Проекты вне перечня", "button success", self, false, true));
     };
     self.UpdateTags = function () {
         self.SelectedTags.removeAll();
