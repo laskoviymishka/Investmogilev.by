@@ -1,4 +1,5 @@
-﻿@model Investmogilev.Infrastructure.Common.Model.Project.UnUsedBuilding
+﻿@using Investmogilev.Infrastructure.Common.Model.Project
+@model Investmogilev.Infrastructure.Common.Model.Project.UnUsedBuilding
 
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -54,9 +55,16 @@
                 </td>
             </tr>
             <tr>
+                <td>@Html.LabelFor(model => model.Tags)</td>
+                <td>
+                    @Html.DropDownListFor(model => model.Tags, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
+                    @Html.ValidationMessageFor(model => model.Tags)
+                </td>
+            </tr>
+            <tr>
                 <td> @Html.LabelFor(model => model.Region)</td>
                 <td>
-                    @Html.EditorFor(model => model.Region)
+                    @Html.DropDownListFor(model => model.Region, new SelectList(Enum.GetNames(typeof(Regions))), new { id = "cznRegions" })
                     @Html.ValidationMessageFor(model => model.Region)
                 </td>
             </tr>
@@ -97,5 +105,7 @@
 }
 
 <script>
+    $("#cznTags").chosen();
+    $("#cznRegions").chosen();
     $(document).ready(function () { $("#editor").cleditor(); });
 </script>

@@ -6,7 +6,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 	[BsonIgnoreExtraElements]
 	public class UnUsedBuilding : Project
 	{
-		[Display(Name = "Площадь здания проекта")]
+		[Display(Name = "Площадь здания проекта, кв. м.")]
 		public double Area { get; set; }
 
 		[Display(Name = "На продажу?")]
@@ -15,7 +15,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		[Display(Name = "Подведены комуникации?")]
 		public bool IsCommunicate { get; set; }
 
-		[Display(Name = "Балансовая стоимость здания")]
+		[Display(Name = "Балансовая стоимость здания, млрд. руб.")]
 		public double? BalancePrice { get; set; }
 	}
 }

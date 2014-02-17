@@ -66,7 +66,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult CreateUnUsedBuildingProject()
 		{
-			return PartialView();
+			return PartialView(new UnUsedBuilding { Description = _descriptionTemplate });
 		}
 
 		[HttpPost]
