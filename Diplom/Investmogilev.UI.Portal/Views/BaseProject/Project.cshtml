@@ -87,7 +87,7 @@
     </small>
     <blockquote class="display-field">
         <div>
-            @Html.ActionLink("Создать заметку к проекту", "Create", "Notes", new { id = Model.Id }, new { @class = "button info" })
+            @Html.ActionLink("Создать заметку к проекту", "Create", "Notes", new { projectId = Model.Id }, new { @class = "button info" })
             @Html.ActionLink("Редактировать", "FillProject", new { id = Model.Id }, new { @class = "button info" })
         </div>
         <br />

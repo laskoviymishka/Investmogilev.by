@@ -46,8 +46,16 @@ namespace Investmogilev.Infrastructure.Common.Repository.EF
 
 		public void Add<T>(T item) where T : class, IMongoEntity
 		{
-			_context.GetDbSet<T>().Add(item);
-			_context.SaveChanges();
+			try
+			{
+				_context.GetDbSet<T>().Add(item);
+				_context.SaveChanges();
+			}
+			catch (Exception exception)
+			{
+				throw;
+			}
+
 		}
 
 		public void Add<T>(IEnumerable<T> items) where T : class,IMongoEntity

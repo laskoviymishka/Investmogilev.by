@@ -11,7 +11,7 @@
 </br>
 <script>
     $(document).ready(function () {
-        var link = '/BaseProject/@Model.GetType().Name' + 'Project/@Model.Id';
+        var link = '/BaseProject/@Model.ProjectType' + 'Project/@Model.Id';
         $.get(link, function (data) {
             $('#polymorphicEdit').html(data);
             $('#polymorphicEdit').show();

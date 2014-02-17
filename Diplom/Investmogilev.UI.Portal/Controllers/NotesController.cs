@@ -42,14 +42,14 @@ namespace Investmogilev.UI.Portal.Controllers
 			return View(model);
 		}
 
-		public ActionResult Create(string proejctId)
+		public ActionResult Create(string projectId)
 		{
 			var note = new ProjectNotes
 			{
 				CretorName = User.Identity.Name,
 				Id = ObjectId.GenerateNewId().ToString(),
 				CreatedTime = DateTime.Now,
-				Project = RepositoryContext.Current.GetOne<Project>(p => p.Id == id),
+				Project = RepositoryContext.Current.GetOne<Project>(p => p.Id == projectId),
 				NoteTitle = "empty",
 				NoteBody = "empty",
 				RolesForView = new string[] { "Admin", "Investor", "User" }

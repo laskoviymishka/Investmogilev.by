@@ -41,7 +41,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string Region { get; set; }
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_Tags_Теги")]
-		public virtual List<Tag> Tags { get; set; }
+		public virtual Tag Tags { get; set; }
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_InvestorUser_Инвестор")]
 		public string InvestorUser { get; set; }
@@ -66,7 +66,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_ProjectType_Тип_проекта")]
 		public string ProjectType
 		{
-			get { return GetType().Name; }
+			get { return GetType().Name.Substring(0,GetType().Name.IndexOf('_')); }
 		}
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_Info_Дополнительная_информация")]

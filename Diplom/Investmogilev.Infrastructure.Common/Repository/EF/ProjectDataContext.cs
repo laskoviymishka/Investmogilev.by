@@ -24,12 +24,12 @@ namespace Investmogilev.Infrastructure.Common.Repository.EF
 			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 			modelBuilder.Entity<Project>()
 				.HasMany(p => p.ProjectNotes)
-				.WithOptional(p => p.Project)
+				.WithRequired(p => p.Project)
 				.HasForeignKey(p => p.ProjectId);
-			modelBuilder.Entity<Project>().HasMany(p => p.Tasks).WithOptional(p => p.Project).HasForeignKey(p => p.ProjectId);
-			modelBuilder.Entity<Project>().HasMany(p => p.Responses).WithOptional(p => p.Project).HasForeignKey(p => p.ProjectId);
+			modelBuilder.Entity<Project>().HasMany(p => p.Tasks).WithRequired(p => p.Project).HasForeignKey(p => p.ProjectId);
+			modelBuilder.Entity<Project>().HasMany(p => p.Responses).WithRequired(p => p.Project).HasForeignKey(p => p.ProjectId);
 			modelBuilder.Entity<InvestorResponse>().HasKey(t => t.ResponseId);
-			modelBuilder.Entity<ProjectTask>().HasMany(p => p.TaskReport).WithOptional(p => p.Task).HasForeignKey(p => p.TaskId);
+			modelBuilder.Entity<ProjectTask>().HasMany(p => p.TaskReport).WithRequired(p => p.Task).HasForeignKey(p => p.TaskId);
 			modelBuilder.Entity<Comission>().Ignore(c => c.ProjectIds);
 			modelBuilder.Entity<Comission>()
 				.HasMany(c => c.Projects)
@@ -45,23 +45,23 @@ namespace Investmogilev.Infrastructure.Common.Repository.EF
 			modelBuilder.ComplexType<UserProfile>();
 			modelBuilder.Entity<Report>()
 				.HasMany(p => p.ReportResponses)
-				.WithOptional(p => p.Report)
+				.WithRequired(p => p.Report)
 				.HasForeignKey(p => p.ReportId);
 			modelBuilder.Entity<Report>().Ignore(r => r.ReportResponse);
-
+			modelBuilder.Entity<ProjectNotes>().HasMany(p => p.NoteDocument);
 			modelBuilder.Entity<Users>()
 				.HasMany(u => u.Messages)
-				.WithOptional(m => m.FromUser)
+				.WithRequired(m => m.FromUser)
 				.HasForeignKey(p => p.FromUserId);
 
 			modelBuilder.Entity<Users>()
 				.HasMany(u => u.Messages)
-				.WithOptional(m => m.ToUser)
+				.WithRequired(m => m.ToUser)
 				.HasForeignKey(p => p.ToUserId);
 
 			modelBuilder.Entity<Users>()
 				.HasMany(u => u.Notifications)
-				.WithOptional(n => n.User)
+				.WithRequired(n => n.User)
 				.HasForeignKey(n => n.UserId);
 
 			modelBuilder.Entity<Users>()
@@ -70,7 +70,6 @@ namespace Investmogilev.Infrastructure.Common.Repository.EF
 				.HasForeignKey(n => n.InvestorUser);
 
 			modelBuilder.Entity<Users>().HasMany(u => u.Roles).WithMany(r => r.User);
-			Configuration.LazyLoadingEnabled = false;
 		}
 
 		public DbSet<T> GetDbSet<T>() where T : class, IMongoEntity

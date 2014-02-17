@@ -61,7 +61,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			return JsonConvert.SerializeObject(GenerateGeoJsonData(RepositoryContext.Current.All<Project>(
 				p => p.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap
-				     || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove)));
+					 || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove)));
 		}
 
 		[AllowAnonymous]
@@ -91,14 +91,12 @@ namespace Investmogilev.UI.Portal.Controllers
 						Name = project.Name,
 						Description = project.Description,
 						_id = project.Id,
-						Type = project.GetType().Name,
+						Type = project.ProjectType,
 						Perechen = project.IsInList,
 						Tags = new List<string>()
 					};
-					foreach (Tag tag in project.Tags)
-					{
-						latLng.Tags.Add(tag.ToString());
-					}
+
+					latLng.Tags.Add(project.Tags.ToString());
 					latLngs.Add(latLng);
 				}
 			}
