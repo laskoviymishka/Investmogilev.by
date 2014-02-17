@@ -27,30 +27,7 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 			var getStates = new List<IState>();
 			var transitions = new List<Transition>();
 
-			foreach (Type type in types)
-			{
-				var state = Activator.CreateInstance(type, _context) as IState;
-				getStates.Add(state);
-				foreach (MethodInfo method in type.GetMethods())
-				{
-					var attributes = method.GetCustomAttributes(typeof (TriggerAttribute), true) as TriggerAttribute[];
-					if (attributes != null && attributes.Length > 0)
-					{
-						TriggerAttribute attribute = attributes.First(a => a.WorkflowName == _stateMachineName);
-
-						if (attribute != null && type.GetInterface("IState") != null)
-						{
-							transitions.Add(new Transition
-							{
-								From = (TS) attribute.From,
-								To = (TS) attribute.To,
-								Trigger = (TT) attribute.TriggerName,
-								Guard = GetReturningFunc<bool>(state, method.Name)
-							});
-						}
-					}
-				}
-			}
+			GetTypes<TS, TT>(types, getStates, transitions);
 
 			foreach (IState state in getStates)
 			{
@@ -127,6 +104,34 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 			}
 
 			return machine;
+		}
+
+		private void GetTypes<TS, TT>(List<Type> types, List<IState> getStates, List<Transition> transitions)
+		{
+			foreach (Type type in types)
+			{
+				var state = Activator.CreateInstance(type, _context) as IState;
+				getStates.Add(state);
+				foreach (MethodInfo method in type.GetMethods())
+				{
+					var attributes = method.GetCustomAttributes(typeof (TriggerAttribute), true) as TriggerAttribute[];
+					if (attributes != null && attributes.Length > 0)
+					{
+						TriggerAttribute attribute = attributes.First(a => a.WorkflowName == _stateMachineName);
+
+						if (attribute != null && type.GetInterface("IState") != null)
+						{
+							transitions.Add(new Transition
+							{
+								From = (TS) attribute.From,
+								To = (TS) attribute.To,
+								Trigger = (TT) attribute.TriggerName,
+								Guard = GetReturningFunc<bool>(state, method.Name)
+							});
+						}
+					}
+				}
+			}
 		}
 
 		public static void InitializeStates(Dictionary<Type, IState> container)
