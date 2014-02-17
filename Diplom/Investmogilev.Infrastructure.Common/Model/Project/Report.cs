@@ -24,7 +24,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string ReportResponseId { get; set; }
 
 		[Display(Name = "Дополнительная информация")]
-		public List<AdditionalInfo> Info { get; set; }
+		public virtual List<AdditionalInfo> Info { get; set; }
 
 		[Display(Name = "Отклик")]
 		public ReportResponse ReportResponse
@@ -41,7 +41,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		}
 
 		[Display(Name = "Отклик")]
-		public List<ReportResponse> ReportResponses { get; set; }
+		public virtual List<ReportResponse> ReportResponses { get; set; }
 
 		[Display(Name = "Время созданя")]
 		public DateTime ReportTime { get; set; }

@@ -41,7 +41,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string Region { get; set; }
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_Tags_Теги")]
-		public List<Tag> Tags { get; set; }
+		public virtual List<Tag> Tags { get; set; }
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_InvestorUser_Инвестор")]
 		public string InvestorUser { get; set; }
@@ -51,13 +51,13 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public Users Investor { get; set; }
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_Tasks_Задачи")]
-		public List<ProjectTask> Tasks { get; set; }
+		public virtual List<ProjectTask> Tasks { get; set; }
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_SubProject_Под_проекты")]
-		public List<Project> SubProject { get; set; }
+		public virtual List<Project> SubProject { get; set; }
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_WorkflowState_Состояние")]
-		public Workflow WorkflowState { get; set; }
+		public virtual Workflow WorkflowState { get; set; }
 
 		[BsonIgnore]
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_ProjectType_Тип_проекта")]
@@ -67,18 +67,18 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		}
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_Info_Дополнительная_информация")]
-		public List<AdditionalInfo> Info { get; set; }
+		public virtual List<AdditionalInfo> Info { get; set; }
 
 		[BsonIgnore]
-		public Comission ProjectComission { get; set; }
+		public virtual Comission ProjectComission { get; set; }
 
 		[BsonIgnore]
-		public List<ProjectNotes> ProjectNotes { get; set; }
+		public virtual List<ProjectNotes> ProjectNotes { get; set; }
 
 		[BsonIgnore]
-		public Comission ProjectIspolcom { get; set; }
+		public virtual Comission ProjectIspolcom { get; set; }
 
-		public List<InvestorResponse> Responses { get; set; }
+		public virtual List<InvestorResponse> Responses { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
 		public string Id { get; set; }

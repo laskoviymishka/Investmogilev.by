@@ -9,7 +9,7 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		public string ApplicationName { get; set; }
 		public string UserName { get; set; }
 		[BsonIgnore]
-		public List<Users> User { get; set; }
+		public virtual List<Users> User { get; set; }
 
 		public string Id { get; set; }
 	}

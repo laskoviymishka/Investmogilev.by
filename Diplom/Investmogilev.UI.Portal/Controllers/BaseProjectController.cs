@@ -180,14 +180,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Project(string id)
 		{
-			return View(RepositoryContext.Current.All<Project>(p => p.Id == id)
-				.Include(p => p.ProjectComission)
-				.Include(p => p.ProjectIspolcom)
-				.Include(p => p.ProjectNotes)
-				.Include(p => p.Responses)
-				.Include(p => p.SubProject)
-				.Include(p => p.Info)
-				.Include(p => p.Tasks).FirstOrDefault());
+			return View(RepositoryContext.Current.All<Project>(p => p.Id == id).FirstOrDefault());
 		}
 
 		public ActionResult Delete(string id)

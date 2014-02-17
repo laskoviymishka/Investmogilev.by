@@ -16,7 +16,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 
 		[BsonIgnore]
 		[Display(ResourceType = typeof(LocalizationResource), Name = "History_Editor_Кем_изменено")]
-		public Users Editor { get; set; }
+		public virtual Users Editor { get; set; }
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "History_From_Исходное_состояние")]
 		public ProjectWorkflow.State From { get; set; }

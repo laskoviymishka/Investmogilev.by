@@ -20,7 +20,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string Title { get; set; }
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "ProjectTask_TaskReport_Отчеты")]
-		public List<Report> TaskReport { get; set; }
+		public virtual List<Report> TaskReport { get; set; }
 
 		[Display(ResourceType = typeof(LocalizationResource), Name = "ProjectTask_Type_Тип_задачи")]
 		public TaskTypes Type { get; set; }
@@ -47,6 +47,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string Id { get; set; }
 
 		[BsonIgnore]
-		public Project Project { get; set; }
+		public virtual Project Project { get; set; }
 	}
 }

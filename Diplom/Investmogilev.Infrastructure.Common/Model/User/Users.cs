@@ -52,13 +52,13 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 
 		public string Comment { get; set; }
 
-		public List<MessageQueue> Messages { get; set; }
-		public List<NotificationQueue> Notifications { get; set; }
-		public List<Role> Roles { get; set; }
+		public virtual List<MessageQueue> Messages { get; set; }
+		public virtual List<NotificationQueue> Notifications { get; set; }
+		public virtual List<Role> Roles { get; set; }
 
-		public List<Project.Project> Projects { get; set; }
+		public virtual List<Project.Project> Projects { get; set; }
 
-		public List<Project.ReportResponse> ReportResponses { get; set; }
+		public virtual List<Project.ReportResponse> ReportResponses { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
 		public string Id

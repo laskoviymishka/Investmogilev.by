@@ -35,12 +35,12 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		[Display(ResourceType = typeof (LocalizationResource), Name = "ProjectNotes_RolesForView_Доступна_для_ролей")]
 		public string[] RolesForView { get; set; }
 
-		public IEnumerable<AdditionalInfo> NoteDocument { get; set; }
+		public virtual IEnumerable<AdditionalInfo> NoteDocument { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
 		public string Id { get; set; }
 
 		[BsonIgnore]
-		public Project Project { get; set; }
+		public virtual Project Project { get; set; }
 	}
 }

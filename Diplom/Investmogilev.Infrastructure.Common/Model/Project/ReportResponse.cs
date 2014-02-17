@@ -14,7 +14,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string Body { get; set; }
 
 		[Display(Name = "Дополнительная информация")]
-		public List<AdditionalInfo> Info { get; set; }
+		public virtual List<AdditionalInfo> Info { get; set; }
 
 		[Display(Name = "Одобрен?")]
 		public bool IsApproved { get; set; }
@@ -35,7 +35,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string ResponseUserId { get; set; }
 
 		[BsonIgnore]
-		public Users ResponseUser { get; set; }
+		public virtual Users ResponseUser { get; set; }
 
 		[BsonIgnore]
 		public virtual Project Project { get; set; }

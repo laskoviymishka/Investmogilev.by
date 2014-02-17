@@ -30,7 +30,7 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		public string From { get; set; }
 
 		[BsonIgnore]
-		public Users FromUser { get; set; }
+		public virtual Users FromUser { get; set; }
 		[BsonIgnore]
 		public string FromUserId { get; set; }
 
@@ -47,7 +47,7 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		public string To { get; set; }
 
 		[BsonIgnore]
-		public Users ToUser { get; set; }
+		public virtual Users ToUser { get; set; }
 		[BsonIgnore]
 		public string ToUserId { get; set; }
 

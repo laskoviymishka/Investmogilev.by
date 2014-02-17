@@ -15,7 +15,7 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		public string UserName { get; set; }
 
 		[BsonIgnore]
-		public Users User { get; set; }
+		public virtual Users User { get; set; }
 
 		[Display(Name = "Заголовок")]
 		public string NotificationTitle { get; set; }
