@@ -27,7 +27,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				foreach (ProjectTask task in project.Tasks)
 				{
-					task.ProjectId = project._id;
+					task.ProjectId = project.Id;
 					model.Add(task);
 				}
 			}
@@ -64,7 +64,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					TaskId = taskId,
 					ProjectId = projectId,
 					ReportTime = DateTime.Now,
-					_id = ObjectId.GenerateNewId().ToString()
+					Id = ObjectId.GenerateNewId().ToString()
 				});
 		}
 
@@ -76,7 +76,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				return View(model);
 			}
-			var reportManager = new ReportManager(model.TaskId, model._id, model.ProjectId);
+			var reportManager = new ReportManager(model.TaskId, model.Id, model.ProjectId);
 			reportManager.CreateReport(model);
 			return RedirectToAction("Index");
 		}
@@ -87,8 +87,8 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Details(string taskId, string projectId)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
-			ProjectTask task = project.Tasks.Find(t => t._id == taskId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == projectId);
+			ProjectTask task = project.Tasks.Find(t => t.Id == taskId);
 			return View(task);
 		}
 
@@ -110,7 +110,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					{
 						FilePath = physicalPath + fileName,
 						InfoName = fileName,
-						_id = ObjectId.GenerateNewId().ToString()
+						Id = ObjectId.GenerateNewId().ToString()
 					});
 			}
 
@@ -132,7 +132,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			return View(new ProjectTask
 			{
-				_id = ObjectId.GenerateNewId().ToString(),
+				Id = ObjectId.GenerateNewId().ToString(),
 				CreationTime = DateTime.Now,
 				ProjectId = projectid,
 				Type = TaskTypes.Investor,
@@ -154,7 +154,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				return View(projectTask);
 			}
 
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectTask.ProjectId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == projectTask.ProjectId);
 			if (project.Tasks == null)
 			{
 				project.Tasks = new List<ProjectTask>();

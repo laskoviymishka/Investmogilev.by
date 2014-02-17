@@ -21,6 +21,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Common
 		public string InfoValue { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

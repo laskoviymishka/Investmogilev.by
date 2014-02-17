@@ -190,7 +190,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 			var bsonDocument = new BsonDocument
 			{
-				{"_id", new ObjectId()},
+				{"Id", new ObjectId()},
 				{"ApplicationName", ApplicationName},
 				{"CreationDate", creationDate},
 				{"Email", email},
@@ -338,7 +338,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
 		{
-			IMongoQuery query = Query.EQ("_id", GenerateObjectId(providerUserKey));
+			IMongoQuery query = Query.EQ("Id", GenerateObjectId(providerUserKey));
 			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
 
 			if (bsonDocument == null)
@@ -448,7 +448,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override void UpdateUser(MembershipUser user)
 		{
-			IMongoQuery query = Query.EQ("_id", GenerateObjectId(user.ProviderUserKey));
+			IMongoQuery query = Query.EQ("Id", GenerateObjectId(user.ProviderUserKey));
 			var bsonDocument = mongoCollection.FindOneAs<BsonDocument>(query);
 
 			if (bsonDocument == null)
@@ -547,7 +547,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 			var user = new Users();
 			return new MembershipUser(Name,
 				bsonDocument["Username"].AsString,
-				bsonDocument["_id"].AsObjectId,
+				bsonDocument["Id"].AsObjectId,
 				email,
 				passwordQuestion,
 				"",

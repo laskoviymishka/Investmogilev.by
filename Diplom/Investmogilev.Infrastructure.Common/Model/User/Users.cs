@@ -54,7 +54,7 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		public UserProfile Profile { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id
+		public string Id
 		{
 			get { return _objectId.ToString(); }
 			set { _objectId = ObjectId.Parse(value); }

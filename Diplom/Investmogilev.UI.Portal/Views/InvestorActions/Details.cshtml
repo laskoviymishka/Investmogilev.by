@@ -57,7 +57,7 @@
                                     <blockquote>
                                         @Html.ActionLink("Скачать " + appendix.InfoName,
                                               "Download",
-                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button info" })
+                                               new { messageId = Model.Id, appendixId = item.Id }, new { @class = "button button info" })
                                     </blockquote>
                                 }
                             }
@@ -91,7 +91,7 @@
                                             <blockquote>
                                                 @Html.ActionLink("Скачать " + appendix.InfoName,
                                               "Download",
-                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button info" })
+                                               new { messageId = Model.Id, appendixId = item.Id }, new { @class = "button button info" })
                                             </blockquote>
                                         }
                                     }

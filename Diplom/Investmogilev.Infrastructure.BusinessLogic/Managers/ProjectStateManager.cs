@@ -45,7 +45,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 			_adminNotificate = new AdminNotification();
 			_userNotificationl = new UserNotification();
 			_repository = RepositoryContext.Current;
-			_currentProject = _repository.GetOne<Project>(p => p._id == currentProject._id);
+			_currentProject = _repository.GetOne<Project>(p => p.Id == currentProject.Id);
 			_unitsOfWork = new UnitsOfWorkContainer(_currentProject,
 				_repository,
 				_userNotificationl,
@@ -56,9 +56,9 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 			{
 				_currentProject = currentProject;
 			}
-			if (string.IsNullOrEmpty(_currentProject._id))
+			if (string.IsNullOrEmpty(_currentProject.Id))
 			{
-				_currentProject._id = ObjectId.GenerateNewId().ToString();
+				_currentProject.Id = ObjectId.GenerateNewId().ToString();
 			}
 
 			if (_currentProject.WorkflowState == null)
@@ -91,7 +91,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 
 		public void CreateProject(Project createdProject)
 		{
-			if (_repository.GetOne<Project>(p => p._id == createdProject._id) == null)
+			if (_repository.GetOne<Project>(p => p.Id == createdProject.Id) == null)
 			{
 				_repository.Add(createdProject);
 			}
@@ -155,7 +155,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 
 		public static ProjectStateManager StateManagerFactory(string projectId, string currentUser, IList<string> roles)
 		{
-			return StateManagerFactory(RepositoryContext.Current.GetOne<Project>(p => p._id == projectId), currentUser, roles);
+			return StateManagerFactory(RepositoryContext.Current.GetOne<Project>(p => p.Id == projectId), currentUser, roles);
 		}
 
 		#endregion

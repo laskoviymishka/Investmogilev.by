@@ -37,7 +37,7 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
         {
             _currentProject = new Project
                 {
-                    _id = ObjectId.GenerateNewId().ToString(),
+                    Id = ObjectId.GenerateNewId().ToString(),
                     Name = "testProjectName",
                     Region = "testProjectRegion",
                     InvestorUser = "",
@@ -80,7 +80,7 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
         public void OpenUoWConstructorTest()
         {
             var target = CreateUoW();
-            Assert.IsNotNull(_repository.GetOne<Project>(t => t._id == _currentProject._id));
+            Assert.IsNotNull(_repository.GetOne<Project>(t => t.Id == _currentProject.Id));
             Assert.IsNotNull(target);
         }
 
@@ -92,8 +92,8 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
         {
             var target = CreateUoW();
             _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.OnMap;
-            Assert.IsNotNull(_repository.GetOne<Project>(t => t._id == _currentProject._id));
-            Assert.IsTrue(_repository.GetOne<Project>(t => t._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
+            Assert.IsNotNull(_repository.GetOne<Project>(t => t.Id == _currentProject.Id));
+            Assert.IsTrue(_repository.GetOne<Project>(t => t.Id == _currentProject.Id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
             Assert.IsFalse(target.FromMapToOpen());
             _roles = new string[] { "Admin" };
             target = CreateUoW();
@@ -108,8 +108,8 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
         {
             var target = CreateUoW();
             _currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.Open;
-            Assert.IsNotNull(_repository.GetOne<Project>(t => t._id == _currentProject._id));
-            Assert.IsTrue(_repository.GetOne<Project>(t => t._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.Open);
+            Assert.IsNotNull(_repository.GetOne<Project>(t => t.Id == _currentProject.Id));
+            Assert.IsTrue(_repository.GetOne<Project>(t => t.Id == _currentProject.Id).WorkflowState.CurrentState == ProjectWorkflow.State.Open);
             Assert.IsFalse(target.FromOpenToMap());
             _roles = new string[] { "User" };
             target = CreateUoW();
@@ -136,13 +136,13 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
 
             Assert.IsTrue(
                 _repository.GetOne<Project>(
-                    p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.Open);
+                    p => p.Id == _currentProject.Id).WorkflowState.CurrentState == ProjectWorkflow.State.Open);
 
             Assert.IsTrue(_repository.GetOne<Project>(
-                    p => p._id == _currentProject._id).WorkflowState.History.Count > 0);
+                    p => p.Id == _currentProject.Id).WorkflowState.History.Count > 0);
 
             Assert.IsTrue(_repository.GetOne<Project>(
-                    p => p._id == _currentProject._id)
+                    p => p.Id == _currentProject.Id)
                         .WorkflowState.History.Find(
                             h =>
                                 h.Editor == _userName

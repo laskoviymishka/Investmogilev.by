@@ -29,7 +29,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					ProjectTask task in
 						project.Tasks.Where(t => t.TaskReport != null || t.Type == TaskTypes.InvolvedOrganiztion))
 				{
-					task.ProjectId = project._id;
+					task.ProjectId = project.Id;
 					model.Add(task);
 				}
 			}
@@ -49,7 +49,7 @@ namespace Investmogilev.UI.Portal.Controllers
 								t.TaskReport != null && t.TaskReport.Last().ReportResponse == null ||
 								t.Type == TaskTypes.InvolvedOrganiztion))
 				{
-					task.ProjectId = project._id;
+					task.ProjectId = project.Id;
 					model.Add(task);
 				}
 			}
@@ -58,8 +58,8 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Details(string taskId, string projectId)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
-			ProjectTask task = project.Tasks.Find(t => t._id == taskId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == projectId);
+			ProjectTask task = project.Tasks.Find(t => t.Id == taskId);
 			return View(task);
 		}
 
@@ -76,7 +76,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					ProjectId = projectId,
 					ReportId = reportId,
 					ResponseTime = DateTime.Now,
-					_id = ObjectId.GenerateNewId().ToString()
+					Id = ObjectId.GenerateNewId().ToString()
 				});
 		}
 
@@ -107,7 +107,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					TaskId = taskId,
 					ProjectId = projectId,
 					ResponseTime = DateTime.Now,
-					_id = ObjectId.GenerateNewId().ToString()
+					Id = ObjectId.GenerateNewId().ToString()
 				});
 		}
 
@@ -116,8 +116,8 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			if (!ModelState.IsValid) return View(model);
 
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.ProjectId);
-			ProjectTask task = project.Tasks.Find(t => t._id == model.TaskId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == model.ProjectId);
+			ProjectTask task = project.Tasks.Find(t => t.Id == model.TaskId);
 			if (task.TaskReport == null)
 			{
 				task.TaskReport = new List<Report>();
@@ -125,7 +125,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 			var report = new Report
 			{
-				_id = ObjectId.GenerateNewId().ToString(),
+				Id = ObjectId.GenerateNewId().ToString(),
 				ReportTime = DateTime.Now,
 				Body = model.Body,
 				ReportResponse = model
@@ -149,7 +149,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				}
 			}
 
-			return RedirectToAction("Project", "BaseProject", new {id = project._id});
+			return RedirectToAction("Project", "BaseProject", new {id = project.Id});
 		}
 
 		#endregion
@@ -178,7 +178,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				{
 					FilePath = physicalPath,
 					InfoName = fileName,
-					_id = ObjectId.GenerateNewId().ToString()
+					Id = ObjectId.GenerateNewId().ToString()
 				});
 			}
 
@@ -200,7 +200,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			return View(new Comission
 			{
-				_id = ObjectId.GenerateNewId().ToString(),
+				Id = ObjectId.GenerateNewId().ToString(),
 			});
 		}
 

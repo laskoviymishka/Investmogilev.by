@@ -10,7 +10,7 @@
         {
             if (task.IsComplete)
             {
-                <a href="/InvestorActions/CreateReport?taskId=@task._id&projectId=@task.ProjectId" class="list marked">
+                <a href="/InvestorActions/CreateReport?taskId=@task.Id&projectId=@task.ProjectId" class="list marked">
                     <div class="list-content">
                         <span class="list-title">@task.Title</span>
                         <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
@@ -21,7 +21,7 @@
             }
             else
             {
-                <a href="/InvestorActions/CreateReport?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                <a href="/InvestorActions/CreateReport?taskId=@task.Id&projectId=@task.ProjectId" class="list">
                     <div class="list-content">
                         <span class="list-title">@task.Title</span>
                         <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
@@ -36,7 +36,7 @@
         {
             if (task.IsComplete)
             {
-                <a href="/AdminActions/Details?taskId=@task._id&projectId=@task.ProjectId" class="list marked">
+                <a href="/AdminActions/Details?taskId=@task.Id&projectId=@task.ProjectId" class="list marked">
                     <div class="list-content">
                         <span class="list-title">@task.Title</span>
                         <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
@@ -47,7 +47,7 @@
             }
             else
             {
-                <a href="/AdminActions/Details?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                <a href="/AdminActions/Details?taskId=@task.Id&projectId=@task.ProjectId" class="list">
                     <div class="list-content">
                         <span class="list-title">@task.Title</span>
                         <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
@@ -67,7 +67,7 @@
         @Html.ActionLink("Добавить ключевую точку реализации", "AddRoadMapPoint", "InvestorActions",
             new
             {
-                projectId = Model._id
+                projectId = Model.Id
             },
             new
             {

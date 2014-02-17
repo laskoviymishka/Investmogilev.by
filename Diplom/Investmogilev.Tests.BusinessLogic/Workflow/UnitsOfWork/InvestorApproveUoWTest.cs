@@ -38,7 +38,7 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
 		{
 			_currentProject = new Project
 			{
-				_id = ObjectId.GenerateNewId().ToString(),
+				Id = ObjectId.GenerateNewId().ToString(),
 				Name = "testProjectName",
 				Region = "testProjectRegion",
 				InvestorUser = "",
@@ -176,13 +176,13 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
 			Assert.IsTrue(wasUserNotificate);
 			Assert.IsTrue(
 				_repository.GetOne<Project>(
-					p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove);
+					p => p.Id == _currentProject.Id).WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove);
 
 			Assert.IsTrue(_repository.GetOne<Project>(
-				p => p._id == _currentProject._id).WorkflowState.History.Count > 0);
+				p => p.Id == _currentProject.Id).WorkflowState.History.Count > 0);
 
 			Assert.IsTrue(_repository.GetOne<Project>(
-				p => p._id == _currentProject._id)
+				p => p.Id == _currentProject.Id)
 				.WorkflowState.History.Find(
 					h =>
 						h.Editor == _userName

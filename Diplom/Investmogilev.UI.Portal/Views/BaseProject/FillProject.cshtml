@@ -11,7 +11,7 @@
 </br>
 <script>
     $(document).ready(function () {
-        var link = '/BaseProject/@Model.GetType().Name' + 'Project/@Model._id';
+        var link = '/BaseProject/@Model.GetType().Name' + 'Project/@Model.Id';
         $.get(link, function (data) {
             $('#polymorphicEdit').html(data);
             $('#polymorphicEdit').show();
@@ -32,4 +32,4 @@
 <div id="container">
     <div id="polymorphicEdit">Загружется...</div>
 </div>
-@Html.Action("CreateProjectAdditional", "AdditionalInfo", new { projectId = Model._id })
+@Html.Action("CreateProjectAdditional", "AdditionalInfo", new { projectId = Model.Id })

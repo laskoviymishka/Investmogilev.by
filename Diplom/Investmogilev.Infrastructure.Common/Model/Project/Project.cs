@@ -75,7 +75,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 			{
 				return
 					RepositoryContext.Current.GetOne<Comission>(
-						c => c.ProjectIds.Contains(_id) && c.Type == ComissionType.Comission);
+						c => c.ProjectIds.Contains(Id) && c.Type == ComissionType.Comission);
 			}
 		}
 
@@ -86,7 +86,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 			{
 				return
 					RepositoryContext.Current.All<ProjectNotes>(
-						c => c.ProjectId == _id && !string.IsNullOrEmpty(c.NoteTitle)).ToList();
+						c => c.ProjectId == Id && !string.IsNullOrEmpty(c.NoteTitle)).ToList();
 			}
 		}
 
@@ -97,13 +97,13 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 			{
 				return
 					RepositoryContext.Current.GetOne<Comission>(
-						c => c.ProjectIds.Contains(_id) && c.Type == ComissionType.Ispolcom);
+						c => c.ProjectIds.Contains(Id) && c.Type == ComissionType.Ispolcom);
 			}
 		}
 
 		public List<InvestorResponse> Responses { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

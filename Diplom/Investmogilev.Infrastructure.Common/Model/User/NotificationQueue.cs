@@ -24,6 +24,6 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		public DateTime NotificationTime { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

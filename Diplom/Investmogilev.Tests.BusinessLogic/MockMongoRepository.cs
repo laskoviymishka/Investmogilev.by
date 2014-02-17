@@ -88,9 +88,9 @@ namespace Investmogilev.Tests.BusinessLogic
 
         public void Update<T>(T item) where T : IMongoEntity
         {
-            if (GetOne<T>(t => t._id == item._id) != null)
+            if (GetOne<T>(t => t.Id == item.Id) != null)
             {
-                T elem = GetOne<T>(t => t._id == item._id);
+                T elem = GetOne<T>(t => t.Id == item.Id);
                 Delete<T>(item);
                 Add<T>(item);
             }

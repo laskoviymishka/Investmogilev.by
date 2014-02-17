@@ -48,7 +48,7 @@ namespace Investmogilev.Infrastructure.Common.Repository
 		public void Delete<T>(T item) where T : IMongoEntity
 		{
 			ExpireCacheToken<T>();
-			_db.GetCollection(typeof (T).Name).Remove(Query.EQ("_id", new ObjectId(item._id)));
+			_db.GetCollection(typeof (T).Name).Remove(Query.EQ("_id", new ObjectId(item.Id)));
 		}
 
 		public void DeleteAll<T>() where T : IMongoEntity
@@ -111,7 +111,7 @@ namespace Investmogilev.Infrastructure.Common.Repository
 
 		public void Update<T>(T item) where T : IMongoEntity
 		{
-			if (GetOne<T>(t => t._id == item._id) != null)
+			if (GetOne<T>(t => t.Id == item.Id) != null)
 			{
 				ExpireCacheToken<T>();
 				_db.GetCollection(typeof (T).Name).Save(item);

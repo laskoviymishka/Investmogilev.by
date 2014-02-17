@@ -32,6 +32,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string ResponseUser { get; set; }
 
 		[Display(Name = "Идентификатор отклика")]
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

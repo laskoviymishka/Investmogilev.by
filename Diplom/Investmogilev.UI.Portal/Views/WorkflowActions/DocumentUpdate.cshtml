@@ -57,13 +57,13 @@
                 if (item.TaskReport.Last().ReportResponse == null)
                 {
                     <td>
-                        @Html.ActionLink("Проверить отчет", "ReviewReport", "AdminActions", new { taskId = item._id, reportId = item.TaskReport.Last()._id, projectId = item.ProjectId }, new { @class = "button success" })
+                        @Html.ActionLink("Проверить отчет", "ReviewReport", "AdminActions", new { taskId = item.Id, reportId = item.TaskReport.Last().Id, projectId = item.ProjectId }, new { @class = "button success" })
                     </td>
                 }
                 else
                 {
                     <td>
-                        @Html.ActionLink("Информация о задаче", "Details", "AdminActions", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info" })
+                        @Html.ActionLink("Информация о задаче", "Details", "AdminActions", new { taskId = item.Id, projectId = item.ProjectId }, new { @class = "button info" })
                     </td>
                 }
             }
@@ -72,13 +72,13 @@
                 if (item.TaskReport.Last().ReportResponse == null)
                 {
                     <td>
-                        @Html.ActionLink("Проверить отчет", "CreateReport", "InvestorActions", new { taskId = item._id, reportId = item.TaskReport.Last()._id, projectId = item.ProjectId }, new { @class = "button success" })
+                        @Html.ActionLink("Проверить отчет", "CreateReport", "InvestorActions", new { taskId = item.Id, reportId = item.TaskReport.Last().Id, projectId = item.ProjectId }, new { @class = "button success" })
                     </td>
                 }
                 else
                 {
                     <td>
-                        @Html.ActionLink("Информация о задаче", "Details", "InvestorActions", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info" })
+                        @Html.ActionLink("Информация о задаче", "Details", "InvestorActions", new { taskId = item.Id, projectId = item.ProjectId }, new { @class = "button info" })
                     </td>
                 }
             }

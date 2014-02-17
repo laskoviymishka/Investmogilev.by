@@ -17,9 +17,9 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 
 		public void PushMessage(MessageQueue message)
 		{
-			if (RepositoryContext.Current.GetOne<MessageQueue>(m => m._id == message._id) != null)
+			if (RepositoryContext.Current.GetOne<MessageQueue>(m => m.Id == message.Id) != null)
 			{
-				var originalMessage = RepositoryContext.Current.GetOne<MessageQueue>(m => m._id == message._id);
+				var originalMessage = RepositoryContext.Current.GetOne<MessageQueue>(m => m.Id == message.Id);
 				if (!originalMessage.IsSended && message.IsSended)
 				{
 					message.SendedDate = DateTime.Now;
@@ -81,14 +81,14 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 		{
 			return
 				RepositoryContext.Current.GetOne<MessageQueue>(
-					m => m.From == userName && m._id == id && m.Type == MessageType.Portal);
+					m => m.From == userName && m.Id == id && m.Type == MessageType.Portal);
 		}
 
 		public MessageQueue ReadMessage(string userName, string id)
 		{
 			var message =
 				RepositoryContext.Current.GetOne<MessageQueue>(
-					m => m.To == userName && m._id == id && m.Type == MessageType.Portal && m.IsSended);
+					m => m.To == userName && m.Id == id && m.Type == MessageType.Portal && m.IsSended);
 			if (message != null)
 			{
 				message.IsReaded = true;
@@ -97,7 +97,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 			else
 			{
 				message = RepositoryContext.Current.GetOne<MessageQueue>(
-					m => m.Cc.Contains(userName) && m._id == id && m.Type == MessageType.Portal && m.IsSended);
+					m => m.Cc.Contains(userName) && m.Id == id && m.Type == MessageType.Portal && m.IsSended);
 			}
 			return message;
 		}
@@ -114,7 +114,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 			if (message == null)
 			{
 				message = new MessageQueue();
-				message._id = messageId;
+				message.Id = messageId;
 				PushMessage(message);
 			}
 
@@ -134,7 +134,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 
 		public AdditionalInfo Appendix(string userName, string messageid, string appendixId)
 		{
-			return Message(userName, messageid).Body.Appendix.Find(a => a._id == appendixId);
+			return Message(userName, messageid).Body.Appendix.Find(a => a.Id == appendixId);
 		}
 	}
 }

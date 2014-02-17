@@ -90,7 +90,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					return View(message);
 				}
 
-				return RedirectToAction("Message", new {id = message._id});
+				return RedirectToAction("Message", new {id = message.Id});
 			}
 
 			return RedirectToAction("Index");
@@ -113,7 +113,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		public ActionResult NewMessage()
 		{
 			BindUsers();
-			return View(new MessageQueue {_id = ObjectId.GenerateNewId().ToString(), From = User.Identity.Name});
+			return View(new MessageQueue {Id = ObjectId.GenerateNewId().ToString(), From = User.Identity.Name});
 		}
 
 		[HttpPost]
@@ -162,7 +162,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					{
 						FilePath = physicalPath + fileName,
 						InfoName = fileName,
-						_id = ObjectId.GenerateNewId().ToString()
+						Id = ObjectId.GenerateNewId().ToString()
 					});
 			}
 

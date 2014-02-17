@@ -18,7 +18,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult StatusInfo(string id)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == id);
 			if (project == null)
 			{
 				return HttpNotFound("проект не найден");
@@ -35,7 +35,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Triggers(string projectId, string trigger)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == projectId);
 			if (project == null)
 			{
 				return HttpNotFound("проект не найден");
@@ -133,7 +133,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					throw new ArgumentOutOfRangeException();
 			}
 
-			return RedirectToAction("Project", "BaseProject", new {id = project._id});
+			return RedirectToAction("Project", "BaseProject", new {id = project.Id});
 		}
 
 		#endregion
@@ -154,7 +154,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult SelectUser(string projectId, string responseId)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == projectId);
 			IEnumerable<InvestorResponse> prevResponses = project.Responses.Where(r => r.IsVerified);
 			foreach (InvestorResponse prevResponse in prevResponses)
 			{
@@ -169,7 +169,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult AddDocumentTask(string projectId)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == projectId);
 			if (project == null)
 			{
 				return HttpNotFound("проект не найден");
@@ -209,7 +209,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				return View(model);
 			}
 
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.PorjectId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == model.PorjectId);
 
 			IQueryable<TaskTemplate> templates =
 				RepositoryContext.Current.All<TaskTemplate>(t => model.Documents.Contains(t.Title));
@@ -219,7 +219,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				tasks.Add(new ProjectTask
 				{
-					_id = ObjectId.GenerateNewId().ToString(),
+					Id = ObjectId.GenerateNewId().ToString(),
 					ProjectId = model.PorjectId,
 					Body = template.Body,
 					Title = template.Title,
@@ -247,7 +247,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult AddInvolvedOrganizations(string projectId)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == projectId);
 			if (project == null)
 			{
 				return HttpNotFound("проект не найден");
@@ -286,7 +286,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				return View(model);
 			}
 
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == model.PorjectId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == model.PorjectId);
 
 			IQueryable<TaskTemplate> templates =
 				RepositoryContext.Current.All<TaskTemplate>(t => model.Documents.Contains(t.Title));
@@ -296,7 +296,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				tasks.Add(new ProjectTask
 				{
-					_id = ObjectId.GenerateNewId().ToString(),
+					Id = ObjectId.GenerateNewId().ToString(),
 					ProjectId = model.PorjectId,
 					Body = template.Body,
 					Title = template.Title,
@@ -321,7 +321,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult FillInvolvedOrganization(Project project)
 		{
-			return RedirectToAction("Project", "BaseProject", new {id = project._id});
+			return RedirectToAction("Project", "BaseProject", new {id = project.Id});
 		}
 
 		#endregion
@@ -332,7 +332,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			return View(new ProjectTask
 			{
-				_id = ObjectId.GenerateNewId().ToString(),
+				Id = ObjectId.GenerateNewId().ToString(),
 				CreationTime = DateTime.Now,
 				ProjectId = projectid,
 				Step = state
@@ -353,7 +353,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				return View(projectTask);
 			}
 
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectTask.ProjectId);
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == projectTask.ProjectId);
 			if (project.Tasks == null)
 			{
 				project.Tasks = new List<ProjectTask>();

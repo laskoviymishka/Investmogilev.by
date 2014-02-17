@@ -36,7 +36,7 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow
         {
             _currentProject = new Project
             {
-                _id = ObjectId.GenerateNewId().ToString(),
+                Id = ObjectId.GenerateNewId().ToString(),
                 Name = "testProjectName",
                 Region = "testProjectRegion",
                 InvestorUser = "",
@@ -80,7 +80,7 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow
             MyTestInitialize();
             _workflow = Wrapper();
             _workflow.Move(ProjectWorkflow.Trigger.FillInformation);
-            Assert.IsTrue(_repository.GetOne<Project>(p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
+            Assert.IsTrue(_repository.GetOne<Project>(p => p.Id == _currentProject.Id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
         }
 
         [TestMethod]
@@ -90,12 +90,12 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow
             MyTestInitialize();
             _workflow = Wrapper();
             _workflow.Move(ProjectWorkflow.Trigger.FillInformation);
-            Assert.IsTrue(_repository.GetOne<Project>(p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
+            Assert.IsTrue(_repository.GetOne<Project>(p => p.Id == _currentProject.Id).WorkflowState.CurrentState == ProjectWorkflow.State.OnMap);
 
             _roles = new List<string>() { "Admin" };
             MyTestInitialize();
             _workflow.Move(ProjectWorkflow.Trigger.ReOpen);
-            Assert.IsTrue(_repository.GetOne<Project>(p => p._id == _currentProject._id).WorkflowState.CurrentState == ProjectWorkflow.State.Open);
+            Assert.IsTrue(_repository.GetOne<Project>(p => p.Id == _currentProject.Id).WorkflowState.CurrentState == ProjectWorkflow.State.Open);
         }
     }
 }

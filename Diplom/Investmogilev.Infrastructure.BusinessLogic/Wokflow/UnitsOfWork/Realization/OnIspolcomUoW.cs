@@ -66,9 +66,9 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 				comission.ProjectIds = new List<string>();
 			}
 
-			if (!comission.ProjectIds.Contains(CurrentProject._id))
+			if (!comission.ProjectIds.Contains(CurrentProject.Id))
 			{
-				comission.ProjectIds.Add(CurrentProject._id);
+				comission.ProjectIds.Add(CurrentProject.Id);
 				Repository.Update(comission);
 			}
 

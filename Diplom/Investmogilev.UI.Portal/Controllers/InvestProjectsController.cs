@@ -33,7 +33,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		[AllowAnonymous]
 		public ActionResult PopUpDetailsGreenField(string id)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as GreenField;
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == id) as GreenField;
 
 			if (project == null)
 			{
@@ -46,7 +46,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		[AllowAnonymous]
 		public ActionResult PopUpDetailsUnUsedBuilding(string id)
 		{
-			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as UnUsedBuilding;
+			var project = RepositoryContext.Current.GetOne<Project>(p => p.Id == id) as UnUsedBuilding;
 			if (project == null)
 			{
 				return null;
@@ -90,7 +90,7 @@ namespace Investmogilev.UI.Portal.Controllers
 						Lng = project.Address.Lng,
 						Name = project.Name,
 						Description = project.Description,
-						_id = project._id,
+						_id = project.Id,
 						Type = project.GetType().Name,
 						Perechen = project.IsInList,
 						Tags = new List<string>()

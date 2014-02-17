@@ -40,6 +40,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public string Body { get; set; }
 
 		[Display(ResourceType = typeof (LocalizationResource), Name = "ProjectTask__id_Идентификатор_задачи")]
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

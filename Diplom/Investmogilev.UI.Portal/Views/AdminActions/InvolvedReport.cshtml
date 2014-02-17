@@ -12,7 +12,7 @@
     <fieldset>
         <legend>Отзыв на отчет</legend>
         @Html.HiddenFor(model => model.ResponseTime)
-        @Html.HiddenFor(model => model._id)
+        @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.TaskId)
         @Html.HiddenFor(model => model.ReportId)
         @Html.HiddenFor(model => model.ResponseUser)
@@ -32,8 +32,8 @@
         </div>
         <div style="margin:10px">
             @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
-                .Save("Save", "AdminActions", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
-                .Remove("Remove", "AdminActions", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
+                .Save("Save", "AdminActions", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model.Id })
+                .Remove("Remove", "AdminActions", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model.Id })
                 .AutoUpload(false)
                 ).Localizable("ru-RU")
         </div>
@@ -54,7 +54,7 @@
         jQuery('#attachments').tUpload(
         {
             async: {
-                "saveUrl": "/ReportReview/Save?taskId=@Model.TaskId&reportId=@Model.ReportId&projectId=@Model.ProjectId&reposponseId=@Model._id",
+                "saveUrl": "/ReportReview/Save?taskId=@Model.TaskId&reportId=@Model.ReportId&projectId=@Model.ProjectId&reposponseId=@Model.Id",
                 "autoUpload": false
             },
             localization: {

@@ -26,6 +26,6 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		public DateTime ReportTime { get; set; }
 
 		[Display(Name = "Идентификатор")]
-		public string _id { get; set; }
+		public string Id { get; set; }
 	}
 }

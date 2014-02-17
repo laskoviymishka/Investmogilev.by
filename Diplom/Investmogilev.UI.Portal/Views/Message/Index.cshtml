@@ -42,7 +42,7 @@
                 @Html.DisplayFor(modelItem => item.To)
             </td>
             <td>
-                @Html.ActionLink("Прочитать", "ReadMessage", new { id = item._id, @class = "btn btn-primary" }) 
+                @Html.ActionLink("Прочитать", "ReadMessage", new { id = item.Id, @class = "btn btn-primary" }) 
             </td>
         </tr>
     }

@@ -18,10 +18,10 @@ namespace Investmogilev.Infrastructure.Common.Repository.EF
 			// Configure Code First to ignore PluralizingTableName convention 
 			// If you keep this convention then the generated tables will have pluralized names. 
 			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-			modelBuilder.Entity<Project>().HasKey(t => t._id);
-			modelBuilder.Entity<ProjectTask>().HasKey(t => t._id);
-			modelBuilder.Entity<Report>().HasKey(t => t._id);
-			modelBuilder.Entity<AdditionalInfo>().HasKey(t => t._id);
+			modelBuilder.Entity<Project>().HasKey(t => t.Id);
+			modelBuilder.Entity<ProjectTask>().HasKey(t => t.Id);
+			modelBuilder.Entity<Report>().HasKey(t => t.Id);
+			modelBuilder.Entity<AdditionalInfo>().HasKey(t => t.Id);
 		}
 	}
 }

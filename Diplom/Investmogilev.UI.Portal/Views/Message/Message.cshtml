@@ -51,7 +51,7 @@
                 <li>
                     @Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
                                               "Download",
-                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button info" })
+                                               new { messageId = Model.Id, appendixId = item.Id }, new { @class = "button button info" })
                 </li>
             }
         }
