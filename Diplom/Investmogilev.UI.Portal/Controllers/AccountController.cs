@@ -39,7 +39,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, model.RememberMe))
 			{
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("All", "BaseProject");
 			}
 
 			ModelState.AddModelError("", "The user name or password provided is incorrect.");
