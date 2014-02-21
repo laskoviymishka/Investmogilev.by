@@ -58,14 +58,14 @@ namespace Investmogilev.UI.Portal.Controllers
 				HttpPostedFileBase file = Request.Files[i];
 				string fileName = Path.GetFileName(file.FileName);
 				string physicalPath = Path.Combine(
-					Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name)),
+					Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project._id)),
 					fileName);
 
 				if (!Directory.Exists(
-					Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name))))
+					Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project._id))))
 				{
 					Directory.CreateDirectory(
-						Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name)));
+						Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project._id)));
 				}
 
 				file.SaveAs(physicalPath);
@@ -123,14 +123,14 @@ namespace Investmogilev.UI.Portal.Controllers
 				HttpPostedFileBase file = Request.Files[i];
 				string fileName = Path.GetFileName(file.FileName);
 				string physicalPath = Path.Combine(
-					Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name)),
+					Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project._id)),
 					fileName);
 
 				if (!Directory.Exists(
-					Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name))))
+					Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project._id))))
 				{
 					Directory.CreateDirectory(
-						Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project.Name)));
+						Server.MapPath(string.Format("~/App_Data/ProjectAppendix/{0}/", project._id)));
 				}
 
 				file.SaveAs(physicalPath);

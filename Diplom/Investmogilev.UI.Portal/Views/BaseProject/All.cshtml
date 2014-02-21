@@ -32,24 +32,24 @@
 <table id="main-table" class="table hovered">
 	<thead>
 		<tr>
-			<th>
+			<th style="width: 40%">
 				@Html.DisplayNameFor(model => model.Name)
 			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Region)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.AddressName)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.ProjectType)
-			</th>
+            <th style="width: 15%">
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th style="width: 15%">
+                @Html.DisplayNameFor(model => model.AddressName)
+            </th>
+            <th style="width: 15%">
+                @Html.DisplayNameFor(model => model.ProjectType)
+            </th>
 			<th>
 				Статус
 			</th>
-			<th>
-				Управление
-			</th>
+            <th style="width: 15%">
+                Управление
+            </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -73,8 +73,9 @@
 				</td>
 				<td>
 					<div>
-						@Html.ActionLink("Подробнее", "Project", "BaseProject", new { Id = item._id }, new { @class = "button info", style = "width:45%" })
-                        @Html.ActionLink("Удалить", "Delete", "BaseProject", new { Id = item._id }, new { @class = "button danger", style = "width:45%" })
+						@Html.ActionLink("Подробнее", "Project", "BaseProject", new { Id = item._id }, new { @class = "button info", style = "width:100%" })
+                        @Html.ActionLink("Редактировать", "FillProject", "BaseProject", new { Id = item._id }, new { @class = "button primary", style = "width:100%" })
+                        @Html.ActionLink("Удалить", "Delete", "BaseProject", new { Id = item._id }, new { @class = "button danger", style = "width:100%" })
 					</div>
 				</td>
 			</tr>

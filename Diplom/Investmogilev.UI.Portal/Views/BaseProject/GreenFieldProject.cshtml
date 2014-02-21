@@ -50,10 +50,10 @@
                 </td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.Tags)</td>
+                <td>@Html.LabelFor(model => model.Tag)</td>
                 <td>
-                    @Html.DropDownListFor(model => model.Tags, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
-                    @Html.ValidationMessageFor(model => model.Tags)
+                    @Html.DropDownListFor(model => model.Tag, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
+                    @Html.ValidationMessageFor(model => model.Tag)
                 </td>
             </tr>
             <tr>

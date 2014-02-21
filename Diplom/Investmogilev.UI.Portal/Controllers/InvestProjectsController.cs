@@ -60,7 +60,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			return JsonConvert.SerializeObject(GenerateGeoJsonData(RepositoryContext.Current.All<Project>(
 				p => p.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap
-				     || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove)));
+					 || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove)));
 		}
 
 		[AllowAnonymous]
@@ -95,10 +95,7 @@ namespace Investmogilev.UI.Portal.Controllers
 						Perechen = project.IsInList,
 						Tags = new List<string>()
 					};
-					foreach (Tag tag in project.Tags)
-					{
-						latLng.Tags.Add(tag.ToString());
-					}
+					latLng.Tags.Add(project.Tag.ToString());
 					latLngs.Add(latLng);
 				}
 			}

@@ -40,6 +40,20 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_Tags_Теги")]
 		public List<Tag> Tags { get; set; }
 
+		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_Tags_Теги")]
+		public Tag Tag {
+			get { return Tags.FirstOrDefault(); }
+			set
+			{
+				if (Tags == null)
+				{
+					Tags = new List<Tag>();
+				}
+				Tags[0] = value;
+			}
+		}
+
+
 		[Display(ResourceType = typeof (LocalizationResource), Name = "Project_InvestorUser_Инвестор")]
 		public string InvestorUser { get; set; }
 

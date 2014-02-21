@@ -145,7 +145,7 @@
     <value>Введите площадь проекта</value>
   </data>
   <data name="GreenField_CadastrValue_Кадастровая_стоимость_проекта" xml:space="preserve">
-    <value>Кадастровая стоимость проекта (млрд. руб.)</value>
+    <value>Кадастровая стоимость проекта (долл. за кв. м.)</value>
   </data>
   <data name="GreenField_CadastrValue_Введите_кадастровую_стоимость_проекта" xml:space="preserve">
     <value>Введите кадастровую стоимость проекта</value>

@@ -115,7 +115,7 @@ namespace Investmogilev.Infrastructure.Common.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Кадастровая стоимость проекта (млрд. руб.).
+        ///   Looks up a localized string similar to Кадастровая стоимость проекта (долл. за кв. м.).
         /// </summary>
         public static string GreenField_CadastrValue_Кадастровая_стоимость_проекта {
             get {
