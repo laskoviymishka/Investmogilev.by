@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
@@ -114,16 +115,21 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 					.Subject(template.Title)
 					.UsingTemplate(template.Body, model)
 					.Send();
-				_protalNotification.PushNotificate(new NotificationQueue
+
+				if (project.WorkflowState.CurrentState != ProjectWorkflow.State.InvestorApprove &&
+					project.WorkflowState.CurrentState != ProjectWorkflow.State.OnMap)
 				{
-					Id = ObjectId.GenerateNewId().ToString(),
-					IsRead = false,
-					NotificationTime = DateTime.Now,
-					NotificationTitle = template.Title,
-					NotigicationBody = template.Body,
-					UserName = project.Responses[0].InvestorEmail,
-					User = project.Investor
-				});
+					_protalNotification.PushNotificate(new NotificationQueue
+					{
+						Id = ObjectId.GenerateNewId().ToString(),
+						IsRead = false,
+						NotificationTime = DateTime.Now,
+						NotificationTitle = template.Title,
+						NotigicationBody = template.Body,
+						UserName = project.Responses.First(i => i.IsVerified).InvestorEmail,
+						UserId = project.InvestorUser
+					});
+				}
 			}
 
 			if (template.UserType == UserType.User)

@@ -3,6 +3,7 @@ using System.Web.Security;
 using Investmogilev.Infrastructure.Common;
 using Investmogilev.Infrastructure.Common.Model.Common;
 using Investmogilev.Infrastructure.Common.Model.Project;
+using Investmogilev.Infrastructure.Common.Model.User;
 using Investmogilev.Infrastructure.Common.State;
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Notification
@@ -21,15 +22,18 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 
 		public void DocumentUpdate(Project project)
 		{
-			SendMailFromDb(project, project, ProjectWorkflow.Trigger.InvestorResponsed, UserType.Investor);
+			SendMailFromDb(project, project, ProjectWorkflow.Trigger.DocumentUpdate, UserType.Investor);
 		}
 
 		public void ProjectAproved(Project project)
 		{
 			string pass = Guid.NewGuid().ToString().Substring(0, 5);
+			project.InvestorUser = null;
 			string login = project.Responses.Find(i => i.IsVerified).InvestorEmail;
 			Membership.CreateAccount(login, pass);
 			Roles.AddUserToRole(login, "Investor");
+			project.Investor = Repository.GetOne<Users>(u => u.Username == login);
+			Repository.Update(project);
 
 			SendMailFromDb(project, new {Pass = pass, Login = login, Project = project},
 				ProjectWorkflow.Trigger.InvestorSelected, UserType.Investor);

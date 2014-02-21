@@ -6,7 +6,7 @@
     информация о задаче
 </h2>
 <div>
-    @Html.ActionLink("К моим задачам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker big" })
+    @Html.ActionLink("К моим задачам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker big button success" })
 </div>
 <fieldset>
     <legend>Задание</legend>
@@ -101,7 +101,9 @@
                         else
                         {
                             <div class="display-field">
-                                <strong>Отчет еще не проверен</strong>
+                                @Html.ActionLink("Создать ответ на отчет", "ReviewReport",
+                                  new { reportId = item.Id, taskId = Model.Id, projectId = Model.ProjectId },
+                                new { @class = "icon-arrow-down-3 fg-darker button primary" })
                             </div>
                         }
                     </fieldset>

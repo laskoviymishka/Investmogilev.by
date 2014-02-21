@@ -31,13 +31,20 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		{
 			get
 			{
-				if (ReportResponses != null)
-				{
-					return ReportResponses.FirstOrDefault();
-				}
-				return _response;
+				return ReportResponses.FirstOrDefault();
 			}
-			set { _response = value; }
+			set
+			{
+				if (ReportResponses == null || !ReportResponses.Any())
+				{
+					ReportResponses = new List<ReportResponse>();
+					ReportResponses.Add(_response);
+				}
+				else
+				{
+					ReportResponses[0] = _response;
+				}
+			}
 		}
 
 		[Display(Name = "Отклик")]

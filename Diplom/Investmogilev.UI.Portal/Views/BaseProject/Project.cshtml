@@ -1,9 +1,7 @@
 ﻿@model Investmogilev.Infrastructure.Common.Model.Project.Project
-
 @{
     ViewBag.Title = "Информация о проекте" + Model.Name;
 }
-
 <h2>Информация о проекте</h2>
 <div>
     @Html.ActionLink("Назад", "All", null, new { @class = "icon-arrow-left-3 fg-darker big button success" })
@@ -45,7 +43,16 @@
         }
         else
         {
-            @Html.DisplayFor(model => model.InvestorUser)
+            <div class="listview-outlook" style="width:400px">
+                <a href="#" class="list selected">
+                    <div class="list-content">
+                        <span class="list-title">@Model.Responses.First(i => i.IsVerified).InvestorLastName @Model.Responses.First(i => i.IsVerified).InvestorFirstName @Model.Responses.First(i => i.IsVerified).InvestorMiddleName</span>
+                        <span class="list-remark">Телефон: @Model.Responses.First(i => i.IsVerified).InvestorPhone</span> <span class="list-remark">
+                            E-mail: @Model.Responses.First(i => i.IsVerified).InvestorEmail
+                        </span>
+                    </div>
+                </a>
+            </div>
         }
     </blockquote>
     <small class="display-label">
@@ -94,10 +101,8 @@
         <br />
         @if (User.IsInRole("Admin") || User.IsInRole("Investor"))
         {
-            Html.RenderAction("WorkFlowForProjectPartial", "BaseProject", new {id = Model.Id});
+            Html.RenderAction("WorkFlowForProjectPartial", "BaseProject", new { id = Model.Id });
         }
     </blockquote>
-
 </fieldset>
-<br/>
-
+<br />

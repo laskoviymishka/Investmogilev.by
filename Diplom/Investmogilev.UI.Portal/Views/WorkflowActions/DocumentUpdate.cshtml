@@ -54,7 +54,7 @@
             </td>
             @if (User.IsInRole("Admin"))
             {
-                if (item.TaskReport.Last().ReportResponse == null)
+                if (item.TaskReport != null && item.TaskReport.Any() && item.TaskReport.Last().ReportResponse == null)
                 {
                     <td>
                         @Html.ActionLink("Проверить отчет", "ReviewReport", "AdminActions", new { taskId = item.Id, reportId = item.TaskReport.Last().Id, projectId = item.ProjectId }, new { @class = "button success" })

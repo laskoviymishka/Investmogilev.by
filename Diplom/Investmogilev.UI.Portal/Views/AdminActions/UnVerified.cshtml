@@ -58,7 +58,7 @@
                     <p>Задание еще не выполненно</p>
                 }
             </td>
-            @if (item.TaskReport.Last().ReportResponse == null)
+            @if (item.TaskReport.Any() && item.TaskReport.Last().ReportResponse == null)
             {
                 <td>
                     @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item.Id, reportId = item.TaskReport.Last().Id, projectId = item.ProjectId }, new { @class = "button success" })

@@ -6,7 +6,8 @@
     информация о задаче
 </h2>
 <div>
-    @Html.ActionLink("К моим задачам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker big" })
+    @Html.ActionLink("К моим задачам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker big button success" })
+    @Html.ActionLink("Создать отчет", "CreateReport", new { taskId = Model.Id, projectId = Model.ProjectId }, new { @class = "icon-arrow-down-3 fg-darker big button primary" })
 </div>
 <fieldset>
     <legend>Задание</legend>
@@ -16,21 +17,18 @@
     <blockquote class="display-field">
         @Html.DisplayFor(model => model.Title)
     </blockquote>
-
     <small class="display-label">
         @Html.DisplayNameFor(model => model.Milestone)
     </small>
     <blockquote class="display-field">
         @Html.DisplayFor(model => model.Milestone)
     </blockquote>
-
     <small class="display-label">
         @Html.DisplayNameFor(model => model.IsComplete)
     </small>
     <blockquote class="display-field">
         @Html.DisplayFor(model => model.IsComplete)
     </blockquote>
-
     <fieldset style="margin-left:20px">
         <legend>Отчеты</legend>
         @if (Model.TaskReport != null)
@@ -110,4 +108,3 @@
         }
     </fieldset>
 </fieldset>
-

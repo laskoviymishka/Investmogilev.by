@@ -21,7 +21,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		public ActionResult Index()
 		{
 			IQueryable<Project> projects =
-				RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name);
+				RepositoryContext.Current.All<Project>(p => p.Investor.Username == User.Identity.Name);
 			var model = new List<ProjectTask>();
 			foreach (Project project in projects)
 			{
@@ -37,7 +37,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		public ActionResult UnComplete()
 		{
 			IQueryable<Project> projects =
-				RepositoryContext.Current.All<Project>(p => p.InvestorUser == User.Identity.Name);
+				RepositoryContext.Current.All<Project>(p => p.Investor.Username == User.Identity.Name);
 			var model = new List<ProjectTask>();
 			foreach (Project project in projects)
 			{

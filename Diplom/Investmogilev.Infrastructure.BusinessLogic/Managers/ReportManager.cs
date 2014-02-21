@@ -130,6 +130,16 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 		{
 			_currentReport = _currentTask.TaskReport.Find(t => t.Id == reportResponse.ReportId);
 
+			if (_currentReport.ReportResponses == null || !_currentReport.ReportResponses.Any())
+			{
+				_currentReport.ReportResponses = new List<ReportResponse>();
+				_currentReport.ReportResponses.Add(reportResponse);
+			}
+			else
+			{
+				_currentReport.ReportResponses[0] = reportResponse;
+			}
+
 			if (_currentReport.ReportResponse == null)
 			{
 				_currentReport.ReportResponse = reportResponse;

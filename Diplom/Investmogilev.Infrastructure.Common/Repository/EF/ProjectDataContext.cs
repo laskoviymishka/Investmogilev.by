@@ -13,6 +13,7 @@ namespace Investmogilev.Infrastructure.Common.Repository.EF
 		public DbSet<TaskTemplate> TaskTemplates { get; set; }
 		public DbSet<MailTemplate> MailTemplates { get; set; }
 		public DbSet<MessageQueue> MessageQueues { get; set; }
+		public DbSet<Comission> Comissions { get; set; }
 		public DbSet<NotificationQueue> NotificationQueues { get; set; }
 		public DbSet<Users> Users { get; set; }
 		public DbSet<Role> Roles { get; set; }
@@ -107,6 +108,10 @@ namespace Investmogilev.Infrastructure.Common.Repository.EF
 				case "Role":
 				{
 					return Roles as DbSet<T>;
+				}
+				case "Comission":
+				{
+					return Comissions as DbSet<T>;
 				}
 			}
 

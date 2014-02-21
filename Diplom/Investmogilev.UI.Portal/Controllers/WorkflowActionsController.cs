@@ -62,8 +62,10 @@ namespace Investmogilev.UI.Portal.Controllers
 						.InvestorResponsed();
 					break;
 				case ProjectWorkflow.Trigger.InvestorSelected:
-					return RedirectToAction("InvestorSelected", project);
+					return InvestorSelected(project);
 				case ProjectWorkflow.Trigger.DocumentUpdate:
+					ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name))
+						.DocumentUpdate();
 					return View("DocumentUpdate",
 						project.Tasks.Where(t => t.Step == ProjectWorkflow.State.DocumentSending));
 				case ProjectWorkflow.Trigger.FillInvolvedOrganization:
@@ -226,7 +228,9 @@ namespace Investmogilev.UI.Portal.Controllers
 					Title = template.Title,
 					Type = template.Type,
 					Step = template.Step,
-					CreationTime = DateTime.Now
+					CreationTime = DateTime.Now,
+					CompleteTime = DateTime.Now.AddYears(10),
+					Milestone = DateTime.Now.AddDays(30)
 				});
 			}
 
@@ -302,8 +306,10 @@ namespace Investmogilev.UI.Portal.Controllers
 					Body = template.Body,
 					Title = template.Title,
 					Type = template.Type,
-					Step = ProjectWorkflow.State.InvolvedOrganizations,
-					CreationTime = DateTime.Now
+					Step = template.Step,
+					CreationTime = DateTime.Now,
+					CompleteTime = DateTime.Now.AddYears(10),
+					Milestone = DateTime.Now.AddDays(30)
 				});
 			}
 
@@ -312,8 +318,8 @@ namespace Investmogilev.UI.Portal.Controllers
 				project.Tasks = new List<ProjectTask>();
 			}
 			project.Tasks.RemoveAll(p => p.Type == TaskTypes.InvolvedOrganiztion);
+			RepositoryContext.Current.Update(project);
 			project.Tasks.AddRange(tasks);
-
 			RepositoryContext.Current.Update(project);
 			ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
 				Roles.GetRolesForUser(User.Identity.Name)).DocumentUpdate();
@@ -334,15 +340,18 @@ namespace Investmogilev.UI.Portal.Controllers
 			return View(new ProjectTask
 			{
 				Id = ObjectId.GenerateNewId().ToString(),
-				CreationTime = DateTime.Now,
+				CreationTime = DateTime.UtcNow,
 				ProjectId = projectid,
-				Step = state
+				Step = state,
+				Milestone = DateTime.UtcNow.AddDays(30),
+				CompleteTime = DateTime.UtcNow.AddYears(10)
 			});
 		}
 
 		[HttpPost]
 		public ActionResult AddFix(ProjectTask projectTask)
 		{
+			projectTask.CompleteTime = DateTime.UtcNow.AddYears(10);
 			if (!ModelState.IsValid)
 			{
 				return View(projectTask);

@@ -70,12 +70,15 @@ namespace Investmogilev.Tests.Tester
 			//Console.Write(statemachine.CanFire(ProjectWorkflow.Trigger.FillInformation));
 
 
-			MongoRepository mongo = new MongoRepository("mongodb://178.124.129.147/", "Projects");
-			var user = mongo.All<Users>().FirstOrDefault();
+			//MongoRepository mongo = new MongoRepository("mongodb://178.124.129.147/", "Projects");
+			//var user = mongo.All<Users>().FirstOrDefault();
+
+			//ProjectRepository sql = new ProjectRepository(new ProjectDataContext());
+			//sql.Add(user);
 
 			ProjectRepository sql = new ProjectRepository(new ProjectDataContext());
-			sql.Add(user);
-
+			var proj = sql.GetOne<Project>(p => p.Id == "53022eb4e1859b04e45438fa");
+			proj.Investor = sql.GetOne<Users>(u => u.Username == "shahterv@tut.by");
 		}
 		//private static void GenerateDependendenciesValues()
 		//{

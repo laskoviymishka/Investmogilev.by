@@ -82,9 +82,11 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				model.NoteDocument =
-					RepositoryContext.Current.GetOne<ProjectNotes>(p => p.Id == model.Id).NoteDocument;
-				RepositoryContext.Current.Update(model);
+				var note = RepositoryContext.Current.GetOne<ProjectNotes>(p => p.Id == model.Id);
+				note.NoteBody = model.NoteBody;
+				note.RolesForView = model.RolesForView;
+				note.NoteTitle = model.NoteTitle;
+				RepositoryContext.Current.Update(note);
 				return RedirectToAction("All");
 			}
 

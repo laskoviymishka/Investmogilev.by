@@ -50,7 +50,11 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				ProjectStateManager.StateManagerFactory(model.ProjectId, null, null).ResponsedOnProject(model);
+				var projectId = model.ProjectId;
+				model.ResponseDate = DateTime.UtcNow;
+				model.Project = RepositoryContext.Current.GetOne<Project>(p => p.Id == model.ProjectId);
+				model.ProjectId = null;
+				ProjectStateManager.StateManagerFactory(projectId, null, null).ResponsedOnProject(model);
 				return RedirectToAction("Index");
 			}
 			return View(model);

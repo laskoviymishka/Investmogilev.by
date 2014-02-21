@@ -352,7 +352,8 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
 		{
-			var user = _repository.GetOne<Users>(u => u.Id == providerUserKey);
+			var stringUserKey = providerUserKey.ToString();
+			var user = _repository.GetOne<Users>(u => u.Id == stringUserKey);
 
 			if (user == null)
 			{

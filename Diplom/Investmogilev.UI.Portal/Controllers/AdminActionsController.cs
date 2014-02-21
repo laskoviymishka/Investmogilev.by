@@ -21,13 +21,13 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Index()
 		{
-			IQueryable<Project> projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
+			IQueryable<Project> projects = RepositoryContext.Current.All<Project>(p => p.Tasks.Any());
 			var model = new List<ProjectTask>();
 			foreach (Project project in projects)
 			{
 				foreach (
 					ProjectTask task in
-						project.Tasks.Where(t => t.TaskReport != null || t.Type == TaskTypes.InvolvedOrganiztion))
+						project.Tasks)
 				{
 					task.ProjectId = project.Id;
 					model.Add(task);
@@ -38,7 +38,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult UnVerified()
 		{
-			IQueryable<Project> projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
+			IQueryable<Project> projects = RepositoryContext.Current.All<Project>(p => p.Tasks.Any());
 			var model = new List<ProjectTask>();
 			foreach (Project project in projects)
 			{
@@ -46,8 +46,8 @@ namespace Investmogilev.UI.Portal.Controllers
 					ProjectTask task in
 						project.Tasks.Where(
 							t =>
-								t.TaskReport != null && t.TaskReport.Last().ReportResponse == null ||
-								t.Type == TaskTypes.InvolvedOrganiztion))
+								t.TaskReport.Any() ||
+								t.Type == TaskTypes.InvolvedOrganiztion).ToList().Where(t => t.TaskReport.Last().ReportResponse == null))
 				{
 					task.ProjectId = project.Id;
 					model.Add(task);
@@ -149,7 +149,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				}
 			}
 
-			return RedirectToAction("Project", "BaseProject", new {id = project.Id});
+			return RedirectToAction("Project", "BaseProject", new { id = project.Id });
 		}
 
 		#endregion
@@ -219,18 +219,20 @@ namespace Investmogilev.UI.Portal.Controllers
 			}
 
 			RepositoryContext.Current.Add(comission);
-
-			foreach (Project project in comission.Projects)
+			if (comission.Projects != null)
 			{
-				if (comission.Type == ComissionType.Comission)
+				foreach (Project project in comission.Projects)
 				{
-					ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name))
-						.Comission();
-				}
-				else
-				{
-					ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name))
-						.Ispolcom();
+					if (comission.Type == ComissionType.Comission)
+					{
+						ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name))
+							.Comission();
+					}
+					else
+					{
+						ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name))
+							.Ispolcom();
+					}
 				}
 			}
 

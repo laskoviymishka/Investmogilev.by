@@ -55,18 +55,11 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 		public void OnOnComissionEntry()
 		{
 			Comission comission =
-				Repository.All<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Comission)
+				Repository.All<Comission>()
 					.First();
-			if (comission.ProjectIds == null)
-			{
-				comission.ProjectIds = new List<string>();
-			}
-			if (!comission.ProjectIds.Contains(CurrentProject.Id))
-			{
-				comission.ProjectIds.Add(CurrentProject.Id);
-				Repository.Update(comission);
-			}
-
+			CurrentProject.ProjectComission = comission;
+			CurrentProject.ProjectComissionId = comission.Id;
+			Repository.Update(CurrentProject);
 			InvestorNotification.Comission(comission, CurrentProject);
 			AdminNotification.Comission(comission, CurrentProject);
 			ProcessMoving(ProjectWorkflow.State.OnComission, "Проект ожидает комиссию");

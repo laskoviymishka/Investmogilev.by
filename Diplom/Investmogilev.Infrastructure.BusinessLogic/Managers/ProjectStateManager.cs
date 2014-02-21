@@ -25,7 +25,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 		#region Private Fields
 
 		private readonly IAdminNotification _adminNotificate;
-		private readonly Project _currentProject;
+		private Project _currentProject;
 		private readonly IInvestorNotification _investorNotificate;
 		private readonly IRepository _repository;
 		private readonly IUnitsOfWorkContainer _unitsOfWork;
