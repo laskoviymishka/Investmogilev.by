@@ -1,5 +1,4 @@
 ﻿@model Investmogilev.Infrastructure.Common.Model.Project.GreenField
-
 <fieldset style="height: 600px; width: 600px; overflow-x: auto; ">
     <legend>Green Field - @Model.Tags.FirstOrDefault()</legend>
     <table class="table table-striped table-condensed">
@@ -26,9 +25,17 @@
                 <td>
                     @foreach (var info in Model.Info)
                     {
-                        <div>
-                            @Html.ActionLink(info.InfoName, "DownloadProjectInfo", "AdditionalInfo", new { projectId = Model._id, docId = info._id }, new { @class = "button info" })
-                        </div>
+                        if (info.InfoName.EndsWith(".jpg") || info.InfoName.EndsWith(".gif") || info.InfoName.EndsWith(".png"))
+                        {
+                            <img src="@string.Format("http://investmogilev.by/AdditionalInfo/DownloadProjectInfo?projectId={0}&docId={1}", Model._id, info._id)">
+                        }
+                        else
+                        {
+                            <div>
+                                @Html.ActionLink(info.InfoName, "DownloadProjectInfo", "AdditionalInfo", new { projectId = Model._id, docId = info._id }, new { @class = "button info" })
+                            </div>
+
+                        }
                     }
                 </td>
             </tr>
