@@ -50,6 +50,7 @@
     <Content Include="img\clear\Энергетика.png" />
     <Content Include="img\constructioncrane.png" />
     <Content Include="img\constructioncraneClear.png" />
+    <Content Include="img\Escut_Oblast_Mohilev.png" />
     <Content Include="img\factory.png" />
     <Content Include="img\factoryClear.png" />
     <Content Include="img\greenfield\Жилстрой.png" />
@@ -66,6 +67,17 @@
     <Content Include="img\office-building.png" />
     <Content Include="img\office-buildingClear.png" />
     <Content Include="img\oilpumpjack.png" />
+    <Content Include="img\template\Жилстрой.png" />
+    <Content Include="img\template\Логистика.png" />
+    <Content Include="img\template\Общепит.png" />
+    <Content Include="img\template\Прерарботка.png" />
+    <Content Include="img\template\Промышленность.png" />
+    <Content Include="img\template\Сельхоз.png" />
+    <Content Include="img\template\Строительство.png" />
+    <Content Include="img\template\Торговля.png" />
+    <Content Include="img\template\Туризм.png" />
+    <Content Include="img\template\Услуги.png" />
+    <Content Include="img\template\Энергетика.png" />
     <Content Include="img\unusedbuilding\Жилстрой.png" />
     <Content Include="img\unusedbuilding\Логистика.png" />
     <Content Include="img\unusedbuilding\Общепит.png" />

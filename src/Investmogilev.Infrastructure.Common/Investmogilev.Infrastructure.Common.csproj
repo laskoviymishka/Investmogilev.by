@@ -84,6 +84,7 @@
     <Compile Include="Model\Project\TaskStep.cs" />
     <Compile Include="Model\Project\TaskTemplate.cs" />
     <Compile Include="Model\Project\TaskTypes.cs" />
+    <Compile Include="Model\Project\Template.cs" />
     <Compile Include="Model\Project\Workflow.cs" />
     <Compile Include="Model\User\NotificationQueue.cs" />
     <Compile Include="Model\Common\PortalNotification.cs" />
