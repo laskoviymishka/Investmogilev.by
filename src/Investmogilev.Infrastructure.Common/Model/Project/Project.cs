@@ -9,7 +9,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
 	[BsonIgnoreExtraElements]
-	[BsonKnownTypes(typeof(GreenField), typeof(UnUsedBuilding), typeof(BrownField))]
+	[BsonKnownTypes(typeof(GreenField), typeof(UnUsedBuilding), typeof(BrownField), typeof(Template))]
 	public class Project : IMongoEntity
 	{
 		[Display(ResourceType = typeof(LocalizationResource), Name = "Project_Name_Имя_проекта")]

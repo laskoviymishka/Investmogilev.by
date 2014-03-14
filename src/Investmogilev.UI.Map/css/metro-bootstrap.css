@@ -4278,14 +4278,13 @@ a {
   font-weight: 300;
   color: #000000;
   letter-spacing: 0.00em;
-  font-size: 20pt;
-  line-height: 24pt;
+  font-size: 14pt;
+  line-height: 18pt;
   letter-spacing: 0.01em;
   color: rgba(0, 0, 0, 0.6);
   font-size: 16pt;
   font-size: 14pt;
   color: inherit;
-  padding: 5px;
 }
 .metro .horizontal-menu li a:hover {
   background: inherit;

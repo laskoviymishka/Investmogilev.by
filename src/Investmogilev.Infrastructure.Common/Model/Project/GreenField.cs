@@ -23,8 +23,7 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 			ErrorMessageResourceName = "GreenField_Area_Введите_площадь_проекта")]
 		public double Area { get; set; }
 
-		[Display(ResourceType = typeof (LocalizationResource), Name = "GreenField_CadastrValue_Кадастровая_стоимость_проекта")
-		]
+		[Display(ResourceType = typeof (LocalizationResource), Name = "GreenField_CadastrValue_Кадастровая_стоимость_проекта")]
 		public double CadastrValue { get; set; }
 
 		[Display(ResourceType = typeof (LocalizationResource),

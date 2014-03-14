@@ -65,6 +65,25 @@ namespace Investmogilev.UI.Portal.Controllers
 			return View(model);
 		}
 
+		public ActionResult CreateTemplateProject()
+		{
+			return PartialView(new Template { Description = _descriptionTemplate });
+		}
+
+		[HttpPost]
+		[ValidateInput(false)]
+		public ActionResult CreateTemplateProject(Template model)
+		{
+			if (ModelState.IsValid)
+			{
+				ProjectStateManager.StateManagerFactory(model, User.Identity.Name,
+					Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
+				return RedirectToAction("Project", "BaseProject", new { id = model._id });
+			}
+
+			return View(model);
+		}
+
 		public ActionResult CreateUnUsedBuildingProject()
 		{
 			return PartialView(new UnUsedBuilding { Description = _descriptionTemplate });
@@ -127,9 +146,38 @@ namespace Investmogilev.UI.Portal.Controllers
 			return View(model);
 		}
 
-		public ActionResult UnUsedBuildingProject(string id)
+		[HttpPost]
+		[ValidateInput(false)]
+		public ActionResult TemplateProject(Template model)
 		{
-			return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as UnUsedBuilding);
+			if (ModelState.IsValid)
+			{
+				var initial = RepositoryContext.Current.GetOne<Project>(t => t._id == model._id) as Template;
+				if (initial == null)
+				{
+					throw new ArgumentNullException("cannot find project");
+				}
+				initial.Name = model.Name;
+				initial.Description = model.Description;
+				initial.AddressName = model.AddressName;
+				initial.IsInList = model.IsInList;
+				initial.Region = model.Region;
+				initial.Area = model.Area;
+				initial.CadastrValue = model.CadastrValue;
+				initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+				initial.Tags = model.Tags;
+
+				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
+					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
+				return RedirectToAction("Project", "BaseProject", new { id = model._id });
+			}
+
+			return View(model);
+		}
+
+		public ActionResult TemplateProject(string id)
+		{
+			return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as Template);
 		}
 
 		[HttpPost]

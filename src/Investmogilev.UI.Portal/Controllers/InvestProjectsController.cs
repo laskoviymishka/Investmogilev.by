@@ -10,9 +10,19 @@ using Newtonsoft.Json;
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	using System.Linq;
+
 	public class InvestProjectsController : Controller
 	{
 		#region Nested class
+
+		private class ViewModel
+		{
+			public List<LatLng> Data { get; set; }
+			public int Take { get; set; }
+			public int Page { get; set; }
+			public int Total { get; set; }
+		}
 
 		private class LatLng
 		{
@@ -56,11 +66,31 @@ namespace Investmogilev.UI.Portal.Controllers
 		}
 
 		[AllowAnonymous]
-		public string ProjectGeoJson()
+		public ActionResult PopUpDetailsTemplate(string id)
 		{
-			return JsonConvert.SerializeObject(GenerateGeoJsonData(RepositoryContext.Current.All<Project>(
+			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as Template;
+			if (project == null)
+			{
+				return null;
+			}
+
+			return PartialView(project);
+		}
+
+		[AllowAnonymous]
+		public string ProjectGeoJson(int take, int page = 0)
+		{
+			var returnModel = new ViewModel();
+			returnModel.Total = RepositoryContext.Current.All<Project>(
 				p => p.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap
-					 || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove)));
+					 || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove).Count();
+			returnModel.Take = take;
+			returnModel.Page = page;
+			returnModel.Data = GenerateGeoJsonData(RepositoryContext.Current.All<Project>(
+				p => p.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap
+					 || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove).Skip(page * take).Take(take));
+
+			return JsonConvert.SerializeObject(returnModel);
 		}
 
 		[AllowAnonymous]
@@ -77,9 +107,9 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		#region Private Helpers
 
-		private IList<LatLng> GenerateGeoJsonData(IEnumerable<Project> projects)
+		private List<LatLng> GenerateGeoJsonData(IEnumerable<Project> projects)
 		{
-			IList<LatLng> latLngs = new List<LatLng>();
+			List<LatLng> latLngs = new List<LatLng>();
 			foreach (Project project in projects)
 			{
 				if (project.Address.Lat != 1)

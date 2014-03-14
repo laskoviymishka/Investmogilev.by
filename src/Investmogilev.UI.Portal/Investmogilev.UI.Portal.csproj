@@ -564,6 +564,7 @@
     <Content Include="Content\2013.2.611\Windows7\slider-v.gif" />
     <Content Include="Content\2013.2.611\Windows7\sprite-vertical.png" />
     <Content Include="Content\2013.2.611\Windows7\sprite.png" />
+    <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\chosen.min.css" />
     <Content Include="Content\demo_table.css" />
     <Content Include="Content\images\buttons.gif" />
@@ -576,15 +577,9 @@
     <Content Include="Content\metro-ui\css\metro-bootstrap.css" />
     <Content Include="Content\metro-ui\fonts\iconFont.dev.svg" />
     <Content Include="Content\metro-ui\fonts\iconFont.svg" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\Style.css" />
     <Content Include="Content\tagit.ui-zendesk.css" />
-    <Content Include="Content\uploadUI\demo-ie8.css" />
-    <Content Include="Content\uploadUI\demo.css" />
-    <Content Include="Content\uploadUI\jquery.fileupload-noscript.css" />
-    <Content Include="Content\uploadUI\jquery.fileupload-ui-noscript.css" />
-    <Content Include="Content\uploadUI\jquery.fileupload-ui.css" />
-    <Content Include="Content\uploadUI\jquery.fileupload.css" />
-    <Content Include="Content\uploadUI\style.css" />
     <Content Include="Global.asax" />
     <Content Include="images\1.jpg" />
     <Content Include="images\2.jpg" />
@@ -679,22 +674,21 @@
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\chosen.proto.min.js" />
     <Content Include="Scripts\gmaps.js" />
-    <Content Include="Scripts\jquery.cleditor.table.js" />
-    <Content Include="Scripts\MapMarkerInit.js" />
-    <Content Include="Scripts\TableSetup.js" />
-    <Content Include="Scripts\jquery-1.10.2-vsdoc.js" />
+    <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery.cleditor.min.js" />
+    <Content Include="Scripts\jquery.cleditor.table.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\MapMarkerInit.js" />
     <Content Include="Scripts\metro-ui\jquery.ui.widget.js" />
     <Content Include="Scripts\metro-ui\metro-accordion.js" />
     <Content Include="Scripts\metro-ui\metro-button-set.js" />
@@ -725,6 +719,7 @@
     <Content Include="Scripts\metro-ui\metro-touch-handler.js" />
     <Content Include="Scripts\metro-ui\metro-treeview.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\TableSetup.js" />
     <Content Include="Scripts\tag-it.js" />
     <Content Include="Scripts\tag-it.min.js" />
     <Content Include="Scripts\uploadUI\jquery.fileupload-angular.js" />
@@ -738,6 +733,7 @@
     <Content Include="Scripts\uploadUI\jquery.fileupload.js" />
     <Content Include="Scripts\uploadUI\jquery.iframe-transport.js" />
     <Content Include="Scripts\uploadUI\jquery.ui.widget.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -747,11 +743,11 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config">
     </Content>
-    <Content Include="Content\Site.css">
-    </Content>
+    <Content Include="Views\BaseProject\CreateTemplateProject.cshtml" />
+    <Content Include="Views\BaseProject\TemplateProject.cshtml" />
+    <Content Include="Views\InvestProjects\PopUpDetailsTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\BaseProject\All.cshtml" />
@@ -1068,13 +1064,13 @@
     <Content Include="App_Data\MailTemplate\PlanCreatingUpdate.cshtml" />
     <Content Include="App_Data\MailTemplate\Realization.cshtml" />
     <Content Include="App_Data\MailTemplate\Done.cshtml" />
-    <None Include="Content\metro-ui\fonts\iconFont.eot" />
-    <None Include="Content\metro-ui\fonts\iconFont.json" />
-    <None Include="Content\metro-ui\fonts\iconFont.ttf" />
-    <None Include="Content\metro-ui\fonts\iconFont.woff" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\metro-ui\fonts\iconFont.eot" />
+    <Content Include="Content\metro-ui\fonts\iconFont.json" />
+    <Content Include="Content\metro-ui\fonts\iconFont.ttf" />
+    <Content Include="Content\metro-ui\fonts\iconFont.woff" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1111,7 +1107,6 @@
     <Content Include="Views\InvestProjects\PopUpDetailsUnUsedBuilding.cshtml" />
     <Content Include="Views\InvestProjects\PartialTable.cshtml" />
     <None Include="Properties\PublishProfiles\investMogilev prod.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_NewLayout.cshtml" />
     <Content Include="Views\Profile\MenuPartial.cshtml" />
     <Content Include="Views\BaseProject\WorkFlowForProjectPartial.cshtml" />
@@ -1166,6 +1161,7 @@
     <Content Include="Views\UserManager\Edit.cshtml" />
     <Content Include="Views\Feedback\CreateIssue.cshtml" />
     <Content Include="Views\Notification\Read.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Investmogilev.Infrastructure.BusinessLogic\Investmogilev.Infrastructure.BusinessLogic.csproj">

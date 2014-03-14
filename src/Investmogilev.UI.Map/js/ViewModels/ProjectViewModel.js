@@ -7,15 +7,30 @@
     self.ShowingProjects = ko.observableArray();
     self.Types = ko.observableArray();
     self.Tags = ko.observableArray();
+    self.Tags.push("Строительство");
+    self.Tags.push("Услуги");
+    self.Tags.push("Торговля");
+    self.Tags.push("Промышленность");
+    self.Tags.push("Энергетика");
+    self.Tags.push("Прерарботка");
+    self.Tags.push("Жилстрой");
+    self.Tags.push("Туризм");
+    self.Tags.push("Общепит");
+    self.Tags.push("Логистика");
+    self.Tags.push("Сельхоз");
+
+
+
     self.Types.push("GreenField");
     self.Types.push("UnUsedBuilding");
+    self.Types.push("Template");
     self.Perechen = ko.observable("Проекты перечня");
 
     // ProjectListViewModel initializer
     function SetDataAllGeoJson(argument) {
         if (argument.length > 0) {
             for (var i = 0; i < argument.length; i++) {
-                self.AddTags(argument[i].Tags);
+                //self.AddTags(argument[i].Tags);
                 self.AllGeoJsonProjects.push(new GeoJsonProjectViewModel(argument[i]));
                 self.ShowingProjects.push(new GeoJsonProjectViewModel(argument[i]));
             }
@@ -35,6 +50,9 @@
     };
 
     self.IsProjectInFilter = function (project, types, tags, isPerechen) {
+        if (tags.length == 0 || types.length == 0) {
+            return false;
+        }
         for (var j = 0; j < types.length; j++) {
             if (project.Type().toLowerCase() == types[j].Name().toLowerCase()) {
                 for (var j = 0; j < tags.length; j++) {
@@ -160,8 +178,8 @@ function ProjectsFilterViewModel(projectListViewModel) {
     };
 
     self.UpdatePerechen = function () {
-        self.SelectedPerechen.push(new FilterTypeViewModel("perechen", "Проекты вне перечня", "button success", self, false, true));
-        self.AllPerechen.push(new FilterTypeViewModel("perechen", "Проекты вне перечня", "button success", self, false, true));
+        self.SelectedPerechen.push(new FilterTypeViewModel("perechen", "Перечень участков", "button success", self, false, true));
+        self.AllPerechen.push(new FilterTypeViewModel("perechen", "Перечень участков", "button success", self, false, true));
     };
     self.UpdateTags = function () {
         self.SelectedTags.removeAll();
@@ -174,11 +192,14 @@ function ProjectsFilterViewModel(projectListViewModel) {
     self.UpdateTypes = function () {
         self.SelectedTypes.removeAll();
         self.AllTypes.removeAll();
+        self.SelectedTypes.push(new FilterTypeViewModel("GreenField", "Инвестплощадки ", "button success", self, false, false));
+        self.AllTypes.push(new FilterTypeViewModel("GreenField", "Инвестплощадки", "button success", self, false, false));
 
-        for (var i = 0; i < prlVm.Types().length; i++) {
-            self.SelectedTypes.push(new FilterTypeViewModel(prlVm.Types()[i], prlVm.Types()[i], "button success", self, false, false));
-            self.AllTypes.push(new FilterTypeViewModel(prlVm.Types()[i], prlVm.Types()[i], "button success", self, false, false));
-        }
+        self.SelectedTypes.push(new FilterTypeViewModel("UnUsedBuilding", "Неиспользуемые здания", "button success", self, false, false));
+        self.AllTypes.push(new FilterTypeViewModel("UnUsedBuilding", "Неиспользуемые здания", "button success", self, false, false));
+
+        self.SelectedTypes.push(new FilterTypeViewModel("Template", "Готовые решения", "button success", self, false, false));
+        self.AllTypes.push(new FilterTypeViewModel("Template", "Готовые решения", "button success", self, false, false));
     };
 
     prlVm.Tags.subscribe(self.UpdateTags);
@@ -193,7 +214,8 @@ function ProjectsFilterViewModel(projectListViewModel) {
 function FilterTypeViewModel(name, displayName, imgName, projectsFiletrs, isTag, isPerechen) {
     var self = this;
     var parent = projectsFiletrs;
-    self.Name = ko.observable(displayName);
+    self.DisplayName = ko.observable(displayName);
+    self.Name = ko.observable(name);
     var checkeStyle = name + " " + imgName;
     var unCheckeStyle = name + " button";
     self.checked = ko.observable(checkeStyle);
