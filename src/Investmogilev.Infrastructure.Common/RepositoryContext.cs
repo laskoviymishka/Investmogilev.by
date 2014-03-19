@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Threading;
-using System.Web;
-using System.Web.Configuration;
-using Investmogilev.Infrastructure.Common.Repository;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="RepositoryContext.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common
 {
+	#region Using
+
+	using System;
+	using System.Collections;
+	using System.Threading;
+	using System.Web;
+	using System.Web.Configuration;
+	using Investmogilev.Infrastructure.Common.Repository;
+
+	#endregion
+
 	public static class RepositoryContext
 	{
 		private const string HTTPCONTEXTKEY = "Session.Base.HttpContext.Key";

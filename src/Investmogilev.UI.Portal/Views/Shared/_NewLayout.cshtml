@@ -1,7 +1,6 @@
-﻿@using StackExchange.Profiling
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-<head>
+    <head>
     @*@(this.InitClientTimings())*@
     <title>@ViewBag.Title</title>
     <script src="~/Scripts/2013.2.611/jquery-1.7.1.min.js"></script>
@@ -37,6 +36,7 @@
     <link href="~/Content/jquery.cleditor.css" rel="stylesheet" />
     <script>
 
+    
     </script>
     <script src="~/Scripts/gmaps.js"></script>
     <body class="metro">
@@ -67,7 +67,6 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li><a href="/account/logoff">Выйти</a></li>
-
                             }
                             else
                             {

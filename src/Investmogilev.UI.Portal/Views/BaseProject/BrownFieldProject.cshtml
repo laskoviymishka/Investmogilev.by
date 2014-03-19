@@ -24,7 +24,7 @@
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.Description, new { @id = "editor" })
+            @Html.TextAreaFor(model => model.Description, new {@id = "editor"})
             @Html.ValidationMessageFor(model => model.Description)
         </div>
         <div class="editor-label">
@@ -39,7 +39,7 @@
                 <td>
                     @Html.TextAreaFor(model => model.AddressName)
                     @Html.ValidationMessageFor(model => model.AddressName)
-                    <div class="button" onclick="CheckAddress()">
+                    <div class="button" onclick=" CheckAddress() ">
                         Проверить адресс
                     </div>
                 </td>
@@ -93,7 +93,7 @@
         <p>
             <input type="submit" value="Сохранить" />
         </p>
-        <div style="visibility:hidden">
+        <div style="visibility: hidden">
             <div class="editor-label">
                 @Html.LabelFor(model => model.Address)
             </div>
@@ -115,5 +115,5 @@
         position: "bottom", // top or bottom
         format: "dd/mm/yyyy",
     });
-    $(document).ready(function () { $("#editor").cleditor(); });
+    $(document).ready(function() { $("#editor").cleditor(); });
 </script>

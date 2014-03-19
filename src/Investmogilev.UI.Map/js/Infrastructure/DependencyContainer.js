@@ -1,15 +1,15 @@
 ﻿di = {
     version: "0.3.3",
-    createContext: function () {
+    createContext: function() {
         var ctx = {
             map: {}
         };
 
-        ctx.entry = function (name) {
+        ctx.entry = function(name) {
             return ctx.map[name];
         };
 
-        ctx.register = function (name, type, args) {
+        ctx.register = function(name, type, args) {
             var entry = di.entry(name, ctx)
                 .type(type)
                 .args(args);
@@ -17,18 +17,17 @@
             return entry;
         };
 
-        ctx.has = function (name) {
+        ctx.has = function(name) {
             return ctx.entry(name) != null;
-        }
-
-        ctx.get = function (name) {
+        };
+        ctx.get = function(name) {
             if (ctx.has(name))
                 return ctx.entry(name).object();
             else
                 throw "Object[" + name + "] is not registered";
         };
 
-        ctx.create = function (name, args) {
+        ctx.create = function(name, args) {
             if (ctx.entry(name).strategy() != di.strategy.proto)
                 throw "Attempt to create singleton object";
 
@@ -38,29 +37,29 @@
                 throw "Object[" + name + "] is not registered";
         };
 
-        ctx.initialize = function () {
+        ctx.initialize = function() {
             for (var name in ctx.map) {
                 var entry = ctx.entry(name);
                 ctx.ready(ctx.inject(name, ctx.get(name), entry.dependencies()));
             }
         };
 
-        ctx.clear = function () {
+        ctx.clear = function() {
             this.map = {};
         };
 
         function removeSpaces(s) {
-            while (s.indexOf(" ") >= 0) s = s.replace(" ", "")
+            while (s.indexOf(" ") >= 0) s = s.replace(" ", "");
             return s;
         }
 
-        ctx.inject = function (name, o, dependencies) {
+        ctx.inject = function(name, o, dependencies) {
             dependencies = dependencies ? dependencies : o.dependencies;
 
             if (o && dependencies) {
                 var depExpList = removeSpaces(dependencies).split(",");
 
-                depExpList.forEach(function (depExp) {
+                depExpList.forEach(function(depExp) {
                     if (depExp) {
                         var exp = di.dependencyExpression(depExp);
 
@@ -75,8 +74,7 @@
             }
 
             return o;
-        }
-
+        };
         ctx.ready = function(o) {
             if (typeof o.ready === 'function')
                 o.ready();
@@ -87,7 +85,7 @@
         return ctx;
     },
 
-    dependencyExpression: function (depExp) {
+    dependencyExpression: function(depExp) {
         var expression = {};
 
         var property = depExp;
@@ -105,7 +103,7 @@
         return expression;
     },
 
-    entry: function (name, ctx) {
+    entry: function(name, ctx) {
         var entry = {};
         var name;
         var type;
@@ -115,11 +113,11 @@
         var factory = di.factory.constructor;
         var dependencies;
 
-        entry.create = function (newArgs) {
+        entry.create = function(newArgs) {
             return strategy(name, object, factory, type, newArgs ? newArgs : args, ctx, dependencies);
         };
 
-        entry.object = function (o) {
+        entry.object = function(o) {
             if (!arguments.length) {
                 object = entry.create();
                 return object;
@@ -129,31 +127,31 @@
             }
         };
 
-        entry.strategy = function (s) {
+        entry.strategy = function(s) {
             if (!arguments.length) return strategy;
             strategy = s;
             return entry;
         };
 
-        entry.type = function (t) {
+        entry.type = function(t) {
             if (!arguments.length) return type;
             type = t;
             return entry;
         };
 
-        entry.dependencies = function (d) {
+        entry.dependencies = function(d) {
             if (!arguments.length) return dependencies;
             dependencies = d;
             return entry;
         };
 
-        entry.args = function (a) {
+        entry.args = function(a) {
             if (!arguments.length) return args;
             args = a;
             return entry;
         };
 
-        entry.factory = function (f) {
+        entry.factory = function(f) {
             if (!arguments.length) return factory;
             factory = f;
             return entry;
@@ -163,11 +161,11 @@
     },
 
     strategy: {
-        proto: function (name, object, factory, type, args, ctx, dependencies) {
+        proto: function(name, object, factory, type, args, ctx, dependencies) {
             object = factory(type, args);
             return ctx.ready(ctx.inject(name, object, dependencies));
         },
-        singleton: function (name, object, factory, type, args, ctx, dependencies) {
+        singleton: function(name, object, factory, type, args, ctx, dependencies) {
             if (!object)
                 object = factory(type, args);
 
@@ -176,7 +174,7 @@
     },
 
     factory: {
-        constructor: function (type, args) {
+        constructor: function(type, args) {
             if (args instanceof Array) {
                 return eval(di.utils.invokeStmt(args, "new"));
             } else {
@@ -184,7 +182,7 @@
             }
         },
 
-        func: function (type, args) {
+        func: function(type, args) {
             if (args instanceof Array) {
                 return eval(di.utils.invokeStmt(args));
             } else {

@@ -1,13 +1,23 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using Investmogilev.Infrastructure.StateMachine;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="AttributeStateMachineBuilder.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
+	#region Using
+
+	using System;
+	using System.Collections.Concurrent;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Linq.Expressions;
+	using System.Reflection;
+	using Investmogilev.Infrastructure.StateMachine;
+
+	#endregion
+
 	public class AttributeStateMachineBuilder : IStateMachineBuilder
 	{
 		private static ConcurrentDictionary<Type, IState> _states;
@@ -29,7 +39,7 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 
 			GetTypes<TS, TT>(types, getStates, transitions);
 
-			foreach (IState state in getStates)
+			foreach (var state in getStates)
 			{
 				StateAttribute attribute = null;
 				var attrs = state.GetType().GetCustomAttributes(typeof (StateAttribute), false) as StateAttribute[];
@@ -72,13 +82,13 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 						     && !couples.ContainsKey(new KeyValuePair<object, object>(t.To, t.Trigger)));
 
 
-				foreach (Transition transition in stateTransitions)
+				foreach (var transition in stateTransitions)
 				{
 					stateconfigure.PermitIf((TT) transition.Trigger, (TS) transition.To, transition.Guard);
 				}
 
 				foreach (
-					Transition transition in
+					var transition in
 						transitions.Where(
 							t => t.From.ToString() == attribute.State.ToString() && t.To.ToString() == attribute.State.ToString()))
 				{
@@ -88,7 +98,7 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 				foreach (var key in couples.Keys)
 				{
 					var complexGuard = new ComplexGuard();
-					foreach (Transition transiotion in couples[key])
+					foreach (var transiotion in couples[key])
 					{
 						complexGuard.AddGuard(transiotion.Guard);
 					}
@@ -108,11 +118,11 @@ namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 
 		private void GetTypes<TS, TT>(List<Type> types, List<IState> getStates, List<Transition> transitions)
 		{
-			foreach (Type type in types)
+			foreach (var type in types)
 			{
 				var state = Activator.CreateInstance(type, _context) as IState;
 				getStates.Add(state);
-				foreach (MethodInfo method in type.GetMethods())
+				foreach (var method in type.GetMethods())
 				{
 					var attributes = method.GetCustomAttributes(typeof (TriggerAttribute), true) as TriggerAttribute[];
 					if (attributes != null && attributes.Length > 0)

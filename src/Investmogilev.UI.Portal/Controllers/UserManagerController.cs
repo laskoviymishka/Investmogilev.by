@@ -1,15 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Security;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.User;
-using Investmogilev.Infrastructure.Common.Repository;
-using Investmogilev.UI.Portal.Models;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="UserManagerController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Web.Mvc;
+	using System.Web.Security;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.User;
+	using Investmogilev.Infrastructure.Common.Repository;
+	using Investmogilev.UI.Portal.Models;
+
+	#endregion
+
 	[Authorize(Roles = "Admin")]
 	public class UserManagerController : Controller
 	{
@@ -103,7 +113,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				IList<Users> users = _repository.All<Users>().ToList();
 				IList<UserManagerViewModel> model = new List<UserManagerViewModel>();
-				foreach (Users mongoUser in users)
+				foreach (var mongoUser in users)
 				{
 					var vm = new UserManagerViewModel
 					{
@@ -122,7 +132,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					string[] userRoles = Roles.GetRolesForUser(vm.Username);
 					if (userRoles.Length > 0)
 					{
-						foreach (string role in userRoles)
+						foreach (var role in userRoles)
 						{
 							UserRoles roleEnum;
 							Enum.TryParse(role, true, out roleEnum);

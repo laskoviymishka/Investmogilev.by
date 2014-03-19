@@ -62,16 +62,16 @@
             @if (item.TaskReport != null && item.TaskReport.Last().ReportResponse == null)
             {
                 <td style="width: 200px">
-                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item._id, reportId = item.TaskReport.Last()._id, projectId = item.ProjectId }, new { @class = "button success", style = "width: 200px" })
+                    @Html.ActionLink("Проверить отчет", "ReviewReport", new {taskId = item._id, reportId = item.TaskReport.Last()._id, projectId = item.ProjectId}, new {@class = "button success", style = "width:200px"})
                 </td>
             }
             else
             {
                 <td style="width: 200px">
-                    @Html.ActionLink("Информация о задаче", "Details", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info", style = "width: 200px" })
+                    @Html.ActionLink("Информация о задаче", "Details", new {taskId = item._id, projectId = item.ProjectId}, new {@class = "button info", style = "width:200px"})
                     @if (item.TaskReport == null && item.Type == TaskTypes.InvolvedOrganiztion)
                     {
-                        @Html.ActionLink("Отчет по причастному лицу", "InvolvedReport", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button success", style = "width: 200px" })
+                        @Html.ActionLink("Отчет по причастному лицу", "InvolvedReport", new {taskId = item._id, projectId = item.ProjectId}, new {@class = "button success", style = "width:200px"})
                     }
                 </td>
             }

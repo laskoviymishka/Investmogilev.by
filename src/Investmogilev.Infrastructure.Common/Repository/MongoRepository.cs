@@ -1,17 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.Builders;
-using MongoDB.Driver.Linq;
-using StackExchange.Profiling;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="MongoRepository.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Repository
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Linq.Expressions;
+	using System.Web;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using MongoDB.Bson;
+	using MongoDB.Driver;
+	using MongoDB.Driver.Builders;
+	using MongoDB.Driver.Linq;
+	using StackExchange.Profiling;
+
+	#endregion
+
 	public class MongoRepository : IRepository
 	{
 		#region Private Fields
@@ -39,7 +49,7 @@ namespace Investmogilev.Infrastructure.Common.Repository
 		public void Delete<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
 		{
 			IQueryable<T> items = All<T>().Where(expression);
-			foreach (T item in items)
+			foreach (var item in items)
 			{
 				Delete(item);
 			}
@@ -99,7 +109,7 @@ namespace Investmogilev.Infrastructure.Common.Repository
 
 		public void Add<T>(IEnumerable<T> items) where T : IMongoEntity
 		{
-			foreach (T item in items)
+			foreach (var item in items)
 			{
 				Add(item);
 			}

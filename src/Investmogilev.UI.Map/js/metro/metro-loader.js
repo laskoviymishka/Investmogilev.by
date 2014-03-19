@@ -1,7 +1,6 @@
 var plugins = [
     'core',
     'touch-handler',
-
     'accordion',
     'button-set',
     'date-format',
@@ -27,10 +26,8 @@ var plugins = [
     'hint',
     'streamer',
     'scroll'
-
-
 ];
 
-$.each(plugins, function(i, plugin){
-    $("<script/>").attr('src', 'js/metro/metro-'+plugin+'.js').appendTo($('head'));
+$.each(plugins, function(i, plugin) {
+    $("<script/>").attr('src', 'js/metro/metro-' + plugin + '.js').appendTo($('head'));
 });

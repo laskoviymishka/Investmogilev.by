@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Investmogilev.Infrastructure.Common.Model.Common.Region>
 @{
-    Dictionary<string, List<double>> allGrowth = new Dictionary<string, List<double>>();
+    var allGrowth = new Dictionary<string, List<double>>();
     foreach (var item in Model)
     {
         foreach (var inner in item.Parametrs)
@@ -15,7 +15,7 @@
                 {
                     if (child.Values[i].Value != 0.0 && child.Values[i - 1].Value != 0.0)
                     {
-                        growth += child.Values[i].Value / child.Values[i - 1].Value;
+                        growth += child.Values[i].Value/child.Values[i - 1].Value;
                         count++;
                     }
                 }
@@ -23,7 +23,7 @@
 
                 if (count != 0)
                 {
-                    avgGrowth = growth / count;
+                    avgGrowth = growth/count;
                 }
                 if (!allGrowth.ContainsKey(child.ParametrName))
                 {
@@ -45,7 +45,7 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
 <script>
-    $(function () {
+    $(function() {
         $('.main-table').footable();
     });
 </script>
@@ -99,40 +99,40 @@
                             </th>
                         }
                         @{
-                        double avg = 0.0;
-                        double avgGrowth = 0.0;
-                        double sum = 0.0;
-                        int count = 0;
-                        foreach (var c in child.Values)
-                        {
-                            if (c.Value != 0.0)
+                            double avg = 0.0;
+                            double avgGrowth = 0.0;
+                            double sum = 0.0;
+                            int count = 0;
+                            foreach (var c in child.Values)
                             {
-                                sum += c.Value;
-                                count++;
+                                if (c.Value != 0.0)
+                                {
+                                    sum += c.Value;
+                                    count++;
+                                }
                             }
-                        }
 
-                        if (count != 0)
-                        {
-                            avg = sum / count;
-                        }
-
-                        double growth = 0.0;
-                        count = 0;
-                        for (int i = 1; i < child.Values.Count; i++)
-                        {
-                            if (child.Values[i].Value != 0.0 && child.Values[i - 1].Value != 0.0)
+                            if (count != 0)
                             {
-                                growth += child.Values[i].Value / child.Values[i - 1].Value;
-                                count++;
+                                avg = sum/count;
                             }
-                        }
+
+                            double growth = 0.0;
+                            count = 0;
+                            for (int i = 1; i < child.Values.Count; i++)
+                            {
+                                if (child.Values[i].Value != 0.0 && child.Values[i - 1].Value != 0.0)
+                                {
+                                    growth += child.Values[i].Value/child.Values[i - 1].Value;
+                                    count++;
+                                }
+                            }
 
 
-                        if (count != 0)
-                        {
-                            avgGrowth = growth / count;
-                        }
+                            if (count != 0)
+                            {
+                                avgGrowth = growth/count;
+                            }
                         }
                         <th>
                             @avg.ToString("0.#")

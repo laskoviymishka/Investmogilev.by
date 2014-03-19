@@ -1,20 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using System.Web.Security;
-using Investmogilev.Infrastructure.BusinessLogic.Managers;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.Model.User;
-using Investmogilev.Infrastructure.Common.Repository;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="BaseProjectController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Web.Mvc;
+	using System.Web.Security;
+	using Investmogilev.Infrastructure.BusinessLogic.Managers;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.Model.User;
+	using Investmogilev.Infrastructure.Common.Repository;
+
+	#endregion
+
 	public class BaseProjectController : Controller
 	{
 		#region Private Fields
 
-		private readonly string _descriptionTemplate = @"<p><span style='font-weight: bold; font-size: large;'>Инженерная и транспортная инфраструктура:</span></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Водоснабжение:</span><br></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Водоотведение:</span><br></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Электроснабжение:</span><br></p><p style='font-size: 10pt;'></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Газоснабжение:</span><br></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Подъездные пути:</span><br></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Телефонизация:</span><br></p><p><span style='font-weight: bold; font-size: large;'>Характеристики площадки:</span></p><p style='font-size: 10pt;'></p><div><p style='font-size: 10pt;'><span style='text-decoration: underline; font-size: 10pt;'>Категория и вид земельного участка:</span></p><p style='font-size: 10pt;'></p><p><span style='font-size: small; text-decoration: underline;'>Наличие на территории зданий и сооружений:<br></span></p><p style='font-size: 10pt;'></p><p style='font-size: 10pt;'></p></div>";
+		private readonly string _descriptionTemplate =
+			@"<p><span style='font-weight: bold; font-size: large;'>Инженерная и транспортная инфраструктура:</span></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Водоснабжение:</span><br></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Водоотведение:</span><br></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Электроснабжение:</span><br></p><p style='font-size: 10pt;'></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Газоснабжение:</span><br></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Подъездные пути:</span><br></p><p style='font-size: 10pt;'><span style='text-decoration: underline;'>Телефонизация:</span><br></p><p><span style='font-weight: bold; font-size: large;'>Характеристики площадки:</span></p><p style='font-size: 10pt;'></p><div><p style='font-size: 10pt;'><span style='text-decoration: underline; font-size: 10pt;'>Категория и вид земельного участка:</span></p><p style='font-size: 10pt;'></p><p><span style='font-size: small; text-decoration: underline;'>Наличие на территории зданий и сооружений:<br></span></p><p style='font-size: 10pt;'></p><p style='font-size: 10pt;'></p></div>";
 
 		private readonly IRepository _mongoRepository;
 
@@ -48,7 +59,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult CreateGreenFieldProject()
 		{
-			return PartialView(new GreenField { Description = _descriptionTemplate });
+			return PartialView(new GreenField {Description = _descriptionTemplate});
 		}
 
 		[HttpPost]
@@ -59,7 +70,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				ProjectStateManager.StateManagerFactory(model, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
-				return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				return RedirectToAction("Project", "BaseProject", new {id = model._id});
 			}
 
 			return View(model);
@@ -67,7 +78,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult CreateTemplateProject()
 		{
-			return PartialView(new Template { Description = _descriptionTemplate });
+			return PartialView(new Template {Description = _descriptionTemplate});
 		}
 
 		[HttpPost]
@@ -78,7 +89,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				ProjectStateManager.StateManagerFactory(model, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
-				return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				return RedirectToAction("Project", "BaseProject", new {id = model._id});
 			}
 
 			return View(model);
@@ -97,7 +108,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				ProjectStateManager.StateManagerFactory(model, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).CreateProject(model);
-				return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				return RedirectToAction("Project", "BaseProject", new {id = model._id});
 			}
 
 			return View(model);
@@ -135,12 +146,12 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.Region = model.Region;
 				initial.Area = model.Area;
 				initial.CadastrValue = model.CadastrValue;
-				initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+				initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
 				initial.Tags = model.Tags;
 
 				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				return RedirectToAction("Project", "BaseProject", new {id = model._id});
 			}
 
 			return View(model);
@@ -164,12 +175,12 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.Region = model.Region;
 				initial.Area = model.Area;
 				initial.CadastrValue = model.CadastrValue;
-				initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+				initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
 				initial.Tags = model.Tags;
 
 				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				return RedirectToAction("Project", "BaseProject", new {id = model._id});
 			}
 
 			return View(model);
@@ -196,7 +207,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.Description = model.Description;
 				initial.AddressName = model.AddressName;
 				initial.Region = model.Region;
-				initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+				initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
 				initial.Area = model.Area;
 				initial.BalancePrice = model.BalancePrice;
 				initial.IsExclusion = model.IsExclusion;
@@ -205,7 +216,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.Tags = model.Tags;
 				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				return RedirectToAction("Project", "BaseProject", new {id = model._id});
 			}
 
 			return View(model);
@@ -227,11 +238,11 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.Description = model.Description;
 				initial.AddressName = model.AddressName;
 				initial.Region = model.Region;
-				initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
+				initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
 				initial.Tags = model.Tags;
 				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				return RedirectToAction("Project", "BaseProject", new {id = model._id});
 			}
 
 			return View(model);
@@ -283,9 +294,9 @@ namespace Investmogilev.UI.Portal.Controllers
 		private void BindUsersAndRegions()
 		{
 			ViewBag.Users = new List<NestedUserViewModel>();
-			foreach (Users mongoUser in _mongoRepository.All<Users>())
+			foreach (var mongoUser in _mongoRepository.All<Users>())
 			{
-				ViewBag.Users.Add(new NestedUserViewModel { Name = mongoUser.Username });
+				ViewBag.Users.Add(new NestedUserViewModel {Name = mongoUser.Username});
 			}
 		}
 

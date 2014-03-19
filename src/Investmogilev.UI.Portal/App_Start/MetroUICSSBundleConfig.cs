@@ -1,11 +1,26 @@
-using System.Web.Optimization;
+// // -----------------------------------------------------------------------
+// // <copyright file="MetroUICSSBundleConfig.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
+
+#region Using
+
 using Investmogilev.UI.Portal;
 using WebActivatorEx;
+
+#endregion
 
 [assembly: PostApplicationStartMethod(typeof (MetroUICSSBundleConfig), "RegisterBundles")]
 
 namespace Investmogilev.UI.Portal
 {
+	#region Using
+
+	using System.Web.Optimization;
+
+	#endregion
+
 	public class MetroUICSSBundleConfig
 	{
 		public static void RegisterBundles()

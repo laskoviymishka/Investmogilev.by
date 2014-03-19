@@ -6,11 +6,12 @@
 
 <h2>Редактировать</h2>
 <p>
-    @Html.ActionLink("Назад", "Index", null, new { @class = "icon-arrow-left-3 fg-darker" })
+    @Html.ActionLink("Назад", "Index", null, new {@class = "icon-arrow-left-3 fg-darker"})
 </p>
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -28,7 +29,7 @@
             @Html.LabelFor(model => model.Roles)
         </small>
         <blockquote class="editor-field">
-            @Html.ListBoxFor(model => model.Roles, new SelectList(new List<string>() { "Admin", "User", "Investor" }), new { id = "cznTags" })
+            @Html.ListBoxFor(model => model.Roles, new SelectList(new List<string> {"Admin", "User", "Investor"}), new {id = "cznTags"})
             @Html.ValidationMessageFor(model => model.Roles)
         </blockquote>
         <p>

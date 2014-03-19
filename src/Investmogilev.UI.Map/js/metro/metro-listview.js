@@ -1,20 +1,19 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.listview", {
-
         version: "1.0.0",
 
         options: {
-            onGroupExpand: function(g){},
-            onGroupCollapse: function(g){},
-            onListClick: function(l){}
+            onGroupExpand: function(g) {},
+            onGroupCollapse: function(g) {},
+            onListClick: function(l) {}
         },
 
-        _create: function(){
+        _create: function() {
             var that = this, element = this.element;
 
             element.children('.collapsed').children('.group-content').hide();
 
-            element.find('.group-title').on('click', function(e){
+            element.find('.group-title').on('click', function(e) {
                 var $this = $(this),
                     group = $this.parent('.list-group'),
                     group_content = group.children('.group-content');
@@ -32,7 +31,7 @@
                 e.preventDefault();
             });
 
-            element.find('.list').on('click', function(e){
+            element.find('.list').on('click', function(e) {
                 element.find('.list').removeClass('active');
                 $(this).toggleClass('active');
                 that.options.onListClick($(this));
@@ -40,20 +39,20 @@
             });
         },
 
-        _destroy: function(){
+        _destroy: function() {
 
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function () {
+$(function() {
     $('[data-role=listview]').listview();
 });
 
-function reinitListViews(){
+function reinitListViews() {
     $('[data-role=listview]').listview();
 }

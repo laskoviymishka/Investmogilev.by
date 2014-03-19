@@ -32,7 +32,7 @@
             @Html.LabelFor(model => model.Labels)
         </small>
         <blockquote class="editor-field">
-            @Html.DropDownListFor(model => model.Labels, new SelectList(new List<string>() { "Неверное поведение", "Улучшение", "Ошибка" }), new { id = "cznTags" })
+            @Html.DropDownListFor(model => model.Labels, new SelectList(new List<string> {"Неверное поведение", "Улучшение", "Ошибка"}), new {id = "cznTags"})
             @Html.ValidationMessageFor(model => model.Labels)
         </blockquote>
         <br/>

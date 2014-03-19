@@ -1,9 +1,19 @@
-﻿using System.Collections.Generic;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="Region.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Common
 {
+	#region Using
+
+	using System.Collections.Generic;
+	using MongoDB.Bson;
+	using MongoDB.Bson.Serialization.Attributes;
+
+	#endregion
+
 	public class Region : IMongoEntity
 	{
 		public string RegionName { get; set; }

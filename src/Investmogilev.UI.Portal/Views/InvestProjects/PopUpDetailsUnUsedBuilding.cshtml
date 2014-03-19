@@ -1,5 +1,5 @@
 ﻿@model Investmogilev.Infrastructure.Common.Model.Project.UnUsedBuilding
-<fieldset style="height: 600px; width: 600px; overflow-x: auto; ">
+<fieldset style="height: 600px; overflow-x: auto; width: 600px;">
     <h3 style="font-weight: bold;">Неиспользуемое здание</h3>
     <table class="table table-striped table-condensed">
         <tr>
@@ -37,7 +37,9 @@
                 <td>
                     @foreach (var info in Model.Info)
                     {
-                        if (info.InfoName.EndsWith(".jpg") || info.InfoName.EndsWith(".gif") || info.InfoName.EndsWith(".png"))
+                        if (info.InfoName.ToLowerInvariant().EndsWith(".jpg")
+                            || info.InfoName.ToLowerInvariant().EndsWith(".gif")
+                            || info.InfoName.ToLowerInvariant().EndsWith(".png"))
                         {
                             <img src="@string.Format("http://investmogilev.by/AdditionalInfo/DownloadProjectInfo?projectId={0}&docId={1}", Model._id, info._id)">
                         }
@@ -53,5 +55,5 @@
             </tr>
         }
     </table>
-    <a style="margin-left: 200px" id="popupLink" href="/InvestorEntry/ResponseToProject/@Model._id" class="button button success">Откликнуться на проект</a>
+    <a style="margin-left: 200px" id="popupLink" href="/InvestorEntry/ResponseToProject/@Model._id" class="button button success"> Откликнуться на проект </a>
 </fieldset>

@@ -11,7 +11,7 @@
 
     // RegionViewModel methods
 
-    self.Set = function (argument) {
+    self.Set = function(argument) {
         self.RegionName(argument.RegionName);
         self.EnglishName(argument.EnglishName);
         self.id(argument._id);
@@ -34,6 +34,7 @@
 }
 
 var parametrId = 0;
+
 function ParametrViewModel() {
     var self = this;
 
@@ -56,7 +57,7 @@ function ParametrViewModel() {
 
     // ParametrViewModel methods
 
-    self.Set = function (argument) {
+    self.Set = function(argument) {
         self.Name(argument.ParametrName);
         self.IntegralValue(argument.IntegralValue);
         self.Values.removeAll();
@@ -66,25 +67,25 @@ function ParametrViewModel() {
         self.AbsoluteValues.removeAll();
         if (argument.AbsoluteValues != null && argument.AbsoluteValues.length > 0) {
             for (var i = 0; i < argument.AbsoluteValues.length; i++) {
-                self.AbsoluteValues.push(new ValueViewModel(argument.AbsoluteValues[i]))
+                self.AbsoluteValues.push(new ValueViewModel(argument.AbsoluteValues[i]));
             };
         }
 
         if (argument.DependAbsoluteValues != null && argument.DependAbsoluteValues.length > 0) {
             for (var i = 0; i < argument.DependAbsoluteValues.length; i++) {
-                self.DependAbsoluteValues.push(new ValueViewModel(argument.DependAbsoluteValues[i]))
+                self.DependAbsoluteValues.push(new ValueViewModel(argument.DependAbsoluteValues[i]));
             };
         }
 
         if (argument.DependValues != null && argument.DependValues.length > 0) {
             for (var i = 0; i < argument.DependValues.length; i++) {
-                self.DependValues.push(new ValueViewModel(argument.DependValues[i]))
+                self.DependValues.push(new ValueViewModel(argument.DependValues[i]));
             };
         }
 
         if (argument.Values != null && argument.Values.length > 0) {
             for (var i = 0; i < argument.Values.length; i++) {
-                self.Values.push(new ValueViewModel(argument.Values[i]))
+                self.Values.push(new ValueViewModel(argument.Values[i]));
             };
         }
 
@@ -97,7 +98,7 @@ function ParametrViewModel() {
         }
     };
 
-    self.ShowChilds = function (argument) {
+    self.ShowChilds = function(argument) {
         var id = '#' + self.Name().replace(/ /g, '');
         $(id).toggle("roll");
         for (var i = 0; i < self.ChildParametrs().length; i++) {
@@ -136,13 +137,13 @@ function AdditionalInfo() {
 
     // AdditionalInfo methods
 
-    self.Set = function (argument) {
+    self.Set = function(argument) {
     };
 }
 
 function RegionViewModelRepository() {
     var GetRegionDataApiLink = linkToSite + '/api/regionapi/get/';
-    this.FillRegionViewModel = function (id, callback) {
+    this.FillRegionViewModel = function(id, callback) {
         var getLink = GetRegionDataApiLink;
         if (id != '') {
             for (var i = 0; i < dataForRegions.length; i++) {
@@ -156,4 +157,5 @@ function RegionViewModelRepository() {
         }
     };
 }
-var regionRepository = new RegionViewModelRepository()
+
+var regionRepository = new RegionViewModelRepository();

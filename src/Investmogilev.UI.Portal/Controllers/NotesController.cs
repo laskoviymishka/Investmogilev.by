@@ -1,24 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="NotesController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.IO;
+	using System.Linq;
+	using System.Web;
+	using System.Web.Mvc;
+	using System.Web.Security;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using MongoDB.Bson;
+
+	#endregion
+
 	[Authorize]
 	public class NotesController : Controller
 	{
 		public ActionResult All()
 		{
 			var model = new List<ProjectNotes>();
-			foreach (Project project in RepositoryContext.Current.All<Project>())
+			foreach (var project in RepositoryContext.Current.All<Project>())
 			{
 				model.AddRange(
 					RepositoryContext.Current.All<ProjectNotes>(n => project != null && n.ProjectId == project._id));
@@ -26,7 +36,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 			model.AddRange(RepositoryContext.Current.All<ProjectNotes>(n => n.CretorName == User.Identity.Name));
 
-			foreach (string role in Roles.GetRolesForUser(User.Identity.Name))
+			foreach (var role in Roles.GetRolesForUser(User.Identity.Name))
 			{
 				model.AddRange(
 					RepositoryContext.Current.All<ProjectNotes>(
@@ -118,7 +128,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			}
 
 
-			foreach (HttpPostedFileBase file in attachments)
+			foreach (var file in attachments)
 			{
 				string fileName = Path.GetFileName(file.FileName);
 				string physicalPath = Path.Combine(

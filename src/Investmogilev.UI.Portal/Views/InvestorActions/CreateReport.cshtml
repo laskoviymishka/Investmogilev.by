@@ -6,8 +6,8 @@
     Создать отчет
 </h2>
 <div>
-    @Html.ActionLink("К моим задачам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker", @style = "margin-right: 10px" })
-    @Html.ActionLink("К проекту", "Project", "BaseProject", new { @id = Model.ProjectId }, new { @class = "icon-briefcase-2 fg-darker" })
+    @Html.ActionLink("К моим задачам", "Index", null, new {@class = "icon-arrow-left-3 fg-darker", @style = "margin-right:10px"})
+    @Html.ActionLink("К проекту", "Project", "BaseProject", new {@id = Model.ProjectId}, new {@class = "icon-briefcase-2 fg-darker"})
 </div>
 
 <script src="/Scripts/2013.2.611/telerik.common.min.js"></script>
@@ -28,14 +28,14 @@
             @Html.LabelFor(model => model.Body)
         </small>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.Body, new { @id = "editor" })
+            @Html.TextAreaFor(model => model.Body, new {@id = "editor"})
             @Html.ValidationMessageFor(model => model.Body)
         </div>
         <small class="editor-label">
             Приложения
         </small>
-        <div style="margin:10px">
-            @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async.Save("Save", "InvestorActions", new { taskId = Model.TaskId, reportId = Model._id }).Remove("Remove", "InvestorActions", new { taskId = Model.TaskId, reportId = Model._id }).AutoUpload(false)).Localizable("ru-RU")
+        <div style="margin: 10px">
+            @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async.Save("Save", "InvestorActions", new {taskId = Model.TaskId, reportId = Model._id}).Remove("Remove", "InvestorActions", new {taskId = Model.TaskId, reportId = Model._id}).AutoUpload(false)).Localizable("ru-RU")
         </div>
         <p>
             <input type="submit" value="Отправить" />
@@ -44,17 +44,18 @@
 }
 
 <script>
-    $(document).ready(function () { $("#editor").cleditor(); });
+    $(document).ready(function() { $("#editor").cleditor(); });
 </script>
 <script type="text/javascript">
     //<![CDATA[
-    jQuery(document).ready(function () {
+    jQuery(document).ready(function() {
         if (!jQuery.telerik) jQuery.telerik = {};
         jQuery('#attachments').tUpload({
             async: {
                 "saveUrl": "/Report/Save?taskId=@Model.TaskId&reportId=@Model._id&projectId=@Model.ProjectId",
                 "autoUpload": false
-            }, localization: {
+            },
+            localization: {
                 "cancel": "Отмена",
                 "retry": "Повторить",
                 "select": "Выбрать...",

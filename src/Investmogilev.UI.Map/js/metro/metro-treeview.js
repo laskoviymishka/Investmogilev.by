@@ -1,20 +1,19 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.treeview", {
-
         version: "1.0.0",
 
         options: {
-            onNodeClick: function(node){},
-            onNodeCollapsed: function(node){},
-            onNodeExpanded: function(node){}
+            onNodeClick: function(node) {},
+            onNodeCollapsed: function(node) {},
+            onNodeExpanded: function(node) {}
         },
 
-        _create: function(){
+        _create: function() {
             var that = this, element = this.element;
 
             element.find('.node.collapsed').find('ul').hide();
 
-            element.find('.node-toggle').on('click', function(e){
+            element.find('.node-toggle').on('click', function(e) {
                 var $this = $(this), node = $this.parent().parent("li");
 
                 if (node.hasClass("keep-open")) return;
@@ -34,14 +33,14 @@
                 e.stopPropagation();
             });
 
-            element.find("a").each(function(){
+            element.find("a").each(function() {
                 var $this = $(this);
                 $this.css({
-                    paddingLeft: ($this.parents("ul").length-1) * 10
+                    paddingLeft: ($this.parents("ul").length - 1) * 10
                 });
             });
 
-            element.find('a').on('click', function(e){
+            element.find('a').on('click', function(e) {
                 var $this = $(this), node = $this.parent('li');
                 element.find('a').removeClass('active');
                 $this.toggleClass('active');
@@ -50,20 +49,20 @@
             });
         },
 
-        _destroy: function(){
+        _destroy: function() {
 
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function () {
+$(function() {
     $('[data-role=treeview]').treeview();
 });
 
-function reinitTrees(){
+function reinitTrees() {
     $('[data-role=treeview]').treeview();
 }

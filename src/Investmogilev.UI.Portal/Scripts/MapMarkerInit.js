@@ -1,8 +1,9 @@
 ﻿var map;
+
 function CheckAddress(e) {
     GMaps.geocode({
         address: $('#AddressName').val().trim(),
-        callback: function (results, status) {
+        callback: function(results, status) {
             if (status == 'OK') {
                 var latlng = results[0].geometry.location;
                 map.removeMarkers();
@@ -19,7 +20,7 @@ function CheckAddress(e) {
     });
 };
 
-$(document).ready(function () {
+$(document).ready(function() {
     map = new GMaps({
         el: '#map',
         lat: 53.6,
@@ -32,7 +33,7 @@ $(document).ready(function () {
         lng: document.getElementById('Address_Lng').value
     });
 
-    GMaps.on('click', map.map, function (event) {
+    GMaps.on('click', map.map, function(event) {
         var index = map.markers.length;
         var lat = event.latLng.lat();
         var lng = event.latLng.lng();

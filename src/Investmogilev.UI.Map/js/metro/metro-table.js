@@ -1,6 +1,5 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.tablecontrol", {
-
         version: "1.0.0",
 
         options: {
@@ -12,7 +11,7 @@
             data: []
         },
 
-        _create: function(){
+        _create: function() {
             var element = this.element,
                 table;
 
@@ -29,46 +28,46 @@
             table.addClass(this.options.cls);
         },
 
-        addHeader: function(container, data){
+        addHeader: function(container, data) {
             var thead = $("<thead/>").appendTo(container);
             var th, tr = $("<tr/>").appendTo(thead);
-            $.each(data, function(index, column){
+            $.each(data, function(index, column) {
                 th = $("<th/>").addClass(column.hcls).html(column.caption).appendTo(tr);
             });
         },
 
-        createTable: function(container){
+        createTable: function(container) {
             return $("<table/>").appendTo(container);
         },
 
-        addTableData: function(container, data){
+        addTableData: function(container, data) {
             var that = this,
                 tbody = $("<tbody/>").appendTo(container);
 
-            $.each(data, function(i, row){
+            $.each(data, function(i, row) {
                 that.addRowData(tbody, row);
             });
         },
 
-        addRowData: function(container, row){
+        addRowData: function(container, row) {
             var td, tr = $("<tr/>").appendTo(container);
             if (row.__row_class != undefined) {
                 tr.addClass(row.__row_class);
             }
-            $.each(this.options.colModel, function(index, val){
+            $.each(this.options.colModel, function(index, val) {
                 td = $("<td/>").css("width", val.width).addClass(val.cls).html(row[val.field]).appendTo(tr);
             });
         },
 
-        _destroy: function(){
+        _destroy: function() {
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function(){
+$(function() {
     $('[data-role=table]').tablecontrol();
 });

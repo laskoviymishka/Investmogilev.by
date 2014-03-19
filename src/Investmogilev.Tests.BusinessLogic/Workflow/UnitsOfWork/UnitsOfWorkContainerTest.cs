@@ -1,13 +1,23 @@
-﻿using System.Collections.Generic;
-using Investmogilev.Infrastructure.BusinessLogic.Notification;
-using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.Repository;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="UnitsOfWorkContainerTest.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
 {
+	#region Using
+
+	using System.Collections.Generic;
+	using Investmogilev.Infrastructure.BusinessLogic.Notification;
+	using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.Repository;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Moq;
+
+	#endregion
+
 	/// <summary>
 	///     This is a test class for UnitsOfWorkContainerTest and is intended
 	///     to contain all UnitsOfWorkContainerTest Unit Tests

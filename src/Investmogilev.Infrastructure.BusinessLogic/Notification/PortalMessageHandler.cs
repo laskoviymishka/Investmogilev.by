@@ -1,11 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Model.User;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="PortalMessageHandler.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Model.User;
+
+	#endregion
+
 	public class PortalMessageHandler
 	{
 		private readonly PortalNotificationHub _notification;

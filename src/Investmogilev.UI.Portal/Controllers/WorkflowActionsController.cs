@@ -1,17 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Security;
-using Investmogilev.Infrastructure.BusinessLogic.Managers;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.State;
-using Investmogilev.UI.Portal.Models;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="WorkflowActionsController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Web.Mvc;
+	using System.Web.Security;
+	using Investmogilev.Infrastructure.BusinessLogic.Managers;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.State;
+	using Investmogilev.UI.Portal.Models;
+	using MongoDB.Bson;
+
+	#endregion
+
 	public class WorkflowActionsController : Controller
 	{
 		#region Common methods
@@ -156,7 +166,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
 			IEnumerable<InvestorResponse> prevResponses = project.Responses.Where(r => r.IsVerified);
-			foreach (InvestorResponse prevResponse in prevResponses)
+			foreach (var prevResponse in prevResponses)
 			{
 				prevResponse.IsVerified = false;
 			}
@@ -187,7 +197,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			if (project.Tasks != null)
 			{
 				foreach (
-					ProjectTask document in project.Tasks.Where(t => t.Step == ProjectWorkflow.State.DocumentSending))
+					var document in project.Tasks.Where(t => t.Step == ProjectWorkflow.State.DocumentSending))
 				{
 					model.Documents.Add(document.Title);
 				}
@@ -215,7 +225,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				RepositoryContext.Current.All<TaskTemplate>(t => model.Documents.Contains(t.Title));
 			var tasks = new List<ProjectTask>();
 
-			foreach (TaskTemplate template in templates)
+			foreach (var template in templates)
 			{
 				tasks.Add(new ProjectTask
 				{
@@ -264,7 +274,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 			if (project.Tasks != null)
 			{
-				foreach (ProjectTask document in project.Tasks.Where(t => t.Type == TaskTypes.InvolvedOrganiztion))
+				foreach (var document in project.Tasks.Where(t => t.Type == TaskTypes.InvolvedOrganiztion))
 				{
 					model.Documents.Add(document.Title);
 				}
@@ -292,7 +302,7 @@ namespace Investmogilev.UI.Portal.Controllers
 				RepositoryContext.Current.All<TaskTemplate>(t => model.Documents.Contains(t.Title));
 			var tasks = new List<ProjectTask>();
 
-			foreach (TaskTemplate template in templates)
+			foreach (var template in templates)
 			{
 				tasks.Add(new ProjectTask
 				{

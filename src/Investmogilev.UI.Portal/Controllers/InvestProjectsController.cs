@@ -1,28 +1,28 @@
-﻿using System.Collections.Generic;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.Repository;
-using Investmogilev.Infrastructure.Common.State;
-using Newtonsoft.Json;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="InvestProjectsController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System.Collections.Generic;
 	using System.Linq;
+	using System.Web.Mvc;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.Repository;
+	using Investmogilev.Infrastructure.Common.State;
+	using Newtonsoft.Json;
+
+	#endregion
 
 	public class InvestProjectsController : Controller
 	{
 		#region Nested class
-
-		private class ViewModel
-		{
-			public List<LatLng> Data { get; set; }
-			public int Take { get; set; }
-			public int Page { get; set; }
-			public int Total { get; set; }
-		}
 
 		private class LatLng
 		{
@@ -34,6 +34,14 @@ namespace Investmogilev.UI.Portal.Controllers
 			public string Description { get; set; }
 			public string Type { get; set; }
 			public List<string> Tags { get; set; }
+		}
+
+		private class ViewModel
+		{
+			public List<LatLng> Data { get; set; }
+			public int Take { get; set; }
+			public int Page { get; set; }
+			public int Total { get; set; }
 		}
 
 		#endregion
@@ -83,12 +91,12 @@ namespace Investmogilev.UI.Portal.Controllers
 			var returnModel = new ViewModel();
 			returnModel.Total = RepositoryContext.Current.All<Project>(
 				p => p.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap
-					 || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove).Count();
+				     || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove).Count();
 			returnModel.Take = take;
 			returnModel.Page = page;
 			returnModel.Data = GenerateGeoJsonData(RepositoryContext.Current.All<Project>(
 				p => p.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap
-					 || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove).Skip(page * take).Take(take));
+				     || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove).Skip(page*take).Take(take));
 
 			return JsonConvert.SerializeObject(returnModel);
 		}
@@ -108,8 +116,8 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		private List<LatLng> GenerateGeoJsonData(IEnumerable<Project> projects)
 		{
-			List<LatLng> latLngs = new List<LatLng>();
-			foreach (Project project in projects)
+			var latLngs = new List<LatLng>();
+			foreach (var project in projects)
 			{
 				if (project.Address.Lat != 1)
 				{

@@ -20,7 +20,7 @@
             @Html.LabelFor(model => model.Body)
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.Body, new { @id = "editor" })
+            @Html.TextAreaFor(model => model.Body, new {@id = "editor"})
             @Html.ValidationMessageFor(model => model.Body)
         </div>
         <div class="editor-label">
@@ -30,10 +30,10 @@
             @Html.EditorFor(model => model.IsApproved)
             @Html.ValidationMessageFor(model => model.IsApproved)
         </div>
-        <div style="margin:10px">
+        <div style="margin: 10px">
             @Html.Telerik().Upload().Name("attachments").Multiple(false).Async(async => async
-                .Save("Save", "AdminActions", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
-                .Remove("Remove", "AdminActions", new { taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id })
+                .Save("Save", "AdminActions", new {taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id})
+                .Remove("Remove", "AdminActions", new {taskId = Model.TaskId, reportId = Model.ReportId, reposponseId = Model._id})
                 .AutoUpload(false)
                 ).Localizable("ru-RU")
         </div>
@@ -44,12 +44,12 @@
 }
 
 <script>
-    $(document).ready(function () { $("#editor").cleditor(); });
+    $(document).ready(function() { $("#editor").cleditor(); });
 </script>
 
 <script type="text/javascript">
     //<![CDATA[
-    jQuery(document).ready(function () {
+    jQuery(document).ready(function() {
         if (!jQuery.telerik) jQuery.telerik = {};
         jQuery('#attachments').tUpload(
         {

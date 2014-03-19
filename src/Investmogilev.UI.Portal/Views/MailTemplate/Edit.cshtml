@@ -9,7 +9,7 @@
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
 <h2>Создать шаблон</h2>
 <p>
-    @Html.ActionLink("Назад к шаблонам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker" })
+    @Html.ActionLink("Назад к шаблонам", "Index", null, new {@class = "icon-arrow-left-3 fg-darker"})
 </p>
 @using (Html.BeginForm())
 {
@@ -41,7 +41,7 @@
             @Html.LabelFor(model => model.Trigger)
         </small>
         <blockquote class="editor-field">
-            @Html.DropDownListFor(model => model.Trigger, new SelectList(Enum.GetNames(typeof(ProjectWorkflow.Trigger))), new { id = "cznSteps" })
+            @Html.DropDownListFor(model => model.Trigger, new SelectList(Enum.GetNames(typeof (ProjectWorkflow.Trigger))), new {id = "cznSteps"})
             @Html.ValidationMessageFor(model => model.Trigger)
         </blockquote>
 
@@ -49,7 +49,7 @@
             @Html.LabelFor(model => model.UserType)
         </small>
         <blockquote class="editor-field">
-            @Html.DropDownListFor(model => model.UserType, new SelectList(Enum.GetNames(typeof(UserType))), new { id = "cznTypes" })
+            @Html.DropDownListFor(model => model.UserType, new SelectList(Enum.GetNames(typeof (UserType))), new {id = "cznTypes"})
             @Html.ValidationMessageFor(model => model.UserType)
         </blockquote>
 
@@ -59,9 +59,7 @@
     </fieldset>
 }
 <script>
-    $(document).ready(function () { $("#editor").cleditor(); });
+    $(document).ready(function() { $("#editor").cleditor(); });
     $("#cznSteps").chosen();
     $("#cznTypes").chosen();
 </script>
-
-

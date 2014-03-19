@@ -7,8 +7,8 @@
     Заметка по проекту
 </h2>
 <div>
-    @Html.ActionLink("К всем заметкам", "All", null, new { @class = "icon-arrow-left-3 fg-darker button success" })
-    @Html.ActionLink("К проекту", "Project", "BaseProject", new { Id = Model.ProjectId }, new { @class = "icon-arrow-down-3 fg-darker button success", style = "width:120px" })
+    @Html.ActionLink("К всем заметкам", "All", null, new {@class = "icon-arrow-left-3 fg-darker button success"})
+    @Html.ActionLink("К проекту", "Project", "BaseProject", new {Id = Model.ProjectId}, new {@class = "icon-arrow-down-3 fg-darker button success", style = "width:120px"})
 </div>
 <br/>
 
@@ -50,8 +50,8 @@
             {
                 <li>
                     @Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
-                                              "Download",
-                                                new { noteId = Model._id, docId = item._id }, new { @class = "button success" })
+                        "Download",
+                        new {noteId = Model._id, docId = item._id}, new {@class = "button success"})
                 </li>
             }
         }

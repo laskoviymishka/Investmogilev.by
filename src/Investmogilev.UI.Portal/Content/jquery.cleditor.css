@@ -1,13 +1,65 @@
-.cleditorMain {border:1px solid #999; padding:0 1px 1px; background-color:white}
-.cleditorMain iframe {border:none; margin:0; padding:0}
-.cleditorMain textarea {border:none; margin:0; padding:0; overflow-y:scroll; font:10pt Arial,Verdana; resize:none; outline:none /* webkit grip focus */}
-.cleditorToolbar {background: url('images/toolbar.gif') repeat}
-.cleditorGroup {float:left; height:26px}
-.cleditorButton {float:left; width:24px; height:24px; margin:1px 0 1px 0; background: url('images/buttons.gif')}
-.cleditorDisabled {opacity:0.3; filter:alpha(opacity=30)}
-.cleditorDivider {float:left; width:1px; height:23px; margin:1px 0 1px 0; background:#CCC}
-.cleditorPopup {border:solid 1px #999; background-color:white; color:#333333; position:absolute; font:10pt Arial,Verdana; cursor:default; z-index:10000}
-.cleditorList div {padding:2px 4px 2px 4px}
+.cleditorMain {
+    background-color: white;
+    border: 1px solid #999;
+    padding: 0 1px 1px;
+}
+
+.cleditorMain iframe {
+    border: none;
+    margin: 0;
+    padding: 0
+}
+
+.cleditorMain textarea {
+    border: none;
+    font: 10pt Arial, Verdana;
+    margin: 0;
+    outline: none; /* webkit grip focus */
+    overflow-y: scroll;
+    padding: 0;
+    resize: none;
+}
+
+.cleditorToolbar { background: url('images/toolbar.gif') repeat }
+
+.cleditorGroup {
+    float: left;
+    height: 26px
+}
+
+.cleditorButton {
+    background: url('images/buttons.gif');
+    float: left;
+    height: 24px;
+    margin: 1px 0 1px 0;
+    width: 24px;
+}
+
+.cleditorDisabled {
+    filter: alpha(opacity=30);
+    opacity: 0.3;
+}
+
+.cleditorDivider {
+    background: #CCC;
+    float: left;
+    height: 23px;
+    margin: 1px 0 1px 0;
+    width: 1px;
+}
+
+.cleditorPopup {
+    background-color: white;
+    border: solid 1px #999;
+    color: #333333;
+    cursor: default;
+    font: 10pt Arial, Verdana;
+    position: absolute;
+    z-index: 10000
+}
+
+.cleditorList div { padding: 2px 4px 2px 4px }
+
 .cleditorList p,
 .cleditorList h1,
 .cleditorList h2,
@@ -15,10 +67,36 @@
 .cleditorList h4,
 .cleditorList h5,
 .cleditorList h6,
-.cleditorList font {padding:0; margin:0; background-color:Transparent}
-.cleditorColor {width:150px; padding:1px 0 0 1px}
-.cleditorColor div {float:left; width:14px; height:14px; margin:0 1px 1px 0}
-.cleditorPrompt {background-color:#F6F7F9; padding:4px; font-size:8.5pt}
+.cleditorList font {
+    background-color: Transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.cleditorColor {
+    padding: 1px 0 0 1px;
+    width: 150px;
+}
+
+.cleditorColor div {
+    float: left;
+    height: 14px;
+    margin: 0 1px 1px 0;
+    width: 14px;
+}
+
+.cleditorPrompt {
+    background-color: #F6F7F9;
+    font-size: 8.5pt;
+    padding: 4px;
+}
+
 .cleditorPrompt input,
-.cleditorPrompt textarea {font:8.5pt Arial,Verdana;}
-.cleditorMsg {background-color:#FDFCEE; width:150px; padding:4px; font-size:8.5pt}
+.cleditorPrompt textarea { font: 8.5pt Arial, Verdana; }
+
+.cleditorMsg {
+    background-color: #FDFCEE;
+    font-size: 8.5pt;
+    padding: 4px;
+    width: 150px;
+}

@@ -1,7 +1,17 @@
-﻿using System;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="StateAttribute.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
+	#region Using
+
+	using System;
+
+	#endregion
+
 	[AttributeUsage(AttributeTargets.Class)]
 	public class StateAttribute : Attribute
 	{

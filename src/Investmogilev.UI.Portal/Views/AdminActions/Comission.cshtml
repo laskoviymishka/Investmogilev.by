@@ -6,9 +6,7 @@
 <link href="~/Content/Style.css" rel="stylesheet" />
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <style>
-    .calendar-dropdown {
-        position: relative !important;
-    }
+    .calendar-dropdown { position: relative !important; }
 </style>
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
@@ -30,7 +28,7 @@
         <blockquote class="editor-field">
             <div class="btn-toolbar" data-role="editor-toolbar"
                  data-target="#editor">
-                @Html.TextAreaFor(model => model.Body, new { id = "editor" })
+                @Html.TextAreaFor(model => model.Body, new {id = "editor"})
             </div>
             @Html.ValidationMessageFor(model => model.Body)
         </blockquote>
@@ -54,7 +52,7 @@
             @Html.LabelFor(model => model.Type)
         </small>
         <blockquote class="editor-field">
-            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetNames(typeof(ComissionType))), new { id = "cznTypes" })
+            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetNames(typeof (ComissionType))), new {id = "cznTypes"})
             @Html.ValidationMessageFor(model => model.Type)
         </blockquote>
         <p style="margin: 10px">
@@ -70,5 +68,4 @@
     });
     $("#cznTypes").chosen();
 </script>
-<script> $(document).ready(function () { $("#editor").cleditor(); }); </script>
-
+<script> $(document).ready(function() { $("#editor").cleditor(); }); </script>

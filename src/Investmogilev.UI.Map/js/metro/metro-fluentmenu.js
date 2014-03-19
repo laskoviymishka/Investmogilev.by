@@ -1,21 +1,22 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.fluentmenu", {
-
         version: "1.0.0",
 
         options: {
-            onSpecialClick: function(e, el){},
-            onTabClick: function(e, el){}
+            onSpecialClick: function(e, el) {},
+            onTabClick: function(e, el) {}
         },
 
-        _create: function(){
-            var that = this, element = this.element, o = this.options,
+        _create: function() {
+            var that = this,
+                element = this.element,
+                o = this.options,
                 tabs = element.find('.tabs-holder > li > a');
 
             this._hidePanels();
             this._showPanel();
 
-            tabs.on('click', function(e){
+            tabs.on('click', function(e) {
                 if ($(this).parent('li').hasClass('special')) {
                     o.onSpecialClick(e, $(this));
                 } else {
@@ -32,31 +33,31 @@
             });
         },
 
-        _hidePanels: function(){
+        _hidePanels: function() {
             this.element.find('.tab-panel').hide();
         },
 
-        _showPanel: function(panel){
+        _showPanel: function(panel) {
             if (panel == undefined) {
                 panel = this.element.find('.tabs-holder li.active a').attr('href');
             }
             $(panel).show();
         },
 
-        _destroy: function(){
+        _destroy: function() {
 
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function(){
+$(function() {
     $('[data-role=fluentmenu]').fluentmenu();
 });
 
-function reinitFluentMenus(){
+function reinitFluentMenus() {
     $('[data-role=fluentmenu]').fluentmenu();
 }

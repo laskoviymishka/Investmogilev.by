@@ -1,16 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Investmogilev.Infrastructure.BusinessLogic.Notification;
-using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.Repository;
-using Investmogilev.Infrastructure.Common.State;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="ProjectStateManager.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using Investmogilev.Infrastructure.BusinessLogic.Notification;
+	using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.Repository;
+	using Investmogilev.Infrastructure.Common.State;
+	using MongoDB.Bson;
+
+	#endregion
+
 	public class ProjectStateManager
 	{
 		#region Constatnt

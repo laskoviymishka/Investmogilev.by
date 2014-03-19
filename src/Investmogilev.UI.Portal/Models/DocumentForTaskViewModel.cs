@@ -1,22 +1,32 @@
-﻿using Investmogilev.Infrastructure.Common.Model.Common;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="DocumentForTaskViewModel.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Models
 {
-    public class DocumentForTaskViewModel : DocumentAdditionalInfo
-    {
-        public DocumentForTaskViewModel()
-        {
-        }
+	#region Using
 
-        public DocumentForTaskViewModel(DocumentAdditionalInfo info)
-        {
-            _id = info._id;
-            FilePath = info.FilePath;
-            InfoName = info.InfoName;
-            InfoValue = info.InfoValue;
-        }
+	using Investmogilev.Infrastructure.Common.Model.Common;
 
-        public string ProjectId { get; set; }
-        public string TaskId { get; set; }
-    }
+	#endregion
+
+	public class DocumentForTaskViewModel : DocumentAdditionalInfo
+	{
+		public DocumentForTaskViewModel()
+		{
+		}
+
+		public DocumentForTaskViewModel(DocumentAdditionalInfo info)
+		{
+			_id = info._id;
+			FilePath = info.FilePath;
+			InfoName = info.InfoName;
+			InfoValue = info.InfoValue;
+		}
+
+		public string ProjectId { get; set; }
+		public string TaskId { get; set; }
+	}
 }

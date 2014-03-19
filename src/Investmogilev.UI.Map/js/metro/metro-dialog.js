@@ -2,7 +2,7 @@
     var _dialog = false;
 
     $.Dialog = function(params) {
-        if(!$.Dialog.opened) {
+        if (!$.Dialog.opened) {
             $.Dialog.opened = true;
         } else {
             return _dialog;
@@ -25,7 +25,7 @@
             sysButtons: {
                 btnClose: true
             },
-            onShow: function(_dialog){}
+            onShow: function(_dialog) {}
         }, params);
 
         var _overlay, _window, _caption, _content;
@@ -34,7 +34,7 @@
 
         if (params.overlay) {
             _overlay.css({
-                backgroundColor: 'rgba(0,0,0,.7)'
+                backgroundColor: 'rgba(0, 0, 0, .7)'
             });
         }
 
@@ -52,20 +52,20 @@
 
         if (params.sysButtons) {
             if (params.sysButtons.btnClose) {
-                $("<button/>").addClass("btn-close").on('click', function(e){
+                $("<button/>").addClass("btn-close").on('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     $.Dialog.close();
                 }).appendTo(_caption);
             }
             if (params.sysButtons.btnMax) {
-                $("<button/>").addClass("btn-max").on('click', function(e){
+                $("<button/>").addClass("btn-max").on('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                 }).appendTo(_caption);
             }
             if (params.sysButtons.btnMin) {
-                $("<button/>").addClass("btn-min").on('click', function(e){
+                $("<button/>").addClass("btn-min").on('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                 }).appendTo(_caption);
@@ -91,20 +91,19 @@
 
         _window
             .css("position", "fixed")
-            .css("top", ($(window).height() - _dialog.outerHeight()) / 2 )
+            .css("top", ($(window).height() - _dialog.outerHeight()) / 2)
             .css("left", ($(window).width() - _window.outerWidth()) / 2)
 /*
             .css("width", _content.outerWidth()+params.padding)
             .css("height", _content.outerHeight()+params.padding)
-*/
-        ;
+*/;
 
 
         //console.log( $(window).height());
 
         addTouchEvents(_window[0]);
 
-        if(params.draggable) {
+        if (params.draggable) {
             _caption.on("mousedown", function(e) {
                 $.Dialog.drag = true;
                 _caption.css('cursor', 'move');
@@ -116,15 +115,15 @@
                     pos_x = _window.offset().left + drg_w - e.pageX;
 
                 _window.css('z-index', 99999).parents().on("mousemove", function(e) {
-                    var t = (e.pageY > 0)?(e.pageY + pos_y - drg_h):(0);
-                    var l = (e.pageX > 0)?(e.pageX + pos_x - drg_w):(0);
+                    var t = (e.pageY > 0) ? (e.pageY + pos_y - drg_h) : (0);
+                    var l = (e.pageX > 0) ? (e.pageX + pos_x - drg_w) : (0);
 
                     if ($.Dialog.drag) {
-                        if(t >= 0 && t <= window.innerHeight - _window.outerHeight()) {
-                            _window.offset({top: t});
+                        if (t >= 0 && t <= window.innerHeight - _window.outerHeight()) {
+                            _window.offset({ top: t });
                         }
-                        if(l >= 0 && l <= window.innerWidth - _window.outerWidth()) {
-                            _window.offset({left: l});
+                        if (l >= 0 && l <= window.innerWidth - _window.outerWidth()) {
+                            _window.offset({ left: l });
                         }
                     }
 
@@ -142,12 +141,12 @@
             });
         }
 
-        _window.on('click', function(e){
+        _window.on('click', function(e) {
             e.stopPropagation();
         });
 
         if (params.overlayClickClose) {
-            _overlay.on('click', function(e){
+            _overlay.on('click', function(e) {
                 e.preventDefault();
                 $.Dialog.close();
             });
@@ -158,37 +157,34 @@
         $.Dialog.autoResize();
 
         return _dialog;
-    }
-
+    };
     $.Dialog.content = function(newContent) {
-        if(!$.Dialog.opened) {
+        if (!$.Dialog.opened) {
             return false;
         }
 
-        if(newContent) {
+        if (newContent) {
             _dialog.children(".content").html(newContent);
             $.Dialog.autoResize();
         } else {
             return _dialog.children(".content").html();
         }
-    }
-
+    };
     $.Dialog.title = function(newTitle) {
-        if(!$.Dialog.opened) {
+        if (!$.Dialog.opened) {
             return false;
         }
 
         var _title = _dialog.children('.caption').children('.title');
 
-        if(newTitle) {
+        if (newTitle) {
             _title.html(newTitle);
         } else {
             _title.html();
         }
-    }
-
-    $.Dialog.autoResize = function(){
-        if(!$.Dialog.opened) {
+    };
+    $.Dialog.autoResize = function() {
+        if (!$.Dialog.opened) {
             return false;
         }
 
@@ -200,23 +196,22 @@
         var left = ($(window).width() - _dialog.outerWidth()) / 2;
 
         _dialog.css({
-            width: _content.outerWidth(),
-            height: _content.outerHeight()//+36
-        })
-        .css("top",  top)
-        .css("left", left);
+                width: _content.outerWidth(),
+                height: _content.outerHeight() //+36
+            })
+            .css("top", top)
+            .css("left", left);
 
-    }
-
+    };
     $.Dialog.close = function() {
-        if(!$.Dialog.opened || _dialog == undefined) {
+        if (!$.Dialog.opened || _dialog == undefined) {
             return false;
         }
 
         $.Dialog.opened = false;
         var _overlay = _dialog.parent(".window-overlay");
-        _overlay.fadeOut(function(){
+        _overlay.fadeOut(function() {
             $(this).remove();
         });
-    }
+    };
 })(jQuery);

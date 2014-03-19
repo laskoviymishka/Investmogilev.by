@@ -1,6 +1,5 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.times", {
-
         version: "1.0.0",
 
         options: {
@@ -15,19 +14,19 @@
                 m: 0,
                 s: 0
             },
-            ontick: function(h, m, s){},
-            onalarm: function(){}
+            ontick: function(h, m, s) {},
+            onalarm: function() {}
         },
 
         wrappers: {},
 
         _interval: 0,
 
-        _create: function(){
+        _create: function() {
             var that = this, element = this.element;
 
-            $.each(['Hours','Minutes','Seconds'],function(){
-                $('<span class="count'+this+'">').html(
+            $.each(['Hours', 'Minutes', 'Seconds'], function() {
+                $('<span class="count' + this + '">').html(
                     '<span class="digit-wrapper">\
                         <span class="digit">0</span>\
                     </span>\
@@ -36,7 +35,7 @@
                     </span>'
                 ).appendTo(element);
 
-                if(this!="Seconds"){
+                if (this != "Seconds") {
                     element.append('<span class="divider"></span>');
                 }
             });
@@ -81,24 +80,24 @@
             if (element.data('onalarm') != undefined) {
             }
 
-            setTimeout( function(){
-                that.tick()
+            setTimeout(function() {
+                that.tick();
             }, 1000);
         },
 
-        _destroy: function(){
+        _destroy: function() {
 
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         },
 
 
-        tick: function(){
+        tick: function() {
             var that = this;
 
-            this._interval = setInterval(function(){
+            this._interval = setInterval(function() {
                 var _date = new Date();
 
                 var h, m, s;
@@ -124,7 +123,7 @@
                         (alarm.h != undefined && alarm.h == h)
                             && (alarm.m != undefined && alarm.m == m)
                             && (alarm.s != undefined && alarm.s == s)
-                        ) {
+                    ) {
 
                         that.options.onalarm();
                         that._trigger('alarm');
@@ -135,37 +134,37 @@
             }, 1000);
         },
 
-        blinkDivider: function(){
+        blinkDivider: function() {
             if (this.options.blink)
                 this.element.find(".divider").toggleClass("no-visible");
         },
 
-        updateDuo: function(minor, major, value){
-            this.switchDigit(this.wrappers.eq(minor),Math.floor(value/10)%10);
-            this.switchDigit(this.wrappers.eq(major),value%10);
+        updateDuo: function(minor, major, value) {
+            this.switchDigit(this.wrappers.eq(minor), Math.floor(value / 10) % 10);
+            this.switchDigit(this.wrappers.eq(major), value % 10);
         },
 
-        switchDigit: function(wrapper, number){
+        switchDigit: function(wrapper, number) {
             var digit = wrapper.find('.digit');
 
-            if(digit.is(':animated')){
+            if (digit.is(':animated')) {
                 return false;
             }
 
-            if(wrapper.data('digit') == number){
+            if (wrapper.data('digit') == number) {
                 // We are already showing this number
                 return false;
             }
 
             wrapper.data('digit', number);
 
-            var replacement = $('<span>',{
-                'class':'digit',
-                css:{
-                    top:'-2.1em',
-                    opacity:0
+            var replacement = $('<span>', {
+                'class': 'digit',
+                css: {
+                    top: '-2.1em',
+                    opacity: 0
                 },
-                html:number
+                html: number
             });
 
             replacement.addClass(this.options.style.background);
@@ -174,23 +173,23 @@
             digit
                 .before(replacement)
                 .removeClass('static')
-                .animate({top:'2.5em',opacity:0},'fast',function(){
+                .animate({ top: '2.5em', opacity: 0 }, 'fast', function() {
                     digit.remove();
                 });
 
             replacement
                 .delay(100)
-                .animate({top:0,opacity:1},'fast');
+                .animate({ top: 0, opacity: 1 }, 'fast');
 
             return true;
         }
     });
-})( jQuery );
+})(jQuery);
 
-$(function () {
+$(function() {
     $('[data-role=times]').times();
 });
 
-function reinitTimes(){
+function reinitTimes() {
     $('[data-role=times]').times();
 }

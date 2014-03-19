@@ -1,9 +1,19 @@
-﻿using Investmogilev.Infrastructure.Common.State;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="MailTemplate.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Common
 {
+	#region Using
+
+	using Investmogilev.Infrastructure.Common.State;
+	using MongoDB.Bson;
+	using MongoDB.Bson.Serialization.Attributes;
+
+	#endregion
+
 	public class MailTemplate : IMongoEntity
 	{
 		public string Title { get; set; }

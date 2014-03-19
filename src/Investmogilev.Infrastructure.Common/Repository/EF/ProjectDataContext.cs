@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="ProjectDataContext.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Repository.EF
 {
+	#region Using
+
+	using System.Data.Entity;
+	using System.Data.Entity.ModelConfiguration.Conventions;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+
+	#endregion
+
 	public class ProjectDataContext : DbContext
 	{
 		public DbSet<Project> Projects { get; set; }

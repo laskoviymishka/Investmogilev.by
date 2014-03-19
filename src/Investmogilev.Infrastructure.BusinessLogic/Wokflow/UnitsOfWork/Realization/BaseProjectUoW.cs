@@ -1,13 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Investmogilev.Infrastructure.BusinessLogic.Notification;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.Repository;
-using Investmogilev.Infrastructure.Common.State;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="BaseProjectUoW.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using Investmogilev.Infrastructure.BusinessLogic.Notification;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.Repository;
+	using Investmogilev.Infrastructure.Common.State;
+
+	#endregion
+
 	public class BaseProjectUoW
 	{
 		#region Protected const

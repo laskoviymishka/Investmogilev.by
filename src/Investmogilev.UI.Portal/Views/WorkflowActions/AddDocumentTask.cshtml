@@ -7,8 +7,8 @@
 <h2>
     Необходимые документы для проекта</h2>
 @{
-        List<string> documentList = ViewBag.DocumentList as List<string>;
-    }
+    var documentList = ViewBag.DocumentList as List<string>;
+}
 @using (Html.BeginForm())
 {
     <fieldset>
@@ -16,7 +16,7 @@
             @Html.LabelFor(model => model.Documents)
         </small>
         <blockquote class="editor-field" style="height: 100px">
-            @Html.ListBoxFor(model => model.Documents, new SelectList(documentList), new { id = "cznTags", @style = "width: 100%; height: 70px !important;" })
+            @Html.ListBoxFor(model => model.Documents, new SelectList(documentList), new {id = "cznTags", @style = "height:70px !important;width:100%;"})
             @Html.ValidationMessageFor(model => model.Documents)
         </blockquote>
         @Html.HiddenFor(t => t.PorjectId)

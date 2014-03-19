@@ -1,12 +1,15 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+// // -----------------------------------------------------------------------
+// // <copyright file="MiniProfiler.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
+
+#region Using
+
 using Investmogilev.UI.Portal;
-using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-using StackExchange.Profiling;
-using StackExchange.Profiling.MVCHelpers;
 using WebActivator;
+
+#endregion
 
 //using System.Data;
 //using System.Data.Entity;
@@ -14,13 +17,25 @@ using WebActivator;
 //using StackExchange.Profiling.Data.EntityFramework;
 //using StackExchange.Profiling.Data.Linq2Sql;
 
-[assembly: WebActivator.PreApplicationStartMethod(
+[assembly: PreApplicationStartMethod(
 	typeof (MiniProfilerPackage), "PreStart")]
 [assembly: PostApplicationStartMethod(
 	typeof (MiniProfilerPackage), "PostStart")]
 
 namespace Investmogilev.UI.Portal
 {
+	#region Using
+
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Web;
+	using System.Web.Mvc;
+	using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+	using StackExchange.Profiling;
+	using StackExchange.Profiling.MVCHelpers;
+
+	#endregion
+
 	public static class MiniProfilerPackage
 	{
 		public static void PreStart()
@@ -67,7 +82,7 @@ namespace Investmogilev.UI.Portal
 			// If you prefer to insert your profiling blocks manually you can comment this out
 			List<IViewEngine> copy = ViewEngines.Engines.ToList();
 			ViewEngines.Engines.Clear();
-			foreach (IViewEngine item in copy)
+			foreach (var item in copy)
 			{
 				ViewEngines.Engines.Add(new ProfilingViewEngine(item));
 			}

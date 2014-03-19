@@ -1,101 +1,111 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Repository;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="MockMongoRepository.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Tests.BusinessLogic
 {
-    public class MockMongoRepository : IRepository
-    {
-        #region Private Fields
+	#region Using
 
-        private readonly IList _db;
+	using System;
+	using System.Collections;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Linq.Expressions;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Repository;
 
-        #endregion
+	#endregion
 
-        #region Constructor
+	public class MockMongoRepository : IRepository
+	{
+		#region Private Fields
 
-        public MockMongoRepository(IList data)
-        {
-            _db = data;
-        }
+		private readonly IList _db;
 
-        #endregion
+		#endregion
 
-        #region Delete
+		#region Constructor
 
-        public void Delete<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
-        {
-            IQueryable<T> items = All<T>().Where(expression);
-            foreach (T item in items)
-            {
-                Delete(item);
-            }
-        }
+		public MockMongoRepository(IList data)
+		{
+			_db = data;
+		}
 
-        public void Delete<T>(T item) where T : IMongoEntity
-        {
-            (_db as IList<T>).Remove(item);
-        }
+		#endregion
 
-        public void DeleteAll<T>() where T : IMongoEntity
-        {
-            throw new NotImplementedException();
-        }
+		#region Delete
 
-        #endregion
+		public void Delete<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
+		{
+			IQueryable<T> items = All<T>().Where(expression);
+			foreach (var item in items)
+			{
+				Delete(item);
+			}
+		}
 
-        #region Selector
+		public void Delete<T>(T item) where T : IMongoEntity
+		{
+			(_db as IList<T>).Remove(item);
+		}
 
-        public T GetOne<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
-        {
-            return All<T>().Where(expression).SingleOrDefault();
-        }
+		public void DeleteAll<T>() where T : IMongoEntity
+		{
+			throw new NotImplementedException();
+		}
 
-        public IQueryable<T> All<T>() where T : IMongoEntity
-        {
-            return (_db as IList<T>).AsQueryable();
-        }
+		#endregion
 
-        public IQueryable<T> All<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
-        {
-            return All<T>().Where(expression);
-        }
+		#region Selector
 
-        #endregion
+		public T GetOne<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
+		{
+			return All<T>().Where(expression).SingleOrDefault();
+		}
 
-        #region Inster
+		public IQueryable<T> All<T>() where T : IMongoEntity
+		{
+			return (_db as IList<T>).AsQueryable();
+		}
 
-        public void Add<T>(T item) where T : IMongoEntity
-        {
-            (_db as IList<T>).Add(item);
-        }
+		public IQueryable<T> All<T>(Expression<Func<T, bool>> expression) where T : IMongoEntity
+		{
+			return All<T>().Where(expression);
+		}
 
-        public void Add<T>(IEnumerable<T> items) where T : IMongoEntity
-        {
-            foreach (T item in items)
-            {
-                Add(item);
-            }
-        }
+		#endregion
 
-        #endregion
+		#region Inster
 
-        #region Update
+		public void Add<T>(T item) where T : IMongoEntity
+		{
+			(_db as IList<T>).Add(item);
+		}
 
-        public void Update<T>(T item) where T : IMongoEntity
-        {
-            if (GetOne<T>(t => t._id == item._id) != null)
-            {
-                T elem = GetOne<T>(t => t._id == item._id);
-                Delete<T>(item);
-                Add<T>(item);
-            }
-        }
+		public void Add<T>(IEnumerable<T> items) where T : IMongoEntity
+		{
+			foreach (var item in items)
+			{
+				Add(item);
+			}
+		}
 
-        #endregion
-    }
+		#endregion
+
+		#region Update
+
+		public void Update<T>(T item) where T : IMongoEntity
+		{
+			if (GetOne<T>(t => t._id == item._id) != null)
+			{
+				var elem = GetOne<T>(t => t._id == item._id);
+				Delete(item);
+				Add(item);
+			}
+		}
+
+		#endregion
+	}
 }

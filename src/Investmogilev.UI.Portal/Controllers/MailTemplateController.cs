@@ -1,10 +1,20 @@
-﻿using System.Web.Mvc;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="MailTemplateController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System.Web.Mvc;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using MongoDB.Bson;
+
+	#endregion
+
 	public class MailTemplateController : Controller
 	{
 		public ActionResult Index()

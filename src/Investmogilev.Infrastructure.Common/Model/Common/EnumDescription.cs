@@ -1,8 +1,18 @@
-﻿using System;
-using System.Reflection;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="EnumDescription.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Common
 {
+	#region Using
+
+	using System;
+	using System.Reflection;
+
+	#endregion
+
 	public class EnumDescription : Attribute
 	{
 		private readonly string _value;

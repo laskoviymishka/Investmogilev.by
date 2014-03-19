@@ -1,19 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Investmogilev.Infrastructure.BusinessLogic.Managers;
-using Investmogilev.Infrastructure.BusinessLogic.Notification;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="AdditionalInfoController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.Specialized;
+	using System.IO;
+	using System.Linq;
+	using System.Web;
+	using System.Web.Mvc;
+	using Investmogilev.Infrastructure.BusinessLogic.Managers;
+	using Investmogilev.Infrastructure.BusinessLogic.Notification;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using MongoDB.Bson;
+
+	#endregion
+
 	public class AdditionalInfoController : Controller
 	{
 		#region Fields

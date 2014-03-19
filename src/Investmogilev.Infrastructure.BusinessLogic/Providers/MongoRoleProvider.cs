@@ -1,14 +1,24 @@
-﻿using System.Collections.Specialized;
-using System.Configuration.Provider;
-using System.Linq;
-using System.Web.Hosting;
-using System.Web.Security;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.Builders;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="MongoRoleProvider.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 {
+	#region Using
+
+	using System.Collections.Specialized;
+	using System.Configuration.Provider;
+	using System.Linq;
+	using System.Web.Hosting;
+	using System.Web.Security;
+	using MongoDB.Bson;
+	using MongoDB.Driver;
+	using MongoDB.Driver.Builders;
+
+	#endregion
+
 	public class MongoRoleProvider : RoleProvider
 	{
 		private MongoCollection _rolesMongoCollection;
@@ -19,7 +29,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 		public override void AddUsersToRoles(string[] usernames, string[] roleNames)
 		{
 			// Make sure each role exists
-			foreach (string roleName in roleNames)
+			foreach (var roleName in roleNames)
 			{
 				if (!RoleExists(roleName))
 				{
@@ -27,7 +37,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 				}
 			}
 
-			foreach (string username in usernames)
+			foreach (var username in usernames)
 			{
 				MembershipUser membershipUser = Membership.GetUser(username);
 
@@ -36,7 +46,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 					throw new ProviderException(string.Format("The user '{0}' was not found.", username));
 				}
 
-				foreach (string roleName in roleNames)
+				foreach (var roleName in roleNames)
 				{
 					if (IsUserInRole(username, roleName))
 					{
@@ -166,9 +176,9 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 
 		public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
 		{
-			foreach (string username in usernames)
+			foreach (var username in usernames)
 			{
-				foreach (string roleName in roleNames)
+				foreach (var roleName in roleNames)
 				{
 					IMongoQuery query = Query.And(Query.EQ("ApplicationName", ApplicationName), Query.EQ("Role", roleName),
 						Query.EQ("Username", username));

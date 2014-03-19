@@ -28,16 +28,16 @@
 
     $.widget('ui.tagit', {
         options: {
-            allowDuplicates   : false,
-            caseSensitive     : true,
-            fieldName         : 'tags',
-            placeholderText   : null,   // Sets `placeholder` attr on input field.
-            readOnly          : false,  // Disables editing.
-            removeConfirmation: false,  // Require confirmation to remove tags.
-            tagLimit          : null,   // Max number of tags allowed (null for unlimited).
+            allowDuplicates: false,
+            caseSensitive: true,
+            fieldName: 'tags',
+            placeholderText: null, // Sets `placeholder` attr on input field.
+            readOnly: false, // Disables editing.
+            removeConfirmation: false, // Require confirmation to remove tags.
+            tagLimit: null, // Max number of tags allowed (null for unlimited).
 
             // Used for autocomplete, unless you override `autocomplete.source`.
-            availableTags     : [],
+            availableTags: [],
 
             // Use to override or add any options to the autocomplete widget.
             //
@@ -85,14 +85,14 @@
             tabIndex: null,
 
             // Event callbacks.
-            beforeTagAdded      : null,
-            afterTagAdded       : null,
+            beforeTagAdded: null,
+            afterTagAdded: null,
 
-            beforeTagRemoved    : null,
-            afterTagRemoved     : null,
+            beforeTagRemoved: null,
+            afterTagRemoved: null,
 
-            onTagClicked        : null,
-            onTagLimitExceeded  : null,
+            onTagClicked: null,
+            onTagLimitExceeded: null,
 
 
             // DEPRECATED:
@@ -100,7 +100,7 @@
             // /!\ These event callbacks are deprecated and WILL BE REMOVED at some
             // point in the future. They're here for backwards-compatibility.
             // Use the above before/after event callbacks instead.
-            onTagAdded  : null,
+            onTagAdded: null,
             onTagRemoved: null,
             // `autocomplete.source` is the replacement for tagSource.
             tagSource: null
@@ -181,7 +181,7 @@
                     if (target.hasClass('tagit-label')) {
                         var tag = target.closest('.tagit-choice');
                         if (!tag.hasClass('removed')) {
-                            that._trigger('onTagClicked', e, {tag: tag, tagLabel: that.tagLabel(tag)});
+                            that._trigger('onTagClicked', e, { tag: tag, tagLabel: that.tagLabel(tag) });
                         }
                     } else {
                         // Sets the focus() to the input field, if the user
@@ -242,23 +242,23 @@
                     // in which case it isn't caught.
                     if (
                         (event.which === $.ui.keyCode.COMMA && event.shiftKey === false) ||
-                        event.which === $.ui.keyCode.ENTER ||
-                        (
-                            event.which == $.ui.keyCode.TAB &&
-                            that.tagInput.val() !== ''
-                        ) ||
-                        (
-                            event.which == $.ui.keyCode.SPACE &&
-                            that.options.allowSpaces !== true &&
+                            event.which === $.ui.keyCode.ENTER ||
                             (
-                                $.trim(that.tagInput.val()).replace( /^s*/, '' ).charAt(0) != '"' ||
-                                (
-                                    $.trim(that.tagInput.val()).charAt(0) == '"' &&
-                                    $.trim(that.tagInput.val()).charAt($.trim(that.tagInput.val()).length - 1) == '"' &&
-                                    $.trim(that.tagInput.val()).length - 1 !== 0
-                                )
+                                event.which == $.ui.keyCode.TAB &&
+                                    that.tagInput.val() !== ''
+                            ) ||
+                            (
+                                event.which == $.ui.keyCode.SPACE &&
+                                    that.options.allowSpaces !== true &&
+                                    (
+                                        $.trim(that.tagInput.val()).replace(/^s*/, '').charAt(0) != '"' ||
+                                        (
+                                            $.trim(that.tagInput.val()).charAt(0) == '"' &&
+                                                $.trim(that.tagInput.val()).charAt($.trim(that.tagInput.val()).length - 1) == '"' &&
+                                                $.trim(that.tagInput.val()).length - 1 !== 0
+                                        )
+                                    )
                             )
-                        )
                     ) {
                         // Enter submits the form if there's no text in the input.
                         if (!(event.which === $.ui.keyCode.ENTER && that.tagInput.val() === '')) {
@@ -271,7 +271,7 @@
                             that.createTag(that._cleanedInput());
                         }
                     }
-                }).blur(function(e){
+                }).blur(function(e) {
                     // Create a tag when the element loses focus.
                     // If autocomplete is enabled and suggestion was clicked, don't add it.
                     if (!that.tagInput.data('autocomplete-open')) {
@@ -297,7 +297,7 @@
                 this.tagInput.autocomplete(autocompleteOptions).bind('autocompleteopen.tagit', function(event, ui) {
                     that.tagInput.data('autocomplete-open', true);
                 }).bind('autocompleteclose.tagit', function(event, ui) {
-                    that.tagInput.data('autocomplete-open', false)
+                    that.tagInput.data('autocomplete-open', false);
                 });
 
                 this.tagInput.autocomplete('widget').addClass('tagit-autocomplete');
@@ -441,7 +441,7 @@
 
             value = $.trim(value);
 
-            if(this.options.preprocessTag) {
+            if (this.options.preprocessTag) {
                 value = this.options.preprocessTag(value);
             }
 
@@ -463,7 +463,7 @@
             }
 
             if (this.options.tagLimit && this._tags().length >= this.options.tagLimit) {
-                this._trigger('onTagLimitExceeded', null, {duringInitialization: duringInitialization});
+                this._trigger('onTagLimitExceeded', null, { duringInitialization: duringInitialization });
                 return false;
             }
 
@@ -475,7 +475,7 @@
                 .addClass(additionalClass)
                 .append(label);
 
-            if (this.options.readOnly){
+            if (this.options.readOnly) {
                 tag.addClass('tagit-choice-read-only');
             } else {
                 tag.addClass('tagit-choice-editable');
@@ -527,7 +527,7 @@
             });
 
             if (this.options.showAutocompleteOnFocus && !duringInitialization) {
-                setTimeout(function () { that._showAutocomplete(); }, 0);
+                setTimeout(function() { that._showAutocomplete(); }, 0);
             }
         },
 
@@ -539,14 +539,14 @@
             // DEPRECATED.
             this._trigger('onTagRemoved', null, tag);
 
-            if (this._trigger('beforeTagRemoved', null, {tag: tag, tagLabel: this.tagLabel(tag)}) === false) {
+            if (this._trigger('beforeTagRemoved', null, { tag: tag, tagLabel: this.tagLabel(tag) }) === false) {
                 return;
             }
 
             if (this.options.singleField) {
                 var tags = this.assignedTags();
                 var removedTagLabel = this.tagLabel(tag);
-                tags = $.grep(tags, function(el){
+                tags = $.grep(tags, function(el) {
                     return el != removedTagLabel;
                 });
                 this._updateSingleTagsField(tags);
@@ -554,18 +554,18 @@
 
             if (animate) {
                 tag.addClass('removed'); // Excludes this tag from _tags.
-                var hide_args = this._effectExists('blind') ? ['blind', {direction: 'horizontal'}, 'fast'] : ['fast'];
+                var hide_args = this._effectExists('blind') ? ['blind', { direction: 'horizontal' }, 'fast'] : ['fast'];
 
                 var thisTag = this;
                 hide_args.push(function() {
                     tag.remove();
-                    thisTag._trigger('afterTagRemoved', null, {tag: tag, tagLabel: thisTag.tagLabel(tag)});
+                    thisTag._trigger('afterTagRemoved', null, { tag: tag, tagLabel: thisTag.tagLabel(tag) });
                 });
 
                 tag.fadeOut('fast').hide.apply(tag, hide_args).dequeue();
             } else {
                 tag.remove();
-                this._trigger('afterTagRemoved', null, {tag: tag, tagLabel: this.tagLabel(tag)});
+                this._trigger('afterTagRemoved', null, { tag: tag, tagLabel: this.tagLabel(tag) });
             }
 
         },
@@ -588,4 +588,3 @@
 
     });
 })(jQuery);
-

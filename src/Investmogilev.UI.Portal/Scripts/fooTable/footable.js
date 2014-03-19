@@ -11,19 +11,21 @@
  *
  * Date: 16 Feb 2014
  */
-(function ($, w, undefined) {
+(function($, w, undefined) {
     w.footable = {
         options: {
             delay: 100, // The number of millseconds to wait before triggering the react event
-            breakpoints: { // The different screen resolution breakpoints
+            breakpoints: {
+// The different screen resolution breakpoints
                 phone: 480,
                 tablet: 1024
             },
-            parsers: {  // The default parser to parse the value out of a cell (values are used in building up row detail)
-                alpha: function (cell) {
+            parsers: {
+// The default parser to parse the value out of a cell (values are used in building up row detail)
+                alpha: function(cell) {
                     return $(cell).data('value') || $.trim($(cell).text());
                 },
-                numeric: function (cell) {
+                numeric: function(cell) {
                     var val = $(cell).data('value') || $(cell).text().replace(/[^0-9.\-]/g, '');
                     val = parseFloat(val);
                     if (isNaN(val)) val = 0;
@@ -36,7 +38,7 @@
             columnDataSelector: '> thead > tr:last-child > th, > thead > tr:last-child > td', //the selector used to find the column data in the thead
             detailSeparator: ':', //the separator character used when building up the detail row
             toggleHTMLElement: '<span />', // override this if you want to insert a click target rather than use a background image.
-            createGroupedDetail: function (data) {
+            createGroupedDetail: function(data) {
                 var groups = { '_none': { 'name': null, 'data': [] } };
                 for (var i = 0; i < data.length; i++) {
                     var groupid = data[i].group;
@@ -51,24 +53,25 @@
                 }
                 return groups;
             },
-            createDetail: function (element, data, createGroupedDetail, separatorChar, classes) {
+            createDetail: function(element, data, createGroupedDetail, separatorChar, classes) {
                 /// <summary>This function is used by FooTable to generate the detail view seen when expanding a collapsed row.</summary>
                 /// <param name="element">This is the div that contains all the detail row information, anything could be added to it.</param>
                 /// <param name="data">
-                ///  This is an array of objects containing the cell information for the current row.
-                ///  These objects look like the below:
-                ///    obj = {
-                ///      'name': String, // The name of the column
-                ///      'value': Object, // The value parsed from the cell using the parsers. This could be a string, a number or whatever the parser outputs.
-                ///      'display': String, // This is the actual HTML from the cell, so if you have images etc you want moved this is the one to use and is the default value used.
-                ///      'group': String, // This is the identifier used in the data-group attribute of the column.
-                ///      'groupName': String // This is the actual name of the group the column belongs to.
-                ///    }
+                ///     This is an array of objects containing the cell information for the current row.
+                ///     These objects look like the below:
+                ///     obj = {
+                ///     'name': String, // The name of the column
+                ///     'value': Object, // The value parsed from the cell using the parsers. This could be a string, a number or whatever
+                ///     the parser outputs.
+                ///     'display': String, // This is the actual HTML from the cell, so if you have images etc you want moved this is the
+                ///     one to use and is the default value used.
+                ///     'group': String, // This is the identifier used in the data-group attribute of the column.
+                ///     'groupName': String // This is the actual name of the group the column belongs to.
+                ///     }
                 /// </param>
                 /// <param name="createGroupedDetail">The grouping function to group the data</param>
                 /// <param name="separatorChar">The separator charactor used</param>
                 /// <param name="classes">The array of class names used to build up the detail row</param>
-
                 var groups = createGroupedDetail(data);
                 for (var group in groups) {
                     if (groups[group].data.length === 0) continue;
@@ -96,40 +99,41 @@
                 detailShow: 'footable-detail-show'
             },
             triggers: {
-                initialize: 'footable_initialize',                      //trigger this event to force FooTable to reinitialize
-                resize: 'footable_resize',                              //trigger this event to force FooTable to resize
-                redraw: 'footable_redraw',								//trigger this event to force FooTable to redraw
-                toggleRow: 'footable_toggle_row',                       //trigger this event to force FooTable to toggle a row
-                expandFirstRow: 'footable_expand_first_row',            //trigger this event to force FooTable to expand the first row
-                expandAll: 'footable_expand_all',                       //trigger this event to force FooTable to expand all rows
-                collapseAll: 'footable_collapse_all'                    //trigger this event to force FooTable to collapse all rows
+                initialize: 'footable_initialize', //trigger this event to force FooTable to reinitialize
+                resize: 'footable_resize', //trigger this event to force FooTable to resize
+                redraw: 'footable_redraw', //trigger this event to force FooTable to redraw
+                toggleRow: 'footable_toggle_row', //trigger this event to force FooTable to toggle a row
+                expandFirstRow: 'footable_expand_first_row', //trigger this event to force FooTable to expand the first row
+                expandAll: 'footable_expand_all', //trigger this event to force FooTable to expand all rows
+                collapseAll: 'footable_collapse_all' //trigger this event to force FooTable to collapse all rows
             },
             events: {
-                alreadyInitialized: 'footable_already_initialized',     //fires when the FooTable has already been initialized
-                initializing: 'footable_initializing',                  //fires before FooTable starts initializing
-                initialized: 'footable_initialized',                    //fires after FooTable has finished initializing
-                resizing: 'footable_resizing',                          //fires before FooTable resizes
-                resized: 'footable_resized',                            //fires after FooTable has resized
-                redrawn: 'footable_redrawn',                            //fires after FooTable has redrawn
-                breakpoint: 'footable_breakpoint',                      //fires inside the resize function, when a breakpoint is hit
-                columnData: 'footable_column_data',                     //fires when setting up column data. Plugins should use this event to capture their own info about a column
-                rowDetailUpdating: 'footable_row_detail_updating',      //fires before a detail row is updated
-                rowDetailUpdated: 'footable_row_detail_updated',        //fires when a detail row is being updated
-                rowCollapsed: 'footable_row_collapsed',                 //fires when a row is collapsed
-                rowExpanded: 'footable_row_expanded',                   //fires when a row is expanded
-                rowRemoved: 'footable_row_removed',                     //fires when a row is removed
-                reset: 'footable_reset'                                 //fires when FooTable is reset
+                alreadyInitialized: 'footable_already_initialized', //fires when the FooTable has already been initialized
+                initializing: 'footable_initializing', //fires before FooTable starts initializing
+                initialized: 'footable_initialized', //fires after FooTable has finished initializing
+                resizing: 'footable_resizing', //fires before FooTable resizes
+                resized: 'footable_resized', //fires after FooTable has resized
+                redrawn: 'footable_redrawn', //fires after FooTable has redrawn
+                breakpoint: 'footable_breakpoint', //fires inside the resize function, when a breakpoint is hit
+                columnData: 'footable_column_data', //fires when setting up column data. Plugins should use this event to capture their own info about a column
+                rowDetailUpdating: 'footable_row_detail_updating', //fires before a detail row is updated
+                rowDetailUpdated: 'footable_row_detail_updated', //fires when a detail row is being updated
+                rowCollapsed: 'footable_row_collapsed', //fires when a row is collapsed
+                rowExpanded: 'footable_row_expanded', //fires when a row is expanded
+                rowRemoved: 'footable_row_removed', //fires when a row is removed
+                reset: 'footable_reset' //fires when FooTable is reset
             },
             debug: false, // Whether or not to log information to the console.
             log: null
         },
 
         version: {
-            major: 0, minor: 5,
-            toString: function () {
+            major: 0,
+            minor: 5,
+            toString: function() {
                 return w.footable.version.major + '.' + w.footable.version.minor;
             },
-            parse: function (str) {
+            parse: function(str) {
                 version = /(\d+)\.?(\d+)?\.?(\d+)?/.exec(str);
                 return {
                     major: parseInt(version[1], 10) || 0,
@@ -140,13 +144,18 @@
         },
 
         plugins: {
-            _validate: function (plugin) {
-                ///<summary>Simple validation of the <paramref name="plugin"/> to make sure any members called by FooTable actually exist.</summary>
-                ///<param name="plugin">The object defining the plugin, this should implement a string property called "name" and a function called "init".</param>
-
+            _validate: function(plugin) {
+                /// <summary>
+                ///     Simple validation of the <paramref name="plugin" /> to make sure any members called by FooTable actually
+                ///     exist.
+                /// </summary>
+                /// <param name="plugin">
+                ///     The object defining the plugin, this should implement a string property called "name" and a
+                ///     function called "init".
+                /// </param>
                 if (!$.isFunction(plugin)) {
-                  if (w.footable.options.debug === true) console.error('Validation failed, expected type "function", received type "{0}".', typeof plugin);
-                  return false;
+                    if (w.footable.options.debug === true) console.error('Validation failed, expected type "function", received type "{0}".', typeof plugin);
+                    return false;
                 }
                 var p = new plugin();
                 if (typeof p['name'] !== 'string') {
@@ -161,35 +170,36 @@
                 return true;
             },
             registered: [], // An array containing all registered plugins.
-            register: function (plugin, options) {
-                ///<summary>Registers a <paramref name="plugin"/> and its default <paramref name="options"/> with FooTable.</summary>
-                ///<param name="plugin">The plugin that should implement a string property called "name" and a function called "init".</param>
-                ///<param name="options">The default options to merge with the FooTable's base options.</param>
-
+            register: function(plugin, options) {
+                /// <summary>Registers a <paramref name="plugin" /> and its default <paramref name="options" /> with FooTable.</summary>
+                /// <param name="plugin">The plugin that should implement a string property called "name" and a function called "init".</param>
+                /// <param name="options">The default options to merge with the FooTable's base options.</param>
                 if (w.footable.plugins._validate(plugin)) {
                     w.footable.plugins.registered.push(plugin);
                     if (typeof options === 'object') $.extend(true, w.footable.options, options);
                 }
             },
-            load: function(instance){
-              var loaded = [], registered, i;
-              for(i = 0; i < w.footable.plugins.registered.length; i++){
-                try {
-                  registered = w.footable.plugins.registered[i];
-                  loaded.push(new registered(instance));
-                } catch (err) {
-                  if (w.footable.options.debug === true) console.error(err);
+            load: function(instance) {
+                var loaded = [], registered, i;
+                for (i = 0; i < w.footable.plugins.registered.length; i++) {
+                    try {
+                        registered = w.footable.plugins.registered[i];
+                        loaded.push(new registered(instance));
+                    } catch (err) {
+                        if (w.footable.options.debug === true) console.error(err);
+                    }
                 }
-              }
-              return loaded;
+                return loaded;
             },
-            init: function (instance) {
-                ///<summary>Loops through all registered plugins and calls the "init" method supplying the current <paramref name="instance"/> of the FooTable as the first parameter.</summary>
-                ///<param name="instance">The current instance of the FooTable that the plugin is being initialized for.</param>
-
+            init: function(instance) {
+                /// <summary>
+                ///     Loops through all registered plugins and calls the "init" method supplying the current
+                ///     <paramref name="instance" /> of the FooTable as the first parameter.
+                /// </summary>
+                /// <param name="instance">The current instance of the FooTable that the plugin is being initialized for.</param>
                 for (var i = 0; i < instance.plugins.length; i++) {
                     try {
-                      instance.plugins[i]['init'](instance);
+                        instance.plugins[i]['init'](instance);
                     } catch (err) {
                         if (w.footable.options.debug === true) console.error(err);
                     }
@@ -200,46 +210,50 @@
 
     var instanceCount = 0;
 
-    $.fn.footable = function (options) {
-        ///<summary>The main constructor call to initialize the plugin using the supplied <paramref name="options"/>.</summary>
-        ///<param name="options">
-        ///<para>A JSON object containing user defined options for the plugin to use. Any options not supplied will have a default value assigned.</para>
-        ///<para>Check the documentation or the default options object above for more information on available options.</para>
-        ///</param>
-
+    $.fn.footable = function(options) {
+        /// <summary>The main constructor call to initialize the plugin using the supplied <paramref name="options" />.</summary>
+        /// <param name="options">
+        ///     <para>
+        ///         A JSON object containing user defined options for the plugin to use. Any options not supplied will have a
+        ///         default value assigned.
+        ///     </para>
+        ///     <para>Check the documentation or the default options object above for more information on available options.</para>
+        /// </param>
         options = options || {};
         var o = $.extend(true, {}, w.footable.options, options); //merge user and default options
-        return this.each(function () {
+        return this.each(function() {
             instanceCount++;
             var footable = new Footable(this, o, instanceCount);
-			$(this).data('footable', footable);
+            $(this).data('footable', footable);
         });
     };
 
     //helper for using timeouts
     function Timer() {
-        ///<summary>Simple timer object created around a timeout.</summary>
+        /// <summary>Simple timer object created around a timeout.</summary>
         var t = this;
         t.id = null;
         t.busy = false;
-        t.start = function (code, milliseconds) {
-            ///<summary>Starts the timer and waits the specified amount of <paramref name="milliseconds"/> before executing the supplied <paramref name="code"/>.</summary>
-            ///<param name="code">The code to execute once the timer runs out.</param>
-            ///<param name="milliseconds">The time in milliseconds to wait before executing the supplied <paramref name="code"/>.</param>
-
+        t.start = function(code, milliseconds) {
+            /// <summary>
+            ///     Starts the timer and waits the specified amount of <paramref name="milliseconds" /> before executing the
+            ///     supplied <paramref name="code" />.
+            /// </summary>
+            /// <param name="code">The code to execute once the timer runs out.</param>
+            /// <param name="milliseconds">The time in milliseconds to wait before executing the supplied <paramref name="code" />.</param>
             if (t.busy) {
                 return;
             }
             t.stop();
-            t.id = setTimeout(function () {
+            t.id = setTimeout(function() {
                 code();
                 t.id = null;
                 t.busy = false;
             }, milliseconds);
             t.busy = true;
         };
-        t.stop = function () {
-            ///<summary>Stops the timer if its runnning and resets it back to its starting state.</summary>
+        t.stop = function() {
+            /// <summary>Stops the timer if its runnning and resets it back to its starting state.</summary>
 
             if (t.id !== null) {
                 clearTimeout(t.id);
@@ -250,11 +264,10 @@
     }
 
     function Footable(t, o, id) {
-        ///<summary>Inits a new instance of the plugin.</summary>
-        ///<param name="t">The main table element to apply this plugin to.</param>
-        ///<param name="o">The options supplied to the plugin. Check the defaults object to see all available options.</param>
-        ///<param name="id">The id to assign to this instance of the plugin.</param>
-
+        /// <summary>Inits a new instance of the plugin.</summary>
+        /// <param name="t">The main table element to apply this plugin to.</param>
+        /// <param name="o">The options supplied to the plugin. Check the defaults object to see all available options.</param>
+        /// <param name="id">The id to assign to this instance of the plugin.</param>
         var ft = this;
         ft.id = id;
         ft.table = t;
@@ -273,13 +286,13 @@
         // This object simply houses all the timers used in the FooTable.
         ft.timers = {
             resize: new Timer(),
-            register: function (name) {
+            register: function(name) {
                 ft.timers[name] = new Timer();
                 return ft.timers[name];
             }
         };
 
-        ft.init = function () {
+        ft.init = function() {
             var $window = $(w), $table = $(ft.table);
 
             w.footable.plugins.init(ft);
@@ -296,7 +309,7 @@
             $table.addClass(cls.loading);
 
             // Get the column data once for the life time of the plugin
-            $table.find(opt.columnDataSelector).each(function () {
+            $table.find(opt.columnDataSelector).each(function() {
                 var data = ft.getColumnData(this);
                 ft.columns[data.index] = data;
             });
@@ -308,14 +321,14 @@
             }
 
             // Sort the breakpoints so the smallest is checked first
-            ft.breakpoints.sort(function (a, b) {
+            ft.breakpoints.sort(function(a, b) {
                 return a['width'] - b['width'];
             });
 
             $table
                 .unbind(trg.initialize)
                 //bind to FooTable initialize trigger
-                .bind(trg.initialize, function () {
+                .bind(trg.initialize, function() {
                     //remove previous "state" (to "force" a resize)
                     $table.removeData('footable_info');
                     $table.data('breakpoint', '');
@@ -334,27 +347,27 @@
                 })
                 .unbind(trg.redraw)
                 //bind to FooTable redraw trigger
-                .bind(trg.redraw, function () {
+                .bind(trg.redraw, function() {
                     ft.redraw();
                 })
                 .unbind(trg.resize)
                 //bind to FooTable resize trigger
-                .bind(trg.resize, function () {
+                .bind(trg.resize, function() {
                     ft.resize();
                 })
                 .unbind(trg.expandFirstRow)
                 //bind to FooTable expandFirstRow trigger
-                .bind(trg.expandFirstRow, function () {
+                .bind(trg.expandFirstRow, function() {
                     $table.find(opt.toggleSelector).first().not('.' + cls.detailShow).trigger(trg.toggleRow);
                 })
                 .unbind(trg.expandAll)
                 //bind to FooTable expandFirstRow trigger
-                .bind(trg.expandAll, function () {
+                .bind(trg.expandAll, function() {
                     $table.find(opt.toggleSelector).not('.' + cls.detailShow).trigger(trg.toggleRow);
                 })
                 .unbind(trg.collapseAll)
                 //bind to FooTable expandFirstRow trigger
-                .bind(trg.collapseAll, function () {
+                .bind(trg.collapseAll, function() {
                     $table.find('.' + cls.detailShow).trigger(trg.toggleRow);
                 });
 
@@ -363,15 +376,15 @@
 
             //bind to window resize
             $window
-                .bind('resize.footable', function () {
+                .bind('resize.footable', function() {
                     ft.timers.resize.stop();
-                    ft.timers.resize.start(function () {
+                    ft.timers.resize.start(function() {
                         ft.raise(trg.resize);
                     }, opt.delay);
                 });
         };
 
-        ft.addRowToggle = function () {
+        ft.addRowToggle = function() {
             if (!opt.addRowToggle) return;
 
             var $table = $(ft.table),
@@ -398,13 +411,13 @@
             }
         };
 
-        ft.setColumnClasses = function () {
+        ft.setColumnClasses = function() {
             $table = $(ft.table);
             for (var c in ft.columns) {
                 var col = ft.columns[c];
                 if (col.className !== null) {
                     var selector = '', first = true;
-                    $.each(col.matches, function (m, match) { //support for colspans
+                    $.each(col.matches, function(m, match) { //support for colspans
                         if (!first) selector += ', ';
                         selector += '> tbody > tr:not(.' + cls.detail + ') > td:nth-child(' + (parseInt(match, 10) + 1) + ')';
                         first = false;
@@ -416,44 +429,44 @@
         };
 
         //moved this out into it's own function so that it can be called from other add-ons
-        ft.bindToggleSelectors = function () {
+        ft.bindToggleSelectors = function() {
             var $table = $(ft.table);
 
             if (!ft.hasAnyBreakpointColumn()) return;
 
-            $table.find(opt.toggleSelector).unbind(trg.toggleRow).bind(trg.toggleRow, function (e) {
+            $table.find(opt.toggleSelector).unbind(trg.toggleRow).bind(trg.toggleRow, function(e) {
                 var $row = $(this).is('tr') ? $(this) : $(this).parents('tr:first');
                 ft.toggleDetail($row);
             });
 
-            $table.find(opt.toggleSelector).unbind('click.footable').bind('click.footable', function (e) {
-                if ($table.is('.breakpoint') && $(e.target).is('td,.'+ cls.toggle)) {
+            $table.find(opt.toggleSelector).unbind('click.footable').bind('click.footable', function(e) {
+                if ($table.is('.breakpoint') && $(e.target).is('td,.' + cls.toggle)) {
                     $(this).trigger(trg.toggleRow);
                 }
             });
         };
 
-        ft.parse = function (cell, column) {
+        ft.parse = function(cell, column) {
             var parser = opt.parsers[column.type] || opt.parsers.alpha;
             return parser(cell);
         };
 
-        ft.getColumnData = function (th) {
+        ft.getColumnData = function(th) {
             var $th = $(th), hide = $th.data('hide'), index = $th.index();
             hide = hide || '';
-            hide = jQuery.map(hide.split(','), function (a) {
+            hide = jQuery.map(hide.split(','), function(a) {
                 return jQuery.trim(a);
             });
             var data = {
                 'index': index,
-                'hide': { },
+                'hide': {},
                 'type': $th.data('type') || 'alpha',
                 'name': $th.data('name') || $.trim($th.text()),
                 'ignore': $th.data('ignore') || false,
                 'toggle': $th.data('toggle') || false,
                 'className': $th.data('class') || null,
                 'matches': [],
-                'names': { },
+                'names': {},
                 'group': $th.data('group') || null,
                 'groupName': null
             };
@@ -490,11 +503,11 @@
             return e.column.data;
         };
 
-        ft.getViewportWidth = function () {
+        ft.getViewportWidth = function() {
             return window.innerWidth || (document.body ? document.body.offsetWidth : 0);
         };
 
-        ft.calculateWidth = function ($table, info) {
+        ft.calculateWidth = function($table, info) {
             if (jQuery.isFunction(opt.calculateWidthOverride)) {
                 return opt.calculateWidthOverride($table, info);
             }
@@ -503,7 +516,7 @@
             return info;
         };
 
-        ft.hasBreakpointColumn = function (breakpoint) {
+        ft.hasBreakpointColumn = function(breakpoint) {
             for (var c in ft.columns) {
                 if (ft.columns[c].hide[breakpoint]) {
                     if (ft.columns[c].ignore) {
@@ -515,7 +528,7 @@
             return false;
         };
 
-        ft.hasAnyBreakpointColumn = function () {
+        ft.hasAnyBreakpointColumn = function() {
             for (var c in ft.columns) {
                 if (ft.columns[c].hasBreakpoint) {
                     return true;
@@ -524,7 +537,7 @@
             return false;
         };
 
-        ft.resize = function () {
+        ft.resize = function() {
             var $table = $(ft.table);
 
             if (!$table.is(':visible')) {
@@ -536,9 +549,9 @@
             } //we only care about FooTables that have breakpoints
 
             var info = {
-                'width': $table.width(),                  //the table width
-                'viewportWidth': ft.getViewportWidth(),   //the width of the viewport
-                'parentWidth': $table.parent().width()    //the width of the parent
+                'width': $table.width(), //the table width
+                'viewportWidth': ft.getViewportWidth(), //the width of the viewport
+                'parentWidth': $table.parent().width() //the width of the parent
             };
 
             info = ft.calculateWidth($table, info);
@@ -580,7 +593,7 @@
             ft.raise(evt.resized, { 'old': pinfo, 'info': info });
         };
 
-        ft.redraw = function () {
+        ft.redraw = function() {
             //add the toggler to each row
             ft.addRowToggle();
 
@@ -596,10 +609,10 @@
 
             $table
                 .find('> tbody > tr:not(.' + cls.detail + ')').data('detail_created', false).end()
-                .find('> thead > tr:last-child > th')
-                .each(function () {
+                .find('* > thead > tr:last-child > th')
+                .each(function() {
                     var data = ft.columns[$(this).index()], selector = '', first = true;
-                    $.each(data.matches, function (m, match) {
+                    $.each(data.matches, function(m, match) {
                         if (!first) {
                             selector += ', ';
                         }
@@ -613,16 +626,16 @@
                     selector += ', > thead > tr[data-group-row="true"] > th[data-group="' + data.group + '"]';
                     var $column = $table.find(selector).add(this);
                     if (breakpointName !== '') {
-                      if (data.hide[breakpointName] === false) $column.addClass('footable-visible').show();
-                      else $column.removeClass('footable-visible').hide();
+                        if (data.hide[breakpointName] === false) $column.addClass('footable-visible').show();
+                        else $column.removeClass('footable-visible').hide();
                     }
 
-                    if ($table.find('> thead > tr.footable-group-row').length === 1) {
+                    if ($table.find('* > thead > tr.footable-group-row').length === 1) {
                         var $groupcols = $table.find('> thead > tr:last-child > th[data-group="' + data.group + '"]:visible, > thead > tr:last-child > th[data-group="' + data.group + '"]:visible'),
                             $group = $table.find('> thead > tr.footable-group-row > th[data-group="' + data.group + '"], > thead > tr.footable-group-row > td[data-group="' + data.group + '"]'),
                             groupspan = 0;
 
-                        $.each($groupcols, function () {
+                        $.each($groupcols, function() {
                             groupspan += parseInt($(this).attr('colspan') || 1, 10);
                         });
 
@@ -631,11 +644,11 @@
                     }
                 })
                 .end()
-                .find('> tbody > tr.' + cls.detailShow).each(function () {
+                .find('> tbody > tr.' + cls.detailShow).each(function() {
                     ft.createOrUpdateDetailRow(this);
                 });
 
-            $table.find('> tbody > tr.' + cls.detailShow + ':visible').each(function () {
+            $table.find('> tbody > tr.' + cls.detailShow + ':visible').each(function() {
                 var $next = $(this).next();
                 if ($next.hasClass(cls.detail)) {
                     if (!hasBreakpointFired) $next.hide();
@@ -645,19 +658,19 @@
 
             // adding .footable-first-column and .footable-last-column to the first and last th and td of each row in order to allow
             // for styling if the first or last column is hidden (which won't work using :first-child or :last-child)
-            $table.find('> thead > tr > th.footable-last-column, > tbody > tr > td.footable-last-column').removeClass('footable-last-column');
-            $table.find('> thead > tr > th.footable-first-column, > tbody > tr > td.footable-first-column').removeClass('footable-first-column');
-            $table.find('> thead > tr, > tbody > tr')
-                .find('> th.footable-visible:last, > td.footable-visible:last')
+            $table.find('* > thead > tr > th.footable-last-column,  > tbody > tr > td.footable-last-column').removeClass('footable-last-column');
+            $table.find('* > thead > tr > th.footable-first-column,  > tbody > tr > td.footable-first-column').removeClass('footable-first-column');
+            $table.find('* > thead > tr,  > tbody > tr')
+                .find('* > th.footable-visible:last,  > td.footable-visible:last')
                 .addClass('footable-last-column')
                 .end()
-                .find('> th.footable-visible:first, > td.footable-visible:first')
+                .find('* > th.footable-visible:first,  > td.footable-visible:first')
                 .addClass('footable-first-column');
 
             ft.raise(evt.redrawn);
         };
 
-        ft.toggleDetail = function (row) {
+        ft.toggleDetail = function(row) {
             var $row = (row.jquery) ? row : $(row),
                 $next = $row.next();
 
@@ -673,13 +686,13 @@
             } else {
                 ft.createOrUpdateDetailRow($row[0]);
                 $row.addClass(cls.detailShow)
-					.next().show();
+                    .next().show();
 
                 ft.raise(evt.rowExpanded, { 'row': $row[0] });
             }
         };
 
-        ft.removeRow = function (row) {
+        ft.removeRow = function(row) {
             var $row = (row.jquery) ? row : $(row);
             if ($row.hasClass(cls.detail)) {
                 $row = $row.prev();
@@ -695,7 +708,7 @@
             ft.raise(evt.rowRemoved);
         };
 
-        ft.appendRow = function (row) {
+        ft.appendRow = function(row) {
             var $row = (row.jquery) ? row : $(row);
             $(ft.table).find('tbody').append($row);
 
@@ -703,7 +716,7 @@
             ft.redraw();
         };
 
-        ft.getColumnFromTdIndex = function (index) {
+        ft.getColumnFromTdIndex = function(index) {
             /// <summary>Returns the correct column data for the supplied index taking into account colspans.</summary>
             /// <param name="index">The index to retrieve the column data for.</param>
             /// <returns type="json">A JSON object containing the column data for the supplied index.</returns>
@@ -717,13 +730,13 @@
             return result;
         };
 
-        ft.createOrUpdateDetailRow = function (actualRow) {
+        ft.createOrUpdateDetailRow = function(actualRow) {
             var $row = $(actualRow), $next = $row.next(), $detail, values = [];
             if ($row.data('detail_created') === true) return true;
 
             if ($row.is(':hidden')) return false; //if the row is hidden for some reason (perhaps filtered) then get out of here
             ft.raise(evt.rowDetailUpdating, { 'row': $row, 'detail': $next });
-            $row.find('> td:hidden').each(function () {
+            $row.find('* > td:hidden').each(function() {
                 var index = $(this).index(), column = ft.getColumnFromTdIndex(index), name = column.name;
                 if (column.ignore === true) return true;
 
@@ -732,13 +745,13 @@
                 return true;
             });
             if (values.length === 0) return false; //return if we don't have any data to show
-            var colspan = $row.find('> td:visible').length;
+            var colspan = $row.find('* > td:visible').length;
             var exists = $next.hasClass(cls.detail);
             if (!exists) { // Create
                 $next = $('<tr class="' + cls.detail + '"><td class="' + cls.detailCell + '"><div class="' + cls.detailInner + '"></div></td></tr>');
                 $row.after($next);
             }
-            $next.find('> td:first').attr('colspan', colspan);
+            $next.find('* > td:first').attr('colspan', colspan);
             $detail = $next.find('.' + cls.detailInner).empty();
             opt.createDetail($detail, values, opt.createGroupedDetail, opt.detailSeparator, cls);
             $row.data('detail_created', true);
@@ -746,11 +759,11 @@
             return !exists;
         };
 
-        ft.raise = function (eventName, args) {
+        ft.raise = function(eventName, args) {
 
             if (ft.options.debug === true && $.isFunction(ft.options.log)) ft.options.log(eventName, 'event');
 
-            args = args || { };
+            args = args || {};
             var def = { 'ft': ft };
             $.extend(true, def, args);
             var e = $.Event(eventName, def);
@@ -771,7 +784,7 @@
 
             $table.find(opt.toggleSelector).unbind(trg.toggleRow).unbind('click.footable');
 
-            $table.find('> tbody > tr').removeClass(cls.detailShow);
+            $table.find('* > tbody > tr').removeClass(cls.detailShow);
 
             $table.find('> tbody > tr.' + cls.detail).remove();
 
@@ -781,4 +794,5 @@
         ft.init();
         return ft;
     }
+
 })(jQuery, window);

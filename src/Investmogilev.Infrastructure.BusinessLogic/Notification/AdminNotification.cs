@@ -1,10 +1,20 @@
-﻿using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.State;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="AdminNotification.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 {
+	#region Using
+
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.State;
+
+	#endregion
+
 	public class AdminNotification : BaseNotificate, IAdminNotification
 	{
 		public AdminNotification()

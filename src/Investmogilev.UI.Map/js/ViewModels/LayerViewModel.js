@@ -1,4 +1,5 @@
-﻿var test
+﻿var test;
+
 function LayerListViewModel(container, mapViewModel) {
     var _container = container;
     var self = this;
@@ -12,7 +13,7 @@ function LayerListViewModel(container, mapViewModel) {
 
     //LayerListViewModel methods
 
-    self.AddLayer = function (layer) {
+    self.AddLayer = function(layer) {
         self.Layers.push(new LayerViewModel(layer));
     };
 
@@ -21,7 +22,7 @@ function LayerListViewModel(container, mapViewModel) {
         self.Layers.push(new LayerViewModel(_container[i]));
     };
 
-    self.SelectLayer = function (value) {
+    self.SelectLayer = function(value) {
         self.SelectedLayerName(value.Name());
         self.SelectedLayerCss(value.Css());
         self.SelectedLayer = value;
@@ -49,8 +50,7 @@ function LayerViewModel(argument) {
 
     // LayerViewModel methods
 
-    self.SelectLayer = function () {
+    self.SelectLayer = function() {
         layerListViewModel.SelectLayer(self);
     };
 }
-

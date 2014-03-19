@@ -1,5 +1,5 @@
 ﻿function ProjectListViewModel(container, mapViewModel) {
-    var self = this
+    var self = this;
     container.GetAllGeoJson(SetDataAllGeoJson);
     // ProjectListViewModel properties
 
@@ -18,7 +18,6 @@
     self.Tags.push("Общепит");
     self.Tags.push("Логистика");
     self.Tags.push("Сельхоз");
-
 
 
     self.Types.push("GreenField");
@@ -40,7 +39,7 @@
         };
     }
 
-    self.UpdateFilter = function (projectsFilterViewModel) {
+    self.UpdateFilter = function(projectsFilterViewModel) {
         var isPerechen = projectsFilterViewModel.isPerechen();
         console.log("perechen", isPerechen);
         self.ShowingProjects.removeAll();
@@ -52,7 +51,7 @@
         mapViewModel.SetProjects(self.ShowingProjects());
     };
 
-    self.IsProjectInFilter = function (project, types, tags, isPerechen) {
+    self.IsProjectInFilter = function(project, types, tags, isPerechen) {
         if (tags.length == 0 || types.length == 0) {
             return false;
         }
@@ -77,7 +76,7 @@
         return isInTag && isInType;
     };
 
-    self.AddTags = function (tags) {
+    self.AddTags = function(tags) {
         if (tags != null && tags.length > 0) {
             for (var i = 0; i < tags.length; i++) {
                 if (checkIfExistInArray(tags[i], self.Tags())) {
@@ -87,7 +86,7 @@
         }
     };
 
-    var checkIfExistInArray = function (tag, tags) {
+    var checkIfExistInArray = function(tag, tags) {
         for (var j = 0; j < tags.length; j++) {
             if (tags[j] == tag) {
                 return false;
@@ -128,13 +127,13 @@ function ProjectsFilterViewModel(projectListViewModel) {
     self.AllTags = ko.observableArray();
     self.isPerechen = ko.observable(true);
 
-    self.FilterChanged = function () {
+    self.FilterChanged = function() {
         console.log("FilterChanged", self);
         prlVm.UpdateFilter(self);
     };
 
-    self.TypeClick = function (argument) {
-        var match = ko.utils.arrayFirst(self.SelectedTypes(), function (item) {
+    self.TypeClick = function(argument) {
+        var match = ko.utils.arrayFirst(self.SelectedTypes(), function(item) {
             if (argument.Name() == item.Name()) {
                 return true;
             } else {
@@ -149,8 +148,8 @@ function ProjectsFilterViewModel(projectListViewModel) {
         }
     };
 
-    self.TagClick = function (argument) {
-        var match = ko.utils.arrayFirst(self.SelectedTags(), function (item) {
+    self.TagClick = function(argument) {
+        var match = ko.utils.arrayFirst(self.SelectedTags(), function(item) {
             if (argument.Name() == item.Name()) {
                 return true;
             } else {
@@ -167,9 +166,9 @@ function ProjectsFilterViewModel(projectListViewModel) {
         }
     };
 
-    self.PerechenClick = function (argument) {
+    self.PerechenClick = function(argument) {
         self.isPerechen(!self.isPerechen());
-        var match = ko.utils.arrayFirst(self.SelectedTypes(), function (item) {
+        var match = ko.utils.arrayFirst(self.SelectedTypes(), function(item) {
             console.log("find", item.Name());
             if (argument.Name() == item.Name()) {
                 return true;
@@ -186,7 +185,7 @@ function ProjectsFilterViewModel(projectListViewModel) {
         self.FilterChanged();
     };
 
-    self.UpdateTags = function () {
+    self.UpdateTags = function() {
         self.SelectedTags.removeAll();
         self.AllTags.removeAll();
         for (var i = 0; i < prlVm.Tags().length; i++) {
@@ -194,7 +193,7 @@ function ProjectsFilterViewModel(projectListViewModel) {
             self.AllTags.push(new FilterTypeViewModel(prlVm.Tags()[i], prlVm.Tags()[i], "tag button success", self, true, false));
         }
     };
-    self.UpdateTypes = function () {
+    self.UpdateTypes = function() {
         self.SelectedTypes.removeAll();
         self.AllTypes.removeAll();
         self.SelectedTypes.push(new FilterTypeViewModel("GreenField", "Инвестплощадки ", "button success", self, false, false));
@@ -233,7 +232,7 @@ function FilterTypeViewModel(name, displayName, imgName, projectsFiletrs, isTag,
     self.imgSource = "img/clear/" + self.Name() + ".png";
     self.isTag = isTag;
     self.isPerechen = isPerechen;
-    self.TypeClick = function () {
+    self.TypeClick = function() {
         if (self.isTag) {
             parent.TagClick(self);
         } else {

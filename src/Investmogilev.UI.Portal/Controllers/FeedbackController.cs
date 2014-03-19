@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using Investmogilev.UI.Portal.Models;
-using Octokit;
-using Octokit.Internal;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="FeedbackController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System.Net.Http.Headers;
+	using System.Web.Configuration;
+	using System.Web.Mvc;
+	using Investmogilev.UI.Portal.Models;
+	using Octokit;
+	using Octokit.Internal;
+
+	#endregion
+
 	public class FeedbackController : Controller
 	{
 		private readonly string _productName;
@@ -29,7 +33,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		[HttpGet]
 		public ActionResult CreateIssue(string baseUri)
 		{
-			return PartialView(new IssueViewModel { BaseUri = baseUri });
+			return PartialView(new IssueViewModel {BaseUri = baseUri});
 		}
 
 		[HttpPost]

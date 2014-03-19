@@ -1,16 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Linq;
-using System.Web.Hosting;
-using System.Web.Profile;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.Builders;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="MongoProfileProvider.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.Specialized;
+	using System.Configuration;
+	using System.Linq;
+	using System.Web.Hosting;
+	using System.Web.Profile;
+	using MongoDB.Bson;
+	using MongoDB.Driver;
+	using MongoDB.Driver.Builders;
+
+	#endregion
+
 	public class MongoProfileProvider : ProfileProvider
 	{
 		private MongoCollection _mongoCollection;
@@ -205,7 +215,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 			var profileInfoCollection = new ProfileInfoCollection();
 
 			foreach (
-				BsonDocument bsonDocument in
+				var bsonDocument in
 					_mongoCollection.FindAs<BsonDocument>(query).SetSkip(pageIndex*pageSize).SetLimit(pageSize))
 			{
 				profileInfoCollection.Add(ToProfileInfo(bsonDocument));

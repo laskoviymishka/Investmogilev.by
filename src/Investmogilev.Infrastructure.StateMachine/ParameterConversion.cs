@@ -1,8 +1,18 @@
-﻿using System;
-using Investmogilev.Infrastructure.StateMachine.Localization;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="ParameterConversion.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.StateMachine
 {
+	#region Using
+
+	using System;
+	using Investmogilev.Infrastructure.StateMachine.Localization;
+
+	#endregion
+
 	internal static class ParameterConversion
 	{
 		public static object Unpack(object[] args, Type argType, int index)

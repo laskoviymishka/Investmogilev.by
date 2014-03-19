@@ -1,10 +1,20 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.User;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="NotificationController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System.Linq;
+	using System.Web.Mvc;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.User;
+
+	#endregion
+
 	public class NotificationController : Controller
 	{
 		public ActionResult Index()

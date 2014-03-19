@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Investmogilev.Infrastructure.Common.Localization;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.State;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="ProjectTask.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using Investmogilev.Infrastructure.Common.Localization;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.State;
+
+	#endregion
+
 	public class ProjectTask : IMongoEntity
 	{
 		[Display(ResourceType = typeof (LocalizationResource), Name = "ProjectTask_ProjectId_Идентификатор_проекта")]

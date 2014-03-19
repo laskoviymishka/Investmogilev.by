@@ -1,13 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Investmogilev.Infrastructure.Common.Localization;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="ProjectNotes.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using Investmogilev.Infrastructure.Common.Localization;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using MongoDB.Bson;
+	using MongoDB.Bson.Serialization.Attributes;
+
+	#endregion
+
 	public class ProjectNotes : IMongoEntity
 	{
 		[Display(ResourceType = typeof (LocalizationResource), Name = "ProjectNotes_ProjectId_Проект")]

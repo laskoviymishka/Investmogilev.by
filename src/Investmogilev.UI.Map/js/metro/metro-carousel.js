@@ -1,6 +1,5 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.carousel", {
-
         version: "1.0.0",
 
         options: {
@@ -25,7 +24,7 @@
         _interval: 0,
         _outPosition: 0,
 
-        _create: function(){
+        _create: function() {
             var that = this,
                 carousel = this.element,
                 controls = carousel.find('.controls');
@@ -44,10 +43,10 @@
             }
 
             if (this.options.controls && this._slides.length > 1) {
-                carousel.find('.controls.left').on('click', function(){
+                carousel.find('.controls.left').on('click', function() {
                     that._slideTo('prior');
                 });
-                carousel.find('.controls.right').on('click', function(){
+                carousel.find('.controls.right').on('click', function() {
                     that._slideTo('next');
                 });
             } else {
@@ -56,12 +55,12 @@
 
             if (this.options.stop) {
                 carousel
-                    .on('mouseenter', function(){
+                    .on('mouseenter', function() {
                         clearInterval(that._interval);
                     })
-                    .on('mouseleave', function(){
+                    .on('mouseleave', function() {
                         if (that.options.auto) that._autoStart(), that.options.period;
-                    })
+                    });
             }
 
             if (this.options.auto) {
@@ -69,18 +68,18 @@
             }
         },
 
-        _autoStart: function(){
+        _autoStart: function() {
             var that = this;
-            this._interval = setInterval(function(){
+            this._interval = setInterval(function() {
                 if (that.options.direction == 'left') {
-                    that._slideTo('next')
+                    that._slideTo('next');
                 } else {
-                    that._slideTo('prior')
+                    that._slideTo('prior');
                 }
             }, this.options.period);
         },
 
-        _slideTo: function(direction){
+        _slideTo: function(direction) {
             var
                 currentSlide = this._slides[this._currentIndex],
                 nextSlide;
@@ -104,14 +103,21 @@
             nextSlide = this._slides[this._currentIndex];
 
             switch (this.options.effect) {
-                case 'switch': this._effectSwitch(currentSlide, nextSlide); break;
-                case 'slowdown': this._effectSlowdown(currentSlide, nextSlide, this.options.duration); break;
-                case 'fade': this._effectFade(currentSlide, nextSlide, this.options.duration); break;
-                default: this._effectSlide(currentSlide, nextSlide, this.options.duration);
+            case 'switch':
+                this._effectSwitch(currentSlide, nextSlide);
+                break;
+            case 'slowdown':
+                this._effectSlowdown(currentSlide, nextSlide, this.options.duration);
+                break;
+            case 'fade':
+                this._effectFade(currentSlide, nextSlide, this.options.duration);
+                break;
+            default:
+                this._effectSlide(currentSlide, nextSlide, this.options.duration);
             }
 
             var carousel = this.element, that = this;
-            carousel.find('.markers ul li a').each(function(){
+            carousel.find('.markers ul li a').each(function() {
                 var index = $(this).data('num');
                 if (index === that._currentIndex) {
                     $(this).parent().addClass('active');
@@ -121,7 +127,7 @@
             });
         },
 
-        _slideToSlide: function(slideIndex){
+        _slideToSlide: function(slideIndex) {
             var
                 currentSlide = this._slides[this._currentIndex],
                 nextSlide = this._slides[slideIndex];
@@ -133,19 +139,26 @@
             }
 
             switch (this.options.effect) {
-                case 'switch' : this._effectSwitch(currentSlide, nextSlide); break;
-                case 'slowdown': this._effectSlowdown(currentSlide, nextSlide, this.options.duration); break;
-                case 'fade': this._effectFade(currentSlide, nextSlide, this.options.duration); break;
-                default : this._effectSlide(currentSlide, nextSlide, this.options.duration);
+            case 'switch':
+                this._effectSwitch(currentSlide, nextSlide);
+                break;
+            case 'slowdown':
+                this._effectSlowdown(currentSlide, nextSlide, this.options.duration);
+                break;
+            case 'fade':
+                this._effectFade(currentSlide, nextSlide, this.options.duration);
+                break;
+            default:
+                this._effectSlide(currentSlide, nextSlide, this.options.duration);
             }
 
             this._currentIndex = slideIndex;
         },
 
-        _markers: function (that) {
+        _markers: function(that) {
             var div, ul, li, i, markers;
 
-            div = $('<div class="markers '+this.options.markers.type+'" />');
+            div = $('<div class="markers ' + this.options.markers.type + '" />');
             ul = $('<ul></ul>').appendTo(div);
 
             for (i = 0; i < this._slides.length; i++) {
@@ -157,7 +170,7 @@
             }
 
 
-            ul.find('li a').removeClass('active').on('click', function () {
+            ul.find('li a').removeClass('active').on('click', function() {
                 var $this = $(this),
                     index = $this.data('num');
 
@@ -175,76 +188,82 @@
             div.appendTo(this.element);
 
             switch (this.options.markers.position) {
-                case 'top-left' : {
-                    div.css({
-                        left: '10px',
-                        right: 'auto',
-                        bottom: 'auto',
-                        top: '10px'
-                    });
-                    break;
-                }
-                case 'top-right' : {
-                    div.css({
-                        left: 'auto',
-                        right: '10px',
-                        bottom: 'auto',
-                        top: '0px'
-                    });
-                    break;
-                }
-                case 'top-center' : {
-                    div.css({
-                        left: this.element.width()/2 - div.width()/2,
-                        right: 'auto',
-                        bottom: 'auto',
-                        top: '0px'
-                    });
-                    break;
-                }
-                case 'bottom-left' : {
-                    div.css({
-                        left: '10px',
-                        right: 'auto'
-                    });
-                    break;
-                }
-                case 'bottom-right' : {
-                    div.css({
-                        right: '10px',
-                        left: 'auto'
-                    });
-                    break;
-                }
-                case 'bottom-center' : {
-                    div.css({
-                        left: this.element.width()/2 - div.width()/2,
-                        right: 'auto'
-                    });
-                    break;
-                }
+            case 'top-left':
+            {
+                div.css({
+                    left: '10px',
+                    right: 'auto',
+                    bottom: 'auto',
+                    top: '10px'
+                });
+                break;
+            }
+            case 'top-right':
+            {
+                div.css({
+                    left: 'auto',
+                    right: '10px',
+                    bottom: 'auto',
+                    top: '0px'
+                });
+                break;
+            }
+            case 'top-center':
+            {
+                div.css({
+                    left: this.element.width() / 2 - div.width() / 2,
+                    right: 'auto',
+                    bottom: 'auto',
+                    top: '0px'
+                });
+                break;
+            }
+            case 'bottom-left':
+            {
+                div.css({
+                    left: '10px',
+                    right: 'auto'
+                });
+                break;
+            }
+            case 'bottom-right':
+            {
+                div.css({
+                    right: '10px',
+                    left: 'auto'
+                });
+                break;
+            }
+            case 'bottom-center':
+            {
+                div.css({
+                    left: this.element.width() / 2 - div.width() / 2,
+                    right: 'auto'
+                });
+                break;
+            }
             }
         },
 
 
-        _effectSwitch: function(currentSlide, nextSlide){
+        _effectSwitch: function(currentSlide, nextSlide) {
             $(currentSlide)
                 .hide();
             $(nextSlide)
-                .css({left: 0})
+                .css({ left: 0 })
                 .show();
         },
 
-        _effectSlide: function(currentSlide, nextSlide, duration){
+        _effectSlide: function(currentSlide, nextSlide, duration) {
             $(currentSlide)
-                .animate({left: this._outPosition}, duration);
+                .animate({ left: this._outPosition }, duration);
             $(nextSlide)
                 .css('left', this._outPosition * -1)
                 .show()
-                .animate({left: 0}, duration);
+                .animate({ left: 0 }, duration);
         },
 
-        _effectSlowdown: function(currentSlide, nextSlide, duration){
+        _effectSlowdown: function(currentSlide, nextSlide, duration) {
             var options = {
                 'duration': duration,
                 'easing': 'doubleSqrt'
@@ -254,14 +273,14 @@
             };
 
             $(currentSlide)
-                .animate({left: this._outPosition}, options);
+                .animate({ left: this._outPosition }, options);
 
 
             //$(nextSlide).find('.subslide').hide();
             $(nextSlide)
                 .css('left', this._outPosition * -1)
                 .show()
-                .animate({left: 0}, options);
+                .animate({ left: 0 }, options);
 
             //setTimeout(function(){
             //    $(nextSlide).find('.subslide').fadeIn();
@@ -269,29 +288,29 @@
 
         },
 
-        _effectFade: function(currentSlide, nextSlide, duration){
+        _effectFade: function(currentSlide, nextSlide, duration) {
             $(currentSlide)
                 .fadeOut(duration);
             $(nextSlide)
-                .css({left: 0})
+                .css({ left: 0 })
                 .fadeIn(duration);
         },
 
 
-        _destroy: function(){
+        _destroy: function() {
 
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
     });
-})( jQuery );
+})(jQuery);
 
-$(function () {
+$(function() {
     $('[data-role=carousel]').carousel();
 });
 
-function reinitCarousels(){
+function reinitCarousels() {
     $('[data-role=carousel]').carousel();
 }

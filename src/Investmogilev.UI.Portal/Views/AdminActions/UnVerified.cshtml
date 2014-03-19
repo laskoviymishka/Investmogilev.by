@@ -61,13 +61,13 @@
             @if (item.TaskReport.Last().ReportResponse == null)
             {
                 <td>
-                    @Html.ActionLink("Проверить отчет", "ReviewReport", new { taskId = item._id, reportId = item.TaskReport.Last()._id, projectId = item.ProjectId }, new { @class = "button success" })
+                    @Html.ActionLink("Проверить отчет", "ReviewReport", new {taskId = item._id, reportId = item.TaskReport.Last()._id, projectId = item.ProjectId}, new {@class = "button success"})
                 </td>
             }
             else
             {
                 <td>
-                    @Html.ActionLink("Информация о задаче", "Details", new { taskId = item._id, projectId = item.ProjectId }, new { @class = "button info" })
+                    @Html.ActionLink("Информация о задаче", "Details", new {taskId = item._id, projectId = item.ProjectId}, new {@class = "button info"})
                 </td>
             }
         </tr>

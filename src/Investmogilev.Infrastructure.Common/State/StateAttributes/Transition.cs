@@ -1,8 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="Transition.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+
+	#endregion
+
 	public class Transition
 	{
 		public object From { get; set; }

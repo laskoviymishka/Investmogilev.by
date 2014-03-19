@@ -1,5 +1,5 @@
 ﻿@using Investmogilev.Infrastructure.Common.Model.Project
-@model UnUsedBuilding
+@model Investmogilev.Infrastructure.Common.Model.Project.UnUsedBuilding
 
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
@@ -24,7 +24,7 @@
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.Description, new { @id = "editor" })
+            @Html.TextAreaFor(model => model.Description, new {@id = "editor"})
             @Html.ValidationMessageFor(model => model.Description)
         </div>
         <div class="editor-label">
@@ -40,7 +40,7 @@
                 <td>
                     @Html.TextAreaFor(model => model.AddressName)
                     @Html.ValidationMessageFor(model => model.AddressName)
-                    <div class="button" onclick="CheckAddress()">
+                    <div class="button" onclick=" CheckAddress() ">
                         Проверить адресс
                     </div>
                 </td>
@@ -62,14 +62,14 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Tags)</td>
                 <td>
-                    @Html.DropDownListFor(model => model.Tags, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
+                    @Html.DropDownListFor(model => model.Tags, new SelectList(Enum.GetNames(typeof (Tag))), new {id = "cznTags"})
                     @Html.ValidationMessageFor(model => model.Tags)
                 </td>
             </tr>
             <tr>
                 <td> @Html.LabelFor(model => model.Region)</td>
                 <td>
-                    @Html.DropDownListFor(model => model.Region, new SelectList(Enum.GetNames(typeof(Regions))), new { id = "cznRegions" })
+                    @Html.DropDownListFor(model => model.Region, new SelectList(Enum.GetNames(typeof (Regions))), new {id = "cznRegions"})
                     @Html.ValidationMessageFor(model => model.Region)
                 </td>
             </tr>
@@ -98,7 +98,7 @@
         <p>
             <input type="submit" value="Сохранить" />
         </p>
-        <div style="visibility:hidden">
+        <div style="visibility: hidden">
             <div class="editor-label">
                 @Html.LabelFor(model => model.Address)
             </div>
@@ -110,7 +110,7 @@
 }
 
 <script>
-    $(document).ready(function () { $("#editor").cleditor(); });
+    $(document).ready(function() { $("#editor").cleditor(); });
     $("#cznRegions").chosen();
     $("#cznTags").chosen();
     $('.chosen-container').css('width', '100%');

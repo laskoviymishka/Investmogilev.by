@@ -1,17 +1,16 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.accordion", {
-
         version: "1.0.0",
 
         options: {
             closeAny: true,
-            open: function(frame){},
-            action: function(frame){}
+            open: function(frame) {},
+            action: function(frame) {}
         },
 
         _frames: {},
 
-        _create: function(){
+        _create: function() {
             var element = this.element;
 
             if (element.data('closeany') != undefined) this.options.closeAny = element.data('closeany');
@@ -21,10 +20,10 @@
             this.init();
         },
 
-        init: function(){
+        init: function() {
             var that = this;
 
-            this._frames.each(function(){
+            this._frames.each(function() {
                 var frame = this,
                     a = $(this).children(".heading"),
                     content = $(this).children(".content");
@@ -36,7 +35,7 @@
                     $(a).addClass("collapsed");
                 }
 
-                a.on('click', function(e){
+                a.on('click', function(e) {
                     e.preventDefault();
                     if ($(this).attr('disabled') || $(this).data('action') == 'none') return;
 
@@ -45,7 +44,7 @@
                     if ($(content).is(":hidden")) {
                         $(content).slideDown();
                         $(this).removeClass("collapsed");
-                        that._trigger("frame", e, {frame: frame});
+                        that._trigger("frame", e, { frame: frame });
                         that.options.open(frame);
                     } else {
                         $(content).slideUp();
@@ -56,22 +55,22 @@
             });
         },
 
-        _closeFrames: function(){
+        _closeFrames: function() {
             this._frames.children(".content").slideUp().parent().children('.heading').addClass("collapsed");
         },
 
-        _destroy: function(){},
+        _destroy: function() {},
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function(){
+$(function() {
     $('[data-role=accordion]').accordion();
 });
 
-function reinitAccordions(){
+function reinitAccordions() {
     $('[data-role=accordion]').accordion();
 }

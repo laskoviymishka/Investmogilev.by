@@ -1,9 +1,19 @@
-﻿using System;
-using System.Globalization;
-using System.Web.Mvc;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="DoubleBinder.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal
 {
+	#region Using
+
+	using System;
+	using System.Globalization;
+	using System.Web.Mvc;
+
+	#endregion
+
 	public class DoubleBinder : IModelBinder
 	{
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)

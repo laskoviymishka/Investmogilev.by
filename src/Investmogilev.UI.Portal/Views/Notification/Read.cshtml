@@ -1,10 +1,9 @@
-﻿@using Investmogilev.Infrastructure.Common.Model.Common
-@model Investmogilev.Infrastructure.Common.Model.User.NotificationQueue
+﻿@model Investmogilev.Infrastructure.Common.Model.User.NotificationQueue
 @{
     ViewBag.Title = "ReadMessage";
 }
 <div>
-    @Html.ActionLink("Назад", "All", null, new { @class = "icon-arrow-left-3 fg-darker button success" })
+    @Html.ActionLink("Назад", "All", null, new {@class = "icon-arrow-left-3 fg-darker button success"})
 </div>
 <h2>Прочитать сообщение</h2>
 <fieldset>
@@ -19,7 +18,7 @@
         @Html.DisplayNameFor(model => model.NotigicationBody)
     </small>
     <blockquote class=" left">
-        <div style="min-height:200px">
+        <div style="min-height: 200px">
             @Html.Raw(HttpUtility.HtmlDecode(Model.NotigicationBody))
         </div>
     </blockquote>
@@ -30,4 +29,3 @@
         @Html.DisplayFor(model => model.NotificationTime)
     </blockquote>
 </fieldset>
-

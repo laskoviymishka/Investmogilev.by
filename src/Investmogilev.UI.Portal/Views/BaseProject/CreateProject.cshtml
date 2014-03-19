@@ -3,16 +3,16 @@
 }
 <h2>Создание проекта</h2>
 <div>
-    @Html.ActionLink("К всем проектам", "All", null, new { @class = "icon-arrow-left-3 fg-darker big button success" })
+    @Html.ActionLink("К всем проектам", "All", null, new {@class = "icon-arrow-left-3 fg-darker big button success"})
 </div>
 <br/>
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
 <script>
-    loadPolymorhCreate = function (type) {
+    loadPolymorhCreate = function(type) {
         var link = '/BaseProject/Create' + type + 'Project/';
         $('#polymorphicEdit').html("загружается...");
-        $.get(link, function (data) {
+        $.get(link, function(data) {
             $('#polymorphicEdit').html(data);
             $('#polymorphicEdit').show();
         });
@@ -20,9 +20,7 @@
 </script>
 <script src="~/Scripts/tag-it.min.js"></script>
 <style>
-    #container {
-        width: 95%;
-    }
+    #container { width: 95%; }
 
     #polymorphicEdit {
         float: left;
@@ -35,21 +33,21 @@
     <div>
         <div class="input-control radio">
             <label>
-                <input type="radio" name="r1" onchange="loadPolymorhCreate('GreenField')" />
+                <input type="radio" name="r1" onchange=" loadPolymorhCreate('GreenField') " />
                 <span class="check"></span>
                 Инвестплощадки 
             </label>
         </div>
         <div class="input-control radio">
             <label>
-                <input type="radio" name="r1" onchange="loadPolymorhCreate('UnUsedBuilding')" />
+                <input type="radio" name="r1" onchange=" loadPolymorhCreate('UnUsedBuilding') " />
                 <span class="check"></span>
                 Неиспользуемое здание
             </label>
         </div>
         <div class="input-control radio">
             <label>
-                <input type="radio" name="r1" onchange="loadPolymorhCreate('Template')" />
+                <input type="radio" name="r1" onchange=" loadPolymorhCreate('Template') " />
                 <span class="check"></span>
                 Готовые решения
             </label>

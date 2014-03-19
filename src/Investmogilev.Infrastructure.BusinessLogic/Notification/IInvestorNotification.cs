@@ -1,7 +1,17 @@
-﻿using Investmogilev.Infrastructure.Common.Model.Project;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="IInvestorNotification.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 {
+	#region Using
+
+	using Investmogilev.Infrastructure.Common.Model.Project;
+
+	#endregion
+
 	public interface IInvestorNotification
 	{
 		void InvestorResponsed(Project project);

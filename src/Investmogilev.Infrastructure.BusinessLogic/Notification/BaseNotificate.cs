@@ -1,22 +1,32 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using System.Net.Mail;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Security;
-using FluentEmail;
-using Investmogilev.Infrastructure.BusinessLogic.Providers;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.Model.User;
-using Investmogilev.Infrastructure.Common.Repository;
-using Investmogilev.Infrastructure.Common.State;
-using WebMatrix.WebData;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="BaseNotificate.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 {
+	#region Using
+
+	using System;
+	using System.Collections.Specialized;
+	using System.IO;
+	using System.Net;
+	using System.Net.Mail;
+	using System.Web;
+	using System.Web.Configuration;
+	using System.Web.Security;
+	using FluentEmail;
+	using Investmogilev.Infrastructure.BusinessLogic.Providers;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.Model.User;
+	using Investmogilev.Infrastructure.Common.Repository;
+	using Investmogilev.Infrastructure.Common.State;
+	using WebMatrix.WebData;
+
+	#endregion
+
 	public class BaseNotificate
 	{
 		protected const string PassToViews = "~/App_Data/MailTemplate/{0}.cshtml";
@@ -78,7 +88,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 			{
 				string[] users = RoleProvider.GetUsersInRole("Admin");
 
-				foreach (string userName in users)
+				foreach (var userName in users)
 				{
 					MembershipUser user = Membership.GetUser(userName, false);
 					if (user != null)
@@ -125,7 +135,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 			{
 				string[] users = RoleProvider.GetUsersInRole("User");
 
-				foreach (string userName in users)
+				foreach (var userName in users)
 				{
 					MembershipUser user = Membership.GetUser(userName, false);
 					if (user != null)
