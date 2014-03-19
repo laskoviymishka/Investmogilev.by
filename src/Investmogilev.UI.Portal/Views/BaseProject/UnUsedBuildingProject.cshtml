@@ -21,13 +21,6 @@
             @Html.ValidationMessageFor(model => model.Name)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.Tags)
-        </div>
-        <div class="editor-field">
-            @Html.ListBoxFor(model => model.Tags, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
-            @Html.ValidationMessageFor(model => model.Tags)
-        </div>
-        <div class="editor-label">
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
@@ -55,25 +48,24 @@
             <tr>
                 <td>@Html.LabelFor(model => model.Area)</td>
                 <td>
-                    @Html.EditorFor(model => model.Area, new {@class = "k-textbox", data_val = false})
+                    @Html.EditorFor(model => model.Area)
                     @Html.ValidationMessageFor(model => model.Area)
                 </td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.IsSell)</td>
+                <td>@Html.LabelFor(model => model.AreaBuilding)</td>
                 <td>
-                    @Html.EditorFor(model => model.IsSell)
-                    @Html.ValidationMessageFor(model => model.IsSell)
+                    @Html.EditorFor(model => model.AreaBuilding)
+                    @Html.ValidationMessageFor(model => model.AreaBuilding)
                 </td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.IsCommunicate)</td>
+                <td>@Html.LabelFor(model => model.Tags)</td>
                 <td>
-                    @Html.EditorFor(model => model.IsCommunicate)
-                    @Html.ValidationMessageFor(model => model.IsCommunicate)
+                    @Html.DropDownListFor(model => model.Tags, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
+                    @Html.ValidationMessageFor(model => model.Tags)
                 </td>
             </tr>
-           
             <tr>
                 <td> @Html.LabelFor(model => model.Region)</td>
                 <td>
@@ -82,9 +74,23 @@
                 </td>
             </tr>
             <tr>
+                <td>@Html.LabelFor(model => model.IsRent)</td>
+                <td>
+                    @Html.EditorFor(model => model.IsRent)
+                    @Html.ValidationMessageFor(model => model.IsRent)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.IsExclusion)</td>
+                <td>
+                    @Html.EditorFor(model => model.IsExclusion)
+                    @Html.ValidationMessageFor(model => model.IsExclusion)
+                </td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.BalancePrice)</td>
                 <td>
-                    @Html.EditorFor(model => model.BalancePrice, new {@class = "k-textbox", data_val = false})
+                    @Html.EditorFor(model => model.BalancePrice)
                     @Html.ValidationMessageFor(model => model.BalancePrice)
                 </td>
             </tr>

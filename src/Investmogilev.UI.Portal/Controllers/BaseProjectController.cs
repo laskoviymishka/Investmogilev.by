@@ -86,7 +86,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult CreateUnUsedBuildingProject()
 		{
-			return PartialView(new UnUsedBuilding { Description = _descriptionTemplate });
+			return PartialView(new UnUsedBuilding());
 		}
 
 		[HttpPost]
@@ -180,6 +180,11 @@ namespace Investmogilev.UI.Portal.Controllers
 			return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as Template);
 		}
 
+		public ActionResult UnUsedBuildingProject(string id)
+		{
+			return PartialView(RepositoryContext.Current.GetOne<Project>(p => p._id == id) as UnUsedBuilding);
+		}
+
 		[HttpPost]
 		[ValidateInput(false)]
 		public ActionResult UnUsedBuildingProject(UnUsedBuilding model)
@@ -194,8 +199,9 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.Address = new Address { Lat = model.Address.Lat, Lng = model.Address.Lng };
 				initial.Area = model.Area;
 				initial.BalancePrice = model.BalancePrice;
-				initial.IsCommunicate = model.IsCommunicate;
-				initial.IsSell = model.IsSell;
+				initial.IsExclusion = model.IsExclusion;
+				initial.IsRent = model.IsRent;
+				initial.AreaBuilding = model.AreaBuilding;
 				initial.Tags = model.Tags;
 				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);

@@ -171,7 +171,6 @@ function MarkerViewModel(argument) {
             title: self.Title,
             icon: icon
         });
-        console.log("self.InitMarker ", self, self.gMarker);
     };
 
     self.RemoveMarker = function () {

@@ -98,8 +98,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			ViewBag.StartYear = 2005;
 			ViewBag.EndYear = 2012;
-			IRepository repository = new MongoRepository(WebConfigurationManager.AppSettings["mongoServer"],
-				WebConfigurationManager.AppSettings["mongoBase"]);
+			IRepository repository = new MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
 			return PartialView(repository.All<Region>());
 		}
 

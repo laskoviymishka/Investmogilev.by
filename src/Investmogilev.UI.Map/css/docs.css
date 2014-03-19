@@ -3,7 +3,26 @@ body {
     margin: 0;
     padding: 0;
 }
+.tag {
+    min-width: 160px;
+    width: 49%;
+}
+.metro .button.success.tag {
+    background-color: rgb(40, 145, 21) !important;
+    color: #ffffff !important;
+}
+.gm-style img {
+    max-width: none;
+}
 
+.gm-style label {
+    width: auto;
+    display: inline;
+}
+body, html {
+  height: 100%;
+  width: 100%;
+}
 header {
     height: 45px;
 }
@@ -15,42 +34,50 @@ header {
 }
 
 .metro .button.Template {
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.UnUsedBuilding {
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.GreenField {
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.perechen {
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.success.Template {
     background-color: blueviolet !important;
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
     color: #ffffff !important;
 }
 
 .metro .button.success.UnUsedBuilding {
     background-color: brown !important;
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
     color: #ffffff !important;
 }
 
 .metro .button.success.GreenField {
     background-color: #60a917 !important;
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
     color: #ffffff !important;
 }
 
 .metro .button.success.perechen {
     background-color: #4390df !important;
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
     color: #ffffff !important;
 }
 
