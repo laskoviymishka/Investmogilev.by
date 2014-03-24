@@ -18,6 +18,8 @@ namespace Investmogilev.Infrastructure.Common.Model.Project
 		Туризм,
 		Общепит,
 		Логистика,
-		Сельхоз
+		Сельхоз,
+		Производство,
+		Соцкульт
 	}
 }

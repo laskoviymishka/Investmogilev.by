@@ -78,6 +78,8 @@
             {
                 <div>
                     @Html.ActionLink(info.InfoName, "DownloadProjectInfo", "AdditionalInfo", new {projectId = Model._id, docId = info._id}, new {@class = "button info"})
+                    @Html.ActionLink("удалить " + info.InfoName, "RemoveProjectInfo", "AdditionalInfo", new { projectId = Model._id, docId = info._id }, new { @class = "button danger" })
+
                 </div>
             }
         </blockquote>

@@ -148,10 +148,16 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.CadastrValue = model.CadastrValue;
 				initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
 				initial.Tags = model.Tags;
-
-				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
-					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new {id = model._id});
+				try
+				{
+					ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
+						Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
+					return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				}
+				catch (Exception ex)
+				{
+					ModelState.AddModelError("Name", ex.Message);
+				}
 			}
 
 			return View(model);
@@ -177,10 +183,16 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.CadastrValue = model.CadastrValue;
 				initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
 				initial.Tags = model.Tags;
-
-				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
-					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new {id = model._id});
+				try
+				{
+					ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
+						Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
+					return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				}
+				catch (Exception ex)
+				{
+					ModelState.AddModelError("Name", ex.Message);
+				}
 			}
 
 			return View(model);
@@ -214,9 +226,16 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.IsRent = model.IsRent;
 				initial.AreaBuilding = model.AreaBuilding;
 				initial.Tags = model.Tags;
-				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
-					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new {id = model._id});
+				try
+				{
+					ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
+						Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
+					return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				}
+				catch (Exception ex)
+				{
+					ModelState.AddModelError("Name", ex.Message);
+				}
 			}
 
 			return View(model);
@@ -240,9 +259,16 @@ namespace Investmogilev.UI.Portal.Controllers
 				initial.Region = model.Region;
 				initial.Address = new Address {Lat = model.Address.Lat, Lng = model.Address.Lng};
 				initial.Tags = model.Tags;
-				ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
-					Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
-				return RedirectToAction("Project", "BaseProject", new {id = model._id});
+				try
+				{
+					ProjectStateManager.StateManagerFactory(initial, User.Identity.Name,
+						Roles.GetRolesForUser(User.Identity.Name)).FillInformation(initial);
+					return RedirectToAction("Project", "BaseProject", new { id = model._id });
+				}
+				catch (Exception ex)
+				{
+					ModelState.AddModelError("Name", ex.Message);
+				}
 			}
 
 			return View(model);

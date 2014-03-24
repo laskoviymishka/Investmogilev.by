@@ -49,6 +49,15 @@ namespace Investmogilev.UI.Portal.Controllers
 			return PartialView("CreateAdditional");
 		}
 
+		public ActionResult RemoveProjectInfo(string projectId, string docId)
+		{
+			var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == projectId);
+			var info = project.Info.Find(i => i._id == docId);
+			project.Info.Remove(info);
+			RepositoryContext.Current.Update(project);
+			return RedirectToAction("Project", "BaseProject", new { id = projectId });
+		}
+
 		public ActionResult SaveProject(string projectId)
 		{
 			var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == projectId);
@@ -412,6 +421,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		}
 
 		#endregion
+
 	}
 
 	#region Nested Class For display Status

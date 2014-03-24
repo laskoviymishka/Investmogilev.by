@@ -18,6 +18,9 @@
     self.Tags.push("Общепит");
     self.Tags.push("Логистика");
     self.Tags.push("Сельхоз");
+    self.Tags.push("Производство");
+    self.Tags.push("Соцкульт");
+
 
 
     self.Types.push("GreenField");
