@@ -91,7 +91,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			ProjectStatesConstants.WaitComissionFixes)]
 		public bool CouldComissionFix()
 		{
-			return CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.WaitComissionFixes);
+			return CurrentProject.Tasks.Any(t => t.Step == ProjectWorkflow.State.WaitComissionFixes) && Roles.Contains(ADMIN_ROLE);
 		}
 
 		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
@@ -99,7 +99,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			ProjectStatesConstants.WaitIspolcom)]
 		public bool CouldToIspolcom()
 		{
-			return CurrentProject.Tasks.All(t => t.Step != ProjectWorkflow.State.WaitComissionFixes);
+			return CurrentProject.Tasks.All(t => t.Step != ProjectWorkflow.State.WaitComissionFixes) && Roles.Contains(ADMIN_ROLE);
 		}
 
 		public IStateContext Context { get; set; }

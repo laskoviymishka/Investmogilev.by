@@ -77,7 +77,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			ProjectStatesConstants.InvolvedOrganizations)]
 		public bool CouldInvolvedOrganizationUpdate()
 		{
-			return CurrentProject.Tasks.Any(t => t.Type == TaskTypes.InvolvedOrganiztion && t.TaskReport == null);
+			return CurrentProject.Tasks.Any(t => t.Type == TaskTypes.InvolvedOrganiztion && t.TaskReport == null) && Roles.Contains(ADMIN_ROLE);
 		}
 
 		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
@@ -85,7 +85,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			ProjectStatesConstants.WaitComission)]
 		public bool CouldInvolvedOrganizationUpdateAndLeave()
 		{
-			return !CurrentProject.Tasks.Any(t => t.Type == TaskTypes.InvolvedOrganiztion && t.TaskReport == null);
+			return !CurrentProject.Tasks.Any(t => t.Type == TaskTypes.InvolvedOrganiztion && t.TaskReport == null) && Roles.Contains(ADMIN_ROLE);
 		}
 
 		public IStateContext Context { get; set; }

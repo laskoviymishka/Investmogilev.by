@@ -92,8 +92,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			ProjectStatesConstants.InMinEconomy)]
 		public bool CouldToMinEconomy()
 		{
-			return Roles.Contains("Admin") &&
-			       !CurrentProject.Tasks.Any(p => (p.Step == ProjectWorkflow.State.WaitIspolcomFixes && !p.IsComplete));
+			return !CurrentProject.Tasks.Any(p => (p.Step == ProjectWorkflow.State.WaitIspolcomFixes && !p.IsComplete)) && Roles.Contains(ADMIN_ROLE);
 		}
 
 		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
@@ -101,8 +100,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			ProjectStatesConstants.WaitIspolcomFixes)]
 		public bool CouldToIspolcomFix()
 		{
-			return Roles.Contains("Admin") &&
-			       CurrentProject.Tasks.Any(p => (p.Step == ProjectWorkflow.State.WaitIspolcomFixes && !p.IsComplete));
+			return CurrentProject.Tasks.Any(p => (p.Step == ProjectWorkflow.State.WaitIspolcomFixes && !p.IsComplete)) && Roles.Contains(ADMIN_ROLE);
 		}
 
 		public IStateContext Context { get; set; }

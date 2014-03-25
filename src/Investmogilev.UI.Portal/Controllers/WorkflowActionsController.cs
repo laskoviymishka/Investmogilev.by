@@ -71,10 +71,11 @@ namespace Investmogilev.UI.Portal.Controllers
 						.InvestorResponsed();
 					break;
 				case ProjectWorkflow.Trigger.InvestorSelected:
-					return RedirectToAction("InvestorSelected", project);
+					return InvestorSelected(project);
 				case ProjectWorkflow.Trigger.DocumentUpdate:
-					return View("DocumentUpdate",
-						project.Tasks.Where(t => t.Step == ProjectWorkflow.State.DocumentSending));
+					ProjectStateManager.StateManagerFactory(project, User.Identity.Name, Roles.GetRolesForUser(User.Identity.Name))
+						.DocumentUpdate();
+					break;
 				case ProjectWorkflow.Trigger.FillInvolvedOrganization:
 					ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
 						Roles.GetRolesForUser(User.Identity.Name)).FillInvolvedOrganization();
@@ -158,7 +159,7 @@ namespace Investmogilev.UI.Portal.Controllers
 					User.Identity.Name,
 					Roles.GetRolesForUser(User.Identity.Name))
 				.InvestorSelected();
-			return View(project);
+			return RedirectToAction("Project", "BaseProject", new { id = project._id });
 		}
 
 
@@ -324,8 +325,14 @@ namespace Investmogilev.UI.Portal.Controllers
 			project.Tasks.AddRange(tasks);
 
 			RepositoryContext.Current.Update(project);
-			ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
-				Roles.GetRolesForUser(User.Identity.Name)).DocumentUpdate();
+			try
+			{
+				ProjectStateManager.StateManagerFactory(project, User.Identity.Name,
+					Roles.GetRolesForUser(User.Identity.Name)).DocumentUpdate();
+			}
+			catch (Exception)
+			{
+			}
 			return RedirectToAction("Project", "BaseProject", new {id = model.PorjectId});
 		}
 

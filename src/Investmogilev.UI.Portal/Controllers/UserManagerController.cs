@@ -58,10 +58,12 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Edit(string id)
 		{
+			Users user = RepositoryContext.Current.GetOne<Users>(u => u.Username == id);
 			var model = new EditUserViewModel
 			{
 				UserName = id,
-				Roles = Roles.GetRolesForUser(id).ToList()
+				Roles = Roles.GetRolesForUser(id).ToList(),
+				NotificationTypeList = user.NotificationTypeList
 			};
 			return View(model);
 		}
@@ -88,7 +90,9 @@ namespace Investmogilev.UI.Portal.Controllers
 						model.Roles.Where(
 							role => !roles.Contains(role)).ToArray());
 				}
-
+				Users user = RepositoryContext.Current.GetOne<Users>(u => u.Username == model.UserName);
+				user.NotificationTypeList = model.NotificationTypeList;
+				RepositoryContext.Current.Update(user);
 				return RedirectToAction("Index", "UserManager");
 			}
 			return View(model);

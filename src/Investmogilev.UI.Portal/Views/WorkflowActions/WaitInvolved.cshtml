@@ -1,5 +1,8 @@
 ﻿@using Investmogilev.Infrastructure.Common.Model.Project
 @model Investmogilev.Infrastructure.Common.Model.Project.Project
+<div>Ожидает заполнение причастных лиц</div>
+
+<div>@Html.ActionLink("Добавить необходимых причастных лиц", "AddInvolvedOrganizations", "WorkflowActions", new { @projectId = Model._id }, new { @class = "button info" })</div>
 @if (User.IsInRole("Admin"))
 {
     <div class="listview small">
@@ -7,7 +10,7 @@
         {
             if (task.IsComplete)
             {
-                <a href="/ReportReview/Details?taskId=@task._id&projectId=@task.ProjectId" class="list selected">
+                <a href="/AdminActions/Details?taskId=@task._id&projectId=@task.ProjectId" class="list selected">
                     <div class="list-content">
                         <img src="/images/word.png" class="icon">
                         <div class="data">
@@ -19,7 +22,7 @@
             }
             else
             {
-                <a href="/ReportReview/Details?taskId=@task._id&projectId=@task.ProjectId" class="list">
+                <a href="/AdminActions/Details?taskId=@task._id&projectId=@task.ProjectId" class="list">
                     <div class="list-content">
                         <img src="/images/word.png" class="icon">
                         <div class="data">

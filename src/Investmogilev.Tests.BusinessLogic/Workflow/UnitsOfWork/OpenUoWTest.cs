@@ -136,7 +136,7 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
 		public void OnOpenEntryTest()
 		{
 			bool wasNotificated = false;
-			_adminNotification.Setup(a => a.NotificateReOpen()).Callback(() => { wasNotificated = true; });
+			_adminNotification.Setup(a => a.NotificateReOpen(_currentProject)).Callback(() => { wasNotificated = true; });
 
 			_currentProject.WorkflowState.CurrentState = ProjectWorkflow.State.Open;
 			var target = CreateUoW();

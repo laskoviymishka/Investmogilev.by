@@ -10,6 +10,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 
 	using System;
 	using System.Collections.Generic;
+	using System.Linq;
 	using Investmogilev.Infrastructure.BusinessLogic.Notification;
 	using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces;
 	using Investmogilev.Infrastructure.Common.Model.Project;
@@ -90,8 +91,8 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 		public bool CouldComission()
 		{
 			return
-				Repository.All<Comission>(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Comission) !=
-				null;
+				Repository.All<Comission>().Any(c => c.CommissionTime > DateTime.Now && c.Type == ComissionType.Comission)
+				&& Roles.Contains(ADMIN_ROLE);
 		}
 	}
 }

@@ -11,6 +11,8 @@
 <p>
     @Html.ActionLink("Назад к шаблонам", "Index", null, new {@class = "icon-arrow-left-3 fg-darker"})
 </p>
+<style type="text/css" media="screen">
+</style>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -33,7 +35,7 @@
             @Html.LabelFor(model => model.Body)
         </small>
         <blockquote class="editor-field">
-            @Html.TextAreaFor(model => model.Body)
+            @Html.TextAreaFor(model => model.Body, new { id = "editor"})
             @Html.ValidationMessageFor(model => model.Body)
         </blockquote>
 
@@ -58,8 +60,12 @@
         </p>
     </fieldset>
 }
+<link href="~/Scripts/codemirror.css" rel="stylesheet" />
+<script src="~/Scripts/codemirror.js"></script>
 <script>
-    $(document).ready(function() { $("#editor").cleditor(); });
     $("#cznSteps").chosen();
     $("#cznTypes").chosen();
+    var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        mode: "text/html"
+    });
 </script>

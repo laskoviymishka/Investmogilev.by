@@ -10,25 +10,27 @@
             <div class="list-content">
                 <span class="list-title">@task.Title</span>
                 <span class="list-remark">Время выполнения: @task.Milestone.ToShortDateString()</span> <span class="list-remark">
-                                                                                                           Описание: @task.Body
-                                                                                                       </span>
+                    Описание: @task.Body
+                </span>
             </div>
         </a>
     }
 </div>
 
 <div>
-    @Html.ActionLink("Добавить замечание по проекту", "AddFix",
-        new
-        {
-            projectId = Model._id,
-            state = ProjectWorkflow.State.WaitComissionFixes
-        },
-        new
-        {
-            @class = "button danger",
-            @style = "width:300px"
-        })
+    @if (User.IsInRole("Admin") && Model.ProjectComission.CommissionTime <= DateTime.Now)
+    {
+        Html.ActionLink("Добавить замечание по проекту", "AddFix",
+            new
+            {
+                projectId = Model._id,
+                state = ProjectWorkflow.State.WaitComissionFixes
+            },
+            new
+            {
+                @class = "button danger",
+                @style = "width:300px"
+            });
+        Html.RenderPartial("AllowActions");
+    }
 </div>
-
-@{ Html.RenderPartial("AllowActions"); }

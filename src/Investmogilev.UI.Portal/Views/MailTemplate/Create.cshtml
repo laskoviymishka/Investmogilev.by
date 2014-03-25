@@ -58,7 +58,12 @@
         </p>
     </fieldset>
 }
+<link href="~/Scripts/codemirror.css" rel="stylesheet" />
+<script src="~/Scripts/codemirror.js"></script>
 <script>
     $("#cznSteps").chosen();
     $("#cznTypes").chosen();
+    var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+        mode: "text/html"
+    });
 </script>

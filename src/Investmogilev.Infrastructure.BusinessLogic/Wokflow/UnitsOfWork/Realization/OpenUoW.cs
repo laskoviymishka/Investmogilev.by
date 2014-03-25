@@ -68,7 +68,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 		public void OnOpenEntry()
 		{
 			ProcessMoving(ProjectWorkflow.State.Open, "Проект перещел в состояние НА КАРТЕ");
-			AdminNotification.NotificateReOpen();
+			AdminNotification.NotificateReOpen(CurrentProject);
 		}
 
 		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",

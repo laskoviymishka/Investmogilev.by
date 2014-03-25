@@ -16,7 +16,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 	{
 		void NotificateFill(Project project);
 		void MapEntryNotificate();
-		void NotificateReOpen();
+		void NotificateReOpen(Project project);
 		void InvestorApprovedNotificate(Project project);
 		void InvestorResponsed(Project project);
 		void DocumentUpdate(Project project);

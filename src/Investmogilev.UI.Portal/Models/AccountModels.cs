@@ -103,5 +103,8 @@ namespace Investmogilev.UI.Portal.Models
 
 		[Display(Name = "Роли пользовтеля")]
 		public List<string> Roles { get; set; }
+
+		[Display(Name = "Уведомление о проектах типов")]
+		public List<string> NotificationTypeList { get; set; }
 	}
 }

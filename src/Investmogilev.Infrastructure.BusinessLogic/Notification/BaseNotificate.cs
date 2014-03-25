@@ -11,6 +11,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 	using System;
 	using System.Collections.Specialized;
 	using System.IO;
+	using System.Linq;
 	using System.Net;
 	using System.Net.Mail;
 	using System.Web;
@@ -18,6 +19,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 	using System.Web.Security;
 	using FluentEmail;
 	using Investmogilev.Infrastructure.BusinessLogic.Providers;
+	using Investmogilev.Infrastructure.Common;
 	using Investmogilev.Infrastructure.Common.Model.Common;
 	using Investmogilev.Infrastructure.Common.Model.Project;
 	using Investmogilev.Infrastructure.Common.Model.User;
@@ -90,8 +92,8 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 
 				foreach (var userName in users)
 				{
-					MembershipUser user = Membership.GetUser(userName, false);
-					if (user != null)
+					Users user = Repository.GetOne<Users>(u => u.Username == userName);
+					if (user != null && user.NotificationTypeList.Contains(project.GetType().Name))
 					{
 						Email
 							.From("laskoviymishka@gmail.com")
@@ -106,7 +108,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 							NotificationTime = DateTime.Now,
 							NotificationTitle = template.Title,
 							NotigicationBody = template.Body,
-							UserName = user.UserName
+							UserName = user.Username
 						});
 					}
 				}
@@ -114,10 +116,15 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 
 			if (template.UserType == UserType.Investor)
 			{
+				string investorMail = project.InvestorUser;
+				if (string.IsNullOrEmpty(investorMail))
+				{
+					investorMail = project.Responses.Last().InvestorEmail;
+				}
 				Email
 					.From("laskoviymishka@gmail.com")
 					.UsingClient(Client)
-					.To(project.Responses[0].InvestorEmail)
+					.To(investorMail)
 					.Subject(template.Title)
 					.UsingTemplate(template.Body, model)
 					.Send();

@@ -9,6 +9,7 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 	#region Using
 
 	using System;
+	using System.Collections.Generic;
 	using Investmogilev.Infrastructure.Common.Model.Common;
 	using MongoDB.Bson;
 	using MongoDB.Bson.Serialization.Attributes;
@@ -62,6 +63,8 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		public string Comment { get; set; }
 
 		public UserProfile Profile { get; set; }
+
+		public List<string> NotificationTypeList { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
 		public string _id

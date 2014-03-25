@@ -6,22 +6,22 @@
 {
     <div class="listview small">
         @foreach (var task in Model.Tasks.Where(t => t.Type == TaskTypes.InvolvedOrganiztion))
-        {
-            if (task.TaskReport != null)
-            {
-                <a href="/ReportReview/InvolvedReport?taskId=@task._id&projectId=@task.ProjectId" class="list selected">
-                    <div class="list-content">
-                        <img src="/images/word.png" class="icon">
-                        <div class="data">
-                            <span class="list-title">@task.Title</span>
-                            <span class="list-remark">@task.Body</span>
-                        </div>
-                    </div>
-                </a>
-            }
-            else
-            {
-                <a href="/ReportReview/InvolvedReport?taskId=@task._id&projectId=@task.ProjectId" class="list">
+{
+    if (task.TaskReport != null)
+    {
+        <a href="/AdminActions/InvolvedReport?taskId=@task._id&projectId=@task.ProjectId" class="list selected">
+            <div class="list-content">
+                <img src="/images/word.png" class="icon">
+                <div class="data">
+                    <span class="list-title">@task.Title</span>
+                    <span class="list-remark">@task.Body</span>
+                </div>
+            </div>
+        </a>
+    }
+    else
+    {
+                <a href="/AdminActions/InvolvedReport?taskId=@task._id&projectId=@task.ProjectId" class="list">
                     <div class="list-content">
                         <img src="/images/word.png" class="icon">
                         <div class="data">
@@ -38,7 +38,7 @@
 @if (User.IsInRole("Investor"))
 {
     <div class="listview small">
-        @foreach (var task in Model.Tasks.Where(t => t.Step == ProjectWorkflow.State.DocumentSending))
+        @foreach (var task in Model.Tasks.Where(t => t.Type == TaskTypes.InvolvedOrganiztion))
         {
             if (task.IsComplete)
             {

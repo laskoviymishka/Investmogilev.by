@@ -6,7 +6,7 @@
 
 <h2>Редактировать</h2>
 <p>
-    @Html.ActionLink("Назад", "Index", null, new {@class = "icon-arrow-left-3 fg-darker"})
+    @Html.ActionLink("Назад", "Index", null, new { @class = "icon-arrow-left-3 fg-darker  button success" })
 </p>
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
@@ -32,8 +32,16 @@
             @Html.ListBoxFor(model => model.Roles, new SelectList(new List<string> {"Admin", "User", "Investor"}), new {id = "cznTags"})
             @Html.ValidationMessageFor(model => model.Roles)
         </blockquote>
+        <small class="editor-label">
+            @Html.LabelFor(model => model.NotificationTypeList)
+        </small>
+        <blockquote class="editor-field">
+            @Html.ListBoxFor(model => model.NotificationTypeList, new SelectList(new List<string> { "GreenField", "UnUsedBuilding", "Template" }), new { id = "cznTypes" })
+            @Html.ValidationMessageFor(model => model.NotificationTypeList)
+        </blockquote>
+        <br/>
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Сохранить" class="button button success"/>
         </p>
     </fieldset>
 }
@@ -41,6 +49,7 @@
 <script type="text/javascript">
     //<![CDATA[
     $("#cznTags").chosen();
-    $('.chosen-container').css('width', '260px');
+    $("#cznTypes").chosen();
+    $('.chosen-container').css('width', '300px');
     //]]>
 </script>

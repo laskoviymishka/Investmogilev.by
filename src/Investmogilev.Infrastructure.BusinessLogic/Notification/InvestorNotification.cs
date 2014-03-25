@@ -13,6 +13,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 	using Investmogilev.Infrastructure.Common;
 	using Investmogilev.Infrastructure.Common.Model.Common;
 	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.Model.User;
 	using Investmogilev.Infrastructure.Common.State;
 
 	#endregion
@@ -36,10 +37,15 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 
 		public void ProjectAproved(Project project)
 		{
-			string pass = Guid.NewGuid().ToString().Substring(0, 5);
+			string pass = string.Empty;
 			string login = project.Responses.Find(i => i.IsVerified).InvestorEmail;
-			Membership.CreateAccount(login, pass);
-			Roles.AddUserToRole(login, "Investor");
+			var user = Repository.GetOne<Users>(u => u.Username == login);
+			if (user == null)
+			{
+				pass = Guid.NewGuid().ToString().Substring(0, 5);
+				Membership.CreateAccount(login, pass);
+				Roles.AddUserToRole(login, "Investor");
+			}
 
 			SendMailFromDb(project, new {Pass = pass, Login = login, Project = project},
 				ProjectWorkflow.Trigger.InvestorSelected, UserType.Investor);
