@@ -1,4 +1,10 @@
-﻿namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="IWaitInvolvedUoW.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
+
+namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces
 {
 	public interface IWaitInvolvedUoW
 	{

@@ -5,7 +5,7 @@
 <h2>
     Редактировать заметку</h2>
 <p>
-    @Html.ActionLink("Назад", "All", null, new { @class = "icon-arrow-left-3 fg-darker button success" })
+    @Html.ActionLink("Назад", "All", null, new {@class = "icon-arrow-left-3 fg-darker button success"})
 </p>
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
@@ -13,7 +13,7 @@
 {
     @Html.ValidationSummary(true)
 
-    
+
     <fieldset>
         <legend>Заметка</legend>
         @Html.HiddenFor(model => model.ProjectId)
@@ -31,7 +31,7 @@
             @Html.LabelFor(model => model.NoteBody)
         </small>
         <blockquote class="editor-field">
-            @Html.TextAreaFor(model => model.NoteBody, new { @id = "editor" })
+            @Html.TextAreaFor(model => model.NoteBody, new {@id = "editor"})
             @Html.ValidationMessageFor(model => model.NoteBody)
         </blockquote>
         <small class="editor-label">
@@ -56,7 +56,7 @@
             @Html.LabelFor(model => model.RolesForView)
         </small>
         <blockquote class="editor-field">
-            @Html.ListBoxFor(model => model.RolesForView, new SelectList(new List<string>() { "Admin", "User", "Investor" }), new { id = "cznTags" })
+            @Html.ListBoxFor(model => model.RolesForView, new SelectList(new List<string> {"Admin", "User", "Investor"}), new {id = "cznTags"})
             @Html.ValidationMessageFor(model => model.RolesForView)
         </blockquote>
 
@@ -64,7 +64,7 @@
             @Html.DisplayNameFor(model => model.ProjectId)
         </small>
         <blockquote class="display-field">
-            @Html.ActionLink("К проекту", "Project", "BaseProject", new { Id = Model.ProjectId }, new { @class = "button info", style = "width:100px" })
+            @Html.ActionLink("К проекту", "Project", "BaseProject", new {Id = Model.ProjectId}, new {@class = "button info", style = "width:100px"})
         </blockquote>
         <hr/>
         <p>
@@ -77,9 +77,9 @@
     Приложения
 </small>
 <hr />
-@Html.Action("CreateNoteAdditional", "AdditionalInfo", new { noteId = Model._id })
+@Html.Action("CreateNoteAdditional", "AdditionalInfo", new {noteId = Model._id})
 <script>
-    $(document).ready(function () { $("#editor").cleditor(); });
+    $(document).ready(function() { $("#editor").cleditor(); });
 </script>
 <script type="text/javascript">
     //<![CDATA[

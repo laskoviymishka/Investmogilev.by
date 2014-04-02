@@ -4,12 +4,10 @@
     ViewBag.Title = "Ключевая точка по проекту";
 }
 <div>
-    @Html.ActionLink("Назад к информации о проекте", "Project", "BaseProject", new { id = Model.ProjectId }, new { @class = "icon-arrow-left-3 fg-darker" })
+    @Html.ActionLink("Назад к информации о проекте", "Project", "BaseProject", new {id = Model.ProjectId}, new {@class = "icon-arrow-left-3 fg-darker"})
 </div>
 <style>
-    .calendar-dropdown {
-        position: relative !important;
-    }
+    .calendar-dropdown { position: relative !important; }
 </style>
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
@@ -59,7 +57,7 @@
             @Html.LabelFor(model => model.Body)
         </small>
         <blockquote class="editor-field">
-            @Html.TextAreaFor(model => model.Body, new { @id = "editor" })
+            @Html.TextAreaFor(model => model.Body, new {@id = "editor"})
             @Html.ValidationMessageFor(model => model.Body)
         </blockquote>
 
@@ -71,7 +69,7 @@
 }
 
 <script>
-    $(document).ready(function () { $("#editor").cleditor(); });
+    $(document).ready(function() { $("#editor").cleditor(); });
     $("#cznTypes").chosen();
 </script>
 <script>

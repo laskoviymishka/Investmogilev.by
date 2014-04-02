@@ -1,16 +1,26 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Investmogilev.Infrastructure.BusinessLogic.Notification;
-using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.State;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
-using Moq;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="OnMapUoWTest.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
 {
+	#region Using
+
+	using System;
+	using System.Collections;
+	using System.Collections.Generic;
+	using Investmogilev.Infrastructure.BusinessLogic.Notification;
+	using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.State;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using MongoDB.Bson;
+	using Moq;
+
+	#endregion
+
 	/// <summary>
 	///     This is a test class for OnMapUoWTest and is intended
 	///     to contain all OnMapUoWTest Unit Tests
@@ -43,7 +53,7 @@ namespace Investmogilev.Tests.BusinessLogic.Workflow.UnitsOfWork
 				Region = "testProjectRegion",
 				InvestorUser = "",
 				Address = new Address {Lat = 52, Lng = 53},
-				WorkflowState = new Investmogilev.Infrastructure.Common.Model.Project.Workflow
+				WorkflowState = new Workflow
 				{
 					History = new List<History>(),
 					CurrentState = ProjectWorkflow.State.Open

@@ -1,10 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Investmogilev.Infrastructure.StateMachine.Localization;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="StateMachine.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.StateMachine
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using Investmogilev.Infrastructure.StateMachine.Localization;
+
+	#endregion
+
 	/// <summary>
 	///     Models behaviour as transitions between a finite set of states.
 	/// </summary>

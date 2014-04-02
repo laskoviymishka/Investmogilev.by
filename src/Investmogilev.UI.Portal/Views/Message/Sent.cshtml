@@ -32,30 +32,31 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SendedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.From)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReciveTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsReaded)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.To)
-        </td>
-        <td>
-            @Html.ActionLink("Просмотреть сообщение", "Message", new { id = item._id, @class = "button button-primary"  }) |
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SendedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.From)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReciveTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsReaded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.To)
+            </td>
+            <td>
+                @Html.ActionLink("Просмотреть сообщение", "Message", new {id = item._id, @class = "button button-primary"}) |
+            </td>
+        </tr>
+    }
 
 </table>

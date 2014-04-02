@@ -1,10 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Investmogilev.Infrastructure.Common.Localization;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="AdditionalInfo.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Common
 {
+	#region Using
+
+	using System.ComponentModel.DataAnnotations;
+	using Investmogilev.Infrastructure.Common.Localization;
+	using MongoDB.Bson;
+	using MongoDB.Bson.Serialization.Attributes;
+
+	#endregion
+
 	[BsonKnownTypes(typeof (VideoAdditionalInfo),
 		typeof (ImageAdditionalInfo),
 		typeof (DocumentAdditionalInfo),

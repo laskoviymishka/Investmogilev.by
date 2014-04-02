@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="MessageQueue.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.User
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using MongoDB.Bson;
+	using MongoDB.Bson.Serialization.Attributes;
+
+	#endregion
+
 	public class MessageQueue : IMongoEntity
 	{
 		private ObjectId _objectId;

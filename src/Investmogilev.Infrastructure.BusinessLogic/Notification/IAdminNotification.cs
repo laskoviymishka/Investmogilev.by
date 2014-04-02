@@ -1,12 +1,22 @@
-﻿using Investmogilev.Infrastructure.Common.Model.Project;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="IAdminNotification.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 {
+	#region Using
+
+	using Investmogilev.Infrastructure.Common.Model.Project;
+
+	#endregion
+
 	public interface IAdminNotification
 	{
 		void NotificateFill(Project project);
 		void MapEntryNotificate();
-		void NotificateReOpen();
+		void NotificateReOpen(Project project);
 		void InvestorApprovedNotificate(Project project);
 		void InvestorResponsed(Project project);
 		void DocumentUpdate(Project project);

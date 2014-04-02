@@ -1,12 +1,12 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.inputControl", {
-
         version: "1.0.0",
 
         options: {
+        
         },
 
-        _create: function(){
+        _create: function() {
             var that = this,
                 control = this.element;
 
@@ -24,7 +24,7 @@
         initCheckboxInput: function(el, that) {
         },
 
-        initFileInput: function(el, that){
+        initFileInput: function(el, that) {
             var button, input, wrapper;
             wrapper = $("<input type='text' id='__input_file_wrapper__' readonly style='z-index: 1; cursor: default;'>");
             button = el.children('.btn-file');
@@ -35,19 +35,19 @@
             //button.attr('tabindex', '-1');
             button.attr('type', 'button');
 
-            input.on('change', function(){
+            input.on('change', function() {
                 var val = $(this).val();
                 if (val != '') {
                     wrapper.val(val);
                 }
             });
 
-            button.on('click', function(){
+            button.on('click', function() {
                 input.trigger('click');
             });
         },
 
-        initTextInput: function(el, that){
+        initTextInput: function(el, that) {
             var button, input;
 
             button = el.children('.btn-clear');
@@ -57,7 +57,7 @@
             button.attr('tabindex', '-1');
             button.attr('type', 'button');
 
-            button.on('click', function(){
+            button.on('click', function() {
                 input = el.children('input');
                 if (input.prop('readonly')) return;
                 input.val('');
@@ -66,17 +66,18 @@
             });
         },
 
-        initPasswordInput: function(){
+        initPasswordInput: function() {
             var button = this.element.children('.btn-reveal'),
                 input = this.element.children('input[type=password]'),
-                wrapper, that = this;
+                wrapper,
+                that = this;
 
             if (button.length == 0) return;
 
             button.attr('tabindex', '-1');
             button.attr('type', 'button');
 
-            button.on('mousedown', function(e){
+            button.on('mousedown', function(e) {
                 input.attr('type', 'text');
                 //e.preventDefault();
                 /*
@@ -91,7 +92,7 @@
                 */
             });
 
-            button.on('mouseup, mouseleave', function(e){
+            button.on('mouseup, mouseleave', function(e) {
                 input.attr('type', 'password').focus();
                 //e.preventDefault();
                 /*
@@ -104,34 +105,33 @@
             });
         },
 
-        _destroy: function(){
+        _destroy: function() {
 
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
     });
-})( jQuery );
+})(jQuery);
 
-$(function () {
+$(function() {
     $('[data-role=input-control], .input-control').inputControl();
 });
 
-function reinitInputs(){
+function reinitInputs() {
     $('[data-role=input-control], .input-control').inputControl();
 }
 
-(function( $ ) {
+(function($) {
     $.widget("metro.inputTransform", {
-
         version: "1.0.0",
 
         options: {
             transformType: "text"
         },
 
-        _create: function(){
+        _create: function() {
             var that = this,
                 element = this.element,
                 inputType;
@@ -157,23 +157,44 @@ function reinitInputs(){
             var control = undefined;
 
             switch (this.options.transformType) {
-                case "password": control = this._createInputPassword(); break;
-                case "file": control = this._createInputFile(); break;
-                case "checkbox": control = this._createInputCheckbox(); break;
-                case "radio": control = this._createInputRadio(); break;
-                case "switch": control = this._createInputSwitch(); break;
-                case "select": control = this._createInputSelect(); break;
-                case "textarea": control = this._createInputTextarea(); break;
-                case "search": control = this._createInputSearch(); break;
-                case "email": control = this._createInputEmail(); break;
-                case "tel": control = this._createInputTel(); break;
-                default: control = this._createInputText();
+            case "password":
+                control = this._createInputPassword();
+                break;
+            case "file":
+                control = this._createInputFile();
+                break;
+            case "checkbox":
+                control = this._createInputCheckbox();
+                break;
+            case "radio":
+                control = this._createInputRadio();
+                break;
+            case "switch":
+                control = this._createInputSwitch();
+                break;
+            case "select":
+                control = this._createInputSelect();
+                break;
+            case "textarea":
+                control = this._createInputTextarea();
+                break;
+            case "search":
+                control = this._createInputSearch();
+                break;
+            case "email":
+                control = this._createInputEmail();
+                break;
+            case "tel":
+                control = this._createInputTel();
+                break;
+            default:
+                control = this._createInputText();
             }
 
             control.inputControl();
         },
 
-        _createInputTextarea: function(){
+        _createInputTextarea: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("textarea");
@@ -188,7 +209,7 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _createInputSelect: function(){
+        _createInputSelect: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("select");
@@ -203,15 +224,15 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _createInputSwitch: function(){
+        _createInputSwitch: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("switch");
-            var label  = $("<label/>");
+            var label = $("<label/>");
             var button = $("<span/>").addClass("check");
             var clone = element.clone(true);
             var parent = element.parent();
-            var caption = $("<span/>").addClass("caption").html( element.data('caption') != undefined ? element.data('caption') : "" );
+            var caption = $("<span/>").addClass("caption").html(element.data('caption') != undefined ? element.data('caption') : "");
 
             wrapper.appendTo(parent);
             label.appendTo(wrapper);
@@ -224,15 +245,15 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _createInputCheckbox: function(){
+        _createInputCheckbox: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("checkbox");
-            var label  = $("<label/>");
+            var label = $("<label/>");
             var button = $("<span/>").addClass("check");
             var clone = element.clone(true);
             var parent = element.parent();
-            var caption = $("<span/>").addClass("caption").html( element.data('caption') != undefined ? element.data('caption') : "" );
+            var caption = $("<span/>").addClass("caption").html(element.data('caption') != undefined ? element.data('caption') : "");
 
             wrapper.appendTo(parent);
             label.appendTo(wrapper);
@@ -245,15 +266,15 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _createInputRadio: function(){
+        _createInputRadio: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("radio");
-            var label  = $("<label/>");
+            var label = $("<label/>");
             var button = $("<span/>").addClass("check");
             var clone = element.clone(true);
             var parent = element.parent();
-            var caption = $("<span/>").addClass("caption").html( element.data('caption') != undefined ? element.data('caption') : "" );
+            var caption = $("<span/>").addClass("caption").html(element.data('caption') != undefined ? element.data('caption') : "");
 
             wrapper.appendTo(parent);
             label.appendTo(wrapper);
@@ -266,7 +287,7 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _createInputSearch: function(){
+        _createInputSearch: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("text");
@@ -283,7 +304,7 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _createInputTel: function(){
+        _createInputTel: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("tel");
@@ -300,7 +321,7 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _createInputEmail: function(){
+        _createInputEmail: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("email");
@@ -317,7 +338,7 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _createInputText: function(){
+        _createInputText: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("text");
@@ -334,7 +355,7 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _createInputPassword: function(){
+        _createInputPassword: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("password");
@@ -351,7 +372,7 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _createInputFile: function(){
+        _createInputFile: function() {
             var element = this.element;
 
             var wrapper = $("<div/>").addClass("input-control").addClass("file");
@@ -368,18 +389,18 @@ function reinitInputs(){
             return wrapper;
         },
 
-        _destroy: function(){},
+        _destroy: function() {},
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function () {
+$(function() {
     $('[data-transform=input-control]').inputTransform();
 });
 
-function transformInputs(){
+function transformInputs() {
     $('[data-transform=input-control]').inputTransform();
 }

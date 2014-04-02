@@ -1,8 +1,7 @@
 // DatePicker
 
-(function( $ ) {
+(function($) {
     $.widget("metro.datepicker", {
-
         version: "1.0.0",
 
         options: {
@@ -10,12 +9,12 @@
             date: undefined,
             effect: 'none',
             position: 'bottom',
-            selected: function(d, d0){},
+            selected: function(d, d0) {},
             _calendar: undefined
         },
 
 
-        _create: function(){
+        _create: function() {
             var that = this,
                 element = this.element,
                 input = element.children("input"),
@@ -30,7 +29,7 @@
 
             input.attr('readonly', true);
 
-            button.on('click', function(e){
+            button.on('click', function(e) {
                 e.stopPropagation();
                 if (that.options._calendar.css('display') == 'none') {
                     that._show();
@@ -39,7 +38,7 @@
                 }
             });
 
-            element.on('click', function(e){
+            element.on('click', function(e) {
                 e.stopPropagation();
                 if (that.options._calendar.css('display') == 'none') {
                     that._show();
@@ -48,19 +47,19 @@
                 }
             });
 
-            $('html').on('click', function(e){
+            $('html').on('click', function(e) {
                 $(".calendar-dropdown").hide();
-            })
+            });
         },
 
-        _createCalendar: function(to, curDate){
+        _createCalendar: function(to, curDate) {
             var _calendar, that = this;
 
             _calendar = $("<div/>").css({
-                position: 'absolute'
-                , display: 'none'
-                , 'max-width': 260
-                , 'z-index': 1000
+                position: 'absolute',
+                display: 'none',
+                'max-width': 260,
+                'z-index': 1000
 
             }).addClass('calendar calendar-dropdown').appendTo(to);
 
@@ -72,7 +71,7 @@
                 multiSelect: false,
                 format: that.options.format,
                 buttons: false,
-                click: function(d, d0){
+                click: function(d, d0) {
                     //console.log(d, d0);
                     _calendar.calendar('setDate', d0);
                     to.children("input[type=text]").val(d);
@@ -88,14 +87,17 @@
 
             // Set position
             switch (this.options.position) {
-                case 'top': _calendar.css({top: (0-_calendar.height()), left: 0}); break;
-                default: _calendar.css({top: '100%', left: 0});
+            case 'top':
+                _calendar.css({ top: (0 - _calendar.height()), left: 0 });
+                break;
+            default:
+                _calendar.css({ top: '100%', left: 0 });
             }
 
             this.options._calendar = _calendar;
         },
 
-        _show: function(){
+        _show: function() {
             if (this.options.effect == 'slide') {
                 $(".calendar-dropdown").slideUp('fast');
                 this.options._calendar.slideDown('fast');
@@ -107,7 +109,7 @@
                 this.options._calendar.show();
             }
         },
-        _hide: function(){
+        _hide: function() {
             if (this.options.effect == 'slide') {
                 this.options._calendar.slideUp('fast');
             } else if (this.options.effect == 'fade') {
@@ -117,19 +119,19 @@
             }
         },
 
-        _destroy: function(){
+        _destroy: function() {
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function(){
+$(function() {
     $('[data-role=datepicker]').datepicker();
 });
 
-function reinitDatepickers(){
+function reinitDatepickers() {
     $('[data-role=datepicker]').datepicker();
 }

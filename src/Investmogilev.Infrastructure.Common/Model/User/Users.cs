@@ -1,10 +1,21 @@
-﻿using System;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="Users.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.User
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using MongoDB.Bson;
+	using MongoDB.Bson.Serialization.Attributes;
+
+	#endregion
+
 	public class Users : IMongoEntity
 	{
 		private ObjectId _objectId;
@@ -52,6 +63,8 @@ namespace Investmogilev.Infrastructure.Common.Model.User
 		public string Comment { get; set; }
 
 		public UserProfile Profile { get; set; }
+
+		public List<string> NotificationTypeList { get; set; }
 
 		[BsonRepresentation(BsonType.ObjectId)]
 		public string _id

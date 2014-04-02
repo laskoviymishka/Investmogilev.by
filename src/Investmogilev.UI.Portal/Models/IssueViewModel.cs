@@ -1,9 +1,18 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="IssueViewModel.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Models
 {
+	#region Using
+
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+
+	#endregion
+
 	public class IssueViewModel
 	{
 		[Required(ErrorMessage = "Заголовок обязателен")]

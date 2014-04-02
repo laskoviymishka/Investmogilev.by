@@ -40,19 +40,19 @@
         <li class="menu-title">Пометки</li>
         <li><a href="/Notes/All">Мои пометки</a></li>
     </ul>
-    <div class="button small" onclick="showfeedBack('@Request.Url')">Обратная связь</div>
+    <div class="button small" onclick=" showfeedBack('@Request.Url') ">Обратная связь</div>
 }
 else
 {
     <ul class="dropdown-menu open keep-open" style="position: relative; z-index: 1"></ul>
 }
 <script>
-    var showfeedBack = function (requestUrl) {
-        var linkToCreate = '/Feedback/CreateIssue?baseUri=' + requestUrl; 
+    var showfeedBack = function(requestUrl) {
+        var linkToCreate = '/Feedback/CreateIssue?baseUri=' + requestUrl;
         $.ajax({
             url: linkToCreate,
             dataType: 'html',
-            success: function (data) {
+            success: function(data) {
                 $.Dialog({
                     shadow: true,
                     overlay: true,

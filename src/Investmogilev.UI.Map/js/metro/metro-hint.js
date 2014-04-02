@@ -1,6 +1,5 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.hint", {
-
         version: "1.0.0",
 
         options: {
@@ -8,8 +7,9 @@
             _hint: undefined
         },
 
-        _create: function(){
-            var that = this, element = this.element,
+        _create: function() {
+            var that = this,
+                element = this.element,
                 hint = element.data('hint').split("|"),
                 o = this.options;
 
@@ -50,12 +50,12 @@
                 });
             }
 
-            element.on('mouseenter', function(e){
+            element.on('mouseenter', function(e) {
                 _hint.fadeIn();
                 e.preventDefault();
             });
 
-            element.on('mouseleave', function(e){
+            element.on('mouseleave', function(e) {
                 _hint.fadeOut();
                 e.preventDefault();
             });
@@ -63,19 +63,19 @@
             o._hint = _hint;
         },
 
-        _destroy: function(){
+        _destroy: function() {
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function () {
+$(function() {
     $('[data-hint]').hint();
 });
 
-function reinitHints(){
+function reinitHints() {
     $('[data-hint]').hint();
 }

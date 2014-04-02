@@ -1,9 +1,19 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Investmogilev.Infrastructure.Common.Localization;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="InvestorResponse.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
+	#region Using
+
+	using System;
+	using System.ComponentModel.DataAnnotations;
+	using Investmogilev.Infrastructure.Common.Localization;
+
+	#endregion
+
 	public class InvestorResponse
 	{
 		public string ProjectId { get; set; }

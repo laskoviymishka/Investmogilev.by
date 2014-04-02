@@ -1,9 +1,18 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="AccountModels.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Models
 {
+	#region Using
+
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+
+	#endregion
+
 	public class LocalPasswordModel
 	{
 		[Required]
@@ -19,7 +28,7 @@ namespace Investmogilev.UI.Portal.Models
 
 		[DataType(DataType.Password)]
 		[Display(Name = "Confirm new password")]
-		[System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+		[Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
 		public string ConfirmPassword { get; set; }
 	}
 
@@ -52,7 +61,7 @@ namespace Investmogilev.UI.Portal.Models
 
 		[DataType(DataType.Password)]
 		[Display(Name = "Повторите пароль")]
-		[System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+		[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
 		public string ConfirmPassword { get; set; }
 
 		[Required]
@@ -93,6 +102,9 @@ namespace Investmogilev.UI.Portal.Models
 		public string UserName { get; set; }
 
 		[Display(Name = "Роли пользовтеля")]
-		public List<string> Roles { get; set; } 
+		public List<string> Roles { get; set; }
+
+		[Display(Name = "Уведомление о проектах типов")]
+		public List<string> NotificationTypeList { get; set; }
 	}
 }

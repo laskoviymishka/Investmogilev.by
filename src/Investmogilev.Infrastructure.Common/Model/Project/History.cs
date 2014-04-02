@@ -1,10 +1,20 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Investmogilev.Infrastructure.Common.Localization;
-using Investmogilev.Infrastructure.Common.State;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="History.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
+	#region Using
+
+	using System;
+	using System.ComponentModel.DataAnnotations;
+	using Investmogilev.Infrastructure.Common.Localization;
+	using Investmogilev.Infrastructure.Common.State;
+
+	#endregion
+
 	public class History
 	{
 		[Display(ResourceType = typeof (LocalizationResource), Name = "History_Editor_Кем_изменено")]

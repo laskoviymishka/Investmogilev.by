@@ -1,14 +1,24 @@
-﻿using System;
-using System.Security.Authentication;
-using System.Web.Mvc;
-using Investmogilev.Infrastructure.BusinessLogic.Managers;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.UI.Portal.Models;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="InvestorEntryController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System;
+	using System.Security.Authentication;
+	using System.Web.Mvc;
+	using Investmogilev.Infrastructure.BusinessLogic.Managers;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.UI.Portal.Models;
+	using MongoDB.Bson;
+
+	#endregion
+
 	public class InvestorEntryController : Controller
 	{
 		[AllowAnonymous]

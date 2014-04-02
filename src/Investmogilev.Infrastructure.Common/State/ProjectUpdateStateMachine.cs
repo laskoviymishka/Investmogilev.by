@@ -1,8 +1,18 @@
-﻿using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.StateMachine;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="ProjectUpdateStateMachine.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.State
 {
+	#region Using
+
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.StateMachine;
+
+	#endregion
+
 	public class ProjectUpdateStateMachine
 	{
 		#region PrivateFields

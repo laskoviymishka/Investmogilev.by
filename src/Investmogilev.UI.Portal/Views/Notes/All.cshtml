@@ -38,11 +38,11 @@
                 @Html.DisplayFor(modelItem => item.CreatedTime)
             </td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item._id }, new { @class = "button success" })
-                @Html.ActionLink("Подробнее", "Details", new { id = item._id }, new { @class = "button info" })
+                @Html.ActionLink("Редактировать", "Edit", new {id = item._id}, new {@class = "button success"})
+                @Html.ActionLink("Подробнее", "Details", new {id = item._id}, new {@class = "button info"})
                 @if (User.Identity.Name == item.CretorName)
                 {
-                    @Html.ActionLink("Удалить", "Delete", new { id = item._id }, new { @class = "button warning" })
+                    @Html.ActionLink("Удалить", "Delete", new {id = item._id}, new {@class = "button warning"})
                 }
             </td>
         </tr>

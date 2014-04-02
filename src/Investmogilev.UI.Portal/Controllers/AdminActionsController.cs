@@ -1,19 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
-using Investmogilev.Infrastructure.BusinessLogic.Managers;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.State;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="AdminActionsController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.IO;
+	using System.Linq;
+	using System.Web;
+	using System.Web.Mvc;
+	using System.Web.Security;
+	using Investmogilev.Infrastructure.BusinessLogic.Managers;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.State;
+	using MongoDB.Bson;
+
+	#endregion
+
 	[Authorize]
 	public class AdminActionsController : Controller
 	{
@@ -23,10 +33,10 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			IQueryable<Project> projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
 			var model = new List<ProjectTask>();
-			foreach (Project project in projects)
+			foreach (var project in projects)
 			{
 				foreach (
-					ProjectTask task in
+					var task in
 						project.Tasks.Where(t => t.TaskReport != null || t.Type == TaskTypes.InvolvedOrganiztion))
 				{
 					task.ProjectId = project._id;
@@ -40,10 +50,10 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			IQueryable<Project> projects = RepositoryContext.Current.All<Project>(p => p.Tasks != null && p.Tasks.Any());
 			var model = new List<ProjectTask>();
-			foreach (Project project in projects)
+			foreach (var project in projects)
 			{
 				foreach (
-					ProjectTask task in
+					var task in
 						project.Tasks.Where(
 							t =>
 								t.TaskReport != null && t.TaskReport.Last().ReportResponse == null ||
@@ -168,7 +178,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		public ActionResult Save(string taskId, string reportId, string responsedId, string projectId,
 			IEnumerable<HttpPostedFileBase> attachments)
 		{
-			foreach (HttpPostedFileBase file in attachments)
+			foreach (var file in attachments)
 			{
 				var reportManager = new ReportManager(taskId, reportId, projectId);
 				string fileName = Path.GetFileName(file.FileName);
@@ -220,7 +230,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 			RepositoryContext.Current.Add(comission);
 
-			foreach (Project project in comission.Projects)
+			foreach (var project in comission.Projects)
 			{
 				if (comission.Type == ComissionType.Comission)
 				{

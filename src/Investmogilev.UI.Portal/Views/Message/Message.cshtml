@@ -7,7 +7,7 @@
     Сообщение
 </h2>
 <div>
-    @Html.ActionLink("Назад", "Index", null, new { @class = "icon-arrow-left-3 fg-darker button success" })
+    @Html.ActionLink("Назад", "Index", null, new {@class = "icon-arrow-left-3 fg-darker button success"})
 </div>
 <fieldset>
     <legend>Сообщение</legend>
@@ -21,7 +21,7 @@
         @Html.DisplayNameFor(model => model.Body.Text)
     </small>
     <blockquote class=" left">
-        <div style="min-height:200px">
+        <div style="min-height: 200px">
             @Html.Raw(HttpUtility.HtmlDecode(Model.Body.Text))
         </div>
     </blockquote>
@@ -43,15 +43,15 @@
     <blockquote class="">
         @Html.DisplayFor(model => model.To)
     </blockquote>
-    <div style="margin:10px">
+    <div style="margin: 10px">
         @if (Model.Body != null & Model.Body.Appendix != null)
         {
             foreach (var item in Model.Body.Appendix)
             {
                 <li>
                     @Html.ActionLink("Скачать " + (item as DocumentAdditionalInfo).InfoName,
-                                              "Download",
-                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button info" })
+                        "Download",
+                        new {messageId = Model._id, appendixId = item._id}, new {@class = "button button info"})
                 </li>
             }
         }

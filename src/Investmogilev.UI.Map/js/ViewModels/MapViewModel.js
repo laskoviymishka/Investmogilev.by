@@ -1,7 +1,5 @@
 ﻿function MapViewModel(map) {
-    var self = this
-
-    // MapViewModel properties
+    var self = this; // MapViewModel properties
     self.Css = ko.observable("col-md-9");
     self.FusionTableFrom = ko.observable("1Kl6NI6pi4SuX8dF6NRUg3fLGoQJMrhmDQ2F-6aA");
     self.FusionTableStyleId = ko.observable(33);
@@ -30,7 +28,7 @@
     });
 
     // MapViewModel methods
-    self.SetProjects = function (argument) {
+    self.SetProjects = function(argument) {
         if (self.Markers().length > 0) {
             for (var i = 0; i < self.Markers().length; i++) {
                 self.Markers()[i].RemoveMarker();
@@ -38,57 +36,61 @@
         };
         for (var i = 0; i < argument.length; i++) {
             var marker = new MarkerViewModel(argument[i]);
-            marker.InitMarker(map)
-            google.maps.event.addListener(marker.gMarker, 'click', function (e) {
+            marker.InitMarker(map);
+            google.maps.event.addListener(marker.gMarker, 'click', function(e) {
                 for (var i = 0; i < argument.length; i++) {
                     if (argument[i].Lat().toFixed(5) == e.latLng.lat().toFixed(5) && argument[i].Lng().toFixed(5) == e.latLng.lng().toFixed(5)) {
                         self.OpenPopUp(argument[i]._id(), argument[i].Type());
                     }
                 }
             });
-            self.Markers.push(marker)
+            self.Markers.push(marker);
         };
     };
 
-    self.SetMapView = function (argument) {
+    self.SetMapView = function(argument) {
         self.MapViewCss('btn btn-primary');
         self.GridViewCss('btn btn-default');
         self.GridViewVisible('hidden');
         self.MapViewVisible('');
     };
 
-    self.SetGreedView = function (argument) {
+    self.SetGreedView = function(argument) {
         self.MapViewCss('btn btn-default');
         self.GridViewCss('btn btn-primary');
         self.GridViewVisible('');
         self.MapViewVisible('hidden');
     };
 
-    self.SetLayer = function (argument) {
-        self.Layer = argument
+    self.SetLayer = function(argument) {
+        self.Layer = argument;
         self.FusionTableTemlateId(self.Layer.TemplateId());
         self.FusionTableStyleId(self.Layer.StyleId());
     };
 
-    self.UpdateLayer = function () {
+    self.UpdateLayer = function() {
         self.gLayer.setOptions({
             styleId: self.FusionTableStyleId(),
             templateId: self.FusionTableTemlateId()
         });
     };
 
-    self.OpenPopUp = function (e, type) {
+    self.OpenPopUp = function(e, type) {
         $('#popupContainer').html('');
         var linkToDetails = linkToSite + '/InvestProjects/PopUpDetails' + type.toString() + '/' + e.toString();
+        var widthPopUp = 600;
+        if (window.innerWidth < widthPopUp) {
+            widthPopUp = window.innerWidth;
+        }
         $.ajax({
             url: linkToDetails,
             dataType: 'html',
-            success: function (data) {
+            success: function(data) {
                 $('#popupContainer').html(data);
                 $.Dialog({
                     shadow: true,
                     overlay: true,
-                    width: 600,
+                    width: widthPopUp,
                     flat: true,
                     icon: '<span class="icon-floppy"></span>',
                     title: 'Информация о проекте',
@@ -104,7 +106,7 @@
 
     // bounds of the desired area
 
-    self.Initialize = function () {
+    self.Initialize = function() {
         var allowedBounds = new google.maps.LatLngBounds(
             new google.maps.LatLng(52.613327, 27.438599),
             new google.maps.LatLng(54.429782, 32.788027)
@@ -118,7 +120,7 @@
 
         var lastValidCenter = map.getCenter();
         var newLat, newLng;
-        google.maps.event.addListener(map, 'center_changed', function () {
+        google.maps.event.addListener(map, 'center_changed', function() {
             center = map.getCenter();
             if (allowedBounds.contains(center)) {
                 // still within valid bounds, so save the last valid position
@@ -136,14 +138,14 @@
             map.panTo(new google.maps.LatLng(newLat, newLng));
         });
         var lastValidZoom = 7;
-        google.maps.event.addListener(map, 'zoom_changed', function () {
+        google.maps.event.addListener(map, 'zoom_changed', function() {
             if (map.getZoom() < 7) {
                 map.setZoom(lastValidZoom);
             } else {
                 lastValidZoom = map.getZoom();
             }
         });
-        google.maps.event.addListener(self.gLayer, 'click', function (e) {
+        google.maps.event.addListener(self.gLayer, 'click', function(e) {
         });
     };
 }
@@ -162,7 +164,7 @@ function MarkerViewModel(argument) {
 
     // MarkerViewModel initializer
 
-    self.InitMarker = function (map) {
+    self.InitMarker = function(map) {
         var icon = "img/" + self.Type() + "/" + self.Tags + ".png";
 
         self.gMarker = new google.maps.Marker({
@@ -171,13 +173,13 @@ function MarkerViewModel(argument) {
             title: self.Title,
             icon: icon
         });
-        console.log("self.InitMarker ", self, self.gMarker);
     };
 
-    self.RemoveMarker = function () {
+    self.RemoveMarker = function() {
         self.gMarker.setMap(null);
     };
 }
+
 var pr = new ProjectRepository();
 var mapvm = new MapViewModel(map);
 var plvm = new ProjectListViewModel(pr, mapvm);
@@ -193,5 +195,3 @@ ko.applyBindings(layerListViewModel, document.getElementById("LayerView"));
 ko.applyBindings(tags, document.getElementById("ProjectTypeFilterView"));
 ko.applyBindings(tags, document.getElementById("ProjectTagFilterView"));
 ko.applyBindings(tags, document.getElementById("ProjectPerechenFilterView"));
-
-

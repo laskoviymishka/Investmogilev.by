@@ -1,514 +1,84 @@
-﻿@model IEnumerable<Investmogilev.Infrastructure.Common.Model.Common.Region>
-@{
-    Dictionary<string, List<double>> allGrowth = new Dictionary<string, List<double>>();
-    foreach (var item in Model)
-    {
-        foreach (var inner in item.Parametrs)
-        {
-            foreach (var child in inner.ChildParametrs)
-            {
-                double avgGrowth = 0.0;
-                int count = 0;
-
-                double growth = 0.0;
-                for (int i = 1; i < child.Values.Count; i++)
-                {
-                    if (child.Values[i].Value != 0.0 && child.Values[i - 1].Value != 0.0)
-                    {
-                        growth += child.Values[i].Value / child.Values[i - 1].Value;
-                        count++;
-                    }
-                }
-
-
-                if (count != 0)
-                {
-                    avgGrowth = growth / count;
-                }
-                if (!allGrowth.ContainsKey(child.ParametrName))
-                {
-                    allGrowth.Add(child.ParametrName, new List<double>());
-                }
-                if (avgGrowth != 0.0)
-                {
-                    allGrowth[child.ParametrName].Add(avgGrowth);
-                }
-            }
-        }
-    }
-}
-<script src="~/Scripts/jquery-2.0.2.min.js"></script>
-<link href="../../Content/jquery.dataTables.css" rel="stylesheet" type="text/css" />
-<link href="../../Content/demo_table.css" rel="stylesheet" type="text/css" />
-<link href="../../Content/demo_page.css" rel="stylesheet" type="text/css" />
-<script src="../../Content/jquery.dataTables.min.js" type="text/javascript"></script>
-<link href="../../Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<style>
-div.dataTables_length label {
-        float: left;
-        text-align: left;
-}
-
-div.dataTables_length select {
-        width: 75px;
-}
-
-div.dataTables_filter label {
-        float: right;
-}
-
-div.dataTables_info {
-        padding-top: 8px;
-}
-
-div.dataTables_paginate {
-        float: right;
-        margin: 0;
-}
-
-table.table {
-        clear: both;
-        margin-bottom: 6px !important;
-        max-width: none !important;
-}
-
-table.table thead .sorting,
-table.table thead .sorting_asc,
-table.table thead .sorting_desc,
-table.table thead .sorting_asc_disabled,
-table.table thead .sorting_desc_disabled {
-        cursor: pointer;
-        *cursor: hand;
-}
-
-table.table thead .sorting { background: url('../images/sort_both.png') no-repeat center right; }
-table.table thead .sorting_asc { background: url('../images/sort_asc.png') no-repeat center right; }
-table.table thead .sorting_desc { background: url('../images/sort_desc.png') no-repeat center right; }
-
-table.table thead .sorting_asc_disabled { background: url('../images/sort_asc_disabled.png') no-repeat center right; }
-table.table thead .sorting_desc_disabled { background: url('../images/sort_desc_disabled.png') no-repeat center right; }
-
-table.dataTable th:active {
-        outline: none;
-}
-
-/* Scrolling */
-div.dataTables_scrollHead table {
-        margin-bottom: 0 !important;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-}
-
-div.dataTables_scrollHead table thead tr:last-child th:first-child,
-div.dataTables_scrollHead table thead tr:last-child td:first-child {
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-}
-
-div.dataTables_scrollBody table {
-        border-top: none;
-        margin-bottom: 0 !important;
-}
-
-div.dataTables_scrollBody tbody tr:first-child th,
-div.dataTables_scrollBody tbody tr:first-child td {
-        border-top: none;
-}
-
-div.dataTables_scrollFoot table {
-        border-top: none;
-}
-
-
-
-
-/*
- * TableTools styles
- */
-.table tbody tr.active td,
-.table tbody tr.active th {
-        background-color: #08C;
-        color: white;
-}
-
-.table tbody tr.active:hover td,
-.table tbody tr.active:hover th {
-        background-color: #0075b0 !important;
-}
-
-.table tbody tr.active a {
-        color: white;
-}
-
-.table-striped tbody tr.active:nth-child(odd) td,
-.table-striped tbody tr.active:nth-child(odd) th {
-        background-color: #017ebc;
-}
-
-table.DTTT_selectable tbody tr {
-        cursor: pointer;
-        *cursor: hand;
-}
-
-div.DTTT .btn {
-        color: #333 !important;
-        font-size: 12px;
-}
-
-div.DTTT .btn:hover {
-        text-decoration: none !important;
-}
-
-ul.DTTT_dropdown.dropdown-menu {
-  z-index: 2003;
-}
-
-ul.DTTT_dropdown.dropdown-menu a {
-        color: #333 !important; /* needed only when demo_page.css is included */
-}
-
-ul.DTTT_dropdown.dropdown-menu li {
-        position: relative;
-}
-
-ul.DTTT_dropdown.dropdown-menu li:hover a {
-        background-color: #0088cc;
-        color: white !important;
-}
-
-div.DTTT_collection_background {
-        z-index: 2002;        
-}
-
-/* TableTools information display */
-div.DTTT_print_info.modal {
-        height: 150px;
-        margin-top: -75px;
-        text-align: center;
-}
-
-div.DTTT_print_info h6 {
-        font-weight: normal;
-        font-size: 28px;
-        line-height: 28px;
-        margin: 1em;
-}
-
-div.DTTT_print_info p {
-        font-size: 14px;
-        line-height: 20px;
-}
-
-
-
-/*
- * FixedColumns styles
- */
-div.DTFC_LeftHeadWrapper table,
-div.DTFC_LeftFootWrapper table,
-div.DTFC_RightHeadWrapper table,
-div.DTFC_RightFootWrapper table,
-table.DTFC_Cloned tr.even {
-    background-color: white;
-}
- 
-div.DTFC_RightHeadWrapper table ,
-div.DTFC_LeftHeadWrapper table {
-    margin-bottom: 0 !important;
-    border-top-right-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-}
- 
-div.DTFC_RightHeadWrapper table thead tr:last-child th:first-child,
-div.DTFC_RightHeadWrapper table thead tr:last-child td:first-child,
-div.DTFC_LeftHeadWrapper table thead tr:last-child th:first-child,
-div.DTFC_LeftHeadWrapper table thead tr:last-child td:first-child {
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-}
- 
-div.DTFC_RightBodyWrapper table,
-div.DTFC_LeftBodyWrapper table {
-    border-top: none;
-    margin-bottom: 0 !important;
-}
- 
-div.DTFC_RightBodyWrapper tbody tr:first-child th,
-div.DTFC_RightBodyWrapper tbody tr:first-child td,
-div.DTFC_LeftBodyWrapper tbody tr:first-child th,
-div.DTFC_LeftBodyWrapper tbody tr:first-child td {
-    border-top: none;
-}
- 
-div.DTFC_RightFootWrapper table,
-div.DTFC_LeftFootWrapper table {
-    border-top: none;
-}
-</style>
-<script>
-    $.extend(true, $.fn.dataTable.defaults, {
-        "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-        "sPaginationType": "bootstrap",
-        "oLanguage": {
-            "sLengthMenu": "_MENU_ records per page"
-        }
-    });
-
-
-    /* Default class modification */
-    $.extend($.fn.dataTableExt.oStdClasses, {
-        "sWrapper": "dataTables_wrapper form-inline"
-    });
-
-
-    /* API method to get paging information */
-    $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
-        return {
-            "iStart": oSettings._iDisplayStart,
-            "iEnd": oSettings.fnDisplayEnd(),
-            "iLength": oSettings._iDisplayLength,
-            "iTotal": oSettings.fnRecordsTotal(),
-            "iFilteredTotal": oSettings.fnRecordsDisplay(),
-            "iPage": oSettings._iDisplayLength === -1 ?
-                        0 : Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
-            "iTotalPages": oSettings._iDisplayLength === -1 ?
-                        0 : Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
-        };
-    };
-
-
-    /* Bootstrap style pagination control */
-    $.extend($.fn.dataTableExt.oPagination, {
-        "bootstrap": {
-            "fnInit": function (oSettings, nPaging, fnDraw) {
-                var oLang = oSettings.oLanguage.oPaginate;
-                var fnClickHandler = function (e) {
-                    e.preventDefault();
-                    if (oSettings.oApi._fnPageChange(oSettings, e.data.action)) {
-                        fnDraw(oSettings);
-                    }
-                };
-
-                $(nPaging).addClass('pagination').append(
-                                '<ul>' +
-                                        '<li class="prev disabled"><a href="#">&larr; ' + oLang.sPrevious + '</a></li>' +
-                                        '<li class="next disabled"><a href="#">' + oLang.sNext + ' &rarr; </a></li>' +
-                                '</ul>'
-                        );
-                var els = $('a', nPaging);
-                $(els[0]).bind('click.DT', { action: "previous" }, fnClickHandler);
-                $(els[1]).bind('click.DT', { action: "next" }, fnClickHandler);
-            },
-
-            "fnUpdate": function (oSettings, fnDraw) {
-                var iListLength = 5;
-                var oPaging = oSettings.oInstance.fnPagingInfo();
-                var an = oSettings.aanFeatures.p;
-                var i, ien, j, sClass, iStart, iEnd, iHalf = Math.floor(iListLength / 2);
-
-                if (oPaging.iTotalPages < iListLength) {
-                    iStart = 1;
-                    iEnd = oPaging.iTotalPages;
-                }
-                else if (oPaging.iPage <= iHalf) {
-                    iStart = 1;
-                    iEnd = iListLength;
-                } else if (oPaging.iPage >= (oPaging.iTotalPages - iHalf)) {
-                    iStart = oPaging.iTotalPages - iListLength + 1;
-                    iEnd = oPaging.iTotalPages;
-                } else {
-                    iStart = oPaging.iPage - iHalf + 1;
-                    iEnd = iStart + iListLength - 1;
-                }
-
-                for (i = 0, ien = an.length; i < ien; i++) {
-                    // Remove the middle elements
-                    $('li:gt(0)', an[i]).filter(':not(:last)').remove();
-
-                    // Add the new list items and their event handlers
-                    for (j = iStart; j <= iEnd; j++) {
-                        sClass = (j == oPaging.iPage + 1) ? 'class="active"' : '';
-                        $('<li ' + sClass + '><a href="#">' + j + '</a></li>')
-                                                .insertBefore($('li:last', an[i])[0])
-                                                .bind('click', function (e) {
-                                                    e.preventDefault();
-                                                    oSettings._iDisplayStart = (parseInt($('a', this).text(), 10) - 1) * oPaging.iLength;
-                                                    fnDraw(oSettings);
-                                                });
-                    }
-
-                    // Add / remove disabled classes from the static elements
-                    if (oPaging.iPage === 0) {
-                        $('li:first', an[i]).addClass('disabled');
-                    } else {
-                        $('li:first', an[i]).removeClass('disabled');
-                    }
-
-                    if (oPaging.iPage === oPaging.iTotalPages - 1 || oPaging.iTotalPages === 0) {
-                        $('li:last', an[i]).addClass('disabled');
-                    } else {
-                        $('li:last', an[i]).removeClass('disabled');
-                    }
-                }
-            }
-        }
-    });
-
-
-    /*
-    * TableTools Bootstrap compatibility
-    * Required TableTools 2.1+
-    */
-    if ($.fn.DataTable.TableTools) {
-        // Set the classes that TableTools uses to something suitable for Bootstrap
-        $.extend(true, $.fn.DataTable.TableTools.classes, {
-            "container": "DTTT btn-group",
-            "buttons": {
-                "normal": "btn",
-                "disabled": "disabled"
-            },
-            "collection": {
-                "container": "DTTT_dropdown dropdown-menu",
-                "buttons": {
-                    "normal": "",
-                    "disabled": "disabled"
-                }
-            },
-            "print": {
-                "info": "DTTT_print_info modal"
-            },
-            "select": {
-                "row": "active"
-            }
-        });
-
-        // Have the collection use a bootstrap compatible dropdown
-        $.extend(true, $.fn.DataTable.TableTools.DEFAULTS.oTags, {
-            "collection": {
-                "container": "ul",
-                "button": "li",
-                "liner": "a"
-            }
-        });
-    }
-
-    /* Table initialisation */
-    $(document).ready(function () {
-        $('#main-table').dataTable({
-            "sPaginationType": "bootstrap",
-            "oLanguage": {
-                "sLengthMenu": "_MENU_ записей на странице",
-                "oPaginate": {
-                    "sNext": "Следующая",
-                    "sPrevious": "Предыдущая"
-                },
-                "sInfo": "Всего _TOTAL_ записей. Показаны от _START_-й до _END_-й записи.",
-                "sSearch": "Введите фильтр для таблицы _INPUT_"
-            }
-        });
+﻿@model Investmogilev.UI.Portal.Models.PartialTableViewModel
+<link href="~/Scripts/fooTable/footable.metro.min.css" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.sparkline.min.js"></script>
+<script src="~/Scripts/fooTable/footable.js"></script>
+<script type="text/javascript">
+    $(function () {
+        /* Use 'html' instead of an array of values to pass options
+        to a sparkline with data in the tag */
+        $('.inlineline').sparkline('html', { type: 'line', width: '250px' });
+        $('.inlinebar').sparkline('html', { type: 'bar', barWidth: '20px' });
+        $('.bullet').sparkline('html', { type: 'bullet', width: '150px' });
+        $('.footable').footable();
     });
 </script>
-<table id="main-table">
+<table class="footable" data-page-size="20" data-filter-timeout="1000">
     <thead>
-        <th>
-            Регион
-        </th>
-        <th>
-            Агрегирующий параметр
-        </th>
-        <th>
-            Параметр
-        </th>
-        @for (int i = ViewBag.StartYear; i <= ViewBag.EndYear; i++)
-        {
-            <th>
-                @i год
-            </th>
-        }
-        <th>
-            Среднее
-        </th>
-        <th>
-            Рост/Средний рост
-        </th>
+        <tr>
+            <th>Показатель</th>
+            <th>Динамика показателя</th>
+            <th>Динамика темпов роста</th>
+            <th>Отношения среднего роста по району к среднеобластному</th>
+        </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var region in Model.Regions)
         {
-            foreach (var inner in item.Parametrs)
-            {
-                foreach (var child in inner.ChildParametrs)
-                {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RegionName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => inner.ParametrName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => child.ParametrName)
-                </td>
-                @for (int i = ViewBag.StartYear; i <= ViewBag.EndYear; i++)
-                {
-                    <th>
-                        <p>@child.Values.FirstOrDefault(c => c.Key == i).Value</p>
-                    </th>
-                }
-                @{
-                double avg = 0.0;
-                double avgGrowth = 0.0;
-                double sum = 0.0;
-                int count = 0;
-                foreach (var c in child.Values)
-                {
-                    if (c.Value != 0.0)
-                    {
-                        sum += c.Value;
-                        count++;
-                    }
-                }
+                <td colspan="4">@region.RegionName</td>
 
-                if (count != 0)
-                {
-                    avg = sum / count;
-                }
-
-                double growth = 0.0;
-                count = 0;
-                for (int i = 1; i < child.Values.Count; i++)
-                {
-                    if (child.Values[i].Value != 0.0 && child.Values[i - 1].Value != 0.0)
-                    {
-                        growth += child.Values[i].Value / child.Values[i - 1].Value;
-                        count++;
-                    }
-                }
-
-
-                if (count != 0)
-                {
-                    avgGrowth = growth / count;
-                }
-                }
-                <th>@avg.ToString("0.#")
-                </th>
-                @if (allGrowth[child.ParametrName].Average() > avgGrowth)
-                {
-                    <th style="background-color: lightpink">
-                        @avgGrowth.ToString("0.####") / @allGrowth[child.ParametrName].Average().ToString("0.####")
-                    </th>
-                }
-                else
-                {
-                    <th style="background-color: greenyellow">
-                        @avgGrowth.ToString("0.####") / @allGrowth[child.ParametrName].Average().ToString("0.####")
-                    </th>
-                }
             </tr>
-                }
+            foreach (var parametrViewModel in region.Parametrs.Where(t => t.Data.Any()))
+            {
+                <tr>
+                    <td>@parametrViewModel.Name </td>
+                    <td>
+                        <span class="inlineline" style="width: 10%">
+                            @foreach (var item in parametrViewModel.Data)
+                            {
+                                if (item.Key != 2012)
+                                {
+                                    @(item.Value.ToString() + ",")
+                                }
+                                else
+                                {
+                                    @(item.Value.ToString())
+                                }
+                            }
+                        </span>
+
+                    </td>
+                    <td>
+                        <span class="inlinebar" style="width: 10%">
+                            @foreach (var item in parametrViewModel.Growthes)
+                            {
+                                if (item.Key != 2012)
+                                {
+                                    @(((item.Value - 1) * 100).ToString("0.000") + ",")
+                                }
+                                else
+                                {
+                                    @(((item.Value - 1) * 100).ToString("0.000"))
+                                }
+                            }
+                        </span>
+
+                    </td>
+                    <td>
+                        <span class="bullet" style="width: 10%">
+                            @parametrViewModel.Growth , @Model.AveragesTotal.First(p => p.Key == parametrViewModel.Name).Value
+                        </span>
+                    </td>
+                </tr>
             }
         }
     </tbody>
+    <tfoot class="hide-if-no-paging">
+        <tr>
+            <td colspan="5">
+                <div class="pagination pagination-centered"></div>
+            </td>
+        </tr>
+    </tfoot>
 </table>

@@ -1,5 +1,5 @@
 ﻿function ProjectListViewModel(container, mapViewModel) {
-    var self = this
+    var self = this;
     container.GetAllGeoJson(SetDataAllGeoJson);
     // ProjectListViewModel properties
 
@@ -18,12 +18,16 @@
     self.Tags.push("Общепит");
     self.Tags.push("Логистика");
     self.Tags.push("Сельхоз");
+    self.Tags.push("Производство");
+    self.Tags.push("Соцкульт");
 
 
 
     self.Types.push("GreenField");
     self.Types.push("UnUsedBuilding");
     self.Types.push("Template");
+    self.Types.push("perechen");
+
     self.Perechen = ko.observable("Проекты перечня");
 
     // ProjectListViewModel initializer
@@ -38,8 +42,9 @@
         };
     }
 
-    self.UpdateFilter = function (projectsFilterViewModel) {
-        var isPerechen = projectsFilterViewModel.SelectedPerechen().length > 0;
+    self.UpdateFilter = function(projectsFilterViewModel) {
+        var isPerechen = projectsFilterViewModel.isPerechen();
+        console.log("perechen", isPerechen);
         self.ShowingProjects.removeAll();
         for (var j = 0; j < self.AllGeoJsonProjects().length; j++) {
             if (self.IsProjectInFilter(self.AllGeoJsonProjects()[j], projectsFilterViewModel.SelectedTypes(), projectsFilterViewModel.SelectedTags(), !isPerechen)) {
@@ -49,30 +54,32 @@
         mapViewModel.SetProjects(self.ShowingProjects());
     };
 
-    self.IsProjectInFilter = function (project, types, tags, isPerechen) {
+    self.IsProjectInFilter = function(project, types, tags, isPerechen) {
         if (tags.length == 0 || types.length == 0) {
             return false;
         }
+        var isInType = false;
         for (var j = 0; j < types.length; j++) {
-            if (project.Type().toLowerCase() == types[j].Name().toLowerCase()) {
-                for (var j = 0; j < tags.length; j++) {
-                    for (var i = 0; i < project.Tags().length; i++) {
-                        if (project.Tags()[i].toLowerCase() == tags[j].Name().toLowerCase()) {
-                            if (isPerechen) {
-                                return !project.Perechen();
-                            } else {
-                                return true;
-                            }
-                        }
-                    }
+            if (types[j].Name().toLowerCase() != "perechen" && project.Type().toLowerCase() == types[j].Name().toLowerCase()) {
+                if (isPerechen) {
+                    isInType = !project.Perechen();
+                } else {
+                    isInType = true;
                 }
             }
         }
-
-        return false;
+        var isInTag = false;
+        for (var j = 0; j < tags.length; j++) {
+            for (var i = 0; i < project.Tags().length; i++) {
+                if (project.Tags()[i].toLowerCase() == tags[j].Name().toLowerCase()) {
+                    isInTag = true;
+                }
+            }
+        }
+        return isInTag && isInType;
     };
 
-    self.AddTags = function (tags) {
+    self.AddTags = function(tags) {
         if (tags != null && tags.length > 0) {
             for (var i = 0; i < tags.length; i++) {
                 if (checkIfExistInArray(tags[i], self.Tags())) {
@@ -82,7 +89,7 @@
         }
     };
 
-    var checkIfExistInArray = function (tag, tags) {
+    var checkIfExistInArray = function(tag, tags) {
         for (var j = 0; j < tags.length; j++) {
             if (tags[j] == tag) {
                 return false;
@@ -121,15 +128,15 @@ function ProjectsFilterViewModel(projectListViewModel) {
     self.AllTypes = ko.observableArray();
     self.SelectedTags = ko.observableArray();
     self.AllTags = ko.observableArray();
-    self.SelectedPerechen = ko.observableArray();
-    self.AllPerechen = ko.observableArray();
+    self.isPerechen = ko.observable(true);
 
-    self.FilterChanged = function () {
+    self.FilterChanged = function() {
+        console.log("FilterChanged", self);
         prlVm.UpdateFilter(self);
     };
 
-    self.TypeClick = function (argument) {
-        var match = ko.utils.arrayFirst(self.SelectedTypes(), function (item) {
+    self.TypeClick = function(argument) {
+        var match = ko.utils.arrayFirst(self.SelectedTypes(), function(item) {
             if (argument.Name() == item.Name()) {
                 return true;
             } else {
@@ -144,8 +151,8 @@ function ProjectsFilterViewModel(projectListViewModel) {
         }
     };
 
-    self.TagClick = function (argument) {
-        var match = ko.utils.arrayFirst(self.SelectedTags(), function (item) {
+    self.TagClick = function(argument) {
+        var match = ko.utils.arrayFirst(self.SelectedTags(), function(item) {
             if (argument.Name() == item.Name()) {
                 return true;
             } else {
@@ -156,12 +163,16 @@ function ProjectsFilterViewModel(projectListViewModel) {
         if (!match) {
             self.SelectedTags.push(argument);
         } else {
+            console.log(match);
             self.SelectedTags.remove(match);
+            console.log(self.SelectedTags());
         }
     };
 
-    self.PerechenClick = function (argument) {
-        var match = ko.utils.arrayFirst(self.SelectedPerechen(), function (item) {
+    self.PerechenClick = function(argument) {
+        self.isPerechen(!self.isPerechen());
+        var match = ko.utils.arrayFirst(self.SelectedTypes(), function(item) {
+            console.log("find", item.Name());
             if (argument.Name() == item.Name()) {
                 return true;
             } else {
@@ -170,26 +181,22 @@ function ProjectsFilterViewModel(projectListViewModel) {
         });
 
         if (!match) {
-            self.SelectedPerechen.push(argument);
+            self.SelectedTypes.push(argument);
         } else {
-            self.SelectedPerechen.remove(match);
+            self.SelectedTypes.remove(match);
         }
         self.FilterChanged();
     };
 
-    self.UpdatePerechen = function () {
-        self.SelectedPerechen.push(new FilterTypeViewModel("perechen", "Перечень участков", "button success", self, false, true));
-        self.AllPerechen.push(new FilterTypeViewModel("perechen", "Перечень участков", "button success", self, false, true));
-    };
-    self.UpdateTags = function () {
+    self.UpdateTags = function() {
         self.SelectedTags.removeAll();
         self.AllTags.removeAll();
         for (var i = 0; i < prlVm.Tags().length; i++) {
-            self.SelectedTags.push(new FilterTypeViewModel(prlVm.Tags()[i], prlVm.Tags()[i], "button success", self, true, false));
-            self.AllTags.push(new FilterTypeViewModel(prlVm.Tags()[i], prlVm.Tags()[i], "button success", self, true, false));
+            self.SelectedTags.push(new FilterTypeViewModel(prlVm.Tags()[i], prlVm.Tags()[i], "tag button success", self, true, false));
+            self.AllTags.push(new FilterTypeViewModel(prlVm.Tags()[i], prlVm.Tags()[i], "tag button success", self, true, false));
         }
     };
-    self.UpdateTypes = function () {
+    self.UpdateTypes = function() {
         self.SelectedTypes.removeAll();
         self.AllTypes.removeAll();
         self.SelectedTypes.push(new FilterTypeViewModel("GreenField", "Инвестплощадки ", "button success", self, false, false));
@@ -200,13 +207,19 @@ function ProjectsFilterViewModel(projectListViewModel) {
 
         self.SelectedTypes.push(new FilterTypeViewModel("Template", "Готовые решения", "button success", self, false, false));
         self.AllTypes.push(new FilterTypeViewModel("Template", "Готовые решения", "button success", self, false, false));
+
+        self.SelectedTypes.push(new FilterTypeViewModel("perechen", "Перечень участков", "button success", self, false, true));
+        self.AllTypes.push(new FilterTypeViewModel("perechen", "Перечень участков", "button success", self, false, true));
+
+        for (var i = 0; i < self.SelectedTypes().length; i++) {
+            console.log("asdd", self.SelectedTypes()[i].Name());
+        }
     };
 
     prlVm.Tags.subscribe(self.UpdateTags);
     prlVm.Types.subscribe(self.UpdateTypes);
     self.UpdateTags();
     self.UpdateTypes();
-    self.UpdatePerechen();
     self.SelectedTypes.subscribe(self.FilterChanged);
     self.SelectedTags.subscribe(self.FilterChanged);
 }
@@ -216,13 +229,13 @@ function FilterTypeViewModel(name, displayName, imgName, projectsFiletrs, isTag,
     var parent = projectsFiletrs;
     self.DisplayName = ko.observable(displayName);
     self.Name = ko.observable(name);
-    var checkeStyle = name + " " + imgName;
-    var unCheckeStyle = name + " button";
+    var checkeStyle = "tag " + name + " " + imgName;
+    var unCheckeStyle = "tag " + name + " button";
     self.checked = ko.observable(checkeStyle);
     self.imgSource = "img/clear/" + self.Name() + ".png";
     self.isTag = isTag;
     self.isPerechen = isPerechen;
-    self.TypeClick = function () {
+    self.TypeClick = function() {
         if (self.isTag) {
             parent.TagClick(self);
         } else {

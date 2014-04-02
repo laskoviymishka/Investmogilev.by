@@ -14,7 +14,7 @@ $.extend($.fn.dataTableExt.oStdClasses, {
 
 
 /* API method to get paging information */
-$.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
+$.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings) {
     return {
         "iStart": oSettings._iDisplayStart,
         "iEnd": oSettings.fnDisplayEnd(),
@@ -22,9 +22,9 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
         "iTotal": oSettings.fnRecordsTotal(),
         "iFilteredTotal": oSettings.fnRecordsDisplay(),
         "iPage": oSettings._iDisplayLength === -1 ?
-                    0 : Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+            0 : Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
         "iTotalPages": oSettings._iDisplayLength === -1 ?
-                    0 : Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+            0 : Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
     };
 };
 
@@ -32,9 +32,9 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
 /* Bootstrap style pagination control */
 $.extend($.fn.dataTableExt.oPagination, {
     "bootstrap": {
-        "fnInit": function (oSettings, nPaging, fnDraw) {
+        "fnInit": function(oSettings, nPaging, fnDraw) {
             var oLang = oSettings.oLanguage.oPaginate;
-            var fnClickHandler = function (e) {
+            var fnClickHandler = function(e) {
                 e.preventDefault();
                 if (oSettings.oApi._fnPageChange(oSettings, e.data.action)) {
                     fnDraw(oSettings);
@@ -42,17 +42,17 @@ $.extend($.fn.dataTableExt.oPagination, {
             };
 
             $(nPaging).addClass('pagination').append(
-                            '<ul>' +
-                                    '<li class="prev disabled"><a href="#">&larr; ' + oLang.sPrevious + '</a></li>' +
-                                    '<li class="next disabled"><a href="#">' + oLang.sNext + ' &rarr; </a></li>' +
-                            '</ul>'
-                    );
+                '<ul>' +
+                '<li class="prev disabled"><a href="#">&larr; ' + oLang.sPrevious + '</a></li>' +
+                '<li class="next disabled"><a href="#">' + oLang.sNext + ' &rarr; </a></li>' +
+                '</ul>'
+            );
             var els = $('a', nPaging);
             $(els[0]).bind('click.DT', { action: "previous" }, fnClickHandler);
             $(els[1]).bind('click.DT', { action: "next" }, fnClickHandler);
         },
 
-        "fnUpdate": function (oSettings, fnDraw) {
+        "fnUpdate": function(oSettings, fnDraw) {
             var iListLength = 5;
             var oPaging = oSettings.oInstance.fnPagingInfo();
             var an = oSettings.aanFeatures.p;
@@ -61,8 +61,7 @@ $.extend($.fn.dataTableExt.oPagination, {
             if (oPaging.iTotalPages < iListLength) {
                 iStart = 1;
                 iEnd = oPaging.iTotalPages;
-            }
-            else if (oPaging.iPage <= iHalf) {
+            } else if (oPaging.iPage <= iHalf) {
                 iStart = 1;
                 iEnd = iListLength;
             } else if (oPaging.iPage >= (oPaging.iTotalPages - iHalf)) {
@@ -81,12 +80,12 @@ $.extend($.fn.dataTableExt.oPagination, {
                 for (j = iStart; j <= iEnd; j++) {
                     sClass = (j == oPaging.iPage + 1) ? 'class="active"' : '';
                     $('<li ' + sClass + '><a href="#">' + j + '</a></li>')
-                                            .insertBefore($('li:last', an[i])[0])
-                                            .bind('click', function (e) {
-                                                e.preventDefault();
-                                                oSettings._iDisplayStart = (parseInt($('a', this).text(), 10) - 1) * oPaging.iLength;
-                                                fnDraw(oSettings);
-                                            });
+                        .insertBefore($('li:last', an[i])[0])
+                        .bind('click', function(e) {
+                            e.preventDefault();
+                            oSettings._iDisplayStart = (parseInt($('a', this).text(), 10) - 1) * oPaging.iLength;
+                            fnDraw(oSettings);
+                        });
                 }
 
                 // Add / remove disabled classes from the static elements

@@ -1,10 +1,20 @@
-﻿using System.Web.Mvc;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="TaskTemplateController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System.Web.Mvc;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using MongoDB.Bson;
+
+	#endregion
+
 	public class TaskTemplateController : Controller
 	{
 		public ActionResult Index()

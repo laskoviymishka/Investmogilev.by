@@ -1,8 +1,18 @@
-﻿using System;
-using Investmogilev.Infrastructure.StateMachine.Localization;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="StateConfiguration.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.StateMachine
 {
+	#region Using
+
+	using System;
+	using Investmogilev.Infrastructure.StateMachine.Localization;
+
+	#endregion
+
 	public partial class StateMachine<TState, TTrigger>
 	{
 		/// <summary>

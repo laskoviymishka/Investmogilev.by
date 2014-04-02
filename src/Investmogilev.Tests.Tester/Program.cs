@@ -1,24 +1,31 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using Investmogilev.Infrastructure.BusinessLogic.Notification;
-using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.Repository;
-using Investmogilev.Infrastructure.Common.Repository.EF;
-using Investmogilev.Infrastructure.Common.State;
-using Investmogilev.Infrastructure.Common.State.StateAttributes;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="Program.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Tests.Tester
 {
-	class Program
+	#region Using
+
+	using System;
+	using System.Collections;
+	using System.Collections.Generic;
+	using Investmogilev.Infrastructure.BusinessLogic.Notification;
+	using Investmogilev.Infrastructure.BusinessLogic.Wokflow;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.Repository;
+	using Investmogilev.Infrastructure.Common.State;
+	using Investmogilev.Infrastructure.Common.State.StateAttributes;
+
+	#endregion
+
+	internal class Program
 	{
 		private static Project _currentProject;
 		private static IList _projects;
-		private static IRepository _repository = RepositoryContext.Current;
+		private static readonly IRepository _repository = RepositoryContext.Current;
 		private static IUserNotification _userNotificationl;
 		private static IAdminNotification _adminNotificate;
 		private static IInvestorNotification _investorNotificate;
@@ -27,24 +34,24 @@ namespace Investmogilev.Tests.Tester
 		private static ProjectWorkflowWrapper _workflow;
 		private static UnitsOfWorkContainer _unitOfWorksContainer;
 
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
 			var _currentUser = "";
-			_roles = new List<string>() { "Admin" };
+			_roles = new List<string> {"Admin"};
 			_investorNotificate = new InvestorNotification();
 			_adminNotificate = new AdminNotification();
 			_userNotificationl = new UserNotification();
 			_currentProject = new GreenField();
 			var _unitsOfWork = new UnitsOfWorkContainer(_currentProject,
-				  new MongoRepository("mongodb://178.124.129.147/", "Projects"),
-				 _userNotificationl,
-				 _adminNotificate,
-				 _investorNotificate,
-				 _currentUser, _roles);
+				new MongoRepository("mongodb://178.124.129.147/", "Projects"),
+				_userNotificationl,
+				_adminNotificate,
+				_investorNotificate,
+				_currentUser, _roles);
 
 			if (_currentProject.WorkflowState == null)
 			{
-				_currentProject.WorkflowState = new Workflow()
+				_currentProject.WorkflowState = new Workflow
 				{
 					CurrentState = ProjectWorkflow.State.Open
 				};
@@ -52,7 +59,7 @@ namespace Investmogilev.Tests.Tester
 			//_workflow = new ProjectWorkflowWrapper(new ProjectWorkflow(_currentProject.WorkflowState.CurrentState), _unitsOfWork);
 			//_workflow.IsMoveablde(ProjectWorkflow.Trigger.FillInformation);
 			var builder = new AttributeStateMachineBuilder();
-			ProjectStateContext context = new ProjectStateContext();
+			var context = new ProjectStateContext();
 			context.AdminNotification = _adminNotificate;
 			context.CurrentProject = _currentProject;
 			context.InvestorNotification = _investorNotificate;
@@ -67,6 +74,7 @@ namespace Investmogilev.Tests.Tester
 					_currentProject.WorkflowState.CurrentState);
 			Console.Write(statemachine.CanFire(ProjectWorkflow.Trigger.FillInformation));
 		}
+
 		//private static void GenerateDependendenciesValues()
 		//{
 		//    RegionRepository repo = new RegionRepository();

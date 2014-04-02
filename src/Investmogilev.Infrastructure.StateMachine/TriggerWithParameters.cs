@@ -1,7 +1,17 @@
-﻿using System;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="TriggerWithParameters.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.StateMachine
 {
+	#region Using
+
+	using System;
+
+	#endregion
+
 	partial class StateMachine<TState, TTrigger>
 	{
 		/// <summary>

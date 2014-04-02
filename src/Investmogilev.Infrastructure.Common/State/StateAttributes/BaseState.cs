@@ -1,4 +1,10 @@
-﻿namespace Investmogilev.Infrastructure.Common.State.StateAttributes
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="BaseState.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
+
+namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
 	public abstract class BaseState : IState
 	{

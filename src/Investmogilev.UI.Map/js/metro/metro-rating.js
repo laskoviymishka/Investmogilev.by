@@ -1,6 +1,5 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.rating", {
-
         version: "1.0.0",
 
         options: {
@@ -12,10 +11,10 @@
             showHint: false,
             showScore: false,
             scoreHint: "Current score: ",
-            click: function(value, rating){}
+            click: function(value, rating) {}
         },
 
-        _create: function(){
+        _create: function() {
             var that = this,
                 element = this.element;
 
@@ -44,34 +43,36 @@
             this._showRating();
         },
 
-        rate: function(value){
+        rate: function(value) {
             this.options.score = value;
             this._showRating();
         },
 
-        _showRating: function(){
+        _showRating: function() {
             var that = this,
                 element = this.element,
                 options = this.options,
-                ul, li;
+                ul,
+                li;
 
             element.addClass("rating");
             element.html('');
             ul = $("<ul/>");
 
-            if (!options.static){
+            if (!options.static) {
                 element.addClass("active");
             }
 
-            for(var i=0; i<options.stars;i++){
-                li = $("<li/>"); li.data('value', i+1);
+            for (var i = 0; i < options.stars; i++) {
+                li = $("<li/>");
+                li.data('value', i + 1);
 
                 if (options.showHint) li.attr('title', options.hints[i]);
 
                 if (i <= options.score - 1) {
                     li.addClass("rated");
                 }
-                li.on("click", function(){
+                li.on("click", function() {
                     options.click($(this).data('value'), that);
                 });
                 li.appendTo(ul);
@@ -80,27 +81,27 @@
             ul.appendTo(element);
 
             if (options.showScore) {
-                $("<span/>").addClass('score-hint').html(options.scoreHint+options.score).appendTo(element);
+                $("<span/>").addClass('score-hint').html(options.scoreHint + options.score).appendTo(element);
                 element.css('height', 'auto');
             } else {
                 element.find('ul').css('margin-bottom', 0);
             }
         },
 
-        _destroy: function(){
+        _destroy: function() {
 
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function () {
+$(function() {
     $('[data-role=rating]').rating();
 });
 
-function reinitRatings(){
+function reinitRatings() {
     $('[data-role=rating]').rating();
 }

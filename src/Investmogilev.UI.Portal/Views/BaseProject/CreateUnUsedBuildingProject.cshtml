@@ -26,7 +26,7 @@
             @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.Description, new { @id = "editor" })
+            @Html.TextAreaFor(model => model.Description, new {@id = "editor"})
             @Html.ValidationMessageFor(model => model.Description)
         </div>
         <div class="editor-label">
@@ -42,7 +42,7 @@
                 <td>
                     @Html.TextAreaFor(model => model.AddressName)
                     @Html.ValidationMessageFor(model => model.AddressName)
-                    <div class="button" onclick="CheckAddress()">
+                    <div class="button" onclick=" CheckAddress() ">
                         Проверить адресс
                     </div>
                 </td>
@@ -55,31 +55,38 @@
                 </td>
             </tr>
             <tr>
+                <td>@Html.LabelFor(model => model.AreaBuilding)</td>
+                <td>
+                    @Html.EditorFor(model => model.AreaBuilding)
+                    @Html.ValidationMessageFor(model => model.AreaBuilding)
+                </td>
+            </tr>
+            <tr>
                 <td>@Html.LabelFor(model => model.Tags)</td>
                 <td>
-                    @Html.DropDownListFor(model => model.Tags, new SelectList(Enum.GetNames(typeof(Tag))), new { id = "cznTags" })
+                    @Html.DropDownListFor(model => model.Tags, new SelectList(Enum.GetNames(typeof (Tag))), new {id = "cznTags"})
                     @Html.ValidationMessageFor(model => model.Tags)
                 </td>
             </tr>
             <tr>
                 <td> @Html.LabelFor(model => model.Region)</td>
                 <td>
-                    @Html.DropDownListFor(model => model.Region, new SelectList(Enum.GetNames(typeof(Regions))), new { id = "cznRegions" })
+                    @Html.DropDownListFor(model => model.Region, new SelectList(Enum.GetNames(typeof (Regions))), new {id = "cznRegions"})
                     @Html.ValidationMessageFor(model => model.Region)
                 </td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.IsSell)</td>
+                <td>@Html.LabelFor(model => model.IsRent)</td>
                 <td>
-                    @Html.EditorFor(model => model.IsSell)
-                    @Html.ValidationMessageFor(model => model.IsSell)
+                    @Html.EditorFor(model => model.IsRent)
+                    @Html.ValidationMessageFor(model => model.IsRent)
                 </td>
             </tr>
             <tr>
-                <td>@Html.LabelFor(model => model.IsCommunicate)</td>
+                <td>@Html.LabelFor(model => model.IsExclusion)</td>
                 <td>
-                    @Html.EditorFor(model => model.IsCommunicate)
-                    @Html.ValidationMessageFor(model => model.IsCommunicate)
+                    @Html.EditorFor(model => model.IsExclusion)
+                    @Html.ValidationMessageFor(model => model.IsExclusion)
                 </td>
             </tr>
             <tr>
@@ -93,7 +100,7 @@
         <p>
             <input type="submit" value="Сохранить" />
         </p>
-        <div style="visibility:hidden">
+        <div style="visibility: hidden">
             <div class="editor-label">
                 @Html.LabelFor(model => model.Address)
             </div>
@@ -107,5 +114,5 @@
 <script>
     $("#cznTags").chosen();
     $("#cznRegions").chosen();
-    $(document).ready(function () { $("#editor").cleditor(); });
+    $(document).ready(function() { $("#editor").cleditor(); });
 </script>

@@ -6,11 +6,10 @@
     Ваш отклик на проект
 </h2>
 <script>
-    window.onload = function () {
+    window.onload = function() {
         loadResponseForm('New');
-    }
-
-    loadResponseForm = function (type) {
+    };
+    loadResponseForm = function(type) {
         $('#container').html("");
         var link = '/InvestorEntry/' + type + 'ResponseToProject/' + '@ViewBag.ProjectId';
         $('#New').attr("class", "button");
@@ -18,17 +17,17 @@
         $('#' + type).attr("class", "button success");
 
         $('#polymorphicEdit').html("загружается...");
-        $.get(link, function (data) {
+        $.get(link, function(data) {
             $('#container').html(data);
             $('#container').show();
         });
-    }
+    };
 </script>
 <div>
     <div>
-        <div id="New" class="button" onclick="loadResponseForm('New')">Новый пользователь</div>
-        <div id="Existing" class="button" onclick="loadResponseForm('Existing')">Зарегестрированный пользователь</div>
+        <div id="New" class="button" onclick=" loadResponseForm('New') ">Новый пользователь</div>
+        <div id="Existing" class="button" onclick=" loadResponseForm('Existing') ">Зарегестрированный пользователь</div>
     </div>
-    <div id="container" style="width:400px">
+    <div id="container" style="width: 400px">
     </div>
 </div>

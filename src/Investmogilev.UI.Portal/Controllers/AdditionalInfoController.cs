@@ -1,19 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Investmogilev.Infrastructure.BusinessLogic.Managers;
-using Investmogilev.Infrastructure.BusinessLogic.Notification;
-using Investmogilev.Infrastructure.Common;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="AdditionalInfoController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Collections.Specialized;
+	using System.IO;
+	using System.Linq;
+	using System.Web;
+	using System.Web.Mvc;
+	using Investmogilev.Infrastructure.BusinessLogic.Managers;
+	using Investmogilev.Infrastructure.BusinessLogic.Notification;
+	using Investmogilev.Infrastructure.Common;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using MongoDB.Bson;
+
+	#endregion
+
 	public class AdditionalInfoController : Controller
 	{
 		#region Fields
@@ -37,6 +47,15 @@ namespace Investmogilev.UI.Portal.Controllers
 		{
 			ViewBag.SaveUri = string.Format("/AdditionalInfo/SaveProject?projectId={0}", projectId);
 			return PartialView("CreateAdditional");
+		}
+
+		public ActionResult RemoveProjectInfo(string projectId, string docId)
+		{
+			var project = RepositoryContext.Current.GetOne<Project>(pr => pr._id == projectId);
+			var info = project.Info.Find(i => i._id == docId);
+			project.Info.Remove(info);
+			RepositoryContext.Current.Update(project);
+			return RedirectToAction("Project", "BaseProject", new { id = projectId });
 		}
 
 		public ActionResult SaveProject(string projectId)
@@ -402,6 +421,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		}
 
 		#endregion
+
 	}
 
 	#region Nested Class For display Status

@@ -18,7 +18,8 @@
             timeout: 5000
         }, params);
 
-        var _container = _notify_container || $("<div/>").addClass("metro notify-container").appendTo('body'); _notify_container = _container;
+        var _container = _notify_container || $("<div/>").addClass("metro notify-container").appendTo('body');
+        _notify_container = _container;
 
         console.log(_container);
 
@@ -45,14 +46,14 @@
         if (params.height != 'auto') _notify.css('min-height', params.height);
 
         _notify.hide().appendTo(_container).fadeIn('slow');
-        _notifies.push( _notify );
+        _notifies.push(_notify);
 
-        setTimeout(function(){
+        setTimeout(function() {
             $.Notify.close(_notify);
         }, params.timeout);
     };
 
-    $.Notify.show = function(message, title){
+    $.Notify.show = function(message, title) {
         $.Notify({
             content: message,
             caption: title
@@ -60,11 +61,11 @@
     };
 
     $.Notify.close = function(_notify) {
-        if(_notify == undefined) {
+        if (_notify == undefined) {
             return false;
         }
 
-        _notify.fadeOut('slow', function(){
+        _notify.fadeOut('slow', function() {
             $(this).remove();
             _notifies.splice(_notifies.indexOf(_notify), 1);
         });

@@ -1,13 +1,23 @@
-﻿using System.Collections.Generic;
-using Investmogilev.Infrastructure.BusinessLogic.Notification;
-using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.Repository;
-using Investmogilev.Infrastructure.Common.State;
-using Investmogilev.Infrastructure.Common.State.StateAttributes;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="OpenUoW.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
+	#region Using
+
+	using System.Collections.Generic;
+	using Investmogilev.Infrastructure.BusinessLogic.Notification;
+	using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.Repository;
+	using Investmogilev.Infrastructure.Common.State;
+	using Investmogilev.Infrastructure.Common.State.StateAttributes;
+
+	#endregion
+
 	[State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.Open)]
 	public class OpenUoW : BaseProjectUoW, IOpenUoW, IState
 	{
@@ -58,7 +68,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 		public void OnOpenEntry()
 		{
 			ProcessMoving(ProjectWorkflow.State.Open, "Проект перещел в состояние НА КАРТЕ");
-			AdminNotification.NotificateReOpen();
+			AdminNotification.NotificateReOpen(CurrentProject);
 		}
 
 		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",

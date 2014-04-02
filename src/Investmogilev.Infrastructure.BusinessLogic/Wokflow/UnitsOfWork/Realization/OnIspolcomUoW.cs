@@ -1,15 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Investmogilev.Infrastructure.BusinessLogic.Notification;
-using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces;
-using Investmogilev.Infrastructure.Common.Model.Project;
-using Investmogilev.Infrastructure.Common.Repository;
-using Investmogilev.Infrastructure.Common.State;
-using Investmogilev.Infrastructure.Common.State.StateAttributes;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="OnIspolcomUoW.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realization
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using Investmogilev.Infrastructure.BusinessLogic.Notification;
+	using Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Interfaces;
+	using Investmogilev.Infrastructure.Common.Model.Project;
+	using Investmogilev.Infrastructure.Common.Repository;
+	using Investmogilev.Infrastructure.Common.State;
+	using Investmogilev.Infrastructure.Common.State.StateAttributes;
+
+	#endregion
+
 	[State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.OnIspolcom)]
 	internal class OnIspolcomUoW : BaseProjectUoW, IOnIspolcomUoW, IState
 	{
@@ -82,8 +92,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			ProjectStatesConstants.InMinEconomy)]
 		public bool CouldToMinEconomy()
 		{
-			return Roles.Contains("Admin") &&
-			       !CurrentProject.Tasks.Any(p => (p.Step == ProjectWorkflow.State.WaitIspolcomFixes && !p.IsComplete));
+			return !CurrentProject.Tasks.Any(p => (p.Step == ProjectWorkflow.State.WaitIspolcomFixes && !p.IsComplete)) && Roles.Contains(ADMIN_ROLE);
 		}
 
 		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
@@ -91,8 +100,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			ProjectStatesConstants.WaitIspolcomFixes)]
 		public bool CouldToIspolcomFix()
 		{
-			return Roles.Contains("Admin") &&
-			       CurrentProject.Tasks.Any(p => (p.Step == ProjectWorkflow.State.WaitIspolcomFixes && !p.IsComplete));
+			return CurrentProject.Tasks.Any(p => (p.Step == ProjectWorkflow.State.WaitIspolcomFixes && !p.IsComplete)) && Roles.Contains(ADMIN_ROLE);
 		}
 
 		public IStateContext Context { get; set; }

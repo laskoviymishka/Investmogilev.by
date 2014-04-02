@@ -1,11 +1,21 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using System.Web.Security;
-using Investmogilev.UI.Portal.Models;
-using WebMatrix.WebData;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="AccountController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System.Linq;
+	using System.Web.Mvc;
+	using System.Web.Security;
+	using Investmogilev.UI.Portal.Models;
+	using WebMatrix.WebData;
+
+	#endregion
+
 	[Authorize]
 	public class AccountController : Controller
 	{

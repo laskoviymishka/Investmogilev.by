@@ -12,7 +12,7 @@
 /* jshint nomen:false */
 /* global define, window, document */
 
-(function (factory) {
+(function(factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
@@ -28,7 +28,7 @@
             window.loadImage
         );
     }
-}(function ($, loadImage) {
+}(function($, loadImage) {
     'use strict';
 
     // Prepend to the default processQueue:
@@ -51,7 +51,6 @@
     // The File Upload Audio Preview plugin extends the fileupload widget
     // with audio preview functionality:
     $.widget('blueimp.fileupload', $.blueimp.fileupload, {
-
         options: {
             // The regular expression for the types of audio files to load,
             // matched against the file type:
@@ -66,7 +65,7 @@
             // as audio element if the browser supports playing it.
             // Accepts the options fileTypes (regular expression)
             // and maxFileSize (integer) to limit the files to load:
-            loadAudio: function (data, options) {
+            loadAudio: function(data, options) {
                 if (options.disabled) {
                     return data;
                 }
@@ -74,11 +73,11 @@
                     url,
                     audio;
                 if (this._audioElement.canPlayType &&
-                        this._audioElement.canPlayType(file.type) &&
-                        ($.type(options.maxFileSize) !== 'number' ||
-                            file.size <= options.maxFileSize) &&
-                        (!options.fileTypes ||
-                            options.fileTypes.test(file.type))) {
+                    this._audioElement.canPlayType(file.type) &&
+                    ($.type(options.maxFileSize) !== 'number' ||
+                        file.size <= options.maxFileSize) &&
+                    (!options.fileTypes ||
+                        options.fileTypes.test(file.type))) {
                     url = loadImage.createObjectURL(file);
                     if (url) {
                         audio = this._audioElement.cloneNode(false);
@@ -92,7 +91,7 @@
             },
 
             // Sets the audio element as a property of the file object:
-            setAudio: function (data, options) {
+            setAudio: function(data, options) {
                 if (data.audio && !options.disabled) {
                     data.files[data.index][options.name || 'preview'] = data.audio;
                 }

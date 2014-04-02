@@ -1,11 +1,21 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.State;
-using MongoDB.Bson.Serialization.Attributes;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="Workflow.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
+	#region Using
+
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.State;
+	using MongoDB.Bson.Serialization.Attributes;
+
+	#endregion
+
 	[BsonIgnoreExtraElements]
 	public class Workflow
 	{

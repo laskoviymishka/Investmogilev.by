@@ -1,8 +1,18 @@
-﻿using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.State;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="TaskTemplate.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
+	#region Using
+
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.State;
+
+	#endregion
+
 	public class TaskTemplate : IMongoEntity
 	{
 		public string Title { get; set; }

@@ -1,19 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using Investmogilev.Infrastructure.BusinessLogic.Managers;
-using Investmogilev.Infrastructure.BusinessLogic.Notification;
-using Investmogilev.Infrastructure.Common.Model.Common;
-using Investmogilev.Infrastructure.Common.Model.User;
-using Investmogilev.Infrastructure.Common.Repository;
-using MongoDB.Bson;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="MessageController.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.UI.Portal.Controllers
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.IO;
+	using System.Linq;
+	using System.Web;
+	using System.Web.Configuration;
+	using System.Web.Mvc;
+	using Investmogilev.Infrastructure.BusinessLogic.Managers;
+	using Investmogilev.Infrastructure.BusinessLogic.Notification;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+	using Investmogilev.Infrastructure.Common.Model.User;
+	using Investmogilev.Infrastructure.Common.Repository;
+	using MongoDB.Bson;
+
+	#endregion
+
 	[Authorize]
 	public class MessageController : Controller
 	{
@@ -141,7 +151,7 @@ namespace Investmogilev.UI.Portal.Controllers
 
 		public ActionResult Save(string id, IEnumerable<HttpPostedFileBase> attachments)
 		{
-			foreach (HttpPostedFileBase file in attachments)
+			foreach (var file in attachments)
 			{
 				string fileName = Path.GetFileName(file.FileName);
 				string physicalPath =

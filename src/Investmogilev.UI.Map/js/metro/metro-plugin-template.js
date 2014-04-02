@@ -1,24 +1,24 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.widget", {
-
         version: "1.0.0",
 
         options: {
+        
         },
 
-        _create: function(){
+        _create: function() {
         },
 
-        _destroy: function(){
+        _destroy: function() {
 
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function () {
+$(function() {
     $('[data-role=name]').widget();
 });

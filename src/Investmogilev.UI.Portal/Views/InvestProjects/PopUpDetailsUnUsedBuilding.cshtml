@@ -1,5 +1,5 @@
 ﻿@model Investmogilev.Infrastructure.Common.Model.Project.UnUsedBuilding
-<fieldset style="height: 600px; width: 600px; overflow-x: auto; ">
+<fieldset style="height: 600px; overflow-x: auto;">
     <h3 style="font-weight: bold;">Неиспользуемое здание</h3>
     <table class="table table-striped table-condensed">
         <tr>
@@ -11,12 +11,20 @@
             <td>@Html.Raw(HttpUtility.HtmlDecode(Model.Description))</td>
         </tr>
         <tr>
-            <td style="width: 25%">Продажа</td>
-            <td>@Html.DisplayFor(model => model.IsSell)</td>
+            <td style="width: 25%">Аренда</td>
+            <td>@Html.DisplayFor(model => model.IsRent)</td>
         </tr>
         <tr>
-            <td style="width: 25%">Коммуникации</td>
-            <td>@Html.DisplayFor(model => model.IsCommunicate)</td>
+            <td style="width: 25%">Отчуждение</td>
+            <td>@Html.DisplayFor(model => model.IsExclusion)</td>
+        </tr>
+        <tr>
+            <td style="width: 25%">Площадь здания</td>
+            <td>@Html.DisplayFor(model => model.AreaBuilding), кв. м.</td>
+        </tr>
+        <tr>
+            <td style="width: 25%">Площадь земли</td>
+            <td>@Html.DisplayFor(model => model.Area), кв. м.</td>
         </tr>
         <tr>
             <td style="width: 25%">Балансовая стоимость</td>
@@ -29,7 +37,9 @@
                 <td>
                     @foreach (var info in Model.Info)
                     {
-                        if (info.InfoName.EndsWith(".jpg") || info.InfoName.EndsWith(".gif") || info.InfoName.EndsWith(".png"))
+                        if (info.InfoName.ToLowerInvariant().EndsWith(".jpg")
+                            || info.InfoName.ToLowerInvariant().EndsWith(".gif")
+                            || info.InfoName.ToLowerInvariant().EndsWith(".png"))
                         {
                             <img src="@string.Format("http://investmogilev.by/AdditionalInfo/DownloadProjectInfo?projectId={0}&docId={1}", Model._id, info._id)">
                         }
@@ -45,5 +55,5 @@
             </tr>
         }
     </table>
-    <a style="margin-left: 200px" id="popupLink" href="/InvestorEntry/ResponseToProject/@Model._id" class="button button success">Откликнуться на проект</a>
+    <a style="margin-left: 200px" id="popupLink" href="/InvestorEntry/ResponseToProject/@Model._id" class="button button success"> Откликнуться на проект </a>
 </fieldset>

@@ -9,7 +9,7 @@
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
 <h2>Создать шаблон</h2>
 <p>
-    @Html.ActionLink("Назад к шаблонам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker" })
+    @Html.ActionLink("Назад к шаблонам", "Index", null, new {@class = "icon-arrow-left-3 fg-darker"})
 </p>
 @using (Html.BeginForm())
 {
@@ -32,7 +32,7 @@
             @Html.LabelFor(model => model.Step)
         </small>
         <blockquote class="editor-field">
-            @Html.DropDownListFor(model => model.Step, new SelectList(Enum.GetNames(typeof(ProjectWorkflow.State))), new { id = "cznSteps" })
+            @Html.DropDownListFor(model => model.Step, new SelectList(Enum.GetNames(typeof (ProjectWorkflow.State))), new {id = "cznSteps"})
             @Html.ValidationMessageFor(model => model.Step)
         </blockquote>
 
@@ -40,7 +40,7 @@
             @Html.LabelFor(model => model.Type)
         </small>
         <blockquote class="editor-field">
-            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetNames(typeof(TaskTypes))), new { id = "cznTypes" })
+            @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetNames(typeof (TaskTypes))), new {id = "cznTypes"})
             @Html.ValidationMessageFor(model => model.Type)
         </blockquote>
 
@@ -49,16 +49,16 @@
             @Html.LabelFor(model => model.Body)
         </small>
         <blockquote class="editor-field">
-            @Html.TextAreaFor(model => model.Body, new { @id = "editor" })
+            @Html.TextAreaFor(model => model.Body, new {@id = "editor"})
             @Html.ValidationMessageFor(model => model.Body)
         </blockquote>
-        <p style="margin-top:10px">
+        <p style="margin-top: 10px">
             <input type="submit" value="Сохранить" />
         </p>
     </fieldset>
 }
 <script>
-    $(document).ready(function () { $("#editor").cleditor(); });
+    $(document).ready(function() { $("#editor").cleditor(); });
     $("#cznSteps").chosen();
     $("#cznTypes").chosen();
 </script>

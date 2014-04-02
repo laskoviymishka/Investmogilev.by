@@ -6,7 +6,7 @@
     информация о задаче
 </h2>
 <div>
-    @Html.ActionLink("К моим задачам", "Index", null, new { @class = "icon-arrow-left-3 fg-darker big" })
+    @Html.ActionLink("К моим задачам", "Index", null, new {@class = "icon-arrow-left-3 fg-darker big"})
 </div>
 <fieldset>
     <legend>Задание</legend>
@@ -31,13 +31,13 @@
         @Html.DisplayFor(model => model.IsComplete)
     </blockquote>
 
-    <fieldset style="margin-left:20px">
+    <fieldset style="margin-left: 20px">
         <legend>Отчеты</legend>
         @if (Model.TaskReport != null)
         {
             foreach (var item in Model.TaskReport)
             {
-                <fieldset style="margin-left:20px">
+                <fieldset style="margin-left: 20px">
                     <legend>Отчет от @item.ReportTime.ToShortDateString()</legend>
                     <small class="display-label">
                         @Html.DisplayNameFor(model => item.Body)
@@ -49,21 +49,21 @@
                         Приложения
                     </div>
                     <ul>
-                        <fieldset style="margin:10px">
+                        <fieldset style="margin: 10px">
                             @if (item.Info != null && item.Info.Any())
                             {
                                 foreach (var appendix in item.Info)
                                 {
                                     <blockquote>
                                         @Html.ActionLink("Скачать " + appendix.InfoName,
-                                              "Download",
-                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button info" })
+                                            "Download",
+                                            new {messageId = Model._id, appendixId = item._id}, new {@class = "button button info"})
                                     </blockquote>
                                 }
                             }
                         </fieldset>
                     </ul>
-                    <fieldset style="margin-left:20px;">
+                    <fieldset style="margin-left: 20px;">
                         <legend>Ответ на отчет</legend>
                         @if (item.ReportResponse != null)
                         {
@@ -83,15 +83,15 @@
                                 Приложения
                             </div>
                             <ul>
-                                <fieldset style="margin:10px">
+                                <fieldset style="margin: 10px">
                                     @if (item.ReportResponse.Info != null && item.ReportResponse.Info.Any())
                                     {
                                         foreach (var appendix in item.ReportResponse.Info)
                                         {
                                             <blockquote>
                                                 @Html.ActionLink("Скачать " + appendix.InfoName,
-                                              "Download",
-                                               new { messageId = Model._id, appendixId = item._id }, new { @class = "button button info" })
+                                                    "Download",
+                                                    new {messageId = Model._id, appendixId = item._id}, new {@class = "button button info"})
                                             </blockquote>
                                         }
                                     }
@@ -110,4 +110,3 @@
         }
     </fieldset>
 </fieldset>
-

@@ -4,24 +4,22 @@
 }
 <h2>Заполнить проект</h2>
 <div>
-    @Html.ActionLink("К моим проектам", "All", null, new { @class = "icon-arrow-left-3 fg-darker big button success" })
+    @Html.ActionLink("К моим проектам", "All", null, new {@class = "icon-arrow-left-3 fg-darker big button success"})
 </div>
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <link href="~/Content/chosen.min.css" rel="stylesheet" />
 </br>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         var link = '/BaseProject/@Model.GetType().Name' + 'Project/@Model._id';
-        $.get(link, function (data) {
+        $.get(link, function(data) {
             $('#polymorphicEdit').html(data);
             $('#polymorphicEdit').show();
         });
     });
 </script>
 <style>
-    #container {
-        width: 95%;
-    }
+    #container { width: 95%; }
 
     #polymorphicEdit {
         float: left;
@@ -32,4 +30,4 @@
 <div id="container">
     <div id="polymorphicEdit">Загружется...</div>
 </div>
-@Html.Action("CreateProjectAdditional", "AdditionalInfo", new { projectId = Model._id })
+@Html.Action("CreateProjectAdditional", "AdditionalInfo", new {projectId = Model._id})

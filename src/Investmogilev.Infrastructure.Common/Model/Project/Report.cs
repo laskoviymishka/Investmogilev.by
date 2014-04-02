@@ -1,10 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Investmogilev.Infrastructure.Common.Model.Common;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="Report.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.Model.Project
 {
+	#region Using
+
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using Investmogilev.Infrastructure.Common.Model.Common;
+
+	#endregion
+
 	public class Report : IMongoEntity
 	{
 		[Display(Name = "Тело отчета")]

@@ -4,66 +4,126 @@ body {
     padding: 0;
 }
 
+.rightContainerBigScreen {
+    float: right;
+    height: 100%;
+    width: 73%;
+}
+
+.rightContainerSmallScreen {
+    float: right;
+    height: 100%;
+    width: 99%;
+}
+
+.leftContainerBigScreen {
+    float: left;
+    height: 100%;
+    margin-left: 20px;
+    min-width: 220px;
+    overflow: auto;
+    width: 25%;
+}
+.hidden { visibility: hidden; }
+.leftContainerSmallScreenHide {
+}
+.leftContainerSmallScreenShow {
+    height: 100%;
+    width: 99%;
+}
+
+.tag {
+    min-width: 160px;
+    width: 49%;
+}
+
+.metro .button.success.tag {
+    background-color: rgb(40, 145, 21) !important;
+    color: #ffffff !important;
+}
+
+.gm-style img {
+    max-width: none;
+}
+
+.gm-style label {
+    display: inline;
+    width: auto;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
 header {
     height: 45px;
 }
 
 .metro .page {
-    width: 980px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 980px;
 }
 
 .metro .button.Template {
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.UnUsedBuilding {
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.GreenField {
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.perechen {
-    width: 75%;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.success.Template {
     background-color: blueviolet !important;
-    width: 75%;
     color: #ffffff !important;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.success.UnUsedBuilding {
     background-color: brown !important;
-    width: 75%;
     color: #ffffff !important;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.success.GreenField {
     background-color: #60a917 !important;
-    width: 75%;
     color: #ffffff !important;
+    min-width: 160px;
+    width: 49%;
 }
 
 .metro .button.success.perechen {
     background-color: #4390df !important;
-    width: 75%;
     color: #ffffff !important;
+    min-width: 160px;
+    width: 49%;
 }
 
 .displayTitle {
-    font-family: 'Segoe UI Light_', 'Open Sans Light', Verdana, Arial, Helvetica, sans-serif;
-    font-weight: 300;
     color: #000000;
-    letter-spacing: 0.00em;
-    font-size: 20pt;
-    line-height: 24pt;
-    letter-spacing: 0.01em;
     color: rgba(0, 0, 0, 0.6);
+    font-family: 'Segoe UI Light_', 'Open Sans Light', Verdana, Arial, Helvetica, sans-serif;
+    font-size: 20pt;
     font-size: 12pt;
+    font-weight: 300;
+    letter-spacing: 0.00em;
+    letter-spacing: 0.01em;
+    line-height: 24pt;
 }
 
 .description {
@@ -71,10 +131,10 @@ header {
 }
 
 .show-grid .row [class*="span"] {
-    line-height: 40px;
     background: rgba(193, 179, 123, 0.52);
-    text-align: center;
+    line-height: 40px;
     min-height: 10px !important;
+    text-align: center;
 }
 
 .color-stack li,
@@ -83,13 +143,13 @@ header {
 }
 
 .example > img {
-    margin: 5px;
     display: inline-block;
+    margin: 5px;
 }
 
 .example .image-container {
-    margin: 10px;
     display: inline-block;
+    margin: 10px;
     vertical-align: middle;
 }
 
@@ -133,6 +193,6 @@ header {
 }
 
 footer {
-    width: 100%;
     height: 25px;
+    width: 100%;
 }

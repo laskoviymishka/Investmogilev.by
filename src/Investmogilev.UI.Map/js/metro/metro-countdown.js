@@ -1,6 +1,5 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.countdown", {
-
         version: "1.0.0",
 
         options: {
@@ -12,19 +11,19 @@
             blink: true,
             days: 1,
             stoptimer: 0,
-            ontick: function(d, h, m, s){},
-            onstop: function(){}
+            ontick: function(d, h, m, s) {},
+            onstop: function() {}
         },
 
         wrappers: {},
 
         _interval: 0,
 
-        _create: function(){
+        _create: function() {
             var that = this, countdown = this.element;
 
-            $.each(['Days','Hours','Minutes','Seconds'],function(){
-                $('<span class="count'+this+'">').html(
+            $.each(['Days', 'Hours', 'Minutes', 'Seconds'], function() {
+                $('<span class="count' + this + '">').html(
                     '<span class="digit-wrapper">\
                         <span class="digit">0</span>\
                     </span>\
@@ -33,7 +32,7 @@
                     </span>'
                 ).appendTo(countdown);
 
-                if(this!="Seconds"){
+                if (this != "Seconds") {
                     countdown.append('<span class="divider"></span>');
                 }
             });
@@ -73,52 +72,52 @@
             }
 
             if (this.options.stoptimer == 0) {
-                this.options.stoptimer = (new Date()).getTime() + this.options.days*24*60*60*1000;
+                this.options.stoptimer = (new Date()).getTime() + this.options.days * 24 * 60 * 60 * 1000;
             }
 
-            setTimeout( function(){
-                that.tick()
+            setTimeout(function() {
+                that.tick();
             }, 1000);
         },
 
-        _destroy: function(){
+        _destroy: function() {
 
         },
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         },
 
-        tick: function(){
+        tick: function() {
             var that = this;
 
-            this._interval = setInterval(function(){
-                var days = 24*60*60,
-                    hours = 60*60,
+            this._interval = setInterval(function() {
+                var days = 24 * 60 * 60,
+                    hours = 60 * 60,
                     minutes = 60;
 
                 var left, d, h, m, s;
 
                 left = Math.floor((that.options.stoptimer - (new Date())) / 1000);
 
-                if(left < 0){
+                if (left < 0) {
                     left = 0;
                 }
 
                 // Number of days left
                 d = Math.floor(left / days);
                 that.updateDuo(0, 1, d);
-                left -= d*days;
+                left -= d * days;
 
                 // Number of hours left
                 h = Math.floor(left / hours);
                 that.updateDuo(2, 3, h);
-                left -= h*hours;
+                left -= h * hours;
 
                 // Number of minutes left
                 m = Math.floor(left / minutes);
                 that.updateDuo(4, 5, m);
-                left -= m*minutes;
+                left -= m * minutes;
 
                 // Number of seconds left
                 s = left;
@@ -139,43 +138,43 @@
             }, 1000);
         },
 
-        blinkDivider: function(){
+        blinkDivider: function() {
             if (this.options.blink)
                 this.element.find(".divider").toggleClass("no-visible");
         },
 
-        stopDigit: function(){
-            this.wrappers.each(function(){
+        stopDigit: function() {
+            this.wrappers.each(function() {
                 $(this).children(".digit").addClass("stop");
-            })
+            });
         },
 
-        updateDuo: function(minor, major, value){
-            this.switchDigit(this.wrappers.eq(minor),Math.floor(value/10)%10);
-            this.switchDigit(this.wrappers.eq(major),value%10);
+        updateDuo: function(minor, major, value) {
+            this.switchDigit(this.wrappers.eq(minor), Math.floor(value / 10) % 10);
+            this.switchDigit(this.wrappers.eq(major), value % 10);
         },
 
-        switchDigit: function(wrapper, number){
+        switchDigit: function(wrapper, number) {
             var digit = wrapper.find('.digit');
 
-            if(digit.is(':animated')){
+            if (digit.is(':animated')) {
                 return false;
             }
 
-            if(wrapper.data('digit') == number){
+            if (wrapper.data('digit') == number) {
                 // We are already showing this number
                 return false;
             }
 
             wrapper.data('digit', number);
 
-            var replacement = $('<span>',{
-                'class':'digit',
-                css:{
-                    top:'-2.1em',
-                    opacity:0
+            var replacement = $('<span>', {
+                'class': 'digit',
+                css: {
+                    top: '-2.1em',
+                    opacity: 0
                 },
-                html:number
+                html: number
             });
 
             replacement.addClass(this.options.style.background);
@@ -184,23 +183,23 @@
             digit
                 .before(replacement)
                 .removeClass('static')
-                .animate({top:'2.5em'},'fast',function(){
+                .animate({ top: '2.5em' }, 'fast', function() {
                     digit.remove();
                 });
 
             replacement
                 .delay(100)
-                .animate({top:0,opacity:1},'fast');
+                .animate({ top: 0, opacity: 1 }, 'fast');
 
             return true;
         }
     });
-})( jQuery );
+})(jQuery);
 
-$(function () {
+$(function() {
     $('[data-role=countdown]').countdown();
 });
 
-function reinitCountdowns(){
+function reinitCountdowns() {
     $('[data-role=countdown]').countdown();
 }

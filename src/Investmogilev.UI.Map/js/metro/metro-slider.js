@@ -1,6 +1,5 @@
-(function( $ ) {
+(function($) {
     $.widget("metro.slider", {
-
         version: "1.0.0",
 
         options: {
@@ -11,8 +10,8 @@
             markerColor: 'default',
             colors: [],
             showHint: false,
-            change: function(value, slider){},
-            changed: function(value, slider){},
+            change: function(value, slider) {},
+            changed: function(value, slider) {},
 
             _slider: {
                 vertical: false,
@@ -26,7 +25,7 @@
         },
 
 
-        _create: function(){
+        _create: function() {
             var that = this,
                 element = this.element,
 
@@ -63,27 +62,27 @@
 
             addTouchEvents(element[0]);
 
-            element.children('.marker').on('mousedown', function (e) {
+            element.children('.marker').on('mousedown', function(e) {
                 e.preventDefault();
                 that._startMoveMarker(e);
             });
 
-            element.on('mousedown', function (e) {
+            element.on('mousedown', function(e) {
                 e.preventDefault();
                 that._startMoveMarker(e);
             });
         },
 
-        _startMoveMarker: function(e){
+        _startMoveMarker: function(e) {
             var element = this.element, o = this.options, that = this, hint = element.children('.hint');
 
-            $(element).on('mousemove', function (event) {
+            $(element).on('mousemove', function(event) {
                 that._movingMarker(event);
                 if (!element.hasClass('permanent-hint')) {
                     hint.css('display', 'block');
                 }
             });
-            $(element).on('mouseup', function () {
+            $(element).on('mouseup', function() {
                 $(element).off('mousemove');
                 element.off('mouseup');
                 element.data('value', that.options.position);
@@ -96,10 +95,10 @@
 
             this._initPoints();
 
-            this._movingMarker(e)
+            this._movingMarker(e);
         },
 
-        _movingMarker: function (event) {
+        _movingMarker: function(event) {
             var cursorPos,
                 percents,
                 valuePix,
@@ -138,8 +137,13 @@
             this.options.change(Math.round(percents), this.element);
         },
 
-        _placeMarker: function (value) {
-            var size, size2, o = this.options, colorParts = 0, colorIndex = 0, colorDelta = 0,
+        _placeMarker: function(value) {
+            var size,
+                size2,
+                o = this.options,
+                colorParts = 0,
+                colorIndex = 0,
+                colorDelta = 0,
                 marker = this.element.children('.marker'),
                 complete = this.element.children('.complete'),
                 hint = this.element.children('.hint');
@@ -153,41 +157,41 @@
                 marker.css('top', size2);
                 complete.css('height', size);
                 if (colorParts) {
-                    colorIndex = Math.round(size / colorDelta)-1;
-                    complete.css('background-color', o.colors[colorIndex<0?0:colorIndex]);
+                    colorIndex = Math.round(size / colorDelta) - 1;
+                    complete.css('background-color', o.colors[colorIndex < 0 ? 0 : colorIndex]);
                 }
                 if (o.showHint) {
-                    hint.html(Math.round(value)).css('top', size2 - hint.height()/2);
+                    hint.html(Math.round(value)).css('top', size2 - hint.height() / 2);
                 }
             } else {
                 size = this._percToPix(value);
                 marker.css('left', size);
                 complete.css('width', size);
                 if (colorParts) {
-                    colorIndex = Math.round(size / colorDelta)-1;
-                    complete.css('background-color', o.colors[colorIndex<0?0:colorIndex]);
+                    colorIndex = Math.round(size / colorDelta) - 1;
+                    complete.css('background-color', o.colors[colorIndex < 0 ? 0 : colorIndex]);
                 }
                 if (o.showHint) {
-                    hint.html(Math.round(value)).css('left', size - hint.width()/2);
+                    hint.html(Math.round(value)).css('left', size - hint.width() / 2);
                 }
             }
 
         },
 
-        _pixToPerc: function (valuePix) {
+        _pixToPerc: function(valuePix) {
             var valuePerc;
             valuePerc = valuePix * this.options._slider.ppp;
             return this._correctValue(valuePerc);
         },
 
-        _percToPix: function (value) {
+        _percToPix: function(value) {
             if (this.options._slider.ppp === 0) {
                 return 0;
             }
             return value / this.options._slider.ppp;
         },
 
-        _correctValue: function (value) {
+        _correctValue: function(value) {
             var accuracy = this.options.accuracy;
             if (accuracy === 0) {
                 return value;
@@ -202,7 +206,7 @@
             return value;
         },
 
-        _initPoints: function(){
+        _initPoints: function() {
             var s = this.options._slider, element = this.element;
 
             if (s.vertical) {
@@ -220,10 +224,12 @@
             s.stop = s.length - s.marker / 2;
         },
 
-        _createSlider: function(){
+        _createSlider: function() {
             var element = this.element,
                 options = this.options,
-                complete, marker, hint;
+                complete,
+                marker,
+                hint;
 
             element.html('');
 
@@ -245,7 +251,7 @@
             }
         },
 
-        value: function (value) {
+        value: function(value) {
             if (typeof value !== 'undefined') {
                 this._placeMarker(parseInt(value));
                 this.options.position = parseInt(value);
@@ -256,18 +262,18 @@
             }
         },
 
-        _destroy: function(){},
+        _destroy: function() {},
 
-        _setOption: function(key, value){
+        _setOption: function(key, value) {
             this._super('_setOption', key, value);
         }
-    })
-})( jQuery );
+    });
+})(jQuery);
 
-$(function(){
+$(function() {
     $('[data-role=slider]').slider();
 });
 
-function reinitSliders(){
+function reinitSliders() {
     $('[data-role=slider]').slider();
 }

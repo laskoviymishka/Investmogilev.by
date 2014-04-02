@@ -1,7 +1,17 @@
-﻿using System;
+﻿// // -----------------------------------------------------------------------
+// // <copyright file="TriggerAttribute.cs" author="Andrei Tserakhau">
+// // Copyright (c) Andrei Tserakhau. All rights reserved.
+// // </copyright>
+// // -----------------------------------------------------------------------
 
 namespace Investmogilev.Infrastructure.Common.State.StateAttributes
 {
+	#region Using
+
+	using System;
+
+	#endregion
+
 	public class TriggerAttribute : Attribute
 	{
 		private readonly string _from;

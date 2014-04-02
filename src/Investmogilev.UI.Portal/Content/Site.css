@@ -5,9 +5,9 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body {
     background-color: grey;
-    font-size: 75%;
-    font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
     color: #696969;
+    font-family: Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
+    font-size: 75%;
 }
 
 body, html {
@@ -17,33 +17,25 @@ body, html {
 }
 
 #editor {
-    overflow: scroll;
     max-height: 300px;
+    overflow: scroll;
 }
 
 header,
 footer,
 nav,
-section {
-    display: block;
-}
+section { display: block; }
 
 
 /* Upload */
 
 .t-dropzone-active,
-.t-upload-files {
-    border-color: #e5e5e5;
-}
+.t-upload-files { border-color: #e5e5e5; }
 
 .t-dropzone-hovered,
-.t-upload-files {
-    background-color: #e5e5e5;
-}
+.t-upload-files { background-color: #e5e5e5; }
 
-.t-dropzone em {
-    color: #9b9b9b;
-}
+.t-dropzone em { color: #9b9b9b; }
 
 .t-progress {
     background-color: #e5e5e5;
@@ -57,120 +49,108 @@ section {
 
 /* HEADINGS   
 ----------------------------------------------------------*/
+
 h1, h2, h3, h4, h5, h6 {
-    font-size: 1.5em;
     color: #000;
+    font-size: 1.5em;
 }
 
 h1 {
     font-size: 2em;
-    padding-bottom: 0;
     margin-bottom: 0;
+    padding-bottom: 0;
 }
 
-h2 {
-    padding: 0 0 10px 0;
-}
+h2 { padding: 0 0 10px 0; }
 
-h3 {
-    font-size: 1.2em;
-}
+h3 { font-size: 1.2em; }
 
-h4 {
-    font-size: 1.1em;
-}
+h4 { font-size: 1.1em; }
 
-h5, h6 {
-    font-size: 1em;
-}
+h5, h6 { font-size: 1em; }
 
-a {
-    color: #696969;
-}
+a { color: #696969; }
 
-li {
-    line-height: 1.6;
-}
+li { line-height: 1.6; }
 
 /* this rule styles <h2> tags that are the 
 first child of the left and right table columns */
-.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2 {
-    margin-top: 0;
-}
+
+.rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2 { margin-top: 0; }
 
 /* PRIMARY LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
+
 .page {
     height: 100%;
-    width: 90%;
     margin-left: auto;
     margin-right: auto;
+    width: 90%;
 }
 
 header, #header {
-    position: relative;
-    margin-bottom: 0px;
     color: #000;
+    margin-bottom: 0px;
     padding: 0;
+    position: relative;
 }
 
-    header h1, #header h1 {
-        font-weight: bold;
-        padding: 5px 0;
-        margin: 0;
-        color: #fff;
-        border: none;
-        line-height: 2em;
-        font-size: 32px !important;
-    }
+header h1, #header h1 {
+    border: none;
+    color: #fff;
+    font-size: 32px !important;
+    font-weight: bold;
+    line-height: 2em;
+    margin: 0;
+    padding: 5px 0;
+}
 
 #main {
     background: #fff;
-    padding: 30px 30px 15px 30px;
     margin-bottom: 30px;
+    padding: 30px 30px 15px 30px;
     _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
 }
 
 footer, #footer {
-    height: 5%;
     color: #999;
-    padding: 10px 0;
-    text-align: center;
+    font-size: .9em;
+    height: 5%;
     line-height: normal;
     margin: 0;
-    font-size: .9em;
+    padding: 10px 0;
+    text-align: center;
 }
 
 /* MENU   
 ----------------------------------------------------------*/
+
 #menu {
     height: 5%;
-    position: relative;
     margin: 0;
+    position: relative;
     text-align: right;
 }
 
-    #menu .t-item {
-        border-width: 0 0 0 1px;
-    }
+#menu .t-item { border-width: 0 0 0 1px; }
 
-    #menu .t-link {
-        padding: 5px 20px;
-        font-weight: bold;
-        text-decoration: none;
-        line-height: 1.8em;
-    }
+#menu .t-link {
+    font-weight: bold;
+    line-height: 1.8em;
+    padding: 5px 20px;
+    text-decoration: none;
+}
 
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
 fieldset {
     border: 1px solid #ddd;
-    padding: 0 1.4em 1.4em 1.4em;
     margin: 0 0 1.5em 0;
+    padding: 0 1.4em 1.4em 1.4em;
 }
 
 legend {
@@ -178,18 +158,16 @@ legend {
     font-weight: bold;
 }
 
-textarea {
-    min-height: 75px;
-}
+textarea { min-height: 75px; }
 
 input[type="text"] {
-    width: 200px;
     border: 1px solid #CCC;
+    width: 200px;
 }
 
 input[type="password"] {
-    width: 200px;
     border: 1px solid #CCC;
+    width: 200px;
 }
 
 /* TABLE
@@ -200,27 +178,24 @@ table {
     border-collapse: collapse;
 }
 
-    table td {
-        padding: 5px;
-        border: solid 1px #e8eef4;
-    }
+table td {
+    border: solid 1px #e8eef4;
+    padding: 5px;
+}
 
-    table th {
-        padding: 6px 5px;
-        text-align: left;
-        background-color: #e8eef4;
-        border: solid 1px #e8eef4;
-    }
+table th {
+    background-color: #e8eef4;
+    border: solid 1px #e8eef4;
+    padding: 6px 5px;
+    text-align: left;
+}
 
 /* MISC  
 ----------------------------------------------------------*/
-.clear {
-    clear: both;
-}
 
-.error {
-    color: Red;
-}
+.clear { clear: both; }
+
+.error { color: Red; }
 
 div#title {
     display: block;
@@ -228,72 +203,58 @@ div#title {
 }
 
 #logindisplay {
-    font-size: 1.1em;
-    display: block;
-    text-align: right;
-    margin: 10px;
     color: White;
+    display: block;
+    font-size: 1.1em;
+    margin: 10px;
+    text-align: right;
 }
 
-    #logindisplay a:link {
-        color: white;
-        text-decoration: underline;
-    }
+#logindisplay a:link {
+    color: white;
+    text-decoration: underline;
+}
 
-    #logindisplay a:visited {
-        color: white;
-        text-decoration: underline;
-    }
+#logindisplay a:visited {
+    color: white;
+    text-decoration: underline;
+}
 
-    #logindisplay a:hover {
-        color: white;
-        text-decoration: none;
-    }
+#logindisplay a:hover {
+    color: white;
+    text-decoration: none;
+}
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error {
-    color: #ff0000;
-}
 
-.field-validation-valid {
-    display: none;
-}
+.field-validation-error { color: #ff0000; }
+
+.field-validation-valid { display: none; }
 
 .input-validation-error {
-    border: 1px solid #ff0000;
     background-color: #ffeeee;
+    border: 1px solid #ff0000;
 }
 
 .validation-summary-errors {
-    font-weight: bold;
     color: #ff0000;
+    font-weight: bold;
 }
 
-.validation-summary-valid {
-    display: none;
-}
+.validation-summary-valid { display: none; }
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
+
 .display-label,
-.editor-label {
-    margin: 1em 0 0 0;
-}
+.editor-label { margin: 1em 0 0 0; }
 
 .display-field,
-.editor-field {
-    margin: 0.5em 0 0 0;
-}
+.editor-field { margin: 0.5em 0 0 0; }
 
-.text-box {
-    width: 30em;
-}
+.text-box { width: 30em; }
 
-    .text-box.multi-line {
-        height: 6.5em;
-    }
+.text-box.multi-line { height: 6.5em; }
 
-.tri-state {
-    width: 6em;
-}
+.tri-state { width: 6em; }

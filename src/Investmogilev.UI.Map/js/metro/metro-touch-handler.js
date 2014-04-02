@@ -1,7 +1,7 @@
 var hasTouch = 'ontouchend' in window, eventTimer;
-var moveDirection = 'undefined', startX, startY, deltaX, deltaY, mouseDown = false
+var moveDirection = 'undefined', startX, startY, deltaX, deltaY, mouseDown = false;
 
-function addTouchEvents(element){
+function addTouchEvents(element) {
     if (hasTouch) {
         element.addEventListener("touchstart", touch2Mouse, true);
         element.addEventListener("touchmove", touch2Mouse, true);
@@ -9,17 +9,22 @@ function addTouchEvents(element){
     }
 }
 
-function touch2Mouse(e)
-{
+function touch2Mouse(e) {
     var theTouch = e.changedTouches[0];
     var mouseEv;
 
-    switch(e.type)
-    {
-        case "touchstart": mouseEv="mousedown"; break;
-        case "touchend":   mouseEv="mouseup"; break;
-        case "touchmove":  mouseEv="mousemove"; break;
-        default: return;
+    switch (e.type) {
+    case "touchstart":
+        mouseEv = "mousedown";
+        break;
+    case "touchend":
+        mouseEv = "mouseup";
+        break;
+    case "touchmove":
+        mouseEv = "mousemove";
+        break;
+    default:
+        return;
     }
 
 
