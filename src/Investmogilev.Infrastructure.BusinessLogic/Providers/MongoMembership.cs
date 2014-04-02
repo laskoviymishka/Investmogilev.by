@@ -1,29 +1,19 @@
-﻿// // -----------------------------------------------------------------------
-// // <copyright file="MongoMembership.cs" author="Andrei Tserakhau">
-// // Copyright (c) Andrei Tserakhau. All rights reserved.
-// // </copyright>
-// // -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration.Provider;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web.Security;
+using Investmogilev.Infrastructure.Common.Model.User;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
+using WebMatrix.WebData;
 
 namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 {
-	#region Using
-
-	using System;
-	using System.Collections.Generic;
-	using System.Collections.Specialized;
-	using System.Configuration.Provider;
-	using System.Linq;
-	using System.Security.Cryptography;
-	using System.Text;
-	using System.Web.Security;
-	using Investmogilev.Infrastructure.Common.Model.User;
-	using MongoDB.Bson;
-	using MongoDB.Driver;
-	using MongoDB.Driver.Builders;
-	using WebMatrix.WebData;
-
-	#endregion
-
 	public class MongoMembership : ExtendedMembershipProvider
 	{
 		#region Private Fields
@@ -253,7 +243,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 			totalRecords = (int) mongoCollection.FindAs<BsonDocument>(query).Count();
 
 			foreach (
-				var bsonDocument in
+				BsonDocument bsonDocument in
 					mongoCollection.FindAs<BsonDocument>(query).SetSkip(pageIndex*pageSize).SetLimit(pageSize))
 			{
 				membershipUsers.Add(ToMembershipUser(bsonDocument));
@@ -272,7 +262,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 			totalRecords = (int) mongoCollection.FindAs<BsonDocument>(query).Count();
 
 			foreach (
-				var bsonDocument in
+				BsonDocument bsonDocument in
 					mongoCollection.FindAs<BsonDocument>(query).SetSkip(pageIndex*pageSize).SetLimit(pageSize))
 			{
 				membershipUsers.Add(ToMembershipUser(bsonDocument));
@@ -289,7 +279,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 			totalRecords = (int) mongoCollection.FindAs<BsonDocument>(query).Count();
 
 			foreach (
-				var bsonDocument in
+				BsonDocument bsonDocument in
 					mongoCollection.FindAs<BsonDocument>(query).SetSkip(pageIndex*pageSize).SetLimit(pageSize))
 			{
 				membershipUsers.Add(ToMembershipUser(bsonDocument));

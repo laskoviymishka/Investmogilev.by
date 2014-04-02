@@ -13,6 +13,8 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 	using System.Linq;
 	using System.Web.Hosting;
 	using System.Web.Security;
+using Investmogilev.Infrastructure.Common;
+using Investmogilev.Infrastructure.Common.Repository;
 	using MongoDB.Bson;
 	using MongoDB.Driver;
 	using MongoDB.Driver.Builders;
@@ -23,6 +25,12 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Providers
 	{
 		private MongoCollection _rolesMongoCollection;
 		private MongoCollection _usersInRolesMongoCollection;
+		private readonly IRepository _repository;
+
+		public MongoRoleProvider()
+		{
+			_repository = RepositoryContext.Current;
+		}
 
 		public override string ApplicationName { get; set; }
 
