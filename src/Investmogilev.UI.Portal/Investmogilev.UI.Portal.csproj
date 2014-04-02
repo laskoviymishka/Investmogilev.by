@@ -49,6 +49,14 @@
     <Reference Include="Elmah.Mvc">
       <HintPath>..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="FluentEmail, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\fluent-email.1.3.0\lib\net40\FluentEmail.dll</HintPath>
@@ -95,9 +103,6 @@
     </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Configuration" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -360,6 +365,9 @@
     <Compile Include="Models\BaseProjectViewModel.cs" />
     <Compile Include="Models\DocumentForTaskViewModel.cs" />
     <Compile Include="Models\InvestorResponseViewModel.cs" />
+    <Compile Include="Models\ParametrViewModel.cs" />
+    <Compile Include="Models\PartialTableViewModel.cs" />
+    <Compile Include="Models\RegionDataViewModel.cs" />
     <Compile Include="Models\RegionDropDownViewModel.cs" />
     <Compile Include="Models\SubTaskViewModel.cs" />
     <Compile Include="Models\UserManagereViewModel.cs" />
@@ -709,6 +717,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery.cleditor.min.js" />
     <Content Include="Scripts\jquery.cleditor.table.js" />
+    <Content Include="Scripts\jquery.sparkline.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1060,6 +1069,7 @@
     <Content Include="Views\BaseProject\CreateTemplateProject.cshtml" />
     <Content Include="Views\BaseProject\TemplateProject.cshtml" />
     <Content Include="Views\InvestProjects\PopUpDetailsTemplate.cshtml" />
+    <Content Include="Views\InvestProjects\PartialTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\BaseProject\All.cshtml" />
@@ -1417,7 +1427,6 @@
     <Content Include="Views\InvestProjects\PopUpDetailsBrownField.cshtml" />
     <Content Include="Views\InvestProjects\PopUpDetailsGreenField.cshtml" />
     <Content Include="Views\InvestProjects\PopUpDetailsUnUsedBuilding.cshtml" />
-    <Content Include="Views\InvestProjects\PartialTable.cshtml" />
     <None Include="Properties\PublishProfiles\investMogilev prod.pubxml" />
     <Content Include="Views\Shared\_NewLayout.cshtml" />
     <Content Include="Views\Profile\MenuPartial.cshtml" />

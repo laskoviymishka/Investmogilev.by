@@ -8,7 +8,7 @@
 
         <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'></script>
         <script>
-            var linkToSite = 'http://localhost:55798';
+            var linkToSite = 'http://localhost:55798/';
         </script>
         <link href="css/metro-bootstrap.css" rel="stylesheet">
         <link href="css/docs.css" rel="stylesheet">
@@ -40,6 +40,26 @@
         <script src="js/metro/metro-table.js" type="text/javascript"></script>
         <script src="js/metro/metro-times.js" type="text/javascript"></script>
         <script src="js/metro/metro-touch-handler.js" type="text/javascript"></script>
+        <script>
+            $(window).load(function () {
+                console.log(window.innerWidth);
+                if (window.innerWidth < 1024) {
+                    $('#leftContainer').removeClass('leftContainerBigScreen');
+                    $('#rightContainer').removeClass('rightContainerBigScreen');
+                    $('#leftContainer').addClass('leftContainerSmallScreenHide');
+                    $('#rightContainer').addClass('rightContainerSmallScreen');
+                    $('#showFilterBtn').removeClass('hidden');
+                    $('#leftContainer').toggle();
+                } else {
+                    $('#leftContainer').addClass('leftContainerBigScreen');
+                    $('#rightContainer').addClass('rightContainerBigScreen');
+                }
+            });
+
+            var showFilter = function () {
+                $('#leftContainer').toggle();
+            };
+        </script>
         <title>Инвестиционная карта могилевской области</title>
     </head>
     <body class="metro" style="height: 100%; width: 100%;">
@@ -54,11 +74,16 @@
                         <span id="radioRegion" class="icon-radio-unchecked"></span>
                         Данные по регионам
                     </div>
+                    <span class="element-divider place-right"></span>
+                    <button id="showFilterBtn" class="element place-left active hidden" onclick="showFilter()">
+                        Показать фильтр
+                    </button>
+                    <span class="element-divider place-right"></span>
                     <a class="element image-button image-left place-right" href="/account/login">Войти</a>
                 </nav>
             </nav>
             <div id="MainContainer" style="height: 94%; width: 100%;">
-                <div style="float: left; height: 100%; margin-left: 20px; min-width: 220px; overflow: auto; width: 25%;">
+                <div id="leftContainer" class="leftContainerBigScreen">
                     <br />
                     <div data-hint="Фильтр проектов | Выберите интересующий вас тип проекта, на карте будут отображены все проекты где соответствует тип проекта либо один из выбранных тегов"
                          data-hint-position="top">
@@ -113,7 +138,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="float: right; height: 100%; width: 73%;">
+                <div id="rightContainer" class="rightContainerBigScreen">
                     <div id="MapView" data-bind="attr: { class: Css }" style="height: 100%; width: 100%;">
                         <div class="map-container" style="height: 100%; width: 100%;">
                             <div id="googft-mapCanvas" data-bind="attr: { class: MapViewVisible }" style="height: 100%; width: 100%;">

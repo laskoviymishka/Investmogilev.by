@@ -1,157 +1,84 @@
-﻿@model IEnumerable<Investmogilev.Infrastructure.Common.Model.Common.Region>
-@{
-    var allGrowth = new Dictionary<string, List<double>>();
-    foreach (var item in Model)
-    {
-        foreach (var inner in item.Parametrs)
-        {
-            foreach (var child in inner.ChildParametrs)
-            {
-                double avgGrowth = 0.0;
-                int count = 0;
-
-                double growth = 0.0;
-                for (int i = 1; i < child.Values.Count; i++)
-                {
-                    if (child.Values[i].Value != 0.0 && child.Values[i - 1].Value != 0.0)
-                    {
-                        growth += child.Values[i].Value/child.Values[i - 1].Value;
-                        count++;
-                    }
-                }
-
-
-                if (count != 0)
-                {
-                    avgGrowth = growth/count;
-                }
-                if (!allGrowth.ContainsKey(child.ParametrName))
-                {
-                    allGrowth.Add(child.ParametrName, new List<double>());
-                }
-                if (avgGrowth != 0.0)
-                {
-                    allGrowth[child.ParametrName].Add(avgGrowth);
-                }
-            }
-        }
-    }
-}
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-<link href="/Scripts/fooTable/footable.metro.css" rel="stylesheet" />
-<script src="/Scripts/fooTable/footable.js"></script>
-<script src="/Scripts/fooTable/footable.sort.js"></script>
-<script src="/Scripts/fooTable/footable.paginate.js"></script>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
-<script>
-    $(function() {
-        $('.main-table').footable();
+﻿@model Investmogilev.UI.Portal.Models.PartialTableViewModel
+<link href="~/Scripts/fooTable/footable.metro.min.css" rel="stylesheet" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.sparkline.min.js"></script>
+<script src="~/Scripts/fooTable/footable.js"></script>
+<script type="text/javascript">
+    $(function () {
+        /* Use 'html' instead of an array of values to pass options
+        to a sparkline with data in the tag */
+        $('.inlineline').sparkline('html', { type: 'line', width: '250px' });
+        $('.inlinebar').sparkline('html', { type: 'bar', barWidth: '20px' });
+        $('.bullet').sparkline('html', { type: 'bullet', width: '150px' });
+        $('.footable').footable();
     });
 </script>
-<table id="main-table">
+<table class="footable" data-page-size="20" data-filter-timeout="1000">
     <thead>
         <tr>
-            <th>
-                Регион
-            </th>
-            <th>
-                Агрегирующий параметр
-            </th>
-            <th>
-                Параметр
-            </th>
-            @for (int i = ViewBag.StartYear; i <= ViewBag.EndYear; i++)
-            {
-                <th>
-                    @i год
-                </th>
-            }
-            <th>
-                Среднее
-            </th>
-            <th>
-                Рост/Средний рост
-            </th>
+            <th>Показатель</th>
+            <th>Динамика показателя</th>
+            <th>Динамика темпов роста</th>
+            <th>Отношения среднего роста по району к среднеобластному</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var region in Model.Regions)
         {
-            foreach (var inner in item.Parametrs)
+            <tr>
+                <td colspan="4">@region.RegionName</td>
+
+            </tr>
+            foreach (var parametrViewModel in region.Parametrs.Where(t => t.Data.Any()))
             {
-                foreach (var child in inner.ChildParametrs)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RegionName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => inner.ParametrName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => child.ParametrName)
-                        </td>
-                        @for (int i = ViewBag.StartYear; i <= ViewBag.EndYear; i++)
-                        {
-                            <th>
-                                <p>@child.Values.FirstOrDefault(c => c.Key == i).Value</p>
-                            </th>
-                        }
-                        @{
-                            double avg = 0.0;
-                            double avgGrowth = 0.0;
-                            double sum = 0.0;
-                            int count = 0;
-                            foreach (var c in child.Values)
+                <tr>
+                    <td>@parametrViewModel.Name </td>
+                    <td>
+                        <span class="inlineline" style="width: 10%">
+                            @foreach (var item in parametrViewModel.Data)
                             {
-                                if (c.Value != 0.0)
+                                if (item.Key != 2012)
                                 {
-                                    sum += c.Value;
-                                    count++;
+                                    @(item.Value.ToString() + ",")
+                                }
+                                else
+                                {
+                                    @(item.Value.ToString())
                                 }
                             }
+                        </span>
 
-                            if (count != 0)
+                    </td>
+                    <td>
+                        <span class="inlinebar" style="width: 10%">
+                            @foreach (var item in parametrViewModel.Growthes)
                             {
-                                avg = sum/count;
-                            }
-
-                            double growth = 0.0;
-                            count = 0;
-                            for (int i = 1; i < child.Values.Count; i++)
-                            {
-                                if (child.Values[i].Value != 0.0 && child.Values[i - 1].Value != 0.0)
+                                if (item.Key != 2012)
                                 {
-                                    growth += child.Values[i].Value/child.Values[i - 1].Value;
-                                    count++;
+                                    @(((item.Value - 1) * 100).ToString("0.000") + ",")
+                                }
+                                else
+                                {
+                                    @(((item.Value - 1) * 100).ToString("0.000"))
                                 }
                             }
+                        </span>
 
-
-                            if (count != 0)
-                            {
-                                avgGrowth = growth/count;
-                            }
-                        }
-                        <th>
-                            @avg.ToString("0.#")
-                        </th>
-                        @if (allGrowth[child.ParametrName].Average() > avgGrowth)
-                        {
-                            <th style="background-color: lightpink">
-                                @avgGrowth.ToString("0.####") / @allGrowth[child.ParametrName].Average().ToString("0.####")
-                            </th>
-                        }
-                        else
-                        {
-                            <th style="background-color: greenyellow">
-                                @avgGrowth.ToString("0.####") / @allGrowth[child.ParametrName].Average().ToString("0.####")
-                            </th>
-                        }
-                    </tr>
-                }
+                    </td>
+                    <td>
+                        <span class="bullet" style="width: 10%">
+                            @parametrViewModel.Growth , @Model.AveragesTotal.First(p => p.Key == parametrViewModel.Name).Value
+                        </span>
+                    </td>
+                </tr>
             }
         }
     </tbody>
+    <tfoot class="hide-if-no-paging">
+        <tr>
+            <td colspan="5">
+                <div class="pagination pagination-centered"></div>
+            </td>
+        </tr>
+    </tfoot>
 </table>

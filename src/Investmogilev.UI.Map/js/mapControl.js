@@ -2,13 +2,7 @@
 var map;
 var projects;
 var selectedRegion = '';
-$.ajax({
-    url: linkToSite + '/InvestProjects/ProjectGeoJson?callback=jQuery110205763436721172184_1381677318690&_=1381677318691',
-    dataType: 'html',
-    success: function(data) {
-        //$('#moduleProjecs').html(data);
-    }
-});
+
 google.maps.visualRefresh = true;
 map = new google.maps.Map(document.getElementById('googft-mapCanvas'), {
     center: new google.maps.LatLng(53.572885053173536, 30.412414184570274),

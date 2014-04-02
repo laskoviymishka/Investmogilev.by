@@ -78,6 +78,10 @@
     self.OpenPopUp = function(e, type) {
         $('#popupContainer').html('');
         var linkToDetails = linkToSite + '/InvestProjects/PopUpDetails' + type.toString() + '/' + e.toString();
+        var widthPopUp = 600;
+        if (window.innerWidth < widthPopUp) {
+            widthPopUp = window.innerWidth;
+        }
         $.ajax({
             url: linkToDetails,
             dataType: 'html',
@@ -86,7 +90,7 @@
                 $.Dialog({
                     shadow: true,
                     overlay: true,
-                    width: 600,
+                    width: widthPopUp,
                     flat: true,
                     icon: '<span class="icon-floppy"></span>',
                     title: 'Информация о проекте',
