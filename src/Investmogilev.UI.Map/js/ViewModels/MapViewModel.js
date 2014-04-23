@@ -77,7 +77,7 @@
 
     self.OpenPopUp = function(e, type) {
         $('#popupContainer').html('');
-        var linkToDetails = linkToSite + '/InvestProjects/PopUpDetails' + type.toString() + '/' + e.toString();
+        var linkToDetails = linkToSite + '/InvestProjects/PopUpDetails' + type.toString() + '?id=' + e.toString() + '&sessionId=' + SessionID;
         var widthPopUp = 600;
         if (window.innerWidth < widthPopUp) {
             widthPopUp = window.innerWidth;

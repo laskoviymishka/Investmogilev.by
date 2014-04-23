@@ -1,8 +1,13 @@
-﻿function ProjectRepository() {
+﻿var SessionID = null;
+function ProjectRepository() {
     var getGeoJsonString = linkToSite + '/InvestProjects/ProjectGeoJSON?take=20&page=0';
     var ret = [];
 
-    this.GetAllGeoJson = function(callback) {
+    this.WriteActivity = function (activity) {
+        console.log("WriteActivity", activity);
+    };
+
+    this.GetAllGeoJson = function (callback) {
         PopulatePage(callback, 0);
     };
 
@@ -12,7 +17,10 @@
             url: link,
             type: "GET",
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
+                if (data.SessionId) {
+                    SessionID = data.SessionId;
+                }
                 for (var i = 0; i < data.Data.length; i++) {
                     ret.push(data.Data[i]);
                 }

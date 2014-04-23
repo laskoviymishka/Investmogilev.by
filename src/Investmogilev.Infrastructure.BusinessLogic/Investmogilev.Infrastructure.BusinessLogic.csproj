@@ -57,6 +57,7 @@
     <Compile Include="Managers\AdditionalInfoManager.cs" />
     <Compile Include="Managers\ProjectStateManager.cs" />
     <Compile Include="Managers\ReportManager.cs" />
+    <Compile Include="Managers\StatisticsManager.cs" />
     <Compile Include="Notification\AdminNotification.cs" />
     <Compile Include="Notification\BaseNotificate.cs" />
     <Compile Include="Notification\IAdminNotification.cs" />

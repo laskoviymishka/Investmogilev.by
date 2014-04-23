@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Investmogilev.Infrastructure.Common.Model.Common.StatSession>
+
+@{
+    ViewBag.Title = "Statistica";
+}
+<script src="~/Scripts/jquery-2.1.0.min.js"></script>
+<script src="/Scripts/globalize/globalize.js"></script>
+<script src="/Scripts/dx.chartjs.js"></script>
+<script>
+    $(function () {
+        GetOverall();
+        GetMostViewedProjects();
+    });
+
+    var GetOverall = function () {
+        var linkToOverall = '/Dashboard/GetOverallStatistic';
+        $.ajax({
+            url: linkToOverall,
+            success: function (data) {
+                $("#chartContainer").dxChart({
+                    dataSource: data,
+                    series: { name: 'Посещаемость', valueField: 'Count', argumentField: 'Date' }
+                });
+            }
+        });
+    };
+    var GetMostViewedProjects = function () {
+        var linkToOverall = '/Dashboard/GetMostViewedProjects';
+        $.ajax({
+            url: linkToOverall,
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var row = '<tr>';
+                    row += '<td>';
+                    row += data[i].ProjectType;
+                    row += '</td>';
+                    row += '<td>';
+                    row += data[i].LastView;
+                    row += '</td>';
+                    row += '<td>';
+                    row += data[i].Count;
+                    row += '</td>';
+                    row += '<td>';
+                    row += '<a class="button info" href="/BaseProject/Project/' + data[i].ProjectId + '" style="width:100%">Подробнее</a>';
+                    row += '</td>';
+                    row += '</tr>';
+                    console.log(row, data);
+                    $("#bodyMostViewedProjects").append(row);
+                }
+                $('#MostViewedProjects-table').dataTable({
+                    "sPaginationType": "bootstrap",
+                    "oLanguage": {
+                        "sLengthMenu": "_MENU_ записей на странице",
+                        "oPaginate": {
+                            "sNext": "Следующая",
+                            "sPrevious": "Предыдущая"
+                        },
+                        "sInfo": "Всего _TOTAL_ записей. Показаны от _START_-й до _END_-й записи.",
+                        "sSearch": "Введите фильтр для таблицы _INPUT_"
+                    }
+                });
+            }
+        });
+    };
+</script>
+<script src="~/Content/jquery.dataTables.min.js"></script>
+<link href="~/Content/demo_table.css" rel="stylesheet" />
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/TableSetup.js"></script>
+<h2>Статистика</h2>
+<div id="chartContainer" style="height: 400px;width: 100%"></div>
+
+<table id="MostViewedProjects-table">
+    <thead>
+        <tr>
+            <th>Тип проекта</th>
+            <th>Последний просмотр</th>
+            <th>Количество просмотров</th>
+            <th>Подробная информация</th>
+        </tr>
+    </thead>
+    <tbody id="bodyMostViewedProjects"></tbody>
+</table>

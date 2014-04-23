@@ -19,7 +19,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 
 	#endregion
 
-	[State(typeof (ProjectWorkflow.State), "test", ProjectStatesConstants.InvestorApprove)]
+	[State(typeof(ProjectWorkflow.State), "test", ProjectStatesConstants.InvestorApprove)]
 	public class InvestorApproveUoW : BaseProjectUoW, IInvestorApproveUoW, IState
 	{
 		public InvestorApproveUoW(Project currentProject,
@@ -70,40 +70,32 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Wokflow.UnitsOfWork.Realiza
 			CurrentProject = Repository.GetOne<Project>(p => p._id == CurrentProject._id);
 			if (CurrentProject.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap)
 			{
-				InvestorNotification.InvestorResponsed(CurrentProject);
-				AdminNotification.InvestorResponsed(CurrentProject);
-				UserNotification.InvestorResponsed(CurrentProject);
 				ProcessMoving(ProjectWorkflow.State.InvestorApprove, "Переход с стадии одобрения инвестора");
 			}
-			else
-			{
-				if (CurrentProject.Responses.Count() > 1)
-				{
-					InvestorNotification.InvestorResponsed(CurrentProject);
-					AdminNotification.InvestorResponsed(CurrentProject);
-					UserNotification.InvestorResponsed(CurrentProject);
-				}
-			}
+
+			AdminNotification.InvestorResponsed(CurrentProject);
+			UserNotification.InvestorResponsed(CurrentProject);
+			InvestorNotification.InvestorResponsed(CurrentProject);
 		}
 
-		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
 			ProjectTriggersConstants.InvestorSelected, ProjectStatesConstants.InvestorApprove,
 			ProjectStatesConstants.DocumentSending)]
 		public bool FromInvestorApproveToDocument()
 		{
 			return CurrentProject.Responses.Count(r => r.IsVerified) == 1 && CurrentProject.Tasks != null &&
-			       CurrentProject.Tasks.Any();
+				   CurrentProject.Tasks.Any();
 		}
 
-		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
 			ProjectTriggersConstants.InvestorResponsed, ProjectStatesConstants.InvestorApprove,
 			ProjectStatesConstants.InvestorApprove)]
 		public bool FromInvestorApproveToInvestorResponsed()
 		{
-			return CurrentProject.Responses.Any() && !CurrentProject.Responses.Any(r => r.IsVerified);
+			return Roles == null || !Roles.Any() && !CurrentProject.Responses.Any(r => r.IsVerified);
 		}
 
-		[Trigger(typeof (ProjectWorkflow.Trigger), typeof (ProjectWorkflow.State), "test",
+		[Trigger(typeof(ProjectWorkflow.Trigger), typeof(ProjectWorkflow.State), "test",
 			ProjectTriggersConstants.InvestorResponsed, ProjectStatesConstants.OnMap,
 			ProjectStatesConstants.InvestorApprove)]
 		public bool FromOnMapToInvestorApprove()

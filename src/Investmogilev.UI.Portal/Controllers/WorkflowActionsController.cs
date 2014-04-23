@@ -163,6 +163,19 @@ namespace Investmogilev.UI.Portal.Controllers
 		}
 
 
+		public ActionResult RemoveResponse(string projectId, string responseId)
+		{
+			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);
+			project.Responses.Remove(project.Responses.Find(t => t.ResponseId == responseId));
+			if (project.Responses.Count == 0)
+			{
+				project.WorkflowState.CurrentState = ProjectWorkflow.State.OnMap;
+			}
+			RepositoryContext.Current.Update(project);
+
+			return RedirectToAction("Project", "BaseProject", new { id = projectId });
+		}
+
 		public ActionResult SelectUser(string projectId, string responseId)
 		{
 			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == projectId);

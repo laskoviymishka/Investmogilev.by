@@ -32,7 +32,7 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 
 		public void DocumentUpdate(Project project)
 		{
-			SendMailFromDb(project, project, ProjectWorkflow.Trigger.InvestorResponsed, UserType.Investor);
+			SendMailFromDb(project, project, ProjectWorkflow.Trigger.DocumentUpdate, UserType.Investor);
 		}
 
 		public void ProjectAproved(Project project)

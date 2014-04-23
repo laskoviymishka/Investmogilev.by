@@ -194,10 +194,7 @@ namespace Investmogilev.Infrastructure.Common.State
 					return true;
 				})
 				;
-			stateMachine.Configure(State.InvestorApprove)
-				.OnEntry(() => { if (OnInvestorApproveEntry != null) OnInvestorApproveEntry(); })
-				.OnExit(() => { if (OnInvestorApproveExit != null) OnInvestorApproveExit(); })
-				;
+
 			stateMachine.Configure(State.DocumentSending)
 				.OnEntry(() => { if (OnDocumentSendingEntry != null) OnDocumentSendingEntry(); })
 				.OnExit(() => { if (OnDocumentSendingExit != null) OnDocumentSendingExit(); })

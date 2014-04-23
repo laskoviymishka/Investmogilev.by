@@ -6,33 +6,52 @@
     {
         if (!response.IsVerified)
         {
-            <a href="#" class="list" onclick=" InvestorSelected('@response.ResponseId') ">
+            <a href="#" class="list" onclick="InvestorSelected('@response.ResponseId')">
                 <div class="list-content">
                     <span class="list-title">@response.InvestorFirstName @response.InvestorLastName</span>
                     <span class="list-remark">Телефон: @response.InvestorPhone</span> <span class="list-remark">
-                                                                                          E-mail: @response.InvestorEmail
-                                                                                      </span>
+                        E-mail: @response.InvestorEmail
+                    </span>
                 </div>
             </a>
         }
         else
         {
-            <a href="#" class="list selected" onclick=" InvestorSelected('@response.ResponseId') ">
+            <a href="#" class="list selected" onclick="InvestorSelected('@response.ResponseId')">
                 <div class="list-content">
                     <span class="list-title">@response.InvestorFirstName @response.InvestorLastName</span>
                     <span class="list-remark">Телефон: @response.InvestorPhone</span> <span class="list-remark">
-                                                                                          E-mail: @response.InvestorEmail
-                                                                                      </span>
+                        E-mail: @response.InvestorEmail
+                    </span>
                 </div>
             </a>
         }
     }
 </div>
-
-<div>@Html.ActionLink("Добавить необходимыe документы", "AddDocumentTask", "WorkflowActions", new {@projectId = Model._id}, new {@class = "button info"})</div>
+<br/>
+<div>@Html.ActionLink("Добавить необходимыe документы", "AddDocumentTask", "WorkflowActions", new { @projectId = Model._id }, new { @class = "button info" })</div>
 @{ Html.RenderPartial("AllowActions"); }
 <script>
-    var InvestorSelected = function(responseId) {
-        window.location.href = '/WorkflowActions/SelectUser?responseId=' + responseId + '&projectId=@Model._id';
+    var InvestorSelected = function (responseId) {
+        var selectUrl = '/WorkflowActions/SelectUser?responseId=' + responseId + '&projectId=@Model._id';
+        var removeUrl = '/WorkflowActions/RemoveResponse?responseId=' + responseId + '&projectId=@Model._id';
+        $('#selectButton').attr("href", selectUrl);
+        $('#removeButton').attr("href", removeUrl);
+        $.Dialog({
+            shadow: true,
+            overlay: true,
+            flat: true,
+            icon: '<span class="icon-lamp"></span>',
+            title: 'Действия с отзывом',
+            content: $('#popupContainer').html()
+        });
     }
 </script>
+
+<div id="popupContainer" style="display: none">
+    <p>Что вы хотите сделать с отзывом? </p>
+    <div>
+        <a id="selectButton" class="button success">Выбрать отзыв</a>
+        <a id="removeButton" class="button danger">Удалить отзыв</a>
+    </div>
+</div>

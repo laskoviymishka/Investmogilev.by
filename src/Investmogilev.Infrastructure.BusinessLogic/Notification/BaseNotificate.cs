@@ -128,13 +128,14 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Notification
 					.Subject(template.Title)
 					.UsingTemplate(template.Body, model)
 					.Send();
+
 				_protalNotification.PushNotificate(new NotificationQueue
 				{
 					IsRead = false,
 					NotificationTime = DateTime.Now,
 					NotificationTitle = template.Title,
 					NotigicationBody = template.Body,
-					UserName = project.Responses[0].InvestorEmail
+					UserName = project.Responses.Last().InvestorEmail
 				});
 			}
 

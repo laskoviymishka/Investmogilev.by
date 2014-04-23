@@ -345,5 +345,17 @@ namespace Investmogilev.Infrastructure.BusinessLogic.Managers
 				throw new InvalidOperationException("не могу провести операцию RejectDocument");
 			}
 		}
+
+		public void InvestorReject()
+		{
+			if (!_workflow.Move(ProjectWorkflow.Trigger.ReOpen))
+			{
+				throw new InvalidOperationException("не могу провести операцию InvestorReject ReOpen");
+			}
+			if (!_workflow.Move(ProjectWorkflow.Trigger.FillInformation))
+			{
+				throw new InvalidOperationException("не могу провести операцию InvestorReject FillInformation");
+			}
+		}
 	}
 }

@@ -11,6 +11,7 @@ namespace Investmogilev.UI.Portal.Controllers
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Web.Mvc;
+	using Investmogilev.Infrastructure.BusinessLogic.Managers;
 	using Investmogilev.Infrastructure.Common;
 	using Investmogilev.Infrastructure.Common.Model.Common;
 	using Investmogilev.Infrastructure.Common.Model.Project;
@@ -24,6 +25,7 @@ namespace Investmogilev.UI.Portal.Controllers
 	public class InvestProjectsController : Controller
 	{
 		private static PartialTableViewModel CacheViewModel;
+		private readonly StatisticsManager _statistica = new StatisticsManager();
 
 		#region Nested class
 
@@ -45,6 +47,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			public int Take { get; set; }
 			public int Page { get; set; }
 			public int Total { get; set; }
+			public string SessionId { get; set; }
 		}
 
 		#endregion
@@ -52,7 +55,7 @@ namespace Investmogilev.UI.Portal.Controllers
 		#region External method
 
 		[AllowAnonymous]
-		public ActionResult PopUpDetailsGreenField(string id)
+		public ActionResult PopUpDetailsGreenField(string id, string sessionId)
 		{
 			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as GreenField;
 
@@ -60,38 +63,52 @@ namespace Investmogilev.UI.Portal.Controllers
 			{
 				return null;
 			}
+			_statistica.WriteActivity(sessionId, new Activity { Name = "PopUpDetailsGreenField", RefferenceId = id, Type = ActivityType.OpenGreenfield });
 
 			return PartialView(project);
 		}
 
 		[AllowAnonymous]
-		public ActionResult PopUpDetailsUnUsedBuilding(string id)
+		public ActionResult PopUpDetailsUnUsedBuilding(string id, string sessionId)
 		{
 			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as UnUsedBuilding;
 			if (project == null)
 			{
 				return null;
 			}
+			_statistica.WriteActivity(sessionId, new Activity { Name = "PopUpDetailsUnUsedBuilding", RefferenceId = id, Type = ActivityType.OpenUnUsedBuildg });
 
 			return PartialView(project);
 		}
 
 		[AllowAnonymous]
-		public ActionResult PopUpDetailsTemplate(string id)
+		public ActionResult PopUpDetailsTemplate(string id, string sessionId)
 		{
 			var project = RepositoryContext.Current.GetOne<Project>(p => p._id == id) as Template;
 			if (project == null)
 			{
 				return null;
 			}
-
+			_statistica.WriteActivity(sessionId, new Activity { Name = "PopUpDetailsTemplate", RefferenceId = id, Type = ActivityType.OpenTemplate });
 			return PartialView(project);
+		}
+
+		[AllowAnonymous]
+		public string WriteActivity(string sessionId, Activity activity)
+		{
+			_statistica.WriteActivity(sessionId, activity);
+			return sessionId;
 		}
 
 		[AllowAnonymous]
 		public string ProjectGeoJson(int take, int page = 0)
 		{
 			var returnModel = new ViewModel();
+			if (page == 0)
+			{
+				returnModel.SessionId = _statistica.StartSession()._id;
+			}
+
 			returnModel.Total = RepositoryContext.Current.All<Project>(
 				p => p.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap
 					 || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove).Count();
@@ -100,7 +117,6 @@ namespace Investmogilev.UI.Portal.Controllers
 			returnModel.Data = GenerateGeoJsonData(RepositoryContext.Current.All<Project>(
 				p => p.WorkflowState.CurrentState == ProjectWorkflow.State.OnMap
 					 || p.WorkflowState.CurrentState == ProjectWorkflow.State.InvestorApprove).Skip(page * take).Take(take));
-
 			return JsonConvert.SerializeObject(returnModel);
 		}
 
