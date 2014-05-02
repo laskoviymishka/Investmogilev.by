@@ -66,7 +66,14 @@ function ShowRegion(argument) {
 
 $(window).resize(function() {
 });
-$(window).load(function() {
+$(window).load(function () {
+    //$.ajax({
+    //    url: "/investprojects/PartialTable",
+    //    type: "GET",
+    //    success: function (data) {
+    //        $("#RegionView").html(data);
+    //    }
+    //});
 });
 
 var fixSize = function() {

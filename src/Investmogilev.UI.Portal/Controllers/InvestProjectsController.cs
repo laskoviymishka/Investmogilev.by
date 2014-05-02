@@ -11,6 +11,7 @@ namespace Investmogilev.UI.Portal.Controllers
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Web.Mvc;
+	using System.Web.UI;
 	using Investmogilev.Infrastructure.BusinessLogic.Managers;
 	using Investmogilev.Infrastructure.Common;
 	using Investmogilev.Infrastructure.Common.Model.Common;
@@ -120,6 +121,7 @@ namespace Investmogilev.UI.Portal.Controllers
 			return JsonConvert.SerializeObject(returnModel);
 		}
 
+		[OutputCache(Duration = 999999999,Location = OutputCacheLocation.Server)]
 		[AllowAnonymous]
 		public ActionResult PartialTable()
 		{
