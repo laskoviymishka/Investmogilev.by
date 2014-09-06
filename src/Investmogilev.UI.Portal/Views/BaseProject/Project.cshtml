@@ -77,7 +77,18 @@
             @foreach (var info in Model.Info)
             {
                 <div>
-                    @Html.ActionLink(info.InfoName, "DownloadProjectInfo", "AdditionalInfo", new {projectId = Model._id, docId = info._id}, new {@class = "button info"})
+                    @if (info.InfoName.ToLowerInvariant().EndsWith(".jpg")
+                    || info.InfoName.ToLowerInvariant().EndsWith(".gif")
+                    || info.InfoName.ToLowerInvariant().EndsWith(".png"))
+                    {
+                    <img src="@string.Format("http://investmogilev.by/AdditionalInfo/DownloadProjectInfo?projectId={0}&docId={1}", Model._id, info._id)">
+                    }
+                    else
+                    {
+                    <div>
+                        @Html.ActionLink(info.InfoName, "DownloadProjectInfo", "AdditionalInfo", new { projectId = Model._id, docId = info._id }, new { @class = "button info" })
+                    </div>
+                    }
                     @Html.ActionLink("удалить " + info.InfoName, "RemoveProjectInfo", "AdditionalInfo", new { projectId = Model._id, docId = info._id }, new { @class = "button danger" })
 
                 </div>

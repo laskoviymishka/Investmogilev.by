@@ -1,0 +1,162 @@
+﻿<error errorId="0eac878c-3fa5-4e72-804f-823f9b10eb3e" application="/LM/W3SVC/3/ROOT" host="TSERAKHAU" type="System.NullReferenceException" message="Ссылка на объект не указывает на экземпляр объекта." source="App_Web_project.cshtml.627115cb.08uulzls" detail="System.NullReferenceException: Ссылка на объект не указывает на экземпляр объекта.&#xD;&#xA;   в ASP._Page_Views_BaseProject_Project_cshtml.Execute() в d:\Develop\git\Investmogilev.by-master\src\Investmogilev.UI.Portal\Views\BaseProject\Project.cshtml:строка 4&#xD;&#xA;   в System.Web.WebPages.WebPageBase.ExecutePageHierarchy()&#xD;&#xA;   в System.Web.Mvc.WebViewPage.ExecutePageHierarchy()&#xD;&#xA;   в System.Web.WebPages.StartPage.RunPage()&#xD;&#xA;   в System.Web.WebPages.StartPage.ExecutePageHierarchy()&#xD;&#xA;   в System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)&#xD;&#xA;   в System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)&#xD;&#xA;   в System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)&#xD;&#xA;   в StackExchange.Profiling.MVCHelpers.WrappedView.Render(ViewContext viewContext, TextWriter writer)&#xD;&#xA;   в System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)&#xD;&#xA;   в System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)&#xD;&#xA;   в System.Web.Mvc.ControllerActionInvoker.&lt;&gt;c__DisplayClass1a.&lt;InvokeActionResultWithFilters&gt;b__17()&#xD;&#xA;   в System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)&#xD;&#xA;   в System.Web.Mvc.ControllerActionInvoker.&lt;&gt;c__DisplayClass1a.&lt;&gt;c__DisplayClass1c.&lt;InvokeActionResultWithFilters&gt;b__19()&#xD;&#xA;   в System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)&#xD;&#xA;   в System.Web.Mvc.ControllerActionInvoker.&lt;&gt;c__DisplayClass1a.&lt;&gt;c__DisplayClass1c.&lt;InvokeActionResultWithFilters&gt;b__19()&#xD;&#xA;   в System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)&#xD;&#xA;   в System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass25.&lt;&gt;c__DisplayClass2a.&lt;BeginInvokeAction&gt;b__20()&#xD;&#xA;   в System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass25.&lt;BeginInvokeAction&gt;b__22(IAsyncResult asyncResult)&#xD;&#xA;   в System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()&#xD;&#xA;   в System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)&#xD;&#xA;   в System.Web.Mvc.Controller.&lt;&gt;c__DisplayClass1d.&lt;BeginExecuteCore&gt;b__18(IAsyncResult asyncResult)&#xD;&#xA;   в System.Web.Mvc.Async.AsyncResultWrapper.&lt;&gt;c__DisplayClass4.&lt;MakeVoidDelegate&gt;b__3(IAsyncResult ar)&#xD;&#xA;   в System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()&#xD;&#xA;   в System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)&#xD;&#xA;   в System.Web.Mvc.Async.AsyncResultWrapper.&lt;&gt;c__DisplayClass4.&lt;MakeVoidDelegate&gt;b__3(IAsyncResult ar)&#xD;&#xA;   в System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()&#xD;&#xA;   в System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)&#xD;&#xA;   в System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)&#xD;&#xA;   в System.Web.Mvc.MvcHandler.&lt;&gt;c__DisplayClass8.&lt;BeginProcessRequest&gt;b__3(IAsyncResult asyncResult)&#xD;&#xA;   в System.Web.Mvc.Async.AsyncResultWrapper.&lt;&gt;c__DisplayClass4.&lt;MakeVoidDelegate&gt;b__3(IAsyncResult ar)&#xD;&#xA;   в System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()&#xD;&#xA;   в System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)&#xD;&#xA;   в System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)&#xD;&#xA;   в System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()&#xD;&#xA;   в System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)" user="Tserakhau" time="2014-09-06T23:21:05.3496148Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_ACCEPT:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip,deflate,sdch&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4&#xD;&#xA;HTTP_COOKIE:__RequestVerificationToken=NHoMnD-pTPVu3kUMEp9k4Mh4sn_CVJUdEUVxt_j0x3aQL1SrVCr1GDWBc3wrAGYP8MYW-pjvoBqHsxwINb4fxqP6fhciIv9TNyFxcQNxBrbNuh_2kyOtkojh84-hdHd1wM601PHGnrOptqiMG9Pb7A2; .ASPXAUTH=146C80C93599F1EB0303CE9FFF309AEFF025923E63431467B8DB7DD43BBC0BEE4ADCAD820D2824CEEDAD0017683B2F292519FB205149CC557DE04CDB576A02F4512F74BC02134378CA7AEB465358841A24A16449FD872925737F8336D58A956F814554DF890F242C8D99EAC42F1A5F0CBA8287BFA7BAD875A7DCFA9BB2A130EB20A289ABA3BC707F4B6781470E1917A5&#xD;&#xA;HTTP_HOST:localhost:55798&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#xD;&#xA;Accept-Encoding: gzip,deflate,sdch&#xD;&#xA;Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4&#xD;&#xA;Cookie: __RequestVerificationToken=NHoMnD-pTPVu3kUMEp9k4Mh4sn_CVJUdEUVxt_j0x3aQL1SrVCr1GDWBc3wrAGYP8MYW-pjvoBqHsxwINb4fxqP6fhciIv9TNyFxcQNxBrbNuh_2kyOtkojh84-hdHd1wM601PHGnrOptqiMG9Pb7A2; .ASPXAUTH=146C80C93599F1EB0303CE9FFF309AEFF025923E63431467B8DB7DD43BBC0BEE4ADCAD820D2824CEEDAD0017683B2F292519FB205149CC557DE04CDB576A02F4512F74BC02134378CA7AEB465358841A24A16449FD872925737F8336D58A956F814554DF890F242C8D99EAC42F1A5F0CBA8287BFA7BAD875A7DCFA9BB2A130EB20A289ABA3BC707F4B6781470E1917A5&#xD;&#xA;Host: localhost:55798&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/3/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="D:\Develop\git\Investmogilev.by-master\src\Investmogilev.UI.Portal\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="Forms" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="Tserakhau" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="Tserakhau" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="3" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/3" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/BaseProject/Project" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="D:\Develop\git\Investmogilev.by-master\src\Investmogilev.UI.Portal\BaseProject\Project" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="16598" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/BaseProject/Project" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="55798" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/8.0" />
+    </item>
+    <item name="URL">
+      <value string="/BaseProject/Project" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip,deflate,sdch" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="__RequestVerificationToken=NHoMnD-pTPVu3kUMEp9k4Mh4sn_CVJUdEUVxt_j0x3aQL1SrVCr1GDWBc3wrAGYP8MYW-pjvoBqHsxwINb4fxqP6fhciIv9TNyFxcQNxBrbNuh_2kyOtkojh84-hdHd1wM601PHGnrOptqiMG9Pb7A2; .ASPXAUTH=146C80C93599F1EB0303CE9FFF309AEFF025923E63431467B8DB7DD43BBC0BEE4ADCAD820D2824CEEDAD0017683B2F292519FB205149CC557DE04CDB576A02F4512F74BC02134378CA7AEB465358841A24A16449FD872925737F8336D58A956F814554DF890F242C8D99EAC42F1A5F0CBA8287BFA7BAD875A7DCFA9BB2A130EB20A289ABA3BC707F4B6781470E1917A5" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:55798" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36" />
+    </item>
+  </serverVariables>
+  <cookies>
+    <item name="__RequestVerificationToken">
+      <value string="NHoMnD-pTPVu3kUMEp9k4Mh4sn_CVJUdEUVxt_j0x3aQL1SrVCr1GDWBc3wrAGYP8MYW-pjvoBqHsxwINb4fxqP6fhciIv9TNyFxcQNxBrbNuh_2kyOtkojh84-hdHd1wM601PHGnrOptqiMG9Pb7A2" />
+    </item>
+    <item name=".ASPXAUTH">
+      <value string="146C80C93599F1EB0303CE9FFF309AEFF025923E63431467B8DB7DD43BBC0BEE4ADCAD820D2824CEEDAD0017683B2F292519FB205149CC557DE04CDB576A02F4512F74BC02134378CA7AEB465358841A24A16449FD872925737F8336D58A956F814554DF890F242C8D99EAC42F1A5F0CBA8287BFA7BAD875A7DCFA9BB2A130EB20A289ABA3BC707F4B6781470E1917A5" />
+    </item>
+  </cookies>
+</error>
