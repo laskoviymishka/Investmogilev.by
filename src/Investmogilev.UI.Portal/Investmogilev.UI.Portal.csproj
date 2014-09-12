@@ -875,6 +875,7 @@
     <Content Include="Scripts\fooTable\fonts\footable.eot" />
     <Content Include="Scripts\fooTable\fonts\footable.ttf" />
     <Content Include="Scripts\fooTable\fonts\footable.woff" />
+    <None Include="Properties\PublishProfiles\prod.pubxml" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1244,6 +1245,7 @@
     <Content Include="Views\InvestProjects\PopUpDetailsTemplate.cshtml" />
     <Content Include="Views\InvestProjects\PartialTable.cshtml" />
     <Content Include="Views\Dashboard\Statistica.cshtml" />
+    <Content Include="Views\InvestProjects\PartialTableRegion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\BaseProject\All.cshtml" />

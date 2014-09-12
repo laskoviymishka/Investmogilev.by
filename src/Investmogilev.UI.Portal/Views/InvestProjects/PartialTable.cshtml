@@ -1,85 +1,48 @@
-﻿@model Investmogilev.UI.Portal.Models.PartialTableViewModel
+﻿@using Telerik.Web.Mvc.Extensions
+@model Investmogilev.UI.Portal.Models.PartialTableViewModel
 <link href="~/Scripts/fooTable/footable.metro.min.css" rel="stylesheet" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
 <script src="~/Scripts/jquery.sparkline.min.js"></script>
 <script src="~/Scripts/fooTable/footable.js"></script>
 <script type="text/javascript">
-    $(function () {
-        /* Use 'html' instead of an array of values to pass options
+	$(function () {
+		/* Use 'html' instead of an array of values to pass options
         to a sparkline with data in the tag */
-        $('.inlineline').sparkline('html', { type: 'line', width: '250px' });
-        $('.inlinebar').sparkline('html', { type: 'bar', barWidth: '20px' });
-        $('.bullet').sparkline('html', { type: 'bullet', width: '150px' });
-        $('.footable').footable();
-    });
+		$('.inlineline').sparkline('html', { type: 'line', width: '250px' });
+		$('.inlinebar').sparkline('html', { type: 'bar', barWidth: '20px' });
+		$('.bullet').sparkline('html', { type: 'bullet', width: '150px' });
+		$('.footable').footable();
+	});
+
+	var loadRegion = function(regionName, idRegion) {
+		var id = '#' + idRegion;
+		if (!$(id).html()) {
+				$(id).html("<h3>Подождите данные загружаются</h3>");
+				$.get('PartialTableRegion/' + regionName, function(data) {
+					$(id).html(data);
+				});
+			} else {
+				$(id).html('');
+			}
+	};
 </script>
 <table class="footable" data-page-size="20" data-filter-timeout="1000">
-    <thead>
-        <tr>
-            <th>Показатель</th>
-            <th>Динамика показателя</th>
-            <th>Динамика темпов роста</th>
-            <th>Отношения среднего роста по району к среднеобластному</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var region in Model.Regions)
-        {
-            <tr>
-                <td colspan="4">@region.RegionName</td>
-
-            </tr>
-            foreach (var parametrViewModel in region.Parametrs.Where(t => t.Data.Any()))
-            {
-                <tr>
-                    <td>@parametrViewModel.Name </td>
-                    <td>
-                        <span class="inlineline" style="width: 10%">
-                            @foreach (var item in parametrViewModel.Data)
-                            {
-                                if (item.Key != 2012)
-                                {
-                                    @(item.Value + ",")
-                                }
-                                else
-                                {
-                                    @(item.Value.ToString())
-                                }
-                            }
-                        </span>
-
-                    </td>
-                    <td>
-                        <span class="inlinebar" style="width: 10%">
-                            @foreach (var item in parametrViewModel.Growthes)
-                            {
-                                if (item.Key != 2012)
-                                {
-                                    @(((item.Value - 1) * 100).ToString("0.000") + ",")
-                                }
-                                else
-                                {
-                                    @(((item.Value - 1) * 100).ToString("0.000"))
-                                }
-                            }
-                        </span>
-
-                    </td>
-                    <td>
-                        <span class="bullet" style="width: 10%">
-                            @parametrViewModel.Growth , @Model.AveragesTotal.First(p => p.Key == parametrViewModel.Name).Value
-                        </span>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-    <tfoot class="hide-if-no-paging">
-        <tr>
-            <td colspan="5">
-                <div class="pagination pagination-centered"></div>
-            </td>
-        </tr>
-    </tfoot>
+	<tbody>
+		@foreach (var region in Model.Regions)
+		{
+			<tr>
+				<td colspan="4" onclick="loadRegion('@region.RegionName', '@region.RegionName.GetHashCode().ToString()')">
+					@region.RegionName
+					<div id="@region.RegionName.GetHashCode().ToString()"></div>
+				</td>
+		</tr>
+		}
+	</tbody>
+	<tfoot class="hide-if-no-paging">
+		<tr>
+			<td colspan="5">
+				<div class="pagination pagination-centered"></div>
+			</td>
+		</tr>
+	</tfoot>
 </table>
-

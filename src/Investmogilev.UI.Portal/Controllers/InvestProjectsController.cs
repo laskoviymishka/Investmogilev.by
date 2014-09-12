@@ -121,7 +121,6 @@ namespace Investmogilev.UI.Portal.Controllers
 			return JsonConvert.SerializeObject(returnModel);
 		}
 
-		[OutputCache(Duration = 999999999,Location = OutputCacheLocation.Server)]
 		[AllowAnonymous]
 		public ActionResult PartialTable()
 		{
@@ -135,6 +134,23 @@ namespace Investmogilev.UI.Portal.Controllers
 			}
 			return PartialView(CacheViewModel);
 		}
+
+		[AllowAnonymous]
+		public ActionResult PartialTableRegion(string id)
+		{
+			ViewBag.StartYear = 2005;
+			ViewBag.EndYear = 2012;
+			if (CacheViewModel == null)
+			{
+				IRepository repository = new MongoRepository("mongodb://tserakhau.cloudapp.net", "Projects");
+				var regions = repository.All<Region>().ToList();
+				CacheViewModel = GenerateViewModel(regions);
+			}
+
+			ViewBag.AveragesTotal = CacheViewModel.AveragesTotal;
+			return PartialView(CacheViewModel.Regions.FirstOrDefault(t => t.RegionName == id));
+		}
+
 
 		private class TempModel
 		{
