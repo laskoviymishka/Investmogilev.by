@@ -14,16 +14,19 @@
 		$('.footable').footable();
 	});
 
-	var loadRegion = function(regionName, idRegion) {
+	var loadRegion = function (regionName, idRegion) {
+
 		var id = '#' + idRegion;
 		if (!$(id).html()) {
-				$(id).html("<h3>Подождите данные загружаются</h3>");
-				$.get('PartialTableRegion/' + regionName, function(data) {
-					$(id).html(data);
-				});
-			} else {
-				$(id).html('');
-			}
+			$('.regionsInfo').html('');
+			$(id).html("<h3>Подождите данные загружаются</h3>");
+			$.get('PartialTableRegion/' + regionName, function (data) {
+				$(id).html(data);
+			});
+		} else {
+			$('.regionsInfo').html('');
+			$(id).html('');
+		}
 	};
 </script>
 <table class="footable" data-page-size="20" data-filter-timeout="1000">
@@ -33,9 +36,9 @@
 			<tr>
 				<td colspan="4" onclick="loadRegion('@region.RegionName', '@region.RegionName.GetHashCode().ToString()')">
 					@region.RegionName
-					<div id="@region.RegionName.GetHashCode().ToString()"></div>
+					<div class="regionsInfo" id="@region.RegionName.GetHashCode().ToString()"></div>
 				</td>
-		</tr>
+			</tr>
 		}
 	</tbody>
 	<tfoot class="hide-if-no-paging">
